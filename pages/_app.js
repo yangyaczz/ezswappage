@@ -5,6 +5,7 @@ import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { mainnet, polygon, optimism, arbitrum, base, zora } from "wagmi/chains";
 import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
+import NavBar from "@/components/NavBar";
 
 const { chains, provider } = configureChains(
   [mainnet, polygon],
@@ -26,6 +27,7 @@ export default function App({ Component, pageProps }) {
   return (
     <WagmiConfig client={wagmiClinet}>
       <RainbowKitProvider chains={chains}>
+        <NavBar></NavBar>
         <Component {...pageProps} />
       </RainbowKitProvider>
     </WagmiConfig>

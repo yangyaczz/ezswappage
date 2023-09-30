@@ -1,14 +1,10 @@
 import React, { useState } from 'react'
 
-const TokenSearch = ({canTradeToken}) => {
-    const [buttonText, setButtonText] = useState("Select you want token");
+const TokenSearch = ({formikData}) => {
 
     const handleTokenClick = (token) => {
-        setButtonText(token);
-        // setCollection(address)
-        document.getElementById('token_search_sell').close();
+        
     }
-
 
 
     return (
@@ -17,7 +13,7 @@ const TokenSearch = ({canTradeToken}) => {
 
 
             <button className="btn" onClick={() => document.getElementById('token_search_sell').showModal()}>
-                {buttonText}
+                {formikData.canTradeToken ? 'xxx' : "Select your receive token"}
                 <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>
             </button>
 
@@ -27,7 +23,7 @@ const TokenSearch = ({canTradeToken}) => {
 
 
                     <form method="dialog" className='flex flex-col space-y-2'>
-                        { (canTradeToken) ? canTradeToken.map((token, index) => (
+                        { (formikData.canTradeToken) ? formikData.canTradeToken.map((token, index) => (
                             <button
                                 key={index}
                                 className="btn justify-start"

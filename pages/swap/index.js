@@ -1,4 +1,5 @@
 import InputAmount from '@/components/swap/InputAmount'
+import OutputAmount from '@/components/swap/OutputAmount'
 import NFTSearch from '@/components/swap/NFTSearch'
 import Slippage from '@/components/swap/Slippage'
 import TokenSearch from '@/components/swap/TokenSearch'
@@ -16,16 +17,26 @@ const Swap = () => {
 
   const formik = useFormik({
     initialValues: {
+
+      // 1 得到chain和collection
       chainId: '',
-      collection: '',
-      router: '',
+      networkName: '',
       recommendNFT: '',
+      router: '',
+
+      // 2 筛选出要得到的token
+      collection: '',
       pairs: '',
       canTradeToken: '',
+
+
+      // 3  得到能交易的池子  自己拥有的nft
 
       owner721TokenIds: '',
       owner1155TokenId: '',
       owner1155Amount: '',
+
+      //4 计算出能得到多少
     },
     onSubmit: values => {
       alert(JSON.stringify(values, null, 2));
@@ -56,73 +67,49 @@ const Swap = () => {
 
       if (chain.id in networkConfig) {
         formik.setFieldValue('recommendNFT', networkConfig[chain.id]["recommendNFT"])
+        formik.setFieldValue('networkName', networkConfig[chain.id]["networkName"])
+
       }
     }
   }, [chain]);
 
 
 
-
-
   if (!isMounted) {
     return null; //  <Loading /> ??
   }
-
-
   return (
     <div className='flex min-h-screen bg-base-200 items-center justify-center'>
       <div className="card flex-shrink-0 w-full max-w-5xl shadow-2xl bg-base-100 ">
         <div className="card-body">
-          <div>
-            {/* {console.log(bb)} */}
-          </div>
-          <div>
-            {formik.values.collection}
-          </div>
 
-          <Slippage></Slippage>
+          <Slippage />
 
           <div className='flex flex-row items-center justify-center'>
             <div className='space-y-5'>
 
-
               <NFTSearch
-                recommendNFT={formik.values.recommendNFT}
+                formikData={formik.values}
                 setCollection={(value) => { formik.setFieldValue('collection', value) }}
                 setPairs={(value) => { formik.setFieldValue('pairs', value) }}
                 setCanTradeToken={(value) => { formik.setFieldValue('canTradeToken', value) }}
-              >
-              </NFTSearch>
-
+              />
 
               <InputAmount formikData={formik.values}></InputAmount>
             </div>
 
-            <div>
-              <label className="label">
-                <span className="label-text"></span>
-                <span className="label-text pr-6">
 
-                </span>
-              </label>
-              <button className="btn mx-6 p-12">
-                SWAP
-              </button>
-            </div>
+            <button className="btn mx-6 p-12">
+              SWAP
+            </button>
 
 
+            <div className='space-y-5'>
 
-            <div>
-
-              <TokenSearch canTradeToken={formik.values.canTradeToken}/>
+              <TokenSearch formikData={formik.values} />
 
 
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Output Amount</span>
-                </label>
-                <input type="text" placeholder="output amount" className="input input-bordered" disabled />
-              </div>
+              <OutputAmount />
             </div>
           </div>
         </div>

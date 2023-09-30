@@ -8,8 +8,8 @@ import NavBar from "@/components/NavBar";
 
 const mantatest = {
   id: 3441005,
-  name: 'Manta Testnet L2 Rollup',
-  network: 'Manta Testnet L2 Rollup',
+  name: 'Manta Testnet',
+  network: 'Manta Testnet',
   iconBackground: '#008000',
   nativeCurrency: {
     decimals: 18,
@@ -29,8 +29,8 @@ const mantatest = {
 
 const mantamain = {
   id: 169,
-  name: 'Manta Pacific L2 Rollup',
-  network: 'Manta Pacific L2 Rollup',
+  name: 'Manta Pacific',
+  network: 'Manta Pacific',
   iconBackground: '#008000',
   nativeCurrency: {
     decimals: 18,

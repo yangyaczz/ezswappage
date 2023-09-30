@@ -25,7 +25,7 @@ const InputAmount = ({ formikData }) => {
 
     return (
         <div className="form-control">
-            <span className="label-text">Amount</span>
+            <span className="label-text">Input Amount</span>
 
 
             <button className="btn" onClick={() => document.getElementById('my_modal_2').showModal()}>
@@ -38,9 +38,12 @@ const InputAmount = ({ formikData }) => {
             <dialog id="my_modal_2" className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">TokenId:</h3>
+
+
+
                     <div className='grid grid-cols-5 gap-4'>
-                        {(initialSquares) ? initialSquares.map((square, index) => (
-                            <div
+                        {(initialSquares) && initialSquares.map((square, index) => (
+                            <div 
                                 key={index}
                                 className={`flex items-center justify-center w-20 h-20 ${selectedSquares[square] ? 'bg-gray-400' : 'bg-white'} cursor-pointer`}
                                 onClick={() => { toggleSelected(square) }
@@ -48,13 +51,15 @@ const InputAmount = ({ formikData }) => {
                             >
                                 {square}
                             </div>
-                        )) : <div>select nft to show your store</div> }
+                        ))}
                     </div>
+                    {(!initialSquares) && <div>please select your sell nft first</div>}
+
 
                     <div className="divider"></div>
 
                     <h3 className="font-bold text-lg">NFT Amount:</h3>
-                    <input type="range" min={0} max={initialSquares.length} value={selectedCount} className="range"></input>
+                    {/* <input type="range" min={0} max={initialSquares.length} value={selectedCount} className="range"></input> */}
 
 
                     <div className="mt-4">

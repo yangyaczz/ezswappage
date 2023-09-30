@@ -1,0 +1,42 @@
+{
+    "3441005": {
+        "networkName": "mantatest",
+        "hex": "0x34816d",
+        "router": "0x28Fd27256d1E1CEaeB38a33A8C8945E4421f9EC3",
+        "factory": "0x86388a46f5e3dafbf815b7521e244930E0727eE3",
+        "linear": "0xE567f07cD4aeC9AEDD8A54E4F2A4d24de204eB98",
+        "exponential": "0x75f155c8F3AF789Ea05A1061467476b216F9102b",
+        "ERC20": "0x0B20E82DAC9dCc7b9D082C2Abb32AEf2D33a42D6",
+        "ERC721": "0xB0CCEC418B8c5606EED44ecCf83E7932893E1105",
+        "ERC1155": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
+        "recommendNFT": [
+            {
+                "type": "ERC721",
+                "address": "0x3D3fa1f6dE1a8e8f466BF6598b2601a250643464",
+                "name": "ts721ec1"
+            },
+            {
+                "type": "ERC721",
+                "address": "0x422105Aa59601426568651808Ed8294E99fd5a19",
+                "name": "ts721ec2"
+            },
+            {
+                "type": "ERC721",
+                "address": "0xFBD152E487A8d5c638365357F6bdfa197C150992",
+                "name": "ts721ec3"
+            }
+        ]
+    },
+    "169": {
+        "networkName": "manta",
+        "hex": "0xa9",
+        "router": "0x3d51749Cb2Db7355392100BAc202216BE7071E66",
+        "factory": "0x353F4106641Db62384cF0e4F1Ef15F8Ac9A9fb4B",
+        "linear": "0x9Be2Dc731bFf38B0a5D893c7a5ECE8e170c67b86",
+        "exponential": "0x20C318AA7c2eC1190F20D41EB6C6F3Ec9f5955fe",
+        "ERC20": "0xB32eFC47Bf503B3593a23204cF891295a85115Ea",
+        "ERC721": "0xE567f07cD4aeC9AEDD8A54E4F2A4d24de204eB98",
+        "ERC1155": "0x7e19ae65b9DE48C09eAdFdF0e4Be2CF977eE63b3",
+        "recommendNFT": []
+    }
+}

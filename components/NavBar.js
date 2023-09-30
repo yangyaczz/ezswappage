@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 const NavBar = () => {
     return (
-        <div className="navbar bg-gray-100 p-4">
+        <div className="navbar p-4">
             <div className="navbar-start">
                 <a className="btn btn-ghost normal-case text-xl">EZSWAP</a>
             </div>

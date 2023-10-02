@@ -2,7 +2,11 @@ import InputAmount from '@/components/swap/InputAmount'
 import OutputAmount from '@/components/swap/OutputAmount'
 import NFTSearch from '@/components/swap/NFTSearch'
 import Slippage from '@/components/swap/Slippage'
+import SwapButton from '@/components/swap/SwapButton'
 import TokenSearch from '@/components/swap/TokenSearch'
+
+import { ethers } from 'ethers'
+
 import React, { useState, useEffect } from 'react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -39,13 +43,14 @@ const Swap = () => {
       // 2 用户点击tokensearch，从canTradeToken中选要换的token  得到能交易的池子 
       token: '',
       filterPairs: '',
+      swapMode: '',    
 
 
       //  3
       selectIds: '',
+      totalCost: ethers.BigNumber.from(1),
 
       //4 计算出能得到多少
-
     },
     onSubmit: values => {
       alert(JSON.stringify(values, null, 2));
@@ -90,10 +95,12 @@ const Swap = () => {
   const reset2 = () => {
     formik.setFieldValue('token', '')
     formik.setFieldValue('filterPairs', '')
+    formik.setFieldValue('swapMode', '')
   }
 
   const reset3 = () => {
     formik.setFieldValue('selectIds', '')
+    formik.setFieldValue('totalCost', ethers.BigNumber.from(1))
   }
 
   // todo
@@ -130,13 +137,15 @@ const Swap = () => {
                 owner={owner}
                 setToken={(value) => { formik.setFieldValue('token', value) }}
                 setFilterPairs={(value) => { formik.setFieldValue('filterPairs', value) }}
+                setSwapMode={(value) => { formik.setFieldValue('swapMode', value) }}
               />
             </div>
 
 
-            <button className="btn mx-6 p-12">
-              SWAP
-            </button>
+            <SwapButton
+              formikData={formik.values}
+              owner={owner}
+            />
 
 
             <div className='space-y-5'>

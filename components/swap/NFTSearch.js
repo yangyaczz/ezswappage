@@ -9,6 +9,19 @@ import ERC721EnumABI from '../../pages/data/ABI/ERC721Enum.json'
 const NFTSearch = ({ formikData, owner, setCollection, setUserCollection, setPairs, setTokens, }) => {
 
 
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value.toLowerCase());
+    };
+
+    const filteredNFTs = formikData.golbalParams.recommendNFT
+        ? formikData.golbalParams.recommendNFT.filter(nft =>
+            nft.name.toLowerCase().includes(searchQuery) || nft.address.toLowerCase().includes(searchQuery)
+        )
+        : [];
+
+
     const handleNFTClick = (nft) => {
         setCollection(nft)
     }
@@ -84,13 +97,19 @@ const NFTSearch = ({ formikData, owner, setCollection, setUserCollection, setPai
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                         </span>
-                        <input type="text" placeholder="NFT Contract Address" className="input input-bordered w-full" />
+                        <input
+                            type="text"
+                            placeholder="NFT Contract Address"
+                            className="input input-bordered w-full"
+                            value={searchQuery}
+                            onChange={handleSearchChange}
+                        />
                     </div>
                     <div className="divider"></div>
                     <h3 className="font-bold text-lg">Collaborative Project:</h3>
 
                     <form method="dialog" className='flex flex-col space-y-2'>
-                        {formikData.golbalParams.recommendNFT.map((nft, index) => (
+                        {filteredNFTs.map((nft, index) => (
                             <button
                                 key={index}
                                 className="btn"

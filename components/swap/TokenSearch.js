@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const TokenSearch = ({ formikData, owner, setToken, setFilterPairs }) => {
+const TokenSearch = ({ formikData, owner, setToken, setFilterPairs, setSwapMode }) => {
 
     const handleTokenClick = (token) => {
 
@@ -14,6 +14,19 @@ const TokenSearch = ({ formikData, owner, setToken, setFilterPairs }) => {
             filteredData = formikData.pairs.filter(item => item.token === token);
         }
         setFilterPairs(filteredData)
+
+
+        if (formikData.collection.type === 'ERC721' && token === 'ETH') {
+            setSwapMode('ERC721-ETH')
+        } else if (formikData.collection.type === 'ERC721' && token !== 'ETH') {
+            setSwapMode('ERC721-ERC20')
+        } else if (formikData.collection.type === 'ERC1155' && token === 'ETH') {
+            setSwapMode('ERC1155-ETH')
+        } else if (formikData.collection.type === 'ERC1155' && token !== 'ETH') {
+            setSwapMode('ERC1155-ERC20')
+        } else {
+            setSwapMode('ERROR-SWAPMODE')
+        }
     }
 
 

@@ -9,7 +9,7 @@ const NavBar = () => {
             <div className="navbar-start">
                 <a className="btn btn-ghost normal-case text-xl">EZSWAP</a>
             </div>
-            <div className="navbar-center hidden lg:flex">
+            <div className="navbar-center">
                 <ul className="menu menu-horizontal px-1">
                     <li>
                         <details>
@@ -30,7 +30,7 @@ const NavBar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <ConnectButton></ConnectButton>
+                <ConnectButton />
             </div>
         </div >
 

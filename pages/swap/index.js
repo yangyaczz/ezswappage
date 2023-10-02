@@ -18,25 +18,34 @@ const Swap = () => {
   const formik = useFormik({
     initialValues: {
 
-      // 1 得到chain和collection
-      chainId: '',
-      networkName: '',
-      recommendNFT: '',
-      router: '',
+      // 0   全局变量设置
+      golbalParams: '',
 
-      // 2 筛选出要得到的token
-      collection: '',
+      // 1   nft search 要设置成功的 collection , 所有的pairs 和 能交易所的 tokens, 用户拥有的这个nft情况
+      collection: {
+        type: "",
+        address: "",
+        name: "",
+        tokenId1155: ""
+      },
+      userCollection: {
+        tokenIds721: '',
+        tokenAmount1155: ''
+      },
       pairs: '',
-      canTradeToken: '',
+      tokens: '',
 
 
-      // 3  得到能交易的池子  自己拥有的nft
+      // 2 用户点击tokensearch，从canTradeToken中选要换的token  得到能交易的池子 
+      token: '',
+      filterPairs: '',
 
-      owner721TokenIds: '',
-      owner1155TokenId: '',
-      owner1155Amount: '',
+
+      //  3
+      selectIds: '',
 
       //4 计算出能得到多少
+
     },
     onSubmit: values => {
       alert(JSON.stringify(values, null, 2));
@@ -44,34 +53,53 @@ const Swap = () => {
   });
 
   const [isMounted, setIsMounted] = useState(false);
+
+  // 0 
   const { chain } = useNetwork();
   const { address: owner } = useAccount()
 
-  const { data: bb } = useContractRead({
-    address: formik.values.collection,
-    abi: ERC721EnumABI,
-    functionName: 'tokensOfOwner',
-    args: [owner],
-    watch: false,
-    onSuccess(data) {
-      console.log('success', data)
-      const num = data.map(item => parseInt(item._hex, 16))
-      formik.setFieldValue('owner721TokenIds', num)
-    }
-  })
 
+  // 0 => 1 , reset 2 3
   useEffect(() => {
     setIsMounted(true);
     if (chain) {
-      formik.setFieldValue('chainId', chain.id)
-
       if (chain.id in networkConfig) {
-        formik.setFieldValue('recommendNFT', networkConfig[chain.id]["recommendNFT"])
-        formik.setFieldValue('networkName', networkConfig[chain.id]["networkName"])
-
+        formik.resetForm()
+        formik.setFieldValue('golbalParams', networkConfig[chain.id])
       }
     }
-  }, [chain]);
+  }, [chain, owner]);
+
+
+
+  useEffect(() => {
+    reset2()
+    reset3()
+    reset4()
+  }, [formik.values.collection.address]);
+
+
+  useEffect(() => {
+    reset3()
+    reset4()
+  }, [formik.values.token]);
+
+
+
+
+  const reset2 = () => {
+    formik.setFieldValue('token', '')
+    formik.setFieldValue('filterPairs', '')
+  }
+
+  const reset3 = () => {
+    formik.setFieldValue('selectIds', '')
+  }
+
+  // todo
+  const reset4 = () => {
+
+  }
 
 
 
@@ -90,12 +118,19 @@ const Swap = () => {
 
               <NFTSearch
                 formikData={formik.values}
+                owner={owner}
                 setCollection={(value) => { formik.setFieldValue('collection', value) }}
+                setUserCollection={(value) => { formik.setFieldValue('userCollection', value) }}
                 setPairs={(value) => { formik.setFieldValue('pairs', value) }}
-                setCanTradeToken={(value) => { formik.setFieldValue('canTradeToken', value) }}
+                setTokens={(value) => { formik.setFieldValue('tokens', value) }}
               />
 
-              <InputAmount formikData={formik.values}></InputAmount>
+              <TokenSearch
+                formikData={formik.values}
+                owner={owner}
+                setToken={(value) => { formik.setFieldValue('token', value) }}
+                setFilterPairs={(value) => { formik.setFieldValue('filterPairs', value) }}
+              />
             </div>
 
 
@@ -106,8 +141,10 @@ const Swap = () => {
 
             <div className='space-y-5'>
 
-              <TokenSearch formikData={formik.values} />
-
+              <InputAmount
+                formikData={formik.values}
+                setSelectIds={(value) => { formik.setFieldValue('selectIds', value) }}
+              />
 
               <OutputAmount />
             </div>

@@ -1,25 +1,83 @@
+import { id } from 'ethers/lib/utils.js';
 import React, { useState } from 'react'
 
-const InputAmount = ({ formikData }) => {
-    const [buttonText, setButtonText] = useState("Select your tokenId");
+const InputAmount = ({ formikData, setSelectIds }) => {
 
-    const initialSquares = formikData.owner721TokenIds
 
-    const [selectedSquares, setSelectedSquares] = useState({});
-    const [selectedCount, setSelectedCount] = useState(0);
 
     const toggleSelected = (id) => {
-        setSelectedSquares(prevState => {
-            const updatedState = {
-                ...prevState,
-                [id]: !prevState[id]
-            };
 
-            const count = Object.values(updatedState).filter(Boolean).length;
-            setSelectedCount(count);
 
-            return updatedState;
-        });
+        let newSids
+
+        if (formikData.selectIds.includes(id)) {
+            newSids = formikData.selectIds.filter(item => item !== id)
+        } else {
+            newSids = [...formikData.selectIds, id]
+        }
+
+        setSelectIds(newSids)
+
+    }
+
+    const displayFrame = () => {
+        if (!formikData.selectIds.length) {
+            return <div>
+                your tokenId
+            </div>
+        }
+
+        if (formikData.collection.type === "ERC721") {
+            return <div className='flex '>
+                tokenId: {formikData.selectIds.map((id, index) => (<div className='mr-1' key={index}>
+                    {id}
+                </div>))}
+            </div>
+        }
+
+        // todo 1155
+        if (formikData.collection.type === "ERC1155") {
+            return <div>
+                xxxxxxxx
+            </div>
+        }
+    }
+
+
+
+    const displayDialog = () => {
+
+        if (!formikData.collection.type || !formikData.token) {
+            return <div>select nft and token first</div>
+        }
+
+        if (formikData.collection.type == "ERC721") {
+
+            const initialSquares = formikData.userCollection.tokenIds721
+
+            if (!initialSquares.length) {
+                return <div>you dont have this nft</div>
+            }
+
+            return <div className='grid grid-cols-5 gap-4'>
+                {initialSquares.map((square, index) => (
+                    <div
+                        key={index}
+                        className={`flex items-center justify-center w-20 h-20 ${(formikData.selectIds.includes(square)) ? 'bg-gray-400' : 'bg-white'} cursor-pointer`}
+                        onClick={() => { toggleSelected(square) }
+                        }
+                    >
+                        {square}
+                    </div>
+                ))}
+            </div>
+        }
+
+        // todo 1155
+        if (formikData.collection.type == "ERC1155") {
+            return <div>1155case</div>
+        }
+
     }
 
 
@@ -28,32 +86,19 @@ const InputAmount = ({ formikData }) => {
             <span className="label-text">Input Amount</span>
 
 
-            <button className="btn" onClick={() => document.getElementById('my_modal_2').showModal()}>
-                {buttonText}
+            <button className="btn" onClick={() => document.getElementById('input_sell').showModal()}>
+                {displayFrame()}
                 <div>
                     <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>
                 </div>
             </button>
 
-            <dialog id="my_modal_2" className="modal">
+            <dialog id="input_sell" className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">TokenId:</h3>
 
 
-
-                    <div className='grid grid-cols-5 gap-4'>
-                        {(initialSquares) && initialSquares.map((square, index) => (
-                            <div 
-                                key={index}
-                                className={`flex items-center justify-center w-20 h-20 ${selectedSquares[square] ? 'bg-gray-400' : 'bg-white'} cursor-pointer`}
-                                onClick={() => { toggleSelected(square) }
-                                }
-                            >
-                                {square}
-                            </div>
-                        ))}
-                    </div>
-                    {(!initialSquares) && <div>please select your sell nft first</div>}
+                    {displayDialog()}
 
 
                     <div className="divider"></div>
@@ -63,9 +108,8 @@ const InputAmount = ({ formikData }) => {
 
 
                     <div className="mt-4">
-                        You have select: {selectedCount}
+                        You have select: {formikData.selectIds.length}
                     </div>
-
 
 
                     <form method="dialog">

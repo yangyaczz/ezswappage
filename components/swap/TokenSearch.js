@@ -1,9 +1,44 @@
 import React, { useState } from 'react'
 
-const TokenSearch = ({formikData}) => {
+const TokenSearch = ({ formikData, owner, setToken, setFilterPairs }) => {
 
     const handleTokenClick = (token) => {
-        
+
+        setToken(token)
+
+        let filteredData = formikData.pairs.filter(item => item.owner !== owner.toLowerCase());
+
+        if (token === 'ETH') {
+            filteredData = formikData.pairs.filter(item => item.token === null);
+        } else {
+            filteredData = formikData.pairs.filter(item => item.token === token);
+        }
+        setFilterPairs(filteredData)
+    }
+
+
+    const displayDialog = () => {
+
+        if (!formikData.collection.address) {
+            return <div>select nft first</div>
+        }
+
+        if (formikData.collection.address && !formikData.pairs.length) {
+            return <div>this collection dont have pool to swap</div>
+        }
+
+        return (
+            formikData.tokens.map((token, index) => (
+                <button
+                    key={index}
+                    className="btn justify-start"
+                    onClick={() => handleTokenClick(token)}>
+                    {token}
+                </button>
+            ))
+
+        )
+
     }
 
 
@@ -13,7 +48,7 @@ const TokenSearch = ({formikData}) => {
 
 
             <button className="btn" onClick={() => document.getElementById('token_search_sell').showModal()}>
-                {formikData.canTradeToken ? 'xxx' : "Select your receive token"}
+                {formikData.token ? formikData.token : "token name"}
                 <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>
             </button>
 
@@ -23,14 +58,7 @@ const TokenSearch = ({formikData}) => {
 
 
                     <form method="dialog" className='flex flex-col space-y-2'>
-                        { (formikData.canTradeToken) ? formikData.canTradeToken.map((token, index) => (
-                            <button
-                                key={index}
-                                className="btn justify-start"
-                                onClick={() => handleTokenClick(token)}>
-                                {token}
-                            </button>
-                        )) : <div>select your nft first</div>}
+                        {displayDialog()}
                     </form>
 
 

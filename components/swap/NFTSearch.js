@@ -1,23 +1,25 @@
 
 import React, { useState, useEffect } from 'react'
 
+import { useNetwork, useContractRead, useAccount } from 'wagmi'
+
+import ERC721EnumABI from '../../pages/data/ABI/ERC721Enum.json'
 
 
+const NFTSearch = ({ formikData, owner, setCollection, setUserCollection, setPairs, setTokens, }) => {
 
-const NFTSearch = ({ formikData, setCollection, setPairs, setCanTradeToken }) => {
 
-
-    const handleNFTClick = (address, name) => {
-        setCollection(address)
+    const handleNFTClick = (nft) => {
+        setCollection(nft)
     }
 
     useEffect(() => {
 
         const fetchData = async () => {
-            if (formikData.networkName && formikData.collection) {
+            if (formikData.golbalParams.networkName && formikData.collection.address) {
                 const params = {
-                    contractAddress: formikData.collection,
-                    network: formikData.networkName,
+                    contractAddress: formikData.collection.address,
+                    network: formikData.golbalParams.networkName,
                 };
 
                 const response = await fetch('/api/proxy', {
@@ -36,14 +38,33 @@ const NFTSearch = ({ formikData, setCollection, setPairs, setCanTradeToken }) =>
                     setPairs(filteredData)
 
                     const canTradeToken = [...new Set(filteredData.map(item => item.token))].map(token => token === null ? 'ETH' : token);
-                    setCanTradeToken(canTradeToken)
+                    setTokens(canTradeToken)
                 }
             }
         }
 
         fetchData()
 
-    }, [formikData.networkName, formikData.collection])
+    }, [formikData.golbalParams.networkName, formikData.collection.address])
+
+
+    const { data: bb } = useContractRead({
+        address: formikData.collection.address,
+        abi: ERC721EnumABI,
+        functionName: 'tokensOfOwner',
+        args: [owner],
+        watch: false,
+        onSuccess(data) {
+            // console.log('success', data)
+            const num = data.map(item => parseInt(item._hex, 16))
+            // filter 1155 and 721
+            setUserCollection({
+                tokenIds721: num
+            })
+        }
+    })
+
+
 
 
 
@@ -52,7 +73,7 @@ const NFTSearch = ({ formikData, setCollection, setPairs, setCanTradeToken }) =>
             <span className="label-text">NFT</span>
 
             <button className="btn" onClick={() => document.getElementById('nft_search_sell').showModal()}>
-                {(formikData.collection) ? formikData.collection : "Select sell nft"}
+                {(formikData.collection.name) ? formikData.collection.name : "NFT name"}
                 <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>
             </button>
 
@@ -69,11 +90,11 @@ const NFTSearch = ({ formikData, setCollection, setPairs, setCanTradeToken }) =>
                     <h3 className="font-bold text-lg">Collaborative Project:</h3>
 
                     <form method="dialog" className='flex flex-col space-y-2'>
-                        {formikData.recommendNFT.map((nft, index) => (
+                        {formikData.golbalParams.recommendNFT.map((nft, index) => (
                             <button
                                 key={index}
                                 className="btn"
-                                onClick={() => handleNFTClick(nft.address, nft.name)}>
+                                onClick={() => handleNFTClick(nft)}>
                                 {nft.name}: {nft.address}
                             </button>
                         ))}

@@ -21,8 +21,8 @@ const mantatest = {
     default: { http: ['https://manta-testnet.calderachain.xyz/http'] },
   },
   blockExplorers: {
-    default: { name: 'pacific', url: 'https://pacific-explorer.manta.network/' },
-    etherscan: { name: 'pacific', url: 'https://pacific-explorer.manta.network/' },
+    default: { name: 'pacific', url: 'https://pacific-explorer.testnet.manta.network/' },
+    etherscan: { name: 'pacific', url: 'https://pacific-explorer.testnet.manta.network/' },
   },
   testnet: true,
 };

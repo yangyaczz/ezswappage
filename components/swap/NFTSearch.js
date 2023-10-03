@@ -4,9 +4,11 @@ import React, { useState, useEffect } from 'react'
 import { useNetwork, useContractRead, useAccount } from 'wagmi'
 
 import ERC721EnumABI from '../../pages/data/ABI/ERC721Enum.json'
+import ERC1155ABI from '../../pages/data/ABI/ERC1155.json'
 
 
-const NFTSearch = ({ formikData, owner, setCollection, setUserCollection, setPairs, setTokens, }) => {
+
+const NFTSearch = ({ formikData, owner, reset1234, setCollection, setUserCollection, setPairs, setTokens, }) => {
 
 
     const [searchQuery, setSearchQuery] = useState('');
@@ -23,6 +25,7 @@ const NFTSearch = ({ formikData, owner, setCollection, setUserCollection, setPai
 
 
     const handleNFTClick = (nft) => {
+        reset1234()
         setCollection(nft)
     }
 
@@ -61,23 +64,33 @@ const NFTSearch = ({ formikData, owner, setCollection, setUserCollection, setPai
     }, [formikData.golbalParams.networkName, formikData.collection.address])
 
 
-    const { data: bb } = useContractRead({
-        address: formikData.collection.address,
+    const { data: tokenIds721 } = useContractRead({
+        address: (formikData.collection.type === "ERC721" ? formikData.collection.address : ''),
         abi: ERC721EnumABI,
         functionName: 'tokensOfOwner',
         args: [owner],
         watch: false,
         onSuccess(data) {
-            // console.log('success', data)
             const num = data.map(item => parseInt(item._hex, 16))
-            // filter 1155 and 721
             setUserCollection({
                 tokenIds721: num
             })
         }
     })
 
-
+    const { data: tokenAmount1155 } = useContractRead({
+        address: (formikData.collection.type === "ERC1155" ? formikData.collection.address : ''),
+        abi: ERC1155ABI,
+        functionName: 'balanceOf',
+        args: [owner, formikData.collection.tokenId1155],
+        watch: false,
+        onSuccess(data) {
+            const num =  parseInt(data, 16)
+            setUserCollection({
+                tokenAmount1155: num
+            })
+        }
+    })
 
 
 

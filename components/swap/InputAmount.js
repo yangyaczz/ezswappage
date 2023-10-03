@@ -75,7 +75,26 @@ const InputAmount = ({ formikData, setSelectIds }) => {
 
         // todo 1155
         if (formikData.collection.type == "ERC1155") {
-            return <div>1155case</div>
+
+            if (formikData.userCollection.tokenAmount1155 === 0) {
+                return <div>you dont have this nft</div>
+            }
+
+            const initialSquares = Array(formikData.userCollection.tokenAmount1155).fill(formikData.collection.tokenId1155)
+
+            // todo
+            return <div className='grid grid-cols-5 gap-4'>
+                {initialSquares.map((square, index) => (
+                    <div
+                        key={index}
+                        className={`flex items-center justify-center w-20 h-20 ${(formikData.selectIds.includes(square)) ? 'bg-gray-400' : 'bg-white'} cursor-pointer`}
+                        onClick={() => { toggleSelected(square) }
+                        }
+                    >
+                        {square}
+                    </div>
+                ))}
+            </div>
         }
 
     }

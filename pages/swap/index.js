@@ -43,7 +43,7 @@ const Swap = () => {
       // 2 用户点击tokensearch，从canTradeToken中选要换的token  得到能交易的池子 
       token: '',
       filterPairs: '',
-      swapMode: '',    
+      swapMode: '',
 
 
       //  3
@@ -67,6 +67,7 @@ const Swap = () => {
   // 0 => 1 , reset 2 3
   useEffect(() => {
     setIsMounted(true);
+    reset1234()
     if (chain) {
       if (chain.id in networkConfig) {
         formik.resetForm()
@@ -77,19 +78,36 @@ const Swap = () => {
 
 
 
-  useEffect(() => {
+
+  const reset1234 = () => {
+    reset1()
     reset2()
     reset3()
     reset4()
-  }, [formik.values.collection.address]);
+  }
 
-
-  useEffect(() => {
+  const reset234 = () => {
+    reset2()
     reset3()
     reset4()
-  }, [formik.values.token]);
+  }
 
-
+  const reset1 = () => {
+    formik.setFieldValue('collection',
+      {
+        type: "",
+        address: "",
+        name: "",
+        tokenId1155: ""
+      })
+    formik.setFieldValue('userCollection',
+      {
+        tokenIds721: '',
+        tokenAmount1155: ''
+      })
+    formik.setFieldValue('pairs', '')
+    formik.setFieldValue('tokens', '')
+  }
 
 
   const reset2 = () => {
@@ -126,6 +144,7 @@ const Swap = () => {
               <NFTSearch
                 formikData={formik.values}
                 owner={owner}
+                reset1234={reset1234}
                 setCollection={(value) => { formik.setFieldValue('collection', value) }}
                 setUserCollection={(value) => { formik.setFieldValue('userCollection', value) }}
                 setPairs={(value) => { formik.setFieldValue('pairs', value) }}
@@ -135,6 +154,7 @@ const Swap = () => {
               <TokenSearch
                 formikData={formik.values}
                 owner={owner}
+                reset234={reset234}
                 setToken={(value) => { formik.setFieldValue('token', value) }}
                 setFilterPairs={(value) => { formik.setFieldValue('filterPairs', value) }}
                 setSwapMode={(value) => { formik.setFieldValue('swapMode', value) }}

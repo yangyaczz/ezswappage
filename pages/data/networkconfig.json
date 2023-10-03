@@ -27,6 +27,12 @@
                 "address": "0xFBD152E487A8d5c638365357F6bdfa197C150992",
                 "name": "ts721ec3",
                 "tokenId1155": ""
+            },
+            {
+                "type": "ERC1155",
+                "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
+                "name": "ts1155tk1",
+                "tokenId1155": "1"
             }
         ]
     },

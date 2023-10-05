@@ -11,11 +11,9 @@ import React, { useState, useEffect } from 'react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import { useNetwork, useContractRead, useAccount } from 'wagmi'
-
+import { useNetwork, useAccount } from 'wagmi'
 
 import networkConfig from '../data/networkconfig.json'
-import ERC721EnumABI from '../data/ABI/ERC721Enum.json'
 
 const Swap = () => {
 

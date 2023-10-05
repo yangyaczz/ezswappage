@@ -38,6 +38,10 @@ const TokenSearch = ({ formikData, owner, reset234, setToken, setFilterPairs, se
             return <div>select nft first</div>
         }
 
+        if (formikData.collection.address && formikData.pairs === '') {
+            return <div>Loading...</div>
+        }
+
         if (formikData.collection.address && !formikData.pairs.length) {
             return <div>this collection dont have pool to swap</div>
         }

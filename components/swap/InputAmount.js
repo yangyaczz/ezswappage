@@ -51,6 +51,10 @@ const InputAmount = ({ formikData, setSelectIds }) => {
             return <div>select nft and token first</div>
         }
 
+        if (formikData.userCollection.tokenIds721 === '') {
+            return <div>Loading...</div>
+        }
+
         if (formikData.collection.type == "ERC721") {
 
             const initialSquares = formikData.userCollection.tokenIds721

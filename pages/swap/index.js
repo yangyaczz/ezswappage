@@ -40,13 +40,15 @@ const Swap = () => {
 
       // 2 用户点击tokensearch，从canTradeToken中选要换的token  得到能交易的池子 
       token: '',
-      filterPairs: '',
       swapMode: '',
+      filterPairs: '',
 
 
       //  3
       selectIds: '',
-      totalCost: ethers.BigNumber.from(1),
+      totalGet: '',
+      tupleEncode: '',
+      isExceeded: '',
 
       //4 计算出能得到多少
     },
@@ -171,6 +173,9 @@ const Swap = () => {
               <InputAmount
                 formikData={formik.values}
                 setSelectIds={(value) => { formik.setFieldValue('selectIds', value) }}
+                setTupleEncode={(value) => { formik.setFieldValue('tupleEncode', value) }}
+                setTotalGet={(value) => { formik.setFieldValue('totalGet', value) }}
+                setIsExceeded={(value) => { formik.setFieldValue('isExceeded', value) }}
               />
 
               <OutputAmount />

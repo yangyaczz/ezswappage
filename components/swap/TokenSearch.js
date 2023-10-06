@@ -6,16 +6,25 @@ const TokenSearch = ({ formikData, owner, reset234, setToken, setFilterPairs, se
         reset234()
         setToken(token)
 
-        let filteredData = formikData.pairs.filter(item => item.owner !== owner.toLowerCase());
 
+        // filter pool
+        let filteredData = formikData.pairs.filter(item => item.owner.toLowerCase() !== owner.toLowerCase()); 
         if (token === 'ETH') {
-            filteredData = formikData.pairs.filter(item => item.token === null);
+            filteredData = filteredData.filter(item => item.token === null);
         } else {
-            filteredData = formikData.pairs.filter(item => item.token === token);
+            filteredData = filteredData.filter(item => item.token === token);
         }
-        setFilterPairs(filteredData)
 
-        console.log(filteredData)
+        // rebuild pair info
+        filteredData = filteredData.map(item => {
+            return {
+                ...item,
+                tokenBalance: item.ethBalance === null ? item.tokenBalance : item.ethBalance,   // this pool token balance, vaild or not
+                tokenIds: [],  // user sell tokenId in this pool
+                userGetPrice: '', // user can get the price from this pool
+            }
+        })
+        setFilterPairs(filteredData)
 
 
         if (formikData.collection.type === 'ERC721' && token === 'ETH') {

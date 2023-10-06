@@ -75,6 +75,8 @@ function getSellPoolLinerNextPrice(spotPrice, delta, tfee, pfee, n = 1, action =
         userBuyPrice: curren.userBuyPrice - last.userBuyPrice
     }
 }
+
+
 // Bilateral pool (linear)
 function TradePoolLiner(startprice, delta, tfee, pfee, n = 1, action = 'read') {
     const spotPrice = action === 'read' ? startprice : startprice / (1 + tfee + pfee) - delta
@@ -102,6 +104,8 @@ function TradePoolLiner(startprice, delta, tfee, pfee, n = 1, action = 'read') {
         userBuyPriceFee: userBuyPriceFee
     }
 }
+
+
 // Get the current price (linear) of the bilateral pool
 function getTradePoolLinerPrice(spotPrice, delta, tfee, pfee, n = 1, action = 'read') {
     const curren = TradePoolLiner(spotPrice, delta, tfee, pfee, n, action)

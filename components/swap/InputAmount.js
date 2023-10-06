@@ -1,23 +1,104 @@
 import { id } from 'ethers/lib/utils.js';
 import React, { useState } from 'react'
+import { ethers } from 'ethers';
 
-const InputAmount = ({ formikData, setSelectIds }) => {
+import { liner, BuyPoolLiner } from '../utils/calculate'
+
+const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded }) => {
+
+    //////////////////////////////////////////////////////////////////////////////
+
+    const updateSellToPairs = (tokenId, pairs) => {
+
+        let protocolFee = 5000000000000000   // 0.5%  get from smartcontract 
+        let dec = 1e18
+        let maxPrice = 0
+        let maxPriceIndex = -1
+
+        // get pool buy price
+        pairs.forEach((pair, index) => {
+
+            let res = BuyPoolLiner(pair.spotPrice / dec, pair.delta / dec, 0, protocolFee / dec, pair.tokenIds.length + 1)
+
+            pair.userGetPrice = res.lastUserSellPrice
+            pair.ifUserAddGetPrice = res.userSellPrice
+
+
+            // get maxPrice pool
+            if (pair.tokenBalance / dec >= res.poolBuyPrice) {
+                const currentPrice = res.currentSellPrice
+                if (currentPrice > maxPrice) {
+                    maxPrice = currentPrice
+                    maxPriceIndex = index
+                }
+            }
+        })
+
+        if (maxPriceIndex !== -1) {
+            console.log(pairs[maxPriceIndex].ifUserAddGetPrice)
+
+            pairs[maxPriceIndex].tokenIds.push(tokenId)
+            pairs[maxPriceIndex].userGetPrice = pairs[maxPriceIndex].ifUserAddGetPrice
+            pairs[maxPriceIndex].tuple = [
+                [
+                    pairs[maxPriceIndex].id,
+                    pairs[maxPriceIndex].tokenIds,
+                    [pairs[maxPriceIndex].tokenIds.length]
+                ],
+                ethers.utils.parseEther(pairs[maxPriceIndex].userGetPrice.toString()).mul(ethers.BigNumber.from('100')).div(ethers.BigNumber.from('100'))
+            ]
+        } else {
+            console.log('erroreeee')
+        }
+    }
 
 
 
     const toggleSelected = (id) => {
 
-
+        // add new id to formikdata
         let newSids
-
         if (formikData.selectIds.includes(id)) {
             newSids = formikData.selectIds.filter(item => item !== id)
         } else {
             newSids = [...formikData.selectIds, id]
         }
-
         setSelectIds(newSids)
 
+
+        ///////////////////////////////////////////////////////////////
+
+
+        let pairs = JSON.parse(JSON.stringify(formikData.filterPairs))
+
+        newSids.forEach((id, index) => {
+            updateSellToPairs(id, pairs)
+        })
+
+        // console.log(pairs)
+
+        let tupleEncode = []
+        let totalGet = 0
+        let IdsAmount = 0
+        pairs.forEach((pair) => {
+            if (pair.tuple) {
+                tupleEncode.push(pair.tuple)
+                totalGet += pair.userGetPrice
+                IdsAmount += pair.tokenIds.length
+            }
+        })
+
+        setTupleEncode(tupleEncode)
+        setTotalGet(totalGet)
+        console.log(totalGet)
+        ///////////////////////////////////////////////////////////////
+
+        // check if is execeeded 
+        if (newSids.length > IdsAmount) {
+            setIsExceeded(true)
+        } else {
+            setIsExceeded(false)
+        }
     }
 
     const displayFrame = () => {
@@ -53,6 +134,10 @@ const InputAmount = ({ formikData, setSelectIds }) => {
 
         if (formikData.userCollection.tokenIds721 === '') {
             return <div>Loading...</div>
+        }
+
+        if (formikData.pairs && formikData.filterPairs.length === 0) {
+            return <div>there is no pool you can swap...</div>
         }
 
         if (formikData.collection.type == "ERC721") {
@@ -124,6 +209,7 @@ const InputAmount = ({ formikData, setSelectIds }) => {
                     {displayDialog()}
 
 
+                    <div>{formikData.isExceeded && 'The amount of nft is out of range, please reduce it'}</div>
                     <div className="divider"></div>
 
                     <h3 className="font-bold text-lg">NFT Amount:</h3>

@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 import { ethers } from 'ethers'
 
+import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { useNetwork, useContractRead, useContractReads, useContractWrite, useAccount, erc20ABI } from 'wagmi'
 import ERC721EnumABI from '../../pages/data/ABI/ERC721Enum.json'
 import ERC1155ABI from '../../pages/data/ABI/ERC1155.json'
+
+import RouterABI from '../../pages/data/ABI/Router.json'
+
 
 
 
@@ -11,7 +15,6 @@ const SwapButton = ({ formikData, owner }) => {
 
     const [nftApproval, setNftApproval] = useState(false)
     // const { erc20Approval, setErc20Approval } = useState(false)
-
 
 
     const { data: nftApprovalData } = useContractRead({
@@ -34,6 +37,15 @@ const SwapButton = ({ formikData, owner }) => {
         abi: ERC721EnumABI,
         functionName: 'setApprovalForAll',
         args: [formikData.golbalParams.router, true],
+
+    })
+
+
+    const { data: robustSwapNFTsForTokenData, write: swapNFTToToken } = useContractWrite({
+        address: formikData.golbalParams.router,
+        abi: RouterABI,
+        functionName: 'robustSwapNFTsForToken',
+        args: [formikData.tupleEncode, owner, (Date.parse(new Date()) / 1000 + 60 * 3600)],
 
     })
 
@@ -90,13 +102,6 @@ const SwapButton = ({ formikData, owner }) => {
     const buttonText = () => {
         let text
 
-        if (!owner) {
-            text = 'connect wallet'
-            return (<div>
-                {text}
-            </div>)
-
-        }
 
         if (!formikData.collection.address || !formikData.token) {
             text = 'select nft and token first'
@@ -114,12 +119,27 @@ const SwapButton = ({ formikData, owner }) => {
             )
         }
 
+        if (formikData.isExceeded) {
+            text = 'reduce nft amount'
+            return (<div>
+                {text}
+            </div>)
+        }
 
-        return <div>
-            swap
-        </div>
+        text = 'swap'
+        return (
+            <button onClick={() => swapNFTToToken()}>
+                {text}
+            </button>
+        )
     }
 
+
+    if (!owner) return (
+        <div className='mx-6 p-12'>
+            <ConnectButton />
+        </div>
+    )
 
 
     return (

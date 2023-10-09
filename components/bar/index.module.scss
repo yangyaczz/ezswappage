@@ -1,0 +1,50 @@
+.header-btn {
+  border: 0;
+  background: none;
+  font-family: "Inter";
+  //    text-transform: uppercase;
+  color: $primaryColor;
+  font-weight: bold;
+  position: relative;
+  outline: none;
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+.header-btn::before,
+.header-btn::after {
+  box-sizing: inherit;
+  position: absolute;
+  content: "";
+  border: 2px solid transparent;
+  width: 0;
+  height: 0;
+}
+
+.header-btn::after {
+  bottom: 0;
+  right: 0;
+}
+
+.header-btn::before {
+  top: 0;
+  left: 0;
+}
+
+.header-btn:hover::before,
+.header-btn:hover::after {
+  width: 100%;
+  height: 100%;
+}
+
+.header-btn:hover::before {
+  border-top-color: $primaryColor;
+  border-right-color: $primaryColor;
+  transition: width 0.1s ease-out, height 0.1s ease-out 0.1s;
+}
+
+.header-btn:hover::after {
+  border-bottom-color: $primaryColor;
+  border-left-color: $primaryColor;
+  transition: border-color 0s ease-out 0.2s, width 0.1s ease-out 0.2s,
+  height 0.1s ease-out 0.4s;
+}

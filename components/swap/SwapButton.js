@@ -14,7 +14,6 @@ import RouterABI from '../../pages/data/ABI/Router.json'
 const SwapButton = ({ formikData, owner }) => {
 
     const [nftApproval, setNftApproval] = useState(false)
-    // const { erc20Approval, setErc20Approval } = useState(false)
 
 
     const { data: nftApprovalData } = useContractRead({
@@ -37,7 +36,6 @@ const SwapButton = ({ formikData, owner }) => {
         abi: ERC721EnumABI,
         functionName: 'setApprovalForAll',
         args: [formikData.golbalParams.router, true],
-
     })
 
 
@@ -46,58 +44,8 @@ const SwapButton = ({ formikData, owner }) => {
         abi: RouterABI,
         functionName: 'robustSwapNFTsForToken',
         args: [formikData.tupleEncode, owner, (Date.parse(new Date()) / 1000 + 60 * 3600)],
-
     })
 
-
-    // const { data: erc20AllowanceData } = useContractRead({
-    //     address: (formikData.token && formikData.token !== "ETH" ? formikData.token : null),
-    //     abi: erc20ABI,
-    //     functionName: 'allowance',
-    //     args: [owner, formikData.golbalParams.router],
-    //     watch: true,
-    //     onSuccess(data) {
-    //         if (!data.gte(formikData.totalCost)) {
-    //             console.log('not enought')
-    //         } else {
-    //             console.log('ok')
-    //             setErc20Approval(true)
-    //         }
-    //     }
-    // })
-
-
-
-    // const { data: bb } = useContractReads(
-    //     {
-    //         contracts: [
-    //             // nft approval
-    //             // {
-    //             //     address: formikData.collection.address,
-    //             //     abi: ERC721EnumABI,
-    //             //     functionName: 'isApprovedForAll',
-    //             //     args: [owner, formikData.golbalParams.router],
-    //             //     watch: false,
-    //             // },
-    //             // erc20 approval
-    //             {
-    //                 address: (formikData.token && formikData.token !== "ETH" ? formikData.token : null),
-    //                 abi: erc20ABI,
-    //                 functionName: 'allowance',
-    //                 args: [owner, formikData.golbalParams.router],
-    //                 watch: false,
-    //             }
-    //         ],
-    //         onSuccess(data) {
-    //             // console.log('success', data)
-    //             // const num = data.map(item => parseInt(item._hex, 16))
-    //             // // filter 1155 and 721
-    //             // setUserCollection({
-    //             //     tokenIds721: num
-    //             // })
-    //         }
-    //     }
-    // )
 
     const buttonText = () => {
         let text
@@ -143,9 +91,9 @@ const SwapButton = ({ formikData, owner }) => {
 
 
     return (
-        <button className="btn mx-6 p-12">
+        <div className="btn mx-6 p-12">
             {buttonText()}
-        </button>
+        </div>
     )
 }
 

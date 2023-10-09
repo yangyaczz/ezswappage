@@ -40,8 +40,8 @@ const Swap = () => {
 
       // 2 用户点击tokensearch，从canTradeToken中选要换的token  得到能交易的池子 
       token: '',
-      swapMode: '',
       filterPairs: '',
+      swapMode: '',
 
 
       //  3
@@ -49,8 +49,6 @@ const Swap = () => {
       totalGet: '',
       tupleEncode: '',
       isExceeded: '',
-
-      //4 计算出能得到多少
     },
     onSubmit: values => {
       alert(JSON.stringify(values, null, 2));
@@ -67,7 +65,7 @@ const Swap = () => {
   // 0 => 1 , reset 2 3
   useEffect(() => {
     setIsMounted(true);
-    reset1234()
+    reset123()
     if (chain) {
       if (chain.id in networkConfig) {
         formik.resetForm()
@@ -79,17 +77,15 @@ const Swap = () => {
 
 
 
-  const reset1234 = () => {
+  const reset123 = () => {
     reset1()
     reset2()
     reset3()
-    reset4()
   }
 
-  const reset234 = () => {
+  const reset23 = () => {
     reset2()
     reset3()
-    reset4()
   }
 
   const reset1 = () => {
@@ -116,14 +112,12 @@ const Swap = () => {
     formik.setFieldValue('swapMode', '')
   }
 
+
   const reset3 = () => {
     formik.setFieldValue('selectIds', '')
-    formik.setFieldValue('totalCost', ethers.BigNumber.from(1))
-  }
-
-  // todo
-  const reset4 = () => {
-
+    formik.setFieldValue('totalGet', '')
+    formik.setFieldValue('tupleEncode', '')
+    formik.setFieldValue('isExceeded', '')
   }
 
 
@@ -144,7 +138,7 @@ const Swap = () => {
               <NFTSearch
                 formikData={formik.values}
                 owner={owner}
-                reset1234={reset1234}
+                reset123={reset123}
                 setCollection={(value) => { formik.setFieldValue('collection', value) }}
                 setUserCollection={(value) => { formik.setFieldValue('userCollection', value) }}
                 setPairs={(value) => { formik.setFieldValue('pairs', value) }}
@@ -154,7 +148,7 @@ const Swap = () => {
               <TokenSearch
                 formikData={formik.values}
                 owner={owner}
-                reset234={reset234}
+                reset23={reset23}
                 setToken={(value) => { formik.setFieldValue('token', value) }}
                 setFilterPairs={(value) => { formik.setFieldValue('filterPairs', value) }}
                 setSwapMode={(value) => { formik.setFieldValue('swapMode', value) }}
@@ -173,12 +167,14 @@ const Swap = () => {
               <InputAmount
                 formikData={formik.values}
                 setSelectIds={(value) => { formik.setFieldValue('selectIds', value) }}
-                setTupleEncode={(value) => { formik.setFieldValue('tupleEncode', value) }}
                 setTotalGet={(value) => { formik.setFieldValue('totalGet', value) }}
+                setTupleEncode={(value) => { formik.setFieldValue('tupleEncode', value) }}
                 setIsExceeded={(value) => { formik.setFieldValue('isExceeded', value) }}
               />
 
-              <OutputAmount />
+              <OutputAmount
+                formikData={formik.values}
+              />
             </div>
           </div>
         </div>

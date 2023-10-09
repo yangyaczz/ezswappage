@@ -126,7 +126,7 @@ function getTradePoolLinerNextPrice(spotPrice, delta, tfee, pfee, n = 1, action 
 // Buy the pool (Exponential)
 function BuyPoolExpone(startprice, delta, tfee, pfee, n = 1, action = 'read') {
     const spotPrice = action === 'read' ? startprice : startprice
-    const q = action === 'read' ? delta : 1 / ((100 - delta) / 100)
+    const q = action === 'read' ? delta : 100 / (100 - delta)
     const poolBuyPrice = spotPrice * (1 / q ** n - 1) / (1 / q - 1) * (1 - tfee)
     const poolBuyPriceFee = spotPrice * (1 / q ** n - 1) / (1 / q - 1) * tfee
     const userSellPrice = spotPrice * (1 / q ** n - 1) / (1 / q - 1) * (1 - tfee - pfee)
@@ -140,6 +140,7 @@ function BuyPoolExpone(startprice, delta, tfee, pfee, n = 1, action = 'read') {
         poolBuyPriceFee: poolBuyPriceFee
     }
 }
+
 // Get the current price (Exponential) of buying pool (Exponential)
 function getBuyPoolExponePrice(spotPrice, delta, tfee, pfee, n = 1, action = 'read') {
     return {

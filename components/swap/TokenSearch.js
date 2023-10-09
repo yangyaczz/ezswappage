@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 
-const TokenSearch = ({ formikData, owner, reset234, setToken, setFilterPairs, setSwapMode }) => {
+const TokenSearch = ({ formikData, owner, reset23, setToken, setFilterPairs, setSwapMode }) => {
 
     const handleTokenClick = (token) => {
-        reset234()
+        reset23()
         setToken(token)
 
 
@@ -25,6 +25,8 @@ const TokenSearch = ({ formikData, owner, reset234, setToken, setFilterPairs, se
             }
         })
         setFilterPairs(filteredData)
+
+        console.log(filteredData)
 
 
         if (formikData.collection.type === 'ERC721' && token === 'ETH') {

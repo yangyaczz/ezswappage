@@ -189,37 +189,98 @@ console.log(newPairs)
 
 
 a = [
-    [
-        [
-            "0x0d9992922b1ab770661ab79c26c80365a0df3628",
-            [
-                2,
-                7,
-                6
-            ],
-            [
-                3
-            ]
+    {
+        "id": "0x0d9992922b1ab770661ab79c26c80365a0df3628",
+        "collection": "0x3d3fa1f6de1a8e8f466bf6598b2601a250643464",
+        "owner": "0xe3a463d743f762d538031bad3f1e748bb41f96ec",
+        "token": "0x0b20e82dac9dcc7b9d082c2abb32aef2d33a42d6",
+        "type": "buy",
+        "assetRecipient": "0xe3a463d743f762d538031bad3f1e748bb41f96ec",
+        "bondingCurve": "Linear",
+        "delta": "0",
+        "fee": "0",
+        "spotPrice": "1000000000000000000",
+        "nftIds": [
+            ""
         ],
-        {
-            "type": "BigNumber",
-            "hex": "0x296cd9af4e8a8000"
-        }
-    ],
-    [
-        [
-            "0x52bd3baa7858e12a28f7aa4aa847af95ea04d286",
-            [
-                0,
-                1
-            ],
-            [
-                2
-            ]
+        "ethBalance": null,
+        "tokenBalance": "5000000000000000000",
+        "ethVolume": "0",
+        "createTimestamp": "1696075921",
+        "updateTimestamp": "1696075921",
+        "nftCount": "0",
+        "fromPlatform": 1,
+        "protocolFee": "1000000000000000",
+        "is1155": false,
+        "nftId1155": "0",
+        "nftCount1155": 0,
+        "collectionName": "tsez721First",
+        "tokenType": "ERC721",
+        "tokenIds": [],
+        "userGetPrice": ""
+    },
+    {
+        "id": "0x52bd3baa7858e12a28f7aa4aa847af95ea04d286",
+        "collection": "0x3d3fa1f6de1a8e8f466bf6598b2601a250643464",
+        "owner": "0xe3a463d743f762d538031bad3f1e748bb41f96ec",
+        "token": "0x0b20e82dac9dcc7b9d082c2abb32aef2d33a42d6",
+        "type": "buy",
+        "assetRecipient": "0xe3a463d743f762d538031bad3f1e748bb41f96ec",
+        "bondingCurve": "Linear",
+        "delta": "0",
+        "fee": "0",
+        "spotPrice": "1500000000000000000",
+        "nftIds": [
+            ""
         ],
-        {
-            "type": "BigNumber",
-            "hex": "0x296cd9af4e8a8000"
-        }
-    ]
+        "ethBalance": null,
+        "tokenBalance": "4000000000000000000",
+        "ethVolume": "0",
+        "createTimestamp": "1696078311",
+        "updateTimestamp": "1696078311",
+        "nftCount": "0",
+        "fromPlatform": 1,
+        "protocolFee": "1000000000000000",
+        "is1155": false,
+        "nftId1155": "0",
+        "nftCount1155": 0,
+        "collectionName": "tsez721First",
+        "tokenType": "ERC721",
+        "tokenIds": [],
+        "userGetPrice": ""
+    }
+]
+
+
+b = [
+    {
+        "id": "0x4ea765e6e71a3354c9bd7484dad15a7ebf7ec092",
+        "collection": "0xd48aa2a392a1c6253d88728e20d20f0203f8838c",
+        "owner": "0xe3a463d743f762d538031bad3f1e748bb41f96ec",
+        "token": null,
+        "type": "buy",
+        "assetRecipient": "0xe3a463d743f762d538031bad3f1e748bb41f96ec",
+        "bondingCurve": "Linear",
+        "delta": "0",
+        "fee": "0",
+        "spotPrice": "20000000000000000",
+        "nftIds": [
+            ""
+        ],
+        "ethBalance": "100000000000000000",
+        "tokenBalance": "100000000000000000",
+        "ethVolume": "0",
+        "createTimestamp": "1696354559",
+        "updateTimestamp": "1696354559",
+        "nftCount": "0",
+        "fromPlatform": 1,
+        "protocolFee": "1000000000000000",
+        "is1155": true,
+        "nftId1155": "1",
+        "nftCount1155": 0,
+        "collectionName": "",
+        "tokenType": "ERC1155",
+        "tokenIds": [],
+        "userGetPrice": ""
+    }
 ]

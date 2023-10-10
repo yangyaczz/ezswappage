@@ -4,7 +4,7 @@ import NFTSearch from '@/components/swap/NFTSearch'
 import Slippage from '@/components/swap/Slippage'
 import SwapButton from '@/components/swap/SwapButton'
 import TokenSearch from '@/components/swap/TokenSearch'
-
+import styles from './index.module.scss'
 import { ethers } from 'ethers'
 
 import React, { useState, useEffect } from 'react'
@@ -38,7 +38,7 @@ const Swap = () => {
       tokens: '',
 
 
-      // 2 用户点击tokensearch，从canTradeToken中选要换的token  得到能交易的池子 
+      // 2 用户点击tokensearch，从canTradeToken中选要换的token  得到能交易的池子
       token: '',
       swapMode: '',
       filterPairs: '',
@@ -59,7 +59,7 @@ const Swap = () => {
 
   const [isMounted, setIsMounted] = useState(false);
 
-  // 0 
+  // 0
   const { chain } = useNetwork();
   const { address: owner } = useAccount()
 
@@ -132,7 +132,8 @@ const Swap = () => {
     return null; //  <Loading /> ??
   }
   return (
-    <div className='flex min-h-screen bg-base-200 items-center justify-center'>
+      <div className={styles.divBackground}>
+    <div className='flex min-h-screen items-center justify-center'>
       <div className="card flex-shrink-0 w-full max-w-5xl shadow-2xl bg-base-100 ">
         <div className="card-body">
 
@@ -184,6 +185,7 @@ const Swap = () => {
         </div>
       </div>
     </div>
+      </div>
   )
 }
 

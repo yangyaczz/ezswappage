@@ -8,7 +8,7 @@ import ERC1155ABI from '../../pages/data/ABI/ERC1155.json'
 
 
 
-const NFTSearch = ({ formikData, owner, reset1234, setCollection, setUserCollection, setPairs, setTokens, }) => {
+const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollection, setPairs, setTokens, }) => {
 
 
     const [searchQuery, setSearchQuery] = useState('');
@@ -25,7 +25,7 @@ const NFTSearch = ({ formikData, owner, reset1234, setCollection, setUserCollect
 
 
     const handleNFTClick = (nft) => {
-        reset1234()
+        reset123()
         setCollection(nft)
     }
 

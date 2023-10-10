@@ -5,10 +5,10 @@ import { useNetwork, useContractRead, useAccount } from 'wagmi'
 
 import ERC721EnumABI from '../../pages/data/ABI/ERC721Enum.json'
 import ERC1155ABI from '../../pages/data/ABI/ERC1155.json'
+import { erc20ABI } from 'wagmi'
 
 
-
-const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollection, setPairs, setTokens, }) => {
+const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollection, setPairs, setTokens, setToken, setTokenName, setFilterPairs, setSwapMode }) => {
 
 
     const [searchQuery, setSearchQuery] = useState('');
@@ -50,16 +50,61 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
 
                 if (data.success) {
                     const pairsList = data.data
-                    const filteredData = pairsList.filter(item => item.type === 'buy' || item.type === 'trade');
+                    let filteredData = pairsList.filter(item => item.type === 'buy' || item.type === 'trade');
                     setPairs(filteredData)
 
                     const canTradeToken = [...new Set(filteredData.map(item => item.token))].map(token => token === null ? 'ETH' : token);
+                    //////////
+                    // to do : set filter golbal token!!!!!!!!!!!!!1
+                    //////////
                     setTokens(canTradeToken)
+
+                    if (canTradeToken.length) {
+                        let token
+                        if (canTradeToken.includes('ETH')) {
+                            token = 'ETH'
+                        } else {
+                            token = canTradeToken[0]
+                        }
+                        setToken(token)
+
+                        // filter pool
+                        filteredData = filteredData.filter(item => item.owner.toLowerCase() !== owner.toLowerCase());
+                        if (formikData.token === 'ETH') {
+                            filteredData = filteredData.filter(item => item.token === null);
+                        } else {
+                            filteredData = filteredData.filter(item => item.token === token);
+                        }
+
+                        // rebuild pair info
+                        filteredData = filteredData.map(item => {
+                            return {
+                                ...item,
+                                tokenBalance: item.ethBalance === null ? item.tokenBalance : item.ethBalance,   // this pool token balance, vaild or not
+                                tokenIds: [],  // user sell tokenId in this pool
+                                userGetPrice: '', // user can get the price from this pool
+                            }
+                        })
+                        setFilterPairs(filteredData)
+
+                        if (formikData.collection.type === 'ERC721' && token === 'ETH') {
+                            setSwapMode('ERC721-ETH')
+                        } else if (formikData.collection.type === 'ERC721' && token !== 'ETH') {
+                            setSwapMode('ERC721-ERC20')
+                        } else if (formikData.collection.type === 'ERC1155' && token === 'ETH') {
+                            setSwapMode('ERC1155-ETH')
+                        } else if (formikData.collection.type === 'ERC1155' && token !== 'ETH') {
+                            setSwapMode('ERC1155-ERC20')
+                        } else {
+                            setSwapMode('ERROR-SWAPMODE')
+                        }
+                    }
                 }
             }
         }
-
         fetchData()
+
+
 
     }, [formikData.golbalParams.networkName, formikData.collection.address])
 
@@ -85,10 +130,21 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
         args: [owner, formikData.collection.tokenId1155],
         watch: false,
         onSuccess(data) {
-            const num =  parseInt(data, 16)
+            const num = parseInt(data, 16)
             setUserCollection({
                 tokenAmount1155: num
             })
+        }
+    })
+
+    const { data: erc20Name } = useContractRead({
+        address: (formikData.token !== '' ? (formikData.token === "ETH" ? '' : formikData.token) : ''),
+        abi: erc20ABI,
+        functionName: 'name',
+        args: [],
+        watch: false,
+        onSuccess(data) {
+            setTokenName(data)
         }
     })
 

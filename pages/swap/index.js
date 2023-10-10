@@ -40,6 +40,7 @@ const Swap = () => {
 
       // 2 用户点击tokensearch，从canTradeToken中选要换的token  得到能交易的池子 
       token: '',
+      tokenName: '',
       filterPairs: '',
       swapMode: '',
 
@@ -143,6 +144,11 @@ const Swap = () => {
                 setUserCollection={(value) => { formik.setFieldValue('userCollection', value) }}
                 setPairs={(value) => { formik.setFieldValue('pairs', value) }}
                 setTokens={(value) => { formik.setFieldValue('tokens', value) }}
+
+                setToken={(value) => { formik.setFieldValue('token', value) }}
+                setTokenName={(value) => { formik.setFieldValue('tokenName', value) }}
+                setFilterPairs={(value) => { formik.setFieldValue('filterPairs', value) }}
+                setSwapMode={(value) => { formik.setFieldValue('swapMode', value) }}
               />
 
               <TokenSearch
@@ -150,6 +156,7 @@ const Swap = () => {
                 owner={owner}
                 reset23={reset23}
                 setToken={(value) => { formik.setFieldValue('token', value) }}
+                setTokenName={(value) => { formik.setFieldValue('tokenName', value) }}
                 setFilterPairs={(value) => { formik.setFieldValue('filterPairs', value) }}
                 setSwapMode={(value) => { formik.setFieldValue('swapMode', value) }}
               />

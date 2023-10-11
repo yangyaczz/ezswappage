@@ -13,7 +13,9 @@ import styles from './index.module.scss';
 
 import { erc20ABI } from 'wagmi'
 
-const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollection, setPairs, setTokens, setToken, setTokenName, setFilterPairs, setSwapMode }) => {
+import multiSetFilterPairMode from './swapUtils/multiSetFilterPairMode'
+
+const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollection, setPairs, setTokens, setTokensName, setToken, setTokenName, setFilterPairs, setSwapMode }) => {
 
 
     const [searchQuery, setSearchQuery] = useState('');
@@ -71,12 +73,21 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                     let filteredData = pairsList.filter(item => item.type === 'buy' || item.type === 'trade');
                     setPairs(filteredData)
 
-                    const canTradeToken = [...new Set(filteredData.map(item => item.token))].map(token => token === null ? 'ETH' : token);
-                    console.log('canTradeToken', canTradeToken)
-                    //////////
-                    // todo : set filter golbal token!!!!!!!!!!!!!1
-                    //////////
+                    let canTradeToken = [...new Set(filteredData.map(item => item.token))].map(token => token === null ? 'ETH' : token);
+                    let permitTokens = formikData.golbalParams.recommendERC20.map(item => item.address.toLowerCase())
+                    canTradeToken = canTradeToken.filter(token => permitTokens.includes(token.toLowerCase()))
+
                     setTokens(canTradeToken)
+
+                    const tokensNames = canTradeToken.map(address => {
+                        const mappingObject = formikData.golbalParams.recommendERC20.find(obj => obj.address.toLowerCase() === address.toLowerCase());
+                        return mappingObject ? mappingObject.name : null;
+                    });
+
+                    console.log(tokensNames)
+
+                    setTokensName(tokensNames)
+
 
                     if (canTradeToken.length) {
                         let token
@@ -86,6 +97,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                             token = canTradeToken[0]
                         }
                         setToken(token)
+                        setTokenName(tokensNames[0])
 
                         // filter pool
                         filteredData = filteredData.filter(item => item.owner.toLowerCase() !== owner.toLowerCase());
@@ -118,6 +130,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                             setSwapMode('ERROR-SWAPMODE')
                         }
                         console.log('formikData', formikData)
+                        multiSetFilterPairMode(formikData, filteredData, owner, token, setFilterPairs, setSwapMode)
                     }
                 }
             }

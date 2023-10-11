@@ -6,102 +6,83 @@ import FormControl from "@mui/material/FormControl";
 import {Box, Chip, OutlinedInput} from "@mui/material";
 import { erc20ABI } from 'wagmi'
 import { useContractRead } from 'wagmi'
+import multiSetFilterPairMode from './swapUtils/multiSetFilterPairMode'
 
 const TokenSearch = ({ formikData, owner, reset23, setToken, setTokenName, setFilterPairs, setSwapMode }) => {
 
-    if (formikData?.userCollection?.tokenIds721!=''){
-        formikData?.userCollection?.tokenIds721?.map((item) => {
-            console.log('item', item)
-        })
-    }
-
-    const handleTokenClick = (event,token) => {
-        setAge(event.target.value);
+    const handleTokenClick = (tokenName) => {
         reset23()
+
+        // use tokenName to get token
+        let token = (formikData.golbalParams.recommendERC20.find(obj => obj.name.toLowerCase() === tokenName.toLowerCase())).address
+
         setToken(token)
+        setTokenName(tokenName)
 
-        // filter pool
-        let filteredData = formikData.pairs.filter(item => item.owner.toLowerCase() !== owner.toLowerCase());
-        if (token === 'ETH') {
-            filteredData = filteredData.filter(item => item.token === null);
-        } else {
-            filteredData = filteredData.filter(item => item.token === token);
-        }
-
-        // rebuild pair info
-        filteredData = filteredData.map(item => {
-            return {
-                ...item,
-                tokenBalance: item.ethBalance === null ? item.tokenBalance : item.ethBalance,   // this pool token balance, vaild or not
-                tokenIds: [],  // user sell tokenId in this pool
-                userGetPrice: '', // user can get the price from this pool
-            }
-        })
-        setFilterPairs(filteredData)
-
-        console.log(filteredData)
-
-
-        if (formikData.collection.type === 'ERC721' && token === 'ETH') {
-            setSwapMode('ERC721-ETH')
-        } else if (formikData.collection.type === 'ERC721' && token !== 'ETH') {
-            setSwapMode('ERC721-ERC20')
-        } else if (formikData.collection.type === 'ERC1155' && token === 'ETH') {
-            setSwapMode('ERC1155-ETH')
-        } else if (formikData.collection.type === 'ERC1155' && token !== 'ETH') {
-            setSwapMode('ERC1155-ERC20')
-        } else {
-            setSwapMode('ERROR-SWAPMODE')
-        }
+        let filteredData = formikData.pairs
+        multiSetFilterPairMode(formikData, filteredData, owner, token, setFilterPairs, setSwapMode)
     }
-    const [age, setAge] = useState('');
 
-    const { data: erc20Name } = useContractRead({
-        address: (formikData.token !== '' ? (formikData.token === "ETH" ? '' : formikData.token) : ''),
-        abi: erc20ABI,
-        functionName: 'name',
-        args: [],
-        watch: false,
-        onSuccess(data) {
-            setTokenName(data)
+
+    const displayDialog = () => {
+
+        if (!formikData.collection.address) {
+            return <div>select nft first</div>
         }
-    })
+
+        if (formikData.collection.address && formikData.pairs === '') {
+            return <div>Loading...</div>
+        }
+
+        if (formikData.collection.address && !formikData.pairs.length) {
+            return <div>this collection dont have pool to swap</div>
+        }
+
+        return (
+            formikData.tokensName.map((tokenName, index) => (
+                <button
+                    key={index}
+                    className="btn justify-start"
+                    onClick={() => handleTokenClick(tokenName)}>
+                    {tokenName}
+                </button>
+            ))
+        )
+    }
+
+
     return (
         <div className="form-control">
-            {/*<span className="label-text">Token</span>*/}
-            <FormControl sx={{ m: 1, minWidth: 400 }} className={styles.selectItem}>
-                <Select
-                    labelId="demo-multiple-chip-label"
-                    id="demo-multiple-chip"
-                    value={age}
-                    onChange={handleTokenClick}
-                    displayEmpty
-                    multiple
-                    input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-                    inputProps={{ 'aria-label': 'Without label' }}
-                    className={styles.selectItem}
-                    sx={{color:'white',background: '#06080F'}}
-                    renderValue={(selected) => {
-                        if (selected.length === 0) {
-                            return <em>Select Items</em>;
-                        }
-                        return <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                                {selected.map((value) => (
-                                    <Chip key={value} label={value} />
-                                ))}
-                            </Box>
-                        // return selected;
-                    }}
-                >
-                    <MenuItem disabled value="">
-                        <em>Select Items</em>
-                    </MenuItem>
-                    {formikData?.userCollection?.tokenIds721 != '' ?
-                        formikData.userCollection.tokenIds721.map((nft, index) => (
-                            <MenuItem value={nft} className={styles.selectItem}><img className={styles.logoStyle} src="/logo.svg" alt=""/>{nft}</MenuItem>
-                        )): null}
-                </Select>
-            </FormControl>
+            <span className="label-text">Token</span>
+
+
+            <button className="btn" onClick={() => document.getElementById('token_search_sell').showModal()}>
+                {formikData.tokenName ? formikData.tokenName : 'token name'}
+                <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>
+            </button>
+
+            <dialog id="token_search_sell" className="modal">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">Can Trade Token:</h3>
+
+
+                    <form method="dialog" className='flex flex-col space-y-2'>
+                        {displayDialog()}
+                    </form>
+
+
+                    <form method="dialog">
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                </div>
+
+
+                <form method="dialog" className="modal-backdrop">
+                    <button>close</button>
+                </form>
+
+
+            </dialog>
         </div>
     )
 }

@@ -36,6 +36,7 @@ const Swap = () => {
       },
       pairs: '',
       tokens: '',
+      tokensName: '',
 
 
       // 2 用户点击tokensearch，从canTradeToken中选要换的token  得到能交易的池子
@@ -104,6 +105,7 @@ const Swap = () => {
       })
     formik.setFieldValue('pairs', '')
     formik.setFieldValue('tokens', '')
+    formik.setFieldValue('tokensName', '')
   }
 
 
@@ -143,6 +145,7 @@ const Swap = () => {
                 setUserCollection={(value) => { formik.setFieldValue('userCollection', value) }}
                 setPairs={(value) => { console.log('value........value',value);formik.setFieldValue('pairs', value) }}
                 setTokens={(value) => { formik.setFieldValue('tokens', value) }}
+                setTokensName={(value) => { formik.setFieldValue('tokensName', value) }}
 
                 setToken={(value) => { formik.setFieldValue('token', value) }}
                 setTokenName={(value) => { formik.setFieldValue('tokenName', value) }}

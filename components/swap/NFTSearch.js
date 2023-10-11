@@ -20,9 +20,9 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value.toLowerCase());
     };
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };
+    // const handleChange = (event) => {
+    //     setAge(event.target.value);
+    // };
 
     const filteredNFTs = formikData.golbalParams.recommendNFT
         ? formikData.golbalParams.recommendNFT.filter(nft =>
@@ -31,9 +31,16 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
         : [];
 
 
-    const handleNFTClick = (nft) => {
+    const handleNFTClick = (event,nft) => {
         reset123()
-        setCollection(nft)
+        setAge(event.target.value);
+        console.log('handleNFTClick nft',nft,nft.props.value)
+        for (let i = 0; i < filteredNFTs.length; i++) {
+            if (filteredNFTs[i].address === nft.props.value) {
+                setCollection(nft)
+                break
+            }
+        }
     }
 
     useEffect(() => {
@@ -61,6 +68,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                     setPairs(filteredData)
 
                     const canTradeToken = [...new Set(filteredData.map(item => item.token))].map(token => token === null ? 'ETH' : token);
+                    console.log('canTradeToken', canTradeToken)
                     setTokens(canTradeToken)
                 }
             }
@@ -105,13 +113,13 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
             <FormControl sx={{ m: 1, minWidth: 400 }} className={styles.selectItem}>
                 <Select
                     value={age}
-                    onChange={handleChange}
+                    onChange={handleNFTClick}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
                     className={styles.selectItem}
                     sx={{color:'white',background: '#06080F'}}
                     renderValue={(selected) => {
-                        console.log(filteredNFTs)
+                        console.log('selected', selected)
                         if (selected.length === 0) {
                             return <em>Select Collection</em>;
                         }

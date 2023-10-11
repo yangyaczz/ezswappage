@@ -47,7 +47,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
     }
 
     useEffect(() => {
-
+        console.log('formikData之前的哒哒哒哒哒哒', formikData)
         const fetchData = async () => {
             if (formikData.golbalParams.networkName && formikData.collection.address) {
                 const params = {
@@ -67,6 +67,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
 
                 if (data.success) {
                     const pairsList = data.data
+                    console.log('pairsListpairsList',pairsList)
                     let filteredData = pairsList.filter(item => item.type === 'buy' || item.type === 'trade');
                     setPairs(filteredData)
 
@@ -88,7 +89,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
 
                         // filter pool
                         filteredData = filteredData.filter(item => item.owner.toLowerCase() !== owner.toLowerCase());
-                        if (formikData.token === 'ETH') {
+                        if (token === 'ETH') {
                             filteredData = filteredData.filter(item => item.token === null);
                         } else {
                             filteredData = filteredData.filter(item => item.token === token);
@@ -179,7 +180,6 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                     className={styles.selectItem}
                     sx={{color:'white',background: '#06080F'}}
                     renderValue={(selected) => {
-                        console.log('selected', selected)
                         if (selected.length === 0) {
                             return <em>Select Collection</em>;
                         }
@@ -195,7 +195,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                         <em>Select Collection</em>
                     </MenuItem>
                     {filteredNFTs.map((nft, index) => (
-                        <MenuItem value={nft.address} className={styles.selectItem}><img className={styles.logoStyle} src="/logo.svg" alt=""/>{nft.name}</MenuItem>
+                        <MenuItem value={nft.address} className={styles.selectItem}><img className={styles.logoStyle} src="/logo.svg" alt=""/>&#20;&#20;{nft.name}</MenuItem>
                     ))}
                 </Select>
             </FormControl>

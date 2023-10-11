@@ -123,10 +123,10 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
 
     return (
         <div className="form-control">
-            <span className="label-text">NFT</span>
 
-            <button className="btn" onClick={() => document.getElementById('nft_search_sell').showModal()}>
-                {(formikData.collection.name) ? formikData.collection.name : "NFT name"}
+
+            <button className="btn justify-start" onClick={() => document.getElementById('nft_search_sell').showModal()}>
+                {(formikData.collection.name) ? formikData.collection.name : "select collection"}
                 <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>
             </button>
 
@@ -169,8 +169,6 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>
                 </form>
-
-
             </dialog>
 
 

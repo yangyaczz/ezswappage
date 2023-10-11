@@ -8,12 +8,23 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
     const displayFrame = () => {
         if (!formikData.selectIds.length) {
             return <div>
-                your tokenId
+                select item
             </div>
         }
 
+
+        return <div>
+            amount
+        </div>
+
+
         if (formikData.collection.type === "ERC721") {
-            return <div className='flex '>
+
+            return <div>
+                amount
+            </div>
+
+            return <div className='flex'>
                 tokenId: {formikData.selectIds.map((id, index) => (<div className='mr-1' key={index}>
                     {id}
                 </div>))}
@@ -71,14 +82,15 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
 
     return (
         <div className="form-control">
-            <span className="label-text">Input Amount</span>
 
 
-            <button className="btn" onClick={() => document.getElementById('input_sell').showModal()}>
-                {displayFrame()}
-                <div>
+
+            <button className="btn justify-between" onClick={() => document.getElementById('input_sell').showModal()}>
+                <div className='flex justify-start items-center space-x-2'>
+                    {displayFrame()}
                     <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>
                 </div>
+                <div className='justify-end'>{formikData.selectIds.length}</div>
             </button>
 
             <dialog id="input_sell" className="modal">
@@ -110,6 +122,9 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
 
 
             </dialog>
+
+
+
         </div>
     )
 }

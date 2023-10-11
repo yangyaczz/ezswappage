@@ -47,12 +47,15 @@ const TokenSearch = ({ formikData, owner, reset23, setToken, setTokenName, setFi
 
     return (
         <div className="form-control">
-            <span className="label-text">Token</span>
 
-
-            <button className="btn" onClick={() => document.getElementById('token_search_sell').showModal()}>
-                {formikData.tokenName ? formikData.tokenName : 'token name'}
-                <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>
+            <button className="btn justify-between" onClick={() => document.getElementById('token_search_sell').showModal()}>
+                <div className='flex justify-start items-center space-x-2'>
+                    <div>
+                        {formikData.tokenName ? formikData.tokenName : 'select token'}
+                    </div>
+                    <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>
+                </div>
+                <div className='justify-end'>{formikData.totalGet ? formikData.totalGet.toFixed(3) : 0}</div>
             </button>
 
             <dialog id="token_search_sell" className="modal">
@@ -74,7 +77,6 @@ const TokenSearch = ({ formikData, owner, reset23, setToken, setTokenName, setFi
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>
                 </form>
-
 
             </dialog>
 

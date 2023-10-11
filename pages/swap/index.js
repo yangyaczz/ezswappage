@@ -131,65 +131,63 @@ const Swap = () => {
   }
   return (
     <div className='flex min-h-screen bg-base-200 items-center justify-center'>
-      <div className="card flex-shrink-0 w-full max-w-5xl shadow-2xl bg-base-100 ">
-        <div className="card-body">
-
-          <Slippage />
-
-          <div className='flex flex-row items-center justify-center'>
-            <div className='space-y-5'>
-
-              <NFTSearch
-                formikData={formik.values}
-                owner={owner}
-                reset123={reset123}
-                setCollection={(value) => { formik.setFieldValue('collection', value) }}
-                setUserCollection={(value) => { formik.setFieldValue('userCollection', value) }}
-                setPairs={(value) => { formik.setFieldValue('pairs', value) }}
-                setTokens={(value) => { formik.setFieldValue('tokens', value) }}
-                setTokensName={(value) => { formik.setFieldValue('tokensName', value) }}
-
-                setToken={(value) => { formik.setFieldValue('token', value) }}
-                setTokenName={(value) => { formik.setFieldValue('tokenName', value) }}
-                setFilterPairs={(value) => { formik.setFieldValue('filterPairs', value) }}
-                setSwapMode={(value) => { formik.setFieldValue('swapMode', value) }}
-              />
-
-              <TokenSearch
-                formikData={formik.values}
-                owner={owner}
-                reset23={reset23}
-                setToken={(value) => { formik.setFieldValue('token', value) }}
-                setTokenName={(value) => { formik.setFieldValue('tokenName', value) }}
-                setFilterPairs={(value) => { formik.setFieldValue('filterPairs', value) }}
-                setSwapMode={(value) => { formik.setFieldValue('swapMode', value) }}
-              />
-            </div>
+      <div className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100 items-center">
+        <div className="card-body w-2/3 space-y-6">
 
 
-            <SwapButton
+          <div className='space-y-2'>
+            <span className="font-bold text-sm">NFT</span>
+            <NFTSearch
               formikData={formik.values}
               owner={owner}
+              reset123={reset123}
+              setCollection={(value) => { formik.setFieldValue('collection', value) }}
+              setUserCollection={(value) => { formik.setFieldValue('userCollection', value) }}
+              setPairs={(value) => { formik.setFieldValue('pairs', value) }}
+              setTokens={(value) => { formik.setFieldValue('tokens', value) }}
+              setTokensName={(value) => { formik.setFieldValue('tokensName', value) }}
+
+              setToken={(value) => { formik.setFieldValue('token', value) }}
+              setTokenName={(value) => { formik.setFieldValue('tokenName', value) }}
+              setFilterPairs={(value) => { formik.setFieldValue('filterPairs', value) }}
+              setSwapMode={(value) => { formik.setFieldValue('swapMode', value) }}
             />
 
-
-            <div className='space-y-5'>
-
-              <InputAmount
-                formikData={formik.values}
-                setSelectIds={(value) => { formik.setFieldValue('selectIds', value) }}
-                setTotalGet={(value) => { formik.setFieldValue('totalGet', value) }}
-                setTupleEncode={(value) => { formik.setFieldValue('tupleEncode', value) }}
-                setIsExceeded={(value) => { formik.setFieldValue('isExceeded', value) }}
-              />
-
-              <OutputAmount
-                formikData={formik.values}
-              />
-            </div>
+            <InputAmount
+              formikData={formik.values}
+              setSelectIds={(value) => { formik.setFieldValue('selectIds', value) }}
+              setTotalGet={(value) => { formik.setFieldValue('totalGet', value) }}
+              setTupleEncode={(value) => { formik.setFieldValue('tupleEncode', value) }}
+              setIsExceeded={(value) => { formik.setFieldValue('isExceeded', value) }}
+            />
           </div>
+
+          <div className='flex justify-center'>
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+          </div>
+
+
+          <div className='space-y-2'>
+            <div className="font-bold text-sm">Token</div>
+            <TokenSearch
+              formikData={formik.values}
+              owner={owner}
+              reset23={reset23}
+              setToken={(value) => { formik.setFieldValue('token', value) }}
+              setTokenName={(value) => { formik.setFieldValue('tokenName', value) }}
+              setFilterPairs={(value) => { formik.setFieldValue('filterPairs', value) }}
+              setSwapMode={(value) => { formik.setFieldValue('swapMode', value) }}
+            />
+          </div>
+
+          <SwapButton
+            formikData={formik.values}
+            owner={owner}
+          />
+
         </div>
       </div>
+
     </div>
   )
 }

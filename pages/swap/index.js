@@ -109,6 +109,7 @@ const Swap = () => {
 
   const reset2 = () => {
     formik.setFieldValue('token', '')
+    formik.setFieldValue('tokenName', '')
     formik.setFieldValue('filterPairs', '')
     formik.setFieldValue('swapMode', '')
   }

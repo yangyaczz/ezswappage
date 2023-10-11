@@ -5,16 +5,23 @@ import { useNetwork, useContractRead, useAccount } from 'wagmi'
 
 import ERC721EnumABI from '../../pages/data/ABI/ERC721Enum.json'
 import ERC1155ABI from '../../pages/data/ABI/ERC1155.json'
-
-
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import styles from './index.module.scss'
 
 const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollection, setPairs, setTokens, }) => {
 
 
     const [searchQuery, setSearchQuery] = useState('');
+    const [age, setAge] = useState('');
 
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value.toLowerCase());
+    };
+    const handleChange = (event) => {
+        setAge(event.target.value);
     };
 
     const filteredNFTs = formikData.golbalParams.recommendNFT
@@ -92,16 +99,43 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
         }
     })
 
-
-
     return (
         <div className="form-control">
-            <span className="label-text">NFT</span>
+            {/*<span className="label-text">NFT</span>*/}
+            <FormControl sx={{ m: 1, minWidth: 400 }} className={styles.selectItem}>
+                <Select
+                    value={age}
+                    onChange={handleChange}
+                    displayEmpty
+                    inputProps={{ 'aria-label': 'Without label' }}
+                    className={styles.selectItem}
+                    sx={{color:'white',background: '#06080F'}}
+                    renderValue={(selected) => {
+                        console.log(filteredNFTs)
+                        if (selected.length === 0) {
+                            return <em>Select Collection</em>;
+                        }
+                        for (let i = 0; i < filteredNFTs.length; i++) {
+                            if (filteredNFTs[i].address === selected) {
+                                return <div className={styles.selectedStyle}><img className={styles.logoStyle} src='/logo.svg' alt=""/>&#20;&#20;{filteredNFTs[i].name}</div>
+                            }
+                        }
+                        return selected;
+                    }}
+                >
+                    <MenuItem disabled value="">
+                        <em>Select Collection</em>
+                    </MenuItem>
+                    {filteredNFTs.map((nft, index) => (
+                        <MenuItem value={nft.address} className={styles.selectItem}><img className={styles.logoStyle} src="/logo.svg" alt=""/>{nft.name}</MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
 
-            <button className="btn" onClick={() => document.getElementById('nft_search_sell').showModal()}>
-                {(formikData.collection.name) ? formikData.collection.name : "NFT name"}
-                <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>
-            </button>
+            {/*<button className="btn" onClick={() => document.getElementById('nft_search_sell').showModal()}>*/}
+            {/*    {(formikData.collection.name) ? formikData.collection.name : "Select Collection"}*/}
+            {/*    <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>*/}
+            {/*</button>*/}
 
             <dialog id="nft_search_sell" className="modal">
                 <div className="modal-box">

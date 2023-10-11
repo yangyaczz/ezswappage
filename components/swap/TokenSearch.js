@@ -1,4 +1,8 @@
 import React, { useState } from 'react'
+import styles from "./index.module.scss";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
 
 const TokenSearch = ({ formikData, owner, reset23, setToken, setFilterPairs, setSwapMode }) => {
 
@@ -8,7 +12,7 @@ const TokenSearch = ({ formikData, owner, reset23, setToken, setFilterPairs, set
 
 
         // filter pool
-        let filteredData = formikData.pairs.filter(item => item.owner.toLowerCase() !== owner.toLowerCase()); 
+        let filteredData = formikData.pairs.filter(item => item.owner.toLowerCase() !== owner.toLowerCase());
         if (token === 'ETH') {
             filteredData = filteredData.filter(item => item.token === null);
         } else {
@@ -41,6 +45,11 @@ const TokenSearch = ({ formikData, owner, reset23, setToken, setFilterPairs, set
             setSwapMode('ERROR-SWAPMODE')
         }
     }
+    const [age, setAge] = useState('');
+
+    const handleChange = (event) => {
+        setAge(event.target.value);
+    };
 
 
     const displayDialog = () => {
@@ -74,13 +83,32 @@ const TokenSearch = ({ formikData, owner, reset23, setToken, setFilterPairs, set
 
     return (
         <div className="form-control">
-            <span className="label-text">Token</span>
+            {/*<span className="label-text">Token</span>*/}
+            <FormControl sx={{ m: 1, minWidth: 400 }} className={styles.selectItem}>
+                <Select
+                    value={age}
+                    onChange={handleChange}
+                    displayEmpty
+                    inputProps={{ 'aria-label': 'Without label' }}
+                    className={styles.selectItem}
+                    sx={{color:'white',background: '#06080F'}}
+                    renderValue={(selected) => {
+                        if (selected.length === 0) {
+                            return <em>Select Items</em>;
+                        }
+                        return selected;
+                    }}
+                >
+                    <MenuItem disabled value="">
+                        <em>Select Items</em>
+                    </MenuItem>
+                </Select>
+            </FormControl>
 
-
-            <button className="btn" onClick={() => document.getElementById('token_search_sell').showModal()}>
-                {formikData.token ? formikData.token : "token name"}
-                <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>
-            </button>
+            {/*<button className="btn" onClick={() => document.getElementById('token_search_sell').showModal()}>*/}
+            {/*    {formikData.token ? formikData.token : "Select Items"}*/}
+            {/*    <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>*/}
+            {/*</button>*/}
 
             <dialog id="token_search_sell" className="modal">
                 <div className="modal-box">

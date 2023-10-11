@@ -1,22 +1,20 @@
-import React, { useState } from 'react'
-import { ethers } from 'ethers'
+import React, {useState} from 'react'
+import {ethers} from 'ethers'
 
-import { ConnectButton } from '@rainbow-me/rainbowkit'
-import { useNetwork, useContractRead, useContractReads, useContractWrite, useAccount, erc20ABI } from 'wagmi'
+import {ConnectButton} from '@rainbow-me/rainbowkit'
+import {useNetwork, useContractRead, useContractReads, useContractWrite, useAccount, erc20ABI} from 'wagmi'
 import ERC721EnumABI from '../../pages/data/ABI/ERC721Enum.json'
 import ERC1155ABI from '../../pages/data/ABI/ERC1155.json'
 
 import RouterABI from '../../pages/data/ABI/Router.json'
 
 
-
-
-const SwapButton = ({ formikData, owner }) => {
+const SwapButton = ({formikData, owner}) => {
 
     const [nftApproval, setNftApproval] = useState(false)
 
 
-    const { data: nftApprovalData } = useContractRead({
+    const {data: nftApprovalData} = useContractRead({
         address: formikData.collection.address,
         abi: ERC721EnumABI,
         functionName: 'isApprovedForAll',
@@ -31,7 +29,7 @@ const SwapButton = ({ formikData, owner }) => {
     })
 
 
-    const { data: approveNFTData, write: approveNFT } = useContractWrite({
+    const {data: approveNFTData, write: approveNFT} = useContractWrite({
         address: formikData.collection.address,
         abi: ERC721EnumABI,
         functionName: 'setApprovalForAll',
@@ -39,7 +37,7 @@ const SwapButton = ({ formikData, owner }) => {
     })
 
 
-    const { data: robustSwapNFTsForTokenData, write: swapNFTToToken } = useContractWrite({
+    const {data: robustSwapNFTsForTokenData, write: swapNFTToToken} = useContractWrite({
         address: formikData.golbalParams.router,
         abi: RouterABI,
         functionName: 'robustSwapNFTsForToken',
@@ -50,16 +48,13 @@ const SwapButton = ({ formikData, owner }) => {
     const buttonText = () => {
         let text
 
-
         if (!formikData.collection.address || !formikData.token) {
-            text = 'select nft and token first'
-            return (<div>
-                {text}
-            </div>)
+            text = 'Select a nft'
+            return (<div>{text}</div>)
         }
 
         if (!nftApproval) {
-            text = 'approve your nft to router'
+            text = 'approve'
             return (
                 <button onClick={() => approveNFT()}>
                     {text}
@@ -82,16 +77,14 @@ const SwapButton = ({ formikData, owner }) => {
         )
     }
 
-
     if (!owner) return (
-        <div className='mx-6 p-12'>
-            <ConnectButton />
+        <div className='mx-6 p-6'>
+            <ConnectButton/>
         </div>
     )
 
-
     return (
-        <div className="btn mx-6 p-12">
+        <div className="btn mx-6 p-6">
             {buttonText()}
         </div>
     )

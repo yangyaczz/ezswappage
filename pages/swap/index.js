@@ -130,12 +130,9 @@ const Swap = () => {
     <div className='flex min-h-screen items-center justify-center'>
       <div className="card flex-shrink-0 w-full max-w-5xl shadow-2xl bg-base-100 ">
         <div className="card-body">
-
-          <Slippage />
-
+          {/*<Slippage />*/}
           <div className='flex flex-row items-center justify-center'>
-            <div className='space-y-5'>
-
+            <div className={styles.containDiv}>
               <NFTSearch
                 formikData={formik.values}
                 owner={owner}
@@ -154,29 +151,31 @@ const Swap = () => {
                 setFilterPairs={(value) => { formik.setFieldValue('filterPairs', value) }}
                 setSwapMode={(value) => { formik.setFieldValue('swapMode', value) }}
               />
-            </div>
-
-
-            <SwapButton
-              formikData={formik.values}
-              owner={owner}
-            />
-
-
-            <div className='space-y-5'>
-
-              <InputAmount
-                formikData={formik.values}
-                setSelectIds={(value) => { formik.setFieldValue('selectIds', value) }}
-                setTotalGet={(value) => { formik.setFieldValue('totalGet', value) }}
-                setTupleEncode={(value) => { formik.setFieldValue('tupleEncode', value) }}
-                setIsExceeded={(value) => { formik.setFieldValue('isExceeded', value) }}
-              />
-
+              <div>
+                <img src="/exchange.svg" alt=""/>
+              </div>
               <OutputAmount
-                formikData={formik.values}
+                  formikData={formik.values}
               />
+              <div>
+              <SwapButton
+                  formikData={formik.values}
+                  owner={owner}
+              />
+              </div>
             </div>
+
+            {/*<div className='space-y-5'>*/}
+
+            {/*  <InputAmount*/}
+            {/*    formikData={formik.values}*/}
+            {/*    setSelectIds={(value) => { formik.setFieldValue('selectIds', value) }}*/}
+            {/*    setTotalGet={(value) => { formik.setFieldValue('totalGet', value) }}*/}
+            {/*    setTupleEncode={(value) => { formik.setFieldValue('tupleEncode', value) }}*/}
+            {/*    setIsExceeded={(value) => { formik.setFieldValue('isExceeded', value) }}*/}
+            {/*  />*/}
+            {/*</div>*/}
+
           </div>
         </div>
       </div>

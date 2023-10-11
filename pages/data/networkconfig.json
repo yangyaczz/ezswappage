@@ -34,6 +34,16 @@
                 "name": "ts1155tk1",
                 "tokenId1155": "1"
             }
+        ],
+        "recommendERC20": [
+            {
+                "address": "ETH",
+                "name": "ETH"
+            },
+            {
+                "address": "0x0B20E82DAC9dCc7b9D082C2Abb32AEf2D33a42D6",
+                "name": "tsez20"
+            }
         ]
     },
     "169": {

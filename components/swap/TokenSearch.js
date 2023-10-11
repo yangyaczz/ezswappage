@@ -9,7 +9,6 @@ import { useContractRead } from 'wagmi'
 
 const TokenSearch = ({ formikData, owner, reset23, setToken, setTokenName, setFilterPairs, setSwapMode }) => {
 
-    console.log('formikData', formikData)
     const handleTokenClick = (token) => {
         reset23()
         setToken(token)
@@ -133,10 +132,10 @@ const TokenSearch = ({ formikData, owner, reset23, setToken, setTokenName, setFi
             {/*{formikData}*/}
 
 
-            <button className="btn" onClick={() => document.getElementById('token_search_sell').showModal()}>
-                {formikData.token ? (formikData.token === 'ETH' ? 'ETH' : formikData.tokenName) : 'token name'}
-                <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>
-            </button>
+            {/*<button className="btn" onClick={() => document.getElementById('token_search_sell').showModal()}>*/}
+            {/*    {formikData.token ? (formikData.token === 'ETH' ? 'ETH' : formikData.tokenName) : 'token name'}*/}
+            {/*    <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>*/}
+            {/*</button>*/}
 
             {/*<FormControl sx={{ m: 1, width: 300 }}>*/}
             {/*    <Select*/}

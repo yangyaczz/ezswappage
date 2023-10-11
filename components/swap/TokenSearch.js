@@ -4,8 +4,10 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import {Box, Chip, OutlinedInput} from "@mui/material";
+import { erc20ABI } from 'wagmi'
+import { useContractRead } from 'wagmi'
 
-const TokenSearch = ({ formikData, owner, reset23, setToken, setFilterPairs, setSwapMode }) => {
+const TokenSearch = ({ formikData, owner, reset23, setToken, setTokenName, setFilterPairs, setSwapMode }) => {
 
     console.log('formikData', formikData)
     const handleTokenClick = (token) => {
@@ -83,6 +85,18 @@ const TokenSearch = ({ formikData, owner, reset23, setToken, setFilterPairs, set
     }
 
 
+    const { data: erc20Name } = useContractRead({
+        address: (formikData.token !== '' ? (formikData.token === "ETH" ? '' : formikData.token) : ''),
+        abi: erc20ABI,
+        functionName: 'name',
+        args: [],
+        watch: false,
+        onSuccess(data) {
+            setTokenName(data)
+        }
+    })
+
+
     return (
         <div className="form-control">
             {/*<span className="label-text">Token</span>*/}
@@ -119,6 +133,10 @@ const TokenSearch = ({ formikData, owner, reset23, setToken, setFilterPairs, set
             {/*{formikData}*/}
 
 
+            <button className="btn" onClick={() => document.getElementById('token_search_sell').showModal()}>
+                {formikData.token ? (formikData.token === 'ETH' ? 'ETH' : formikData.tokenName) : 'token name'}
+                <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>
+            </button>
 
             {/*<FormControl sx={{ m: 1, width: 300 }}>*/}
             {/*    <Select*/}

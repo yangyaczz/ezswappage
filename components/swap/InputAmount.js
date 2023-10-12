@@ -3,7 +3,7 @@ import React from 'react'
 import Input721 from './swapUtils/Input721';
 import Input1155 from './swapUtils/Input1155';
 
-const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded }) => {
+const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded,setIsBanSelect }) => {
 
     const displayFrame = () => {
         if (!formikData.selectIds.length) {
@@ -62,6 +62,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                     setTotalGet={setTotalGet}
                     setTupleEncode={setTupleEncode}
                     setIsExceeded={setIsExceeded}
+                    setIsBanSelect={setIsBanSelect}
                 />
             )
         }

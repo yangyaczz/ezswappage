@@ -2,11 +2,11 @@ import React from 'react'
 import { BuyPoolLiner, TradePoolLiner, BuyPoolExp, TradePoolExp } from '../../utils/calculate'
 import { ethers } from 'ethers';
 
-const Input721 = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded }) => {
+const Input721 = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded, setIsBanSelect }) => {
 
     const update721SellToPairs = (tokenId, pairs) => {
 
-        let protocolFee = 5000000000000000   // 0.5%  get from smartcontract 
+        let protocolFee = 5000000000000000   // 0.5%  get from smartcontract
         let dec = 1e18
         let maxPrice = 0
         let maxPriceIndex = -1
@@ -57,7 +57,7 @@ const Input721 = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
                 ethers.utils.parseEther(pairs[maxPriceIndex].userGetPrice.toString()).mul(ethers.BigNumber.from('100')).div(ethers.BigNumber.from('100'))
             ]
         } else {
-            console.log('nft execced amount')
+            // console.log('nft execced amount')
         }
     }
 
@@ -96,8 +96,6 @@ const Input721 = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
 
         setTupleEncode(tupleEncode)
         setTotalGet(totalGet)
-        console.log(totalGet)
-        console.log(tupleEncode)
         ///////////////////////////////////////////////////////////////
 
         // check if is execeeded 
@@ -105,6 +103,27 @@ const Input721 = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
             setIsExceeded(true)
         } else {
             setIsExceeded(false)
+        }
+
+        ///////////////////////////////////////////////////////////////
+        // check if ban
+        let newSidsPlus = new Array(newSids.length + 1).fill(0)
+        let pairs2 = JSON.parse(JSON.stringify(formikData.filterPairs))
+        newSidsPlus.forEach(id => {
+            update721SellToPairs(id, pairs2)
+        })
+
+        let IdsPlusAmount = 0
+        pairs2.forEach(pair => {
+            if (pair.tuple) {
+                IdsPlusAmount += pair.tokenIds.length
+            }
+        })
+
+        if (newSidsPlus.length > IdsPlusAmount) {
+            setIsBanSelect(true)
+        } else {
+            setIsBanSelect(false)
         }
     }
 
@@ -117,18 +136,27 @@ const Input721 = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
         return <div>you dont have this nft</div>
     }
 
-    return <div className='grid grid-cols-5 gap-4'>
-        {initialSquares.map((square, index) => (
-            <div
-                key={index}
-                className={`flex items-center justify-center w-20 h-20 ${(formikData.selectIds.includes(square)) ? 'bg-gray-400' : 'bg-white'} cursor-pointer`}
-                onClick={() => { toggleSelected(square) }
-                }
-            >
-                {square}
-            </div>
-        ))}
-    </div>
+    return (
+        <div className='grid grid-cols-5 gap-4'>
+            {initialSquares.map((square, index) => (
+                <div
+                    key={index}
+                    className={`
+                        flex items-center justify-center w-20 h-20 cursor-pointer
+                        ${(formikData.selectIds.includes(square)) ? 'bg-gray-400' : formikData.isBanSelect ? 'bg-black' : 'bg-white'} 
+                    `}
+                    onClick={() => {
+                        if ((formikData.selectIds.includes(square)) || !formikData.isBanSelect) {
+                            toggleSelected(square);
+                        }
+                    }}
+                >
+                    {square}
+                </div>
+            ))}
+        </div>
+    );
+
 }
 
 export default Input721

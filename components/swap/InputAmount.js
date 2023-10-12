@@ -9,10 +9,12 @@ import MenuItem from "@mui/material/MenuItem";
 import {BuyPoolExp, BuyPoolLiner, TradePoolExp, TradePoolLiner} from "../utils/calculate";
 import {ethers} from "ethers";
 import {Box, Chip, OutlinedInput} from "@mui/material";
+import { useTheme } from '@mui/material/styles';
+
 
 const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded }) => {
     const [personName, setPersonName] = React.useState([]);
-
+    const theme = useTheme();
 
     // const displayFrame = () => {
     //     if (!formikData.selectIds.length) {
@@ -203,6 +205,14 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
             },
         },
     };
+    function getStyles(name, personName, theme) {
+        return {
+            fontWeight:
+                personName.indexOf(name) === -1
+                    ? theme.typography.fontWeightRegular
+                    : theme.typography.fontWeightMedium,
+        };
+    }
 
     return (
         <div className="form-control">
@@ -219,6 +229,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                     className={styles.selectItem}
                     sx={{color:'white',background: '#06080F'}}
                     renderValue={(selected) => {
+                        console.log('selectedselected',selected)
                         if (selected.length === 0) {
                             return <em>Select Items</em>;
                         }
@@ -237,7 +248,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                     </MenuItem>
                     {formikData?.userCollection?.tokenIds721 != '' ?
                         formikData.userCollection.tokenIds721.map((nft, index) => (
-                            <MenuItem key={nft} value={nft} className={styles.selectItem}><img className={styles.logoStyle} src="/logo.svg" alt=""/>{nft}</MenuItem>
+                            <MenuItem style={getStyles(name, personName, theme)} key={nft} value={nft} className={styles.selectItem}><img className={styles.logoStyle} src="/logo.svg" alt=""/>{nft}</MenuItem>
                         )): null}
                 </Select>
             </FormControl>

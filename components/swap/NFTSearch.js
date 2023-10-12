@@ -99,37 +99,6 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                         setToken(token)
                         setTokenName(tokensNames[0])
 
-                        // filter pool
-                        filteredData = filteredData.filter(item => item.owner.toLowerCase() !== owner.toLowerCase());
-                        if (token === 'ETH') {
-                            filteredData = filteredData.filter(item => item.token === null);
-                        } else {
-                            filteredData = filteredData.filter(item => item.token === token);
-                        }
-
-                        // rebuild pair info
-                        filteredData = filteredData.map(item => {
-                            return {
-                                ...item,
-                                tokenBalance: item.ethBalance === null ? item.tokenBalance : item.ethBalance,   // this pool token balance, vaild or not
-                                tokenIds: [],  // user sell tokenId in this pool
-                                userGetPrice: '', // user can get the price from this pool
-                            }
-                        })
-                        setFilterPairs(filteredData)
-
-                        if (formikData.collection.type === 'ERC721' && token === 'ETH') {
-                            setSwapMode('ERC721-ETH')
-                        } else if (formikData.collection.type === 'ERC721' && token !== 'ETH') {
-                            setSwapMode('ERC721-ERC20')
-                        } else if (formikData.collection.type === 'ERC1155' && token === 'ETH') {
-                            setSwapMode('ERC1155-ETH')
-                        } else if (formikData.collection.type === 'ERC1155' && token !== 'ETH') {
-                            setSwapMode('ERC1155-ERC20')
-                        } else {
-                            setSwapMode('ERROR-SWAPMODE')
-                        }
-                        console.log('formikData', formikData)
                         multiSetFilterPairMode(formikData, filteredData, owner, token, setFilterPairs, setSwapMode)
                     }
                 }
@@ -169,18 +138,6 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
             })
         }
     })
-
-    const { data: erc20Name } = useContractRead({
-        address: (formikData.token !== '' ? (formikData.token === "ETH" ? '' : formikData.token) : ''),
-        abi: erc20ABI,
-        functionName: 'name',
-        args: [],
-        watch: false,
-        onSuccess(data) {
-            setTokenName(data)
-        }
-    })
-
     return (
         <div className="form-control">
             {/*<span className="label-text">NFT</span>*/}

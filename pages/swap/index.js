@@ -160,7 +160,7 @@ const Swap = () => {
                       setTupleEncode={(value) => { formik.setFieldValue('tupleEncode', value) }}
                       setIsExceeded={(value) => { formik.setFieldValue('isExceeded', value) }}
                     />
-                  <div>
+                  <div className={styles.exchangeIcon}>
                     <img src="/exchange.svg" alt=""/>
                   </div>
                   <div className='space-y-2'>
@@ -175,7 +175,7 @@ const Swap = () => {
                         setSwapMode={(value) => { formik.setFieldValue('swapMode', value) }}
                     />
                   </div>
-                  <div>
+                  <div className={styles.swapButton}>
                   <SwapButton formikData={formik.values} owner={owner}/>
                   </div>
                 </div>

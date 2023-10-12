@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import Input721 from './swapUtils/Input721';
 import Input1155 from './swapUtils/Input1155';
@@ -147,7 +147,6 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
             // On autofill we get a stringified value.
             typeof value === 'string' ? value.split(',') : value,
         );
-        console.log('idididid',id)
         id=id.props.value
         // add new id to formikdata
         let newSids
@@ -161,7 +160,6 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
 
         ///////////////////////////////////////////////////////////////
 
-        console.log('formikDataformikDataformikDataformikData',formikData)
         let pairs = JSON.parse(JSON.stringify(formikData.filterPairs))
 
         newSids.forEach((id) => {
@@ -214,6 +212,10 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
         };
     }
 
+    useEffect(() => {
+        setPersonName([])
+    }, [formikData?.userCollection?.tokenIds721,formikData.tokenName]);
+
     return (
         <div className="form-control">
             {/*<span className="label-text">Token</span>*/}
@@ -229,15 +231,10 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                     className={styles.selectItem}
                     sx={{color:'white',background: '#06080F'}}
                     renderValue={(selected) => {
-                        console.log('selectedselected',selected)
                         if (selected.length === 0) {
                             return <em>Select Items</em>;
                         }
-                        return  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                                {selected.map((value) => (
-                                    <Chip key={value} label={value} />
-                                ))}
-                            </Box>
+                        return  <em className={styles.nftSelectedText}><img className={styles.logoStyle} src="/logo.svg" alt=""/><span>{selected.length}</span></em>
                         // return selected;
                     }}
                     MenuProps={MenuProps}

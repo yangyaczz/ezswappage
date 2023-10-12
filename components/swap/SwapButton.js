@@ -21,7 +21,6 @@ const SwapButton = ({formikData, owner}) => {
         args: [owner, formikData.golbalParams.router],
         watch: true,
         onSuccess(data) {
-            console.log('nft approval', data)
             if (data) {
                 setNftApproval(true)
             }

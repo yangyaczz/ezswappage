@@ -38,10 +38,8 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
     const handleNFTClick = (event,nft) => {
         reset123()
         setAge(event.target.value);
-        console.log('handleNFTClick nft',nft,nft.props.value)
         for (let i = 0; i < filteredNFTs.length; i++) {
             if (filteredNFTs[i].address === nft.props.value) {
-                console.log('fdafaadad')
                 setCollection(filteredNFTs[i])
                 break
             }
@@ -49,7 +47,6 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
     }
 
     useEffect(() => {
-        console.log('formikData之前的哒哒哒哒哒哒', formikData)
         const fetchData = async () => {
             if (formikData.golbalParams.networkName && formikData.collection.address) {
                 const params = {
@@ -69,7 +66,6 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
 
                 if (data.success) {
                     const pairsList = data.data
-                    console.log('pairsListpairsList',pairsList)
                     let filteredData = pairsList.filter(item => item.type === 'buy' || item.type === 'trade');
                     setPairs(filteredData)
 
@@ -84,7 +80,6 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                         return mappingObject ? mappingObject.name : null;
                     });
 
-                    console.log(tokensNames)
 
                     setTokensName(tokensNames)
 

@@ -1,4 +1,5 @@
 import InputAmount from '@/components/swap/InputAmount'
+import NFT1155 from '@/components/swap/NFT1155'
 import OutputAmount from '@/components/swap/OutputAmount'
 import NFTSearch from '@/components/swap/NFTSearch'
 import Slippage from '@/components/swap/Slippage'
@@ -66,6 +67,7 @@ const Swap = () => {
 
   // 0 => 1 , reset 2 3
   useEffect(() => {
+    console.log('formik',formik)
     setIsMounted(true);
     reset123()
     if (chain) {
@@ -145,7 +147,7 @@ const Swap = () => {
                     reset123={reset123}
                     setCollection={(value) => { formik.setFieldValue('collection', value) }}
                     setUserCollection={(value) => { formik.setFieldValue('userCollection', value) }}
-                    setPairs={(value) => { console.log('value........value',value);formik.setFieldValue('pairs', value) }}
+                    setPairs={(value) => { formik.setFieldValue('pairs', value) }}
                     setTokens={(value) => { formik.setFieldValue('tokens', value) }}
                     setTokensName={(value) => { formik.setFieldValue('tokensName', value) }}
                     setToken={(value) => { formik.setFieldValue('token', value) }}
@@ -153,13 +155,20 @@ const Swap = () => {
                     setFilterPairs={(value) => { formik.setFieldValue('filterPairs', value) }}
                     setSwapMode={(value) => { formik.setFieldValue('swapMode', value) }}
                   />
-                    <InputAmount
+
+                  {formik.values.collection.type === '' || formik.values.collection.type === "ERC721"?<InputAmount
                       formikData={formik.values}
                       setSelectIds={(value) => { formik.setFieldValue('selectIds', value) }}
                       setTotalGet={(value) => { formik.setFieldValue('totalGet', value) }}
                       setTupleEncode={(value) => { formik.setFieldValue('tupleEncode', value) }}
                       setIsExceeded={(value) => { formik.setFieldValue('isExceeded', value) }}
-                    />
+                    />:<NFT1155
+                      formikData={formik.values}
+                      setSelectIds={(value) => { formik.setFieldValue('selectIds', value) }}
+                      setTotalGet={(value) => { formik.setFieldValue('totalGet', value) }}
+                      setTupleEncode={(value) => { formik.setFieldValue('tupleEncode', value) }}
+                      setIsExceeded={(value) => { formik.setFieldValue('isExceeded', value) }}
+                  />}
                   <div className={styles.exchangeIcon}>
                     <img src="/exchange.svg" alt=""/>
                   </div>

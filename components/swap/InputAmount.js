@@ -218,7 +218,6 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
 
     return (
         <div className="form-control">
-            {/*<span className="label-text">Token</span>*/}
             <FormControl sx={{ m: 1, minWidth: 400 }} className={styles.selectItem}>
                 <Select
                     labelId="demo-multiple-chip-label"
@@ -238,7 +237,6 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                         // return selected;
                     }}
                     MenuProps={MenuProps}
-
                 >
                     <MenuItem disabled value="">
                         <em>Select Items</em>

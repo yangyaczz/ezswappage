@@ -7,6 +7,7 @@ import ERC721EnumABI from '../../pages/data/ABI/ERC721Enum.json'
 import ERC1155ABI from '../../pages/data/ABI/ERC1155.json'
 
 import RouterABI from '../../pages/data/ABI/Router.json'
+import {Alert, AlertTitle, Box, CircularProgress, Snackbar} from "@mui/material";
 
 
 const SwapButton = ({formikData, owner}) => {
@@ -28,7 +29,7 @@ const SwapButton = ({formikData, owner}) => {
     })
 
 
-    const {data: approveNFTData, write: approveNFT} = useContractWrite({
+    const {data: approveNFTData,isLoading:approveLoading,isSuccess:approveSuccess, write: approveNFT} = useContractWrite({
         address: formikData.collection.address,
         abi: ERC721EnumABI,
         functionName: 'setApprovalForAll',
@@ -36,13 +37,26 @@ const SwapButton = ({formikData, owner}) => {
     })
 
 
-    const {data: robustSwapNFTsForTokenData, write: swapNFTToToken} = useContractWrite({
+    const {data: robustSwapNFTsForTokenData,isLoading,isSuccess, write: swapNFTToToken} = useContractWrite({
         address: formikData.golbalParams.router,
         abi: RouterABI,
         functionName: 'robustSwapNFTsForToken',
         args: [formikData.tupleEncode, owner, (Date.parse(new Date()) / 1000 + 60 * 3600)],
     })
 
+    const [state, setState] = React.useState({
+        open: false,
+        vertical: 'top',
+        horizontal: 'right',
+    });
+    const { vertical, horizontal, open } = state;
+
+    const handleClick = (newState) => () => {
+        setState({ ...newState, open: true });
+    };
+    const handleClose = () => {
+        setState({ ...state, open: false });
+    };
 
     const buttonText = () => {
         let text
@@ -56,7 +70,9 @@ const SwapButton = ({formikData, owner}) => {
             text = 'approve'
             return (
                 <button onClick={() => approveNFT()}>
-                    {text}
+                    {approveLoading?<Box sx={{ display: 'flex' }}>
+                        <CircularProgress />
+                    </Box>:text}
                 </button>
             )
         }
@@ -70,9 +86,13 @@ const SwapButton = ({formikData, owner}) => {
 
         text = 'swap'
         return (
-            <button onClick={() => swapNFTToToken()}>
-                {text}
+            <div>
+                <button onClick={() => swapNFTToToken()}>
+                {isLoading?<Box sx={{ display: 'flex' }}>
+                    <CircularProgress />
+                </Box>:text}
             </button>
+            </div>
         )
     }
 

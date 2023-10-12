@@ -136,7 +136,7 @@ const Swap = () => {
 
 
           <div className='space-y-2'>
-            <span className="font-bold text-sm">NFT</span>
+            <span className="font-bold text-sm">Collection</span>
             <NFTSearch
               formikData={formik.values}
               owner={owner}
@@ -163,7 +163,7 @@ const Swap = () => {
           </div>
 
           <div className='flex justify-center'>
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
           </div>
 
 

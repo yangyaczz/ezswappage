@@ -21,7 +21,7 @@ const TokenSearch = ({ formikData, owner, reset23, setToken, setTokenName, setFi
     const displayDialog = () => {
 
         if (!formikData.collection.address) {
-            return <div>select nft first</div>
+            return <div>Please select collection first...</div>
         }
 
         if (formikData.collection.address && formikData.pairs === '') {
@@ -29,7 +29,7 @@ const TokenSearch = ({ formikData, owner, reset23, setToken, setTokenName, setFi
         }
 
         if (formikData.collection.address && !formikData.pairs.length) {
-            return <div>this collection dont have pool to swap</div>
+            return <div>This collection have no liquidity...</div>
         }
 
         return (
@@ -60,7 +60,7 @@ const TokenSearch = ({ formikData, owner, reset23, setToken, setTokenName, setFi
 
             <dialog id="token_search_sell" className="modal">
                 <div className="modal-box">
-                    <h3 className="font-bold text-lg">Can Trade Token:</h3>
+                    <h3 className="font-bold text-lg">Token:</h3>
 
 
                     <form method="dialog" className='flex flex-col space-y-2'>
@@ -79,8 +79,6 @@ const TokenSearch = ({ formikData, owner, reset23, setToken, setTokenName, setFi
                 </form>
 
             </dialog>
-
-
         </div>
     )
 }

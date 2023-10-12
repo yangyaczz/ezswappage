@@ -43,7 +43,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
     const displayDialog = () => {
 
         if (!formikData.collection.type || !formikData.token) {
-            return <div>select nft and token first</div>
+            return <div>Select collection and token first...</div>
         }
 
         if (formikData.userCollection.tokenIds721 === '') {
@@ -51,7 +51,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
         }
 
         if (formikData.pairs && formikData.filterPairs.length === 0) {
-            return <div>there is no pool you can swap...</div>
+            return <div>No liquidity for swap...</div> 
         }
 
         if (formikData.collection.type == "ERC721") {
@@ -95,18 +95,18 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
 
             <dialog id="input_sell" className="modal">
                 <div className="modal-box">
-                    <h3 className="font-bold text-lg">TokenId:</h3>
+                    <h3 className="font-bold text-lg">Item:</h3>
 
                     {displayDialog()}
 
                     <div>{formikData.isExceeded && 'The amount of nft is out of range, please reduce it'}</div>
                     <div className="divider"></div>
 
-                    <h3 className="font-bold text-lg">NFT Amount:</h3>
+                    <h3 className="font-bold text-lg">Amount:</h3>
                     {/* <input type="range" min={0} max={initialSquares.length} value={selectedCount} className="range"></input> */}
 
                     <div className="mt-4">
-                        You have select: {formikData.selectIds.length}
+                        You have select {formikData.selectIds.length} and you will get {formikData.totalGet}
                     </div>
 
 

@@ -33,6 +33,18 @@
                 "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
                 "name": "ts1155tk1",
                 "tokenId1155": "1"
+            },
+            {
+                "type": "ERC1155",
+                "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
+                "name": "ts1155tk2",
+                "tokenId1155": "2"
+            },
+            {
+                "type": "ERC1155",
+                "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
+                "name": "ts1155tk3",
+                "tokenId1155": "3"
             }
         ],
         "recommendERC20": [

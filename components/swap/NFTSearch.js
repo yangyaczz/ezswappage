@@ -51,6 +51,11 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                 if (data.success) {
                     const pairsList = data.data
                     let filteredData = pairsList.filter(item => item.type === 'buy' || item.type === 'trade');
+
+                    if (formikData.collection.type == 'ERC1155') {
+                        filteredData = filteredData.filter(item => item.nftId1155 === formikData.collection.tokenId1155);
+                    }
+                    
                     setPairs(filteredData)
 
                     let canTradeToken = [...new Set(filteredData.map(item => item.token))].map(token => token === null ? 'ETH' : token);
@@ -78,6 +83,10 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                         }
                         setToken(token)
                         setTokenName(tokensNames[0])
+
+                        console.log('nftsearchdata:', filteredData)
+                        console.log('formikdata token you ma:', formikData.token)
+
 
                         multiSetFilterPairMode(formikData, filteredData, owner, token, setFilterPairs, setSwapMode)
                     }
@@ -132,21 +141,21 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
 
             <dialog id="nft_search_sell" className="modal">
                 <div className="modal-box">
-                    <h3 className="font-bold text-lg">NFT Contract Address:</h3>
+                    <h3 className="font-bold text-lg">Search Collection:</h3>
                     <div className='input-group'>
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                         </span>
                         <input
                             type="text"
-                            placeholder="NFT Contract Address"
+                            placeholder="NFT Contract Address or Name"
                             className="input input-bordered w-full"
                             value={searchQuery}
                             onChange={handleSearchChange}
                         />
                     </div>
                     <div className="divider"></div>
-                    <h3 className="font-bold text-lg">Collaborative Project:</h3>
+                    <h3 className="font-bold text-lg">Collaborative Collection:</h3>
 
                     <form method="dialog" className='flex flex-col space-y-2'>
                         {filteredNFTs.map((nft, index) => (

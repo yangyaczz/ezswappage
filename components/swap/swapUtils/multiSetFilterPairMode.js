@@ -2,7 +2,7 @@ const multiSetFilterPairMode = (formikData, filteredData, owner, token, setFilte
 
     // filter pool
     filteredData = filteredData.filter(item => item.owner.toLowerCase() !== owner.toLowerCase());
-    if (formikData.token === 'ETH') {
+    if (token === 'ETH') {
         filteredData = filteredData.filter(item => item.token === null);
     } else {
         filteredData = filteredData.filter(item => item.token === token);
@@ -17,6 +17,7 @@ const multiSetFilterPairMode = (formikData, filteredData, owner, token, setFilte
             userGetPrice: '', // user can get the price from this pool
         }
     })
+
     setFilterPairs(filteredData)
 
     if (formikData.collection.type === 'ERC721' && token === 'ETH') {

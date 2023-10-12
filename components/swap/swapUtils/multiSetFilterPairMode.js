@@ -5,7 +5,7 @@ const multiSetFilterPairMode = (formikData, filteredData, owner, token, setFilte
     if (token === 'ETH') {
         filteredData = filteredData.filter(item => item.token === null);
     } else {
-        filteredData = filteredData.filter(item => item.token === token);
+        filteredData = filteredData.filter(item => item.token?.toLowerCase() === token.toLowerCase());
     }
 
     // rebuild pair info

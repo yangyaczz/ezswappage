@@ -69,8 +69,6 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                         return mappingObject ? mappingObject.name : null;
                     });
 
-                    console.log(tokensNames)
-
                     setTokensName(tokensNames)
 
 
@@ -83,10 +81,6 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                         }
                         setToken(token)
                         setTokenName(tokensNames[0])
-
-                        console.log('nftsearchdata:', filteredData)
-                        console.log('formikdata token you ma:', formikData.token)
-
 
                         multiSetFilterPairMode(formikData, filteredData, owner, token, setFilterPairs, setSwapMode)
                     }

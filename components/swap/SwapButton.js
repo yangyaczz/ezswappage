@@ -84,7 +84,7 @@ const SwapButton = ({formikData, owner}) => {
     )
 
     return (
-        <div className="btn mx-6 p-6">
+        <div className="btn mx-6">
             {buttonText()}
         </div>
     )

@@ -156,6 +156,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
             newSids = [...formikData.selectIds, id]
         }
         setSelectIds(newSids)
+        console.log('formikDataformikData',formikData)
         ///////////////////////////////////////////////////////////////
         let pairs = JSON.parse(JSON.stringify(formikData.filterPairs))
 

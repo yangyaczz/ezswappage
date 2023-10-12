@@ -67,6 +67,9 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                 if (data.success) {
                     const pairsList = data.data
                     let filteredData = pairsList.filter(item => item.type === 'buy' || item.type === 'trade');
+                    if (formikData.collection.type === 'ERC1155') {
+                        filteredData = filteredData.filter(item => item.nftId1155 === formikData.collection.tokenId1155);
+                    }
                     setPairs(filteredData)
 
                     let canTradeToken = [...new Set(filteredData.map(item => item.token))].map(token => token === null ? 'ETH' : token);

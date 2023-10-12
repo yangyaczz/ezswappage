@@ -231,7 +231,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                     sx={{color:'white',background: '#06080F'}}
                     renderValue={(selected) => {
                         if (selected.length === 0) {
-                            return <em>Select Items</em>;
+                            return <em>Select Items{selected.length+" "+formikData.isExceeded+" fafa"}</em>;
                         }
                         return  <em className={styles.nftSelectedText}><img className={styles.logoStyle} src="/logo.svg" alt=""/><span>{selected.length}</span></em>
                         // return selected;
@@ -241,9 +241,11 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                     <MenuItem disabled value="">
                         <em>Select Items</em>
                     </MenuItem>
-                    {formikData?.userCollection?.tokenIds721 != '' ?
+                    {formikData?.userCollection?.tokenIds721 !== '' ?
                         formikData.userCollection.tokenIds721.map((nft, index) => (
-                            <MenuItem style={getStyles(name, personName, theme)} key={nft} value={nft} className={styles.selectItem}><img className={styles.logoStyle} src="/logo.svg" alt=""/>{nft}</MenuItem>
+                            formikData.isExceeded && personName.length>0 && !personName.includes(nft) ?
+                            <MenuItem disabled style={getStyles(name, personName, theme)} key={nft} value={nft} className={styles.selectItem}><img className={styles.logoStyle} src="/logo.svg" alt=""/>{nft}</MenuItem>
+                            :<MenuItem style={getStyles(name, personName, theme)} key={nft} value={nft} className={styles.selectItem}><img className={styles.logoStyle} src="/logo.svg" alt=""/>{nft}</MenuItem>
                         )): null}
                 </Select>
             </FormControl>

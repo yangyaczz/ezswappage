@@ -67,7 +67,6 @@ const Swap = () => {
 
   // 0 => 1 , reset 2 3
   useEffect(() => {
-    console.log('formik',formik)
     setIsMounted(true);
     reset123()
     if (chain) {

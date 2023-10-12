@@ -160,7 +160,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                         <em>Select Collection</em>
                     </MenuItem>
                     {filteredNFTs.map((nft, index) => (
-                        <MenuItem value={nft.address} className={styles.selectItem}><img className={styles.logoStyle} src="/logo.svg" alt=""/>{nft.name}</MenuItem>
+                        <MenuItem key={nft.address} value={nft.address} className={styles.selectItem}><img className={styles.logoStyle} src="/logo.svg" alt=""/>{nft.name}</MenuItem>
                     ))}
                 </Select>
             </FormControl>

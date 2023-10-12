@@ -6,7 +6,7 @@ const Input721 = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
 
     const update721SellToPairs = (tokenId, pairs) => {
 
-        let protocolFee = 5000000000000000   // 0.5%  get from smartcontract 
+        let protocolFee = 5000000000000000   // 0.5%  get from smartcontract
         let dec = 1e18
         let maxPrice = 0
         let maxPriceIndex = -1
@@ -87,6 +87,7 @@ const Input721 = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
         let totalGet = 0
         let IdsAmount = 0
         pairs.forEach((pair) => {
+            console.log('pairpairpair',pair)
             if (pair.tuple) {
                 tupleEncode.push(pair.tuple)
                 totalGet += pair.userGetPrice
@@ -99,7 +100,7 @@ const Input721 = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
         console.log(totalGet)
         ///////////////////////////////////////////////////////////////
 
-        // check if is execeeded 
+        // check if is execeeded
         if (newSids.length > IdsAmount) {
             setIsExceeded(true)
         } else {

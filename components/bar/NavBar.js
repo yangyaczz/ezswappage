@@ -18,8 +18,8 @@ const NavBar = () => {
                     </div>
                 </div>
                 <div className={styles.headerRight}>
-                    <div class={styles.headerBtn + " " + styles.rightBtn}>My NFT</div>
-                    <div class={styles.headerBtn + " " + styles.rightBtn}>My Pool</div>
+                    <div className={styles.headerBtn + " " + styles.rightBtn}>My NFT</div>
+                    <div className={styles.headerBtn + " " + styles.rightBtn}>My Pool</div>
                     <ConnectButton/>
                 </div>
             </div>

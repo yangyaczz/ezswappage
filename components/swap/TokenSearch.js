@@ -8,7 +8,7 @@ import FormControl from "@mui/material/FormControl";
 
 
 const TokenSearch = ({ formikData, owner, reset23, setToken, setTokenName, setFilterPairs, setSwapMode }) => {
-    const [age, setAge] = useState('');
+    const [age, setAge] = useState('ETH');
 
     const handleTokenClick = (event,tokenName) => {
         setAge(event.target.value);
@@ -25,31 +25,31 @@ const TokenSearch = ({ formikData, owner, reset23, setToken, setTokenName, setFi
     }
 
 
-    const displayDialog = () => {
-
-        if (!formikData.collection.address) {
-            return <div>select nft first</div>
-        }
-
-        if (formikData.collection.address && formikData.pairs === '') {
-            return <div>Loading...</div>
-        }
-
-        if (formikData.collection.address && !formikData.pairs.length) {
-            return <div>this collection dont have pool to swap</div>
-        }
-
-        return (
-            formikData.tokensName.map((tokenName, index) => (
-                <button
-                    key={index}
-                    className="btn justify-start"
-                    onClick={() => handleTokenClick(tokenName)}>
-                    {tokenName}
-                </button>
-            ))
-        )
-    }
+    // const displayDialog = () => {
+    //
+    //     if (!formikData.collection.address) {
+    //         return <div>select nft first</div>
+    //     }
+    //
+    //     if (formikData.collection.address && formikData.pairs === '') {
+    //         return <div>Loading...</div>
+    //     }
+    //
+    //     if (formikData.collection.address && !formikData.pairs.length) {
+    //         return <div>this collection dont have pool to swap</div>
+    //     }
+    //
+    //     return (
+    //         formikData.tokensName.map((tokenName, index) => (
+    //             <button
+    //                 key={index}
+    //                 className="btn justify-start"
+    //                 onClick={() => handleTokenClick(tokenName)}>
+    //                 {tokenName}
+    //             </button>
+    //         ))
+    //     )
+    // }
 
 
     return (
@@ -71,8 +71,8 @@ const TokenSearch = ({ formikData, owner, reset23, setToken, setTokenName, setFi
                 <MenuItem disabled value="">
                     <em>Select Token</em>
                 </MenuItem>
-                {formikData.tokensName!= ''?formikData.tokensName.map((tokenName, index) => (
-                    <MenuItem value={tokenName} className={styles.selectItem}>{tokenName}</MenuItem>
+                {formikData.tokensName!== ''?formikData.tokensName.map((tokenName, index) => (
+                    <MenuItem key={tokenName} value={tokenName} className={styles.selectItem}>{tokenName}</MenuItem>
                 )):null}
             </Select>
         </FormControl>

@@ -81,7 +81,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
 
     /////////////////////////////////////////intpu721 copy过来的///////////////////////////////////////////////////////////
     const update721SellToPairs = (tokenId, pairs) => {
-
+        console.log('tokenId pairs',tokenId,pairs)
         let protocolFee = 5000000000000000   // 0.5%  get from smartcontract
         let dec = 1e18
         let maxPrice = 0
@@ -156,10 +156,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
             newSids = [...formikData.selectIds, id]
         }
         setSelectIds(newSids)
-
-
         ///////////////////////////////////////////////////////////////
-
         let pairs = JSON.parse(JSON.stringify(formikData.filterPairs))
 
         newSids.forEach((id) => {

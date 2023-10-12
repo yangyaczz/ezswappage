@@ -80,7 +80,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                         return mappingObject ? mappingObject.name : null;
                     });
 
-
+                    console.log('tokensNamestokensNamestokensNames',tokensNames)
                     setTokensName(tokensNames)
 
 

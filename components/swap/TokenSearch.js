@@ -14,9 +14,10 @@ const TokenSearch = ({ formikData, owner, reset23, setToken, setTokenName, setFi
         setAge(event.target.value);
         reset23()
         tokenName=tokenName.props.value
+        console.log('tokenName',tokenName)
         // use tokenName to get token
         let token = (formikData.golbalParams.recommendERC20.find(obj => obj.name.toLowerCase() === tokenName.toLowerCase())).address
-
+        console.log('token',token)
         setToken(token)
         setTokenName(tokenName)
 

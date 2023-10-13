@@ -39,7 +39,6 @@ function Input1155({formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
         }
         setTupleEncode(tupleEncode)
         setTotalGet(totalGet)
-        console.log(totalGet)
         ///////////////////////////////////////////////////////////////
         // check if is execeeded
         if (newSids.length > IdsAmount) {

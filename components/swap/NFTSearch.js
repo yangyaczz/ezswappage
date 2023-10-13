@@ -93,6 +93,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                         setTokenName(tokensNames[0])
 
                         multiSetFilterPairMode(formikData, filteredData, owner, token, setFilterPairs, setSwapMode)
+                        //721需要看nft下拉框还能不能勾选,可能达到了池子的上限
                         if (formikData.collection.type === 'ERC721') {
                             const result=nftSetBanSelect([],formikData)
                             setIsBanSelect(result)

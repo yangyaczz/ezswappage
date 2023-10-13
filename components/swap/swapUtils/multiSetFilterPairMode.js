@@ -1,5 +1,4 @@
 const multiSetFilterPairMode = (formikData, filteredData, owner, token, setFilterPairs, setSwapMode) => {
-
     // filter pool
     filteredData = filteredData.filter(item => item.owner.toLowerCase() !== owner.toLowerCase());
     if (token === 'ETH') {

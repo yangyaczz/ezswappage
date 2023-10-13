@@ -41,7 +41,6 @@ const update1155SellToPairs = (tokenId, pairs) => {
     }
 
     if (maxPriceIndex !== -1) {
-
         pairs[maxPriceIndex].tokenIds.push(tokenId)
         pairs[maxPriceIndex].userGetPrice = pairs[maxPriceIndex].ifUserAddGetPrice
         pairs[maxPriceIndex].tuple = [

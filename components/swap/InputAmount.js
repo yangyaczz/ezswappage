@@ -119,7 +119,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                     MenuProps={MenuProps}
                 >
                     <MenuItem disabled value="">
-                        <div>{formikData.isBanSelect+" "+formikData.filterPairs.length+" Select Items"}</div>
+                        <div>{"Select Items"}</div>
                     </MenuItem>
                     {formikData?.userCollection?.tokenIds721 !== '' ?
                         formikData.userCollection.tokenIds721.map((nft, index) => (

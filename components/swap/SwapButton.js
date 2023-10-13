@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {ethers} from 'ethers'
 
 import {ConnectButton} from '@rainbow-me/rainbowkit'
-import {useNetwork, useContractRead, useContractReads, useContractWrite, useAccount, erc20ABI} from 'wagmi'
+import {useNetwork, useContractRead, useContractReads, useContractWrite, useAccount, erc20ABI, useWaitForTransaction} from 'wagmi'
 import ERC721EnumABI from '../../pages/data/ABI/ERC721Enum.json'
 import ERC1155ABI from '../../pages/data/ABI/ERC1155.json'
 import styles from "./index.module.scss";
@@ -13,7 +13,6 @@ import {Alert, AlertTitle, Box, CircularProgress, Snackbar} from "@mui/material"
 const SwapButton = ({formikData, owner}) => {
 
     const [nftApproval, setNftApproval] = useState(false)
-
 
     const {data: nftApprovalData} = useContractRead({
         address: formikData.collection.address,
@@ -28,7 +27,6 @@ const SwapButton = ({formikData, owner}) => {
         }
     })
 
-
     const {data: approveNFTData, isLoading: approveLoading, isSuccess: approveSuccess, write: approveNFT} = useContractWrite({
         address: formikData.collection.address,
         abi: ERC721EnumABI,
@@ -36,28 +34,57 @@ const SwapButton = ({formikData, owner}) => {
         args: [formikData.golbalParams.router, true],
     })
 
-
-    const {data: robustSwapNFTsForTokenData, isLoading, isSuccess, write: swapNFTToToken} = useContractWrite({
+    const {data: robustSwapNFTsForTokenData, isLoading, isSuccess, write: swapNFTToToken, status: swapStatus} = useContractWrite({
         address: formikData.golbalParams.router,
         abi: RouterABI,
         functionName: 'robustSwapNFTsForToken',
         args: [formikData.tupleEncode, owner, (Date.parse(new Date()) / 1000 + 60 * 3600)],
     })
+    const {waitApproveData, waitApproveIsError, isLoading: waitApproveLoading} = useWaitForTransaction({
+        hash: approveNFTData?.hash,
+        confirmations: 1,
+        onSuccess(data) {
+            console.log(robustSwapNFTsForTokenData?.hash, data)
+            setState({...{message: 'Approve Success', open: true}, open: true});
+            doSwapNFTToToken()
+        },
+        onError(err) {
+            console.log('approve tx error data ', robustSwapNFTsForTokenData?.hash, err);
+            setState({...{message: 'Approve Fail', open: true}, open: true});
+        }
+    })
 
-    const [state, setState] = React.useState({
+    const {data, isError, isLoading: waitTrxLoading} = useWaitForTransaction({
+        hash: robustSwapNFTsForTokenData?.hash,
+        confirmations: 1,
+        onSuccess(data) {
+            console.log(robustSwapNFTsForTokenData?.hash, data)
+            setState({...{message: 'Swap Success', open: true}, open: true});
+        },
+        onError(err) {
+            console.log('approve tx error data ', robustSwapNFTsForTokenData?.hash, err);
+            setState({...{message: 'Swap Fail', open: true}, open: true});
+        }
+    })
+
+    function doApprove() {
+        approveNFT()
+        setState({...{message: 'Swap Success', open: true}, open: true});
+    }
+
+    function doSwapNFTToToken() {
+        swapNFTToToken()
+    }
+
+    const [state, setState] = useState({
         open: false,
-        vertical: 'top',
-        horizontal: 'right',
+        message: 'Swap Success'
     });
-    const {vertical, horizontal, open} = state;
+    const {message, open} = state;
 
-    const handleClick = (newState) => () => {
-        setState({...newState, open: true});
-    };
     const handleClose = () => {
         setState({...state, open: false});
     };
-
     const buttonText = () => {
         let text
 
@@ -65,10 +92,15 @@ const SwapButton = ({formikData, owner}) => {
             text = 'Select a Collection'
             return (<div>{text}</div>)
         }
+        console.log('formikDataformikData',formikData)
+        if (!formikData.selectIds.length>0) {
+            text = 'Select a NFT'
+            return (<div>{text}</div>)
+        }
 
         if (!nftApproval) {
             text = 'Approve'
-            return (<button onClick={() => approveNFT()}>{approveLoading ? <Box sx={{display: 'flex'}}><CircularProgress/></Box> : text}</button>)
+            return (<button onClick={() => doApprove()}>{approveLoading || waitApproveLoading ? <Box sx={{display: 'flex'}}><CircularProgress/></Box> : text}</button>)
         }
 
         if (formikData.isBanSelect) {
@@ -77,9 +109,18 @@ const SwapButton = ({formikData, owner}) => {
         }
 
         text = 'Swap'
-        return (<div>
-            <button  onClick={() => swapNFTToToken()}>{isLoading ? <Box sx={{display: 'flex'}}><CircularProgress/></Box> : text}</button>
-        </div>)
+        return (
+            <div>
+                <button onClick={() => doSwapNFTToToken()}>{isLoading || waitTrxLoading ? <Box sx={{display: 'flex'}}><CircularProgress/></Box> : text}</button>
+                <Snackbar
+                    anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+                    open={open}
+                    onClose={handleClose}
+                    message={message}
+                    key={'topright'}
+                />
+            </div>
+        )
     }
 
     if (!owner) return (
@@ -89,7 +130,7 @@ const SwapButton = ({formikData, owner}) => {
     )
 
     return (
-        <div className={'btn'+" "+'mx-6'+" "+styles.swapButton}>
+        <div className={'btn' + " " + 'mx-6' + " " + styles.swapButton}>
             {buttonText()}
         </div>
     )

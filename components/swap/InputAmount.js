@@ -16,69 +16,6 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
     const [personName, setPersonName] = React.useState([]);
     const theme = useTheme();
 
-    // const displayFrame = () => {
-    //     if (!formikData.selectIds.length) {
-    //         return <div>
-    //             your tokenId
-    //         </div>
-    //     }
-    //
-    //     if (formikData.collection.type === "ERC721") {
-    //         return <div className='flex '>
-    //             tokenId: {formikData.selectIds.map((id, index) => (<div className='mr-1' key={index}>
-    //                 {id}
-    //             </div>))}
-    //         </div>
-    //     }
-    //
-    //     // todo 1155
-    //     if (formikData.collection.type === "ERC1155") {
-    //         return <div>
-    //             xxxxxxxx
-    //         </div>
-    //     }
-    // }
-
-
-    // const displayDialog = () => {
-    //
-    //     if (!formikData.collection.type || !formikData.token) {
-    //         return <div>select nft and token first</div>
-    //     }
-    //
-    //     if (formikData.userCollection.tokenIds721 === '') {
-    //         return <div>Loading...</div>
-    //     }
-    //
-    //     if (formikData.pairs && formikData.filterPairs.length === 0) {
-    //         return <div>there is no pool you can swap...</div>
-    //     }
-    //
-    //     if (formikData.collection.type == "ERC721") {
-    //         return (
-    //             <Input721
-    //                 formikData={formikData}
-    //                 setSelectIds={setSelectIds}
-    //                 setTotalGet={setTotalGet}
-    //                 setTupleEncode={setTupleEncode}
-    //                 setIsExceeded={setIsExceeded}
-    //             />
-    //         )
-    //     }
-    //
-    //     if (formikData.collection.type == "ERC1155") {
-    //         return (
-    //             <Input1155
-    //                 formikData={formikData}
-    //                 setSelectIds={setSelectIds}
-    //                 setTotalGet={setTotalGet}
-    //                 setTupleEncode={setTupleEncode}
-    //                 setIsExceeded={setIsExceeded}
-    //             />
-    //         )
-    //     }
-    // }
-
     /////////////////////////////////////////intpu721 copy过来的///////////////////////////////////////////////////////////
     const update721SellToPairs = (tokenId, pairs) => {
         console.log('tokenId pairs',tokenId,pairs)
@@ -167,7 +104,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
         let tupleEncode = []
         let totalGet = 0
         let IdsAmount = 0
-        if (pairs != ''){
+        if (pairs !== ''){
             pairs.forEach((pair) => {
                 if (pair.tuple) {
                     tupleEncode.push(pair.tuple)
@@ -245,7 +182,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                         if (selected.length === 0) {
                             return <div className={styles.selectDefault}><span className={styles.selectDefaultSpan}>Select Items</span><svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg></div>;
                         }
-                        return  <div className={styles.nftSelectedText}><img className={styles.logoStyle} src="/logo.svg" alt=""/><span>{selected.length}</span></div>
+                        return  <div className={styles.nftSelectedText}><img className={styles.logoStyle} src={formikData.collection.img} alt=""/><span>{selected.length}</span></div>
                         // return selected;
                     }}
                     MenuProps={MenuProps}
@@ -256,8 +193,8 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                     {formikData?.userCollection?.tokenIds721 !== '' ?
                         formikData.userCollection.tokenIds721.map((nft, index) => (
                             formikData.isBanSelect && personName.length>0 && !personName.includes(nft) ?
-                            <MenuItem disabled style={getStyles(name, personName, theme)} key={nft} value={nft} className={styles.selectItem}><img className={styles.logoStyle} src="/logo.svg" alt=""/>{nft}</MenuItem>
-                            :<MenuItem style={getStyles(name, personName, theme)} key={nft} value={nft} className={styles.selectItem}><img className={styles.logoStyle} src="/logo.svg" alt=""/>{nft}</MenuItem>
+                            <MenuItem disabled style={getStyles(name, personName, theme)} key={nft} value={nft} className={styles.selectItem}><img className={styles.logoStyle} src={formikData.collection.img} alt=""/>{nft}</MenuItem>
+                            :<MenuItem style={getStyles(name, personName, theme)} key={nft} value={nft} className={styles.selectItem}><img className={styles.logoStyle} src={formikData.collection.img} alt=""/>{nft}</MenuItem>
                         )): null}
                 </Select>
             </FormControl>

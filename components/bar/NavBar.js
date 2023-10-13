@@ -11,15 +11,15 @@ const NavBar = () => {
                 </div>
                 <div>
                     <div className={styles.headerLeft}>
-                        <a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad}>Search</a>
-                        <a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad}>Launchpad</a>
-                        <a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad}>API</a>
-                        <a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad}>Buy/Sell Crypto</a>
+                        {/*<a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad}>Search</a>*/}
+                        <a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href='https://forms.gle/U4wStoSQeszn16u46'target="_blank">Launchpad</a>
+                        <a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href='https://ezswap.readme.io/reference/overview'target="_blank">API</a>
+                        {/*<a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad}>Buy/Sell Crypto</a>*/}
                     </div>
                 </div>
                 <div className={styles.headerRight}>
-                    <div className={styles.headerBtn + " " + styles.rightBtn}>My NFT</div>
-                    <div className={styles.headerBtn + " " + styles.rightBtn}>My Pool</div>
+                    {/*<div className={styles.headerBtn + " " + styles.rightBtn}>My NFT</div>*/}
+                    {/*<div className={styles.headerBtn + " " + styles.rightBtn}>My Pool</div>*/}
                     <ConnectButton/>
                 </div>
             </div>

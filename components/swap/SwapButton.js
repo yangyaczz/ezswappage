@@ -5,7 +5,7 @@ import {ConnectButton} from '@rainbow-me/rainbowkit'
 import {useNetwork, useContractRead, useContractReads, useContractWrite, useAccount, erc20ABI} from 'wagmi'
 import ERC721EnumABI from '../../pages/data/ABI/ERC721Enum.json'
 import ERC1155ABI from '../../pages/data/ABI/ERC1155.json'
-
+import styles from "./index.module.scss";
 import RouterABI from '../../pages/data/ABI/Router.json'
 import {Alert, AlertTitle, Box, CircularProgress, Snackbar} from "@mui/material";
 
@@ -29,7 +29,7 @@ const SwapButton = ({formikData, owner}) => {
     })
 
 
-    const {data: approveNFTData,isLoading:approveLoading,isSuccess:approveSuccess, write: approveNFT} = useContractWrite({
+    const {data: approveNFTData, isLoading: approveLoading, isSuccess: approveSuccess, write: approveNFT} = useContractWrite({
         address: formikData.collection.address,
         abi: ERC721EnumABI,
         functionName: 'setApprovalForAll',
@@ -37,7 +37,7 @@ const SwapButton = ({formikData, owner}) => {
     })
 
 
-    const {data: robustSwapNFTsForTokenData,isLoading,isSuccess, write: swapNFTToToken} = useContractWrite({
+    const {data: robustSwapNFTsForTokenData, isLoading, isSuccess, write: swapNFTToToken} = useContractWrite({
         address: formikData.golbalParams.router,
         abi: RouterABI,
         functionName: 'robustSwapNFTsForToken',
@@ -49,51 +49,37 @@ const SwapButton = ({formikData, owner}) => {
         vertical: 'top',
         horizontal: 'right',
     });
-    const { vertical, horizontal, open } = state;
+    const {vertical, horizontal, open} = state;
 
     const handleClick = (newState) => () => {
-        setState({ ...newState, open: true });
+        setState({...newState, open: true});
     };
     const handleClose = () => {
-        setState({ ...state, open: false });
+        setState({...state, open: false});
     };
 
     const buttonText = () => {
         let text
 
         if (!formikData.collection.address || !formikData.token) {
-            text = 'Select a nft'
+            text = 'Select a Collection'
             return (<div>{text}</div>)
         }
 
         if (!nftApproval) {
-            text = 'approve'
-            return (
-                <button onClick={() => approveNFT()}>
-                    {approveLoading?<Box sx={{ display: 'flex' }}>
-                        <CircularProgress />
-                    </Box>:text}
-                </button>
-            )
+            text = 'Approve'
+            return (<button onClick={() => approveNFT()}>{approveLoading ? <Box sx={{display: 'flex'}}><CircularProgress/></Box> : text}</button>)
         }
 
         if (formikData.isExceeded) {
-            text = 'reduce nft amount'
-            return (<div>
-                {text}
-            </div>)
+            text = 'Reduce Nft Amount'
+            return (<div>{text}</div>)
         }
 
-        text = 'swap'
-        return (
-            <div>
-                <button onClick={() => swapNFTToToken()}>
-                {isLoading?<Box sx={{ display: 'flex' }}>
-                    <CircularProgress />
-                </Box>:text}
-            </button>
-            </div>
-        )
+        text = 'Swap'
+        return (<div>
+            <button  onClick={() => swapNFTToToken()}>{isLoading ? <Box sx={{display: 'flex'}}><CircularProgress/></Box> : text}</button>
+        </div>)
     }
 
     if (!owner) return (
@@ -103,7 +89,7 @@ const SwapButton = ({formikData, owner}) => {
     )
 
     return (
-        <div className="btn mx-6">
+        <div className={'btn'+" "+'mx-6'+" "+styles.swapButton}>
             {buttonText()}
         </div>
     )

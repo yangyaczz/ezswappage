@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {BuyPoolLiner, TradePoolLiner, BuyPoolExp, TradePoolExp} from '../../utils/calculate'
 import {ethers} from 'ethers';
+import styles from "./index.module.scss";
+import FormControl from "@mui/material/FormControl";
 
 function Input1155({formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded}) {
 
@@ -140,33 +142,24 @@ function Input1155({formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
 
 
     return (
-        <div className='flex items-center p-5 space-x-4'>
-            <div>sell amount :</div>
-            <div className='form-control'>
-                <div className="input-group">
-                    <button
-                        onClick={handleDecrement}
-                        className="btn btn-square"
-                    >
-                        -
-                    </button>
-                    <input
-                        type="text"
-                        value={value}
-                        onChange={handleChange}
-                        className="input input-bordered w-20 text-center"
-                    />
-                    <button
-                        onClick={handleIncrement}
-                        className="btn btn-square"
-                    >
-                        +
-                    </button>
+        <FormControl sx={{m: 1, minWidth: 400}}>
+            <div className={styles.nft1155}>
+                <div>Sell Amount :</div>
+                <div className='form-control'>
+                    <div className="input-group">
+                        <button onClick={handleDecrement} className="btn btn-square">-</button>
+                        <input
+                            type="text"
+                            value={value}
+                            onChange={handleChange}
+                            className="input input-bordered w-20 text-center"
+                        />
+                        <button onClick={handleIncrement} className="btn btn-square">+
+                        </button>
+                    </div>
                 </div>
             </div>
-
-
-        </div>
+        </FormControl>
     )
 }
 

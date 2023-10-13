@@ -3,8 +3,8 @@
   background-color: #292B45;
 }
 .logoStyle{
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   margin-right: 10px;
 }
 .selectedStyle{
@@ -19,4 +19,20 @@
   display: flex;
   justify-content:space-between;
   align-items: center;
+}
+.selectDefault{
+  display: flex;
+  align-items: center;
+}
+.selectDefaultSpan{
+  margin-right: 10px;
+}
+.swapButton{
+  background: #28B7BC;
+  color: #000000;
+}
+
+.swapButton:hover{
+  background: #28B7BC;
+  color: #000000;
 }

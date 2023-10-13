@@ -29,7 +29,8 @@ const Swap = () => {
         type: "",
         address: "",
         name: "",
-        tokenId1155: ""
+        tokenId1155: "",
+        img:""
       },
       userCollection: {
         tokenIds721: '',

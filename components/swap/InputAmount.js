@@ -243,7 +243,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                     sx={{color:'white',background: '#06080F'}}
                     renderValue={(selected) => {
                         if (selected.length === 0) {
-                            return <div>Select Items{selected.length+" "+formikData.isBanSelect+" fafa"}</div>;
+                            return <div className={styles.selectDefault}><span className={styles.selectDefaultSpan}>Select Items</span><svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg></div>;
                         }
                         return  <div className={styles.nftSelectedText}><img className={styles.logoStyle} src="/logo.svg" alt=""/><span>{selected.length}</span></div>
                         // return selected;
@@ -262,47 +262,6 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                 </Select>
             </FormControl>
         </div>
-        // <div className="form-control">
-        //     <span className="label-text">Input Amount</span>
-        //
-        //
-        //     <button className="btn" onClick={() => document.getElementById('input_sell').showModal()}>
-        //         {displayFrame()}
-        //         <div>
-        //             <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>
-        //         </div>
-        //     </button>
-        //
-        //     <dialog id="input_sell" className="modal">
-        //         <div className="modal-box">
-        //             <h3 className="font-bold text-lg">TokenId:</h3>
-        //
-        //             {displayDialog()}
-        //
-        //             <div>{formikData.isExceeded && 'The amount of nft is out of range, please reduce it'}</div>
-        //             <div className="divider"></div>
-        //
-        //             <h3 className="font-bold text-lg">NFT Amount:</h3>
-        //             {/* <input type="range" min={0} max={initialSquares.length} value={selectedCount} className="range"></input> */}
-        //
-        //             <div className="mt-4">
-        //                 You have select: {formikData.selectIds.length}
-        //             </div>
-        //
-        //
-        //             <form method="dialog">
-        //                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-        //             </form>
-        //         </div>
-        //
-        //
-        //         <form method="dialog" className="modal-backdrop">
-        //             <button>close</button>
-        //         </form>
-        //
-        //
-        //     </dialog>
-        // </div>
     )
 }
 

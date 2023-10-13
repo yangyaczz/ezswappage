@@ -64,7 +64,7 @@ const TokenSearch = ({ formikData, owner, reset23, setToken, setTokenName, setFi
                 sx={{color:'white',background: '#06080F'}}
                 renderValue={(selected) => {
                     if (formikData.tokenName === '') {
-                        return <div>Select Token</div>;
+                        return <div className={styles.selectDefault}><span className={styles.selectDefaultSpan}>Select Token</span><svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg></div>;;
                     }
                     return <em className={styles.tokenStyle}><span>{formikData.tokenName}</span><span>{formikData.totalGet ? formikData.totalGet.toFixed(3) : 0}</span></em>;
                 }}

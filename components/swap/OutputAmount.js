@@ -22,13 +22,13 @@ const OutputAmount = () => {
                 sx={{color:'white',background: '#06080F'}}
                 renderValue={(selected) => {
                     if (selected.length === 0) {
-                        return <em>ETH</em>;
+                        return <div>ETH</div>;
                     }
                     return selected;
                 }}
             >
                 <MenuItem disabled value="">
-                    <em>ETH</em>
+                    <div>ETH</div>
                 </MenuItem>
             </Select>
         </FormControl>

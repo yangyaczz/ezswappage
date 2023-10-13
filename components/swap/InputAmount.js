@@ -243,15 +243,15 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                     sx={{color:'white',background: '#06080F'}}
                     renderValue={(selected) => {
                         if (selected.length === 0) {
-                            return <em>Select Items{selected.length+" "+formikData.isBanSelect+" fafa"}</em>;
+                            return <div>Select Items{selected.length+" "+formikData.isBanSelect+" fafa"}</div>;
                         }
-                        return  <em className={styles.nftSelectedText}><img className={styles.logoStyle} src="/logo.svg" alt=""/><span>{selected.length}</span></em>
+                        return  <div className={styles.nftSelectedText}><img className={styles.logoStyle} src="/logo.svg" alt=""/><span>{selected.length}</span></div>
                         // return selected;
                     }}
                     MenuProps={MenuProps}
                 >
                     <MenuItem disabled value="">
-                        <em>Select Items</em>
+                        <div>Select Items</div>
                     </MenuItem>
                     {formikData?.userCollection?.tokenIds721 !== '' ?
                         formikData.userCollection.tokenIds721.map((nft, index) => (

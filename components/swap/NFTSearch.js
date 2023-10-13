@@ -149,7 +149,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                     sx={{color:'white',background: '#06080F'}}
                     renderValue={(selected) => {
                         if (selected.length === 0) {
-                            return <em>Select Collection</em>;
+                            return <div>Select Collection</div>;
                         }
                         for (let i = 0; i < filteredNFTs.length; i++) {
                             if (filteredNFTs[i].address === selected) {
@@ -160,7 +160,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                     }}
                 >
                     <MenuItem disabled value="">
-                        <em>Select Collection</em>
+                        <div>Select Collection</div>
                     </MenuItem>
                     {filteredNFTs.map((nft, index) => (
                         <MenuItem key={nft.address} value={nft.address} className={styles.selectItem}><img className={styles.logoStyle} src="/logo.svg" alt=""/>{nft.name}</MenuItem>

@@ -64,13 +64,13 @@ const TokenSearch = ({ formikData, owner, reset23, setToken, setTokenName, setFi
                 sx={{color:'white',background: '#06080F'}}
                 renderValue={(selected) => {
                     if (formikData.tokenName === '') {
-                        return <em>Select Token</em>;
+                        return <div>Select Token</div>;
                     }
                     return <em className={styles.tokenStyle}><span>{formikData.tokenName}</span><span>{formikData.totalGet ? formikData.totalGet.toFixed(3) : 0}</span></em>;
                 }}
             >
                 <MenuItem disabled value="">
-                    <em>Select Token</em>
+                    <div>Select Token</div>
                 </MenuItem>
                 {formikData.tokensName!== ''?formikData.tokensName.map((tokenName, index) => (
                     <MenuItem key={tokenName} value={tokenName} className={styles.selectItem}>{tokenName}</MenuItem>

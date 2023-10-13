@@ -4,7 +4,7 @@ import {ethers} from 'ethers';
 import styles from "./index.module.scss";
 import FormControl from "@mui/material/FormControl";
 
-function Input1155({formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded}) {
+function Input1155({formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded, setIsBanSelect}) {
 
     const [value, setValue] = useState(1);
     const tId = formikData.collection.tokenId1155
@@ -99,12 +99,27 @@ function Input1155({formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
         setTotalGet(totalGet)
         console.log(totalGet)
         ///////////////////////////////////////////////////////////////
-
         // check if is execeeded
-        if (newSids.length > IdsAmount) {
-            setIsExceeded(true)
+        // check if ban
+        let newSidsPlus = new Array(newSids.length + 1).fill(0)
+        let pairs2 = JSON.parse(JSON.stringify(formikData.filterPairs))
+        newSidsPlus.forEach(id => {
+            update1155SellToPairs(id, pairs2)
+        })
+
+        let IdsPlusAmount = 0
+        if (pairs2.length > 0) {
+            pairs2.forEach(pair => {
+                if (pair.tuple) {
+                    IdsPlusAmount += pair.tokenIds.length
+                }
+            })
+        }
+
+        if (newSidsPlus.length > IdsPlusAmount) {
+            setIsBanSelect(true)
         } else {
-            setIsExceeded(false)
+            setIsBanSelect(false)
         }
     }
 
@@ -122,7 +137,9 @@ function Input1155({formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
 
 
     const handleIncrement = () => {
-        setValue(prev => Math.min(prev + 1, max))
+        if (!formikData.isBanSelect){
+            setValue(prev => Math.min(prev + 1, max))
+        }
     };
 
     const handleDecrement = () => {

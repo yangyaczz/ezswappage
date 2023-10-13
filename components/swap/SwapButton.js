@@ -71,7 +71,7 @@ const SwapButton = ({formikData, owner}) => {
             return (<button onClick={() => approveNFT()}>{approveLoading ? <Box sx={{display: 'flex'}}><CircularProgress/></Box> : text}</button>)
         }
 
-        if (formikData.isExceeded) {
+        if (formikData.isBanSelect) {
             text = 'Reduce Nft Amount'
             return (<div>{text}</div>)
         }

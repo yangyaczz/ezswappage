@@ -63,7 +63,7 @@ function Input1155({formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
 
 
     const handleIncrement = () => {
-        if (!formikData.isBanSelect){
+        if (!formikData.isBanSelect && formikData.userCollection.tokenAmount1155 >=value){
             setValue(prev => Math.min(prev + 1, max))
         }
     };
@@ -82,15 +82,15 @@ function Input1155({formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
 
 
     //////////////////////////////////////////////////////////////////////////////
-    if (formikData.userCollection.tokenAmount1155 === 0) {
-        return <div>you dont have this nft</div>
-    }
+    // if (formikData.userCollection.tokenAmount1155 === 0) {
+    //     return <div>you dont have this nft</div>
+    // }
 
 
     return (
         <FormControl sx={{m: 1, minWidth: 400}}>
             <div className={styles.nft1155}>
-                <div>Sell Amount :</div>
+                <div>Sell Amount ({formikData.userCollection.tokenAmount1155}) :</div>
                 <div className='form-control'>
                     <div className="input-group">
                         <button onClick={handleDecrement} className="btn btn-square">-</button>

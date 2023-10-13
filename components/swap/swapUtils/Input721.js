@@ -87,7 +87,6 @@ const Input721 = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
         let totalGet = 0
         let IdsAmount = 0
         pairs.forEach((pair) => {
-            console.log('pairpairpair',pair)
             if (pair.tuple) {
                 tupleEncode.push(pair.tuple)
                 totalGet += pair.userGetPrice

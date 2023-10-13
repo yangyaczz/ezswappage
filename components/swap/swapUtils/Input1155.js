@@ -1,13 +1,11 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {BuyPoolLiner, TradePoolLiner, BuyPoolExp, TradePoolExp} from '../../utils/calculate'
-import {ethers} from 'ethers';
 import styles from "./index.module.scss";
 import FormControl from "@mui/material/FormControl";
 import {update1155SellToPairs,nftSetBanSelect} from "./Input1155Math";
 
 function Input1155({formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded, setIsBanSelect}) {
 
-    const [value, setValue] = useState(1);
+    const [value, setValue] = useState(0);
     const tId = formikData.collection.tokenId1155
     const max = formikData.userCollection.tokenAmount1155
 
@@ -55,7 +53,6 @@ function Input1155({formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
 
     const handleChange = (e) => {
         const inputValue = e.target.value;
-
         // check
         if (/^\d+$/.test(inputValue)) {
             setValue(Math.min(Math.max(1, Number(inputValue)), max));
@@ -75,7 +72,6 @@ function Input1155({formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
         setValue(prev => Math.max(prev - 1, 1))
     };
     const firstUpdate = useRef(true);
-
     useEffect(() => {
         if (firstUpdate.current) {
             firstUpdate.current = false;

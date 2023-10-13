@@ -191,7 +191,7 @@ const Swap = () => {
                     />
                   </div>
                   <div className={styles.swapButton}>
-                  <SwapButton formikData={formik.values} owner={owner}/>
+                  <SwapButton formikData={formik.values} owner={owner} reset23={reset23}/>
                   </div>
                 </div>
             </div>

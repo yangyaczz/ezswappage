@@ -10,9 +10,10 @@ import RouterABI from '../../pages/data/ABI/Router.json'
 import {Alert, AlertTitle, Box, CircularProgress, Snackbar} from "@mui/material";
 
 
-const SwapButton = ({formikData, owner}) => {
+const SwapButton = ({formikData, owner, reset23}) => {
 
     const [nftApproval, setNftApproval] = useState(false)
+    const [errorMsg, setErrorMsg] = useState("")
 
     const {data: nftApprovalData} = useContractRead({
         address: formikData.collection.address,
@@ -60,6 +61,7 @@ const SwapButton = ({formikData, owner}) => {
         onSuccess(data) {
             console.log(robustSwapNFTsForTokenData?.hash, data)
             setState({...{message: 'Swap Success', open: true}, open: true});
+            reset23()
         },
         onError(err) {
             console.log('approve tx error data ', robustSwapNFTsForTokenData?.hash, err);
@@ -73,6 +75,10 @@ const SwapButton = ({formikData, owner}) => {
     }
 
     function doSwapNFTToToken() {
+        // if (formikData.isExceeded) {
+        //     setErrorMsg('Reduce Nft Amount')
+            // return;
+        // }
         swapNFTToToken()
     }
 
@@ -91,7 +97,7 @@ const SwapButton = ({formikData, owner}) => {
             text = 'Select a Collection'
             return (<div>{text}</div>)
         }
-        if (!formikData.selectIds.length>0) {
+        if (!formikData.selectIds.length > 0) {
             text = 'Select a NFT'
             return (<div>{text}</div>)
         }
@@ -99,11 +105,6 @@ const SwapButton = ({formikData, owner}) => {
         if (!nftApproval) {
             text = 'Approve'
             return (<button onClick={() => doApprove()}>{approveLoading || waitApproveLoading ? <Box sx={{display: 'flex'}}><CircularProgress/></Box> : text}</button>)
-        }
-
-        if (formikData.isExceeded) {
-            text = 'Reduce Nft Amount'
-            return (<div>{text}</div>)
         }
 
         text = 'Swap'
@@ -128,8 +129,13 @@ const SwapButton = ({formikData, owner}) => {
     )
 
     return (
-        <div className={'btn' + " " + 'mx-6' + " " + styles.swapButton}>
-            {buttonText()}
+        <div>
+            <div className={'btn' + " " + 'mx-6' + " " + styles.swapButton}>
+                {buttonText()}
+            </div>
+            <div>
+                {errorMsg}
+            </div>
         </div>
     )
 }

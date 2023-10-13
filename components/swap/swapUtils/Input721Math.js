@@ -60,7 +60,6 @@ const update721SellToPairs = (tokenId, pairs) => {
 
 
 const nftSetBanSelect = (newSids, formikData) => {
-    console.log('formikData,formikData',formikData)
     // check if ban
     let newSidsPlus = new Array(newSids.length + 1).fill(0)
     let pairs2 = JSON.parse(JSON.stringify(formikData.filterPairs))

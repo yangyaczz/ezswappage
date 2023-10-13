@@ -156,6 +156,7 @@ const Swap = () => {
                     setTokenName={(value) => { formik.setFieldValue('tokenName', value) }}
                     setFilterPairs={(value) => { formik.setFieldValue('filterPairs', value) }}
                     setSwapMode={(value) => { formik.setFieldValue('swapMode', value) }}
+                    setIsBanSelect={(value) => { formik.setFieldValue('isBanSelect', value) }}
                   />
 
                   {formik.values.collection.type === '' || formik.values.collection.type === "ERC721"?<InputAmount

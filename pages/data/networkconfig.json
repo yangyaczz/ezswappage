@@ -37,6 +37,27 @@
                 "name": "ts1155tk1",
                 "tokenId1155": "1",
                 "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t4.png"
+            },
+            {
+                "type": "ERC1155",
+                "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
+                "name": "ts1155tk2",
+                "tokenId1155": "2",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t2.png"
+            },
+            {
+                "type": "ERC1155",
+                "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
+                "name": "ts1155tk3",
+                "tokenId1155": "3",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t3.png"
+            },
+            {
+                "type": "ERC1155",
+                "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
+                "name": "ts1155tk4",
+                "tokenId1155": "4",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t4.png"
             }
         ],
         "recommendERC20": [

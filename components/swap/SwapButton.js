@@ -87,12 +87,10 @@ const SwapButton = ({formikData, owner}) => {
     };
     const buttonText = () => {
         let text
-
-        if (!formikData.collection.address || !formikData.token) {
+        if (!formikData.collection.address) {
             text = 'Select a Collection'
             return (<div>{text}</div>)
         }
-        console.log('formikDataformikData',formikData)
         if (!formikData.selectIds.length>0) {
             text = 'Select a NFT'
             return (<div>{text}</div>)
@@ -103,7 +101,7 @@ const SwapButton = ({formikData, owner}) => {
             return (<button onClick={() => doApprove()}>{approveLoading || waitApproveLoading ? <Box sx={{display: 'flex'}}><CircularProgress/></Box> : text}</button>)
         }
 
-        if (formikData.isBanSelect) {
+        if (formikData.isExceeded) {
             text = 'Reduce Nft Amount'
             return (<div>{text}</div>)
         }

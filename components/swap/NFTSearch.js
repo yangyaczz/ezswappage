@@ -11,11 +11,11 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import styles from './index.module.scss';
 
-import { erc20ABI } from 'wagmi'
 
 import multiSetFilterPairMode from './swapUtils/multiSetFilterPairMode'
+import {nftSetBanSelect} from "./swapUtils/Input721Math";
 
-const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollection, setPairs, setTokens, setTokensName, setToken, setTokenName, setFilterPairs, setSwapMode }) => {
+const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollection, setPairs, setTokens, setTokensName, setToken, setTokenName, setFilterPairs, setSwapMode,setIsBanSelect }) => {
 
 
     const [searchQuery, setSearchQuery] = useState('');
@@ -24,9 +24,6 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value.toLowerCase());
     };
-    // const handleChange = (event) => {
-    //     setAge(event.target.value);
-    // };
 
     const filteredNFTs = formikData.golbalParams.recommendNFT
         ? formikData.golbalParams.recommendNFT.filter(nft =>
@@ -39,7 +36,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
         reset123()
         setAge(event.target.value);
         for (let i = 0; i < filteredNFTs.length; i++) {
-            if (filteredNFTs[i].address === nft.props.value) {
+            if (filteredNFTs[i].address+filteredNFTs[i].tokenId1155 === nft.props.value) {
                 setCollection(filteredNFTs[i])
                 break
             }
@@ -83,9 +80,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                         return mappingObject ? mappingObject.name : null;
                     });
 
-                    console.log('tokensNamestokensNamestokensNames',tokensNames)
                     setTokensName(tokensNames)
-
 
                     if (canTradeToken.length) {
                         let token
@@ -98,6 +93,10 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                         setTokenName(tokensNames[0])
 
                         multiSetFilterPairMode(formikData, filteredData, owner, token, setFilterPairs, setSwapMode)
+                        if (formikData.collection.type === 'ERC721') {
+                            const result=nftSetBanSelect([],formikData)
+                            setIsBanSelect(result)
+                        }
                     }
                 }
             }
@@ -152,7 +151,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                             return <div className={styles.selectDefault}><span className={styles.selectDefaultSpan}>Select Collection</span><svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg></div>;
                         }
                         for (let i = 0; i < filteredNFTs.length; i++) {
-                            if (filteredNFTs[i].address === selected) {
+                            if (filteredNFTs[i].address+filteredNFTs[i].tokenId1155 === selected) {
                                 return <div className={styles.selectedStyle}><img className={styles.logoStyle} src={filteredNFTs[i].img} alt=""/>{filteredNFTs[i].name}</div>
                             }
                         }
@@ -163,7 +162,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                         <div>Select Collection</div>
                     </MenuItem>
                     {filteredNFTs.map((nft, index) => (
-                        <MenuItem key={nft.address} value={nft.address} className={styles.selectItem}><img className={styles.logoStyle} src={nft.img} alt=""/>{nft.name}</MenuItem>
+                        <MenuItem key={nft.address+nft.tokenId1155} value={nft.address+nft.tokenId1155} className={styles.selectItem}><img className={styles.logoStyle} src={nft.img} alt=""/>{nft.name}</MenuItem>
                     ))}
                 </Select>
             </FormControl>

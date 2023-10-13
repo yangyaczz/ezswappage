@@ -52,6 +52,7 @@ const Swap = () => {
       totalGet: '',
       tupleEncode: '',
       isExceeded: '',
+      isBanSelect: '',
     },
     onSubmit: values => {
       alert(JSON.stringify(values, null, 2));
@@ -123,6 +124,7 @@ const Swap = () => {
     formik.setFieldValue('totalGet', '')
     formik.setFieldValue('tupleEncode', '')
     formik.setFieldValue('isExceeded', '')
+    formik.setFieldValue('isBanSelect', '')
   }
 
 
@@ -161,12 +163,14 @@ const Swap = () => {
                       setTotalGet={(value) => { formik.setFieldValue('totalGet', value) }}
                       setTupleEncode={(value) => { formik.setFieldValue('tupleEncode', value) }}
                       setIsExceeded={(value) => { formik.setFieldValue('isExceeded', value) }}
+                      setIsBanSelect={(value) => { formik.setFieldValue('isBanSelect', value) }}
                     />:<NFT1155
                       formikData={formik.values}
                       setSelectIds={(value) => { formik.setFieldValue('selectIds', value) }}
                       setTotalGet={(value) => { formik.setFieldValue('totalGet', value) }}
                       setTupleEncode={(value) => { formik.setFieldValue('tupleEncode', value) }}
                       setIsExceeded={(value) => { formik.setFieldValue('isExceeded', value) }}
+                      setIsBanSelect={(value) => { formik.setFieldValue('isBanSelect', value) }}
                   />}
                   <div className={styles.exchangeIcon}>
                     <img src="/exchange.svg" alt=""/>

@@ -12,7 +12,7 @@ import {Box, Chip, OutlinedInput} from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 
 
-const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded }) => {
+const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded,setIsBanSelect }) => {
     const [personName, setPersonName] = React.useState([]);
     const theme = useTheme();
 
@@ -184,10 +184,24 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
         ///////////////////////////////////////////////////////////////
 
         // check if is execeeded
-        if (newSids.length > IdsAmount) {
-            setIsExceeded(true)
+        // check if ban
+        let newSidsPlus = new Array(newSids.length + 1).fill(0)
+        let pairs2 = JSON.parse(JSON.stringify(formikData.filterPairs))
+        newSidsPlus.forEach(id => {
+            update721SellToPairs(id, pairs2)
+        })
+
+        let IdsPlusAmount = 0
+        pairs2.forEach(pair => {
+            if (pair.tuple) {
+                IdsPlusAmount += pair.tokenIds.length
+            }
+        })
+
+        if (newSidsPlus.length > IdsPlusAmount) {
+            setIsBanSelect(true)
         } else {
-            setIsExceeded(false)
+            setIsBanSelect(false)
         }
     }
     /////////////////////////////////////////intpu721 copy过来的///////////////////////////////////////////////////////////
@@ -229,7 +243,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                     sx={{color:'white',background: '#06080F'}}
                     renderValue={(selected) => {
                         if (selected.length === 0) {
-                            return <em>Select Items{selected.length+" "+formikData.isExceeded+" fafa"}</em>;
+                            return <em>Select Items{selected.length+" "+formikData.isBanSelect+" fafa"}</em>;
                         }
                         return  <em className={styles.nftSelectedText}><img className={styles.logoStyle} src="/logo.svg" alt=""/><span>{selected.length}</span></em>
                         // return selected;
@@ -241,7 +255,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                     </MenuItem>
                     {formikData?.userCollection?.tokenIds721 !== '' ?
                         formikData.userCollection.tokenIds721.map((nft, index) => (
-                            formikData.isExceeded && personName.length>0 && !personName.includes(nft) ?
+                            formikData.isBanSelect && personName.length>0 && !personName.includes(nft) ?
                             <MenuItem disabled style={getStyles(name, personName, theme)} key={nft} value={nft} className={styles.selectItem}><img className={styles.logoStyle} src="/logo.svg" alt=""/>{nft}</MenuItem>
                             :<MenuItem style={getStyles(name, personName, theme)} key={nft} value={nft} className={styles.selectItem}><img className={styles.logoStyle} src="/logo.svg" alt=""/>{nft}</MenuItem>
                         )): null}

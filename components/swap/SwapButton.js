@@ -28,14 +28,14 @@ const SwapButton = ({formikData, owner, reset23}) => {
         }
     })
 
-    const {data: approveNFTData, isLoading: approveLoading, isSuccess: approveSuccess, write: approveNFT} = useContractWrite({
+    const {data: approveNFTData, isLoading: approveLoading, isSuccess: approveSuccess, write: approveNFT,status: approveStatus,error:approveError} = useContractWrite({
         address: formikData.collection.address,
         abi: ERC721EnumABI,
         functionName: 'setApprovalForAll',
         args: [formikData.golbalParams.router, true],
     })
 
-    const {data: robustSwapNFTsForTokenData, isLoading, isSuccess, write: swapNFTToToken, status: swapStatus} = useContractWrite({
+    const {data: robustSwapNFTsForTokenData, isLoading, isSuccess, write: swapNFTToToken, status: swapStatus,error:swapError} = useContractWrite({
         address: formikData.golbalParams.router,
         abi: RouterABI,
         functionName: 'robustSwapNFTsForToken',
@@ -81,6 +81,32 @@ const SwapButton = ({formikData, owner, reset23}) => {
         // }
         swapNFTToToken()
     }
+
+
+    useEffect(() => {
+        if (approveStatus === 'error') {
+            if (approveError.message.indexOf('token owner or approved') > -1) {
+                setState({...{message: 'caller is not token owner or approved', open: true}, open: true});
+            }else if (approveError.message.indexOf('insufficient funds') > -1) {
+                setState({...{message: 'insufficient funds', open: true}, open: true});
+            }else {
+                setState({...{message: 'approve error', open: true}, open: true});
+            }
+        }
+    }, [approveStatus]);
+
+    useEffect(() => {
+        if (swapStatus === 'error') {
+            if (swapError.message.indexOf('token owner or approved') > -1) {
+                setState({...{message: 'caller is not token owner or approved', open: true}, open: true});
+            }else if (swapError.message.indexOf('insufficient funds') > -1) {
+                setState({...{message: 'insufficient funds', open: true}, open: true});
+            }else {
+                setState({...{message: 'swap error', open: true}, open: true});
+            }
+        }
+    }, [swapStatus]);
+
 
     const [state, setState] = useState({
         open: false,

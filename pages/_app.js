@@ -5,7 +5,8 @@ import { publicProvider } from "wagmi/providers/public";
 import { mainnet, polygon} from "wagmi/chains";
 import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
 import NavBar from "@/components/bar/NavBar";
-
+import store from '../app/store';
+import { Provider } from 'react-redux';
 const mantatest = {
   id: 3441005,
   name: 'Manta Testnet',
@@ -69,7 +70,9 @@ export default function App({ Component, pageProps }) {
     <WagmiConfig client={wagmiClinet}>
       <RainbowKitProvider chains={chains}>
         <NavBar></NavBar>
+        <Provider store={store}>
         <Component {...pageProps} />
+        </Provider>
       </RainbowKitProvider>
     </WagmiConfig>
   );

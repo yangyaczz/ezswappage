@@ -69,7 +69,7 @@ function Input1155({formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
     };
 
     const handleDecrement = () => {
-        setValue(prev => Math.max(prev - 1, 1))
+        setValue(prev => Math.max(prev - 1, 0))
     };
     const firstUpdate = useRef(true);
     useEffect(() => {

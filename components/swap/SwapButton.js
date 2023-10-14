@@ -104,13 +104,13 @@ const SwapButton = ({formikData, owner, reset23}) => {
 
         if (!nftApproval) {
             text = 'Approve'
-            return (<button onClick={() => doApprove()}>{approveLoading || waitApproveLoading ? <Box sx={{display: 'flex'}}><CircularProgress/></Box> : text}</button>)
+            return (<button onClick={() => doApprove()}>{approveLoading || waitApproveLoading ? <span class="loading loading-spinner loading-sm"></span> : text}</button>)
         }
 
         text = 'Swap'
         return (
             <div>
-                <button onClick={() => doSwapNFTToToken()}>{isLoading || waitTrxLoading ? <Box sx={{display: 'flex'}}><CircularProgress/></Box> : text}</button>
+                <button onClick={() => doSwapNFTToToken()}>{isLoading || waitTrxLoading ? <span class="loading loading-spinner loading-sm"></span> : text}</button>
                 <Snackbar
                     anchorOrigin={{vertical: 'top', horizontal: 'right'}}
                     open={open}

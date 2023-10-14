@@ -12,6 +12,7 @@ import {Box, Chip, OutlinedInput} from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 import {update721SellToPairs} from "./swapUtils/Input721Math";
 import {nftSetBanSelect} from "./swapUtils/Input721Math";
+import {useSelector} from "react-redux";
 
 
 const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded,setIsBanSelect }) => {
@@ -95,7 +96,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
     useEffect(() => {
         setPersonName([])
     }, [formikData?.userCollection?.tokenIds721,formikData.tokenName]);
-
+    const collectionSearchStatus = useSelector((state) => state.collectionSearchStatus.value);
     return (
         <div className="form-control">
             <FormControl sx={{ m: 1, minWidth: 400 }} className={styles.selectItem}>
@@ -103,15 +104,24 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                     labelId="demo-multiple-chip-label"
                     id="demo-multiple-chip"
                     value={personName}
+                    disabled={collectionSearchStatus}
                     onChange={toggleSelected}
                     displayEmpty
                     multiple
-                    inputProps={{ 'aria-label': 'Without label' }}
+                    // inputProps={{  MenuProps: {
+                    //         MenuListProps: {
+                    //             sx: {
+                    //                 backgroundColor: '#292B45',
+                    //                 maxHeight: '224px',
+                    //                 color:'#FFFFFF',
+                    //             }
+                    //         }
+                    //     } }}
                     className={styles.selectItem}
                     sx={{color:'white',background: '#06080F'}}
                     renderValue={(selected) => {
                         if (selected.length === 0) {
-                            return <div className={styles.selectDefault}><span className={styles.selectDefaultSpan}>Select Items</span><svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg></div>;
+                            return collectionSearchStatus?<span class="loading loading-spinner loading-sm text-accent"></span>:<div className={styles.selectDefault}><span className={styles.selectDefaultSpan}>Select Items</span><svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg></div>;
                         }
                         return  <div className={styles.nftSelectedText}><img className={styles.logoStyle} src={formikData.collection.img} alt=""/><span>{selected.length}</span></div>
                         // return selected;

@@ -6,6 +6,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import {nftSetBanSelect} from "./swapUtils/Input721Math";
+import {useSelector} from "react-redux";
 
 
 const TokenSearch = ({formikData, owner, reset23, setToken, setTokenName, setFilterPairs, setSwapMode, setIsBanSelect}) => {
@@ -33,25 +34,29 @@ const TokenSearch = ({formikData, owner, reset23, setToken, setTokenName, setFil
         }
     }, [formikData.tokenName]);
 
+    const collectionSearchStatus = useSelector((state) => state.collectionSearchStatus.value);
+
 
     return (
         <FormControl sx={{m: 1, minWidth: 400}} className={styles.selectItem}>
             <Select
                 value={age}
                 onChange={handleTokenClick}
+                disabled={collectionSearchStatus}
                 displayEmpty
                 inputProps={{'aria-label': 'Without label'}}
                 className={styles.selectItem}
                 sx={{color: 'white', background: '#06080F'}}
                 renderValue={(selected) => {
                     if (formikData.tokenName === '') {
-                        return <div className={styles.selectDefault}><span className={styles.selectDefaultSpan}>Select Token</span>
+                        return collectionSearchStatus?<span class="loading loading-spinner loading-sm text-accent"></span>:
+                        <div className={styles.selectDefault}><span className={styles.selectDefaultSpan}>Select Token</span>
                             <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path>
                             </svg>
                         </div>;
                     }
-                    return <em className={styles.tokenStyle}><span>{formikData.tokenName}</span><span>{formikData.totalGet ? formikData.totalGet.toFixed(3) : 0}</span></em>;
+                    return <div className={styles.tokenStyle}><span>{formikData.tokenName}</span><span>{formikData.totalGet ? formikData.totalGet.toFixed(3) : 0}</span></div>;
                 }}
             >
                 <MenuItem disabled value="">

@@ -10,6 +10,8 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import styles from './index.module.scss';
+import { useSelector, useDispatch } from 'react-redux';
+import { decrement, increment } from '../../app/collectionSearchSlice';
 
 
 import multiSetFilterPairMode from './swapUtils/multiSetFilterPairMode'
@@ -42,15 +44,17 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
             }
         }
     }
+    const dispatch = useDispatch();
+
 
     useEffect(() => {
         const fetchData = async () => {
             if (formikData.golbalParams.networkName && formikData.collection.address) {
+                dispatch(increment())
                 const params = {
                     contractAddress: formikData.collection.address,
                     network: formikData.golbalParams.networkName,
                 };
-
                 const response = await fetch('/api/proxy', {
                     method: 'POST',
                     headers: {
@@ -60,6 +64,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                 });
 
                 const data = await response.json();
+                dispatch(decrement())
 
                 if (data.success) {
                     const pairsList = data.data
@@ -106,7 +111,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
 
 
 
-    }, [formikData.golbalParams.networkName, formikData.collection.address])
+    }, [formikData.golbalParams.networkName, formikData.collection.address + formikData.collection.tokenId1155])
 
 
     const { data: tokenIds721 } = useContractRead({

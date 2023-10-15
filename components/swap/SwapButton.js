@@ -38,11 +38,15 @@ const SwapButton = ({ formikData, owner }) => {
     })
 
 
-    const { data: robustSwapNFTsForTokenData, write: swapNFTToToken } = useContractWrite({
+    const { data: robustSwapNFTsForTokenData, write: swapNFTToToken, isSuccess: swapIsSuccess, isLoading: swapIsLoading } = useContractWrite({
         address: formikData.golbalParams.router,
         abi: RouterABI,
         functionName: 'robustSwapNFTsForToken',
         args: [formikData.tupleEncode, owner, (Date.parse(new Date()) / 1000 + 60 * 3600)],
+        onSettled(data, error) {
+            alert('settle', { data, error })
+            console.log(data, error)
+        }
     })
 
 
@@ -75,9 +79,18 @@ const SwapButton = ({ formikData, owner }) => {
 
         text = 'swap'
         return (
-            <button onClick={() => swapNFTToToken()}>
-                {text}
-            </button>
+            <>
+                <button onClick={() => swapNFTToToken()}>
+                    {swapIsLoading ? <div>Loading...</div> : <div>{text}</div>}
+                </button>
+                {swapIsLoading && <div>
+                    <div className="alert alert-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <span>Your purchase has been confirmed!</span>
+                    </div>
+                </div>}
+                {/* {swapIsSuccess && <div>Transaction: {JSON.stringify(robustSwapNFTsForTokenData)}</div>} */}
+            </>
         )
     }
 

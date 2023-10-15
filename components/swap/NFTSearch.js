@@ -52,9 +52,13 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                     const pairsList = data.data
                     let filteredData = pairsList.filter(item => item.type === 'buy' || item.type === 'trade');
 
+                    console.log(filteredData)
+
                     if (formikData.collection.type == 'ERC1155') {
                         filteredData = filteredData.filter(item => item.nftId1155 === formikData.collection.tokenId1155);
                     }
+
+                    console.log(filteredData)
                     
                     setPairs(filteredData)
 
@@ -91,7 +95,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
 
 
 
-    }, [formikData.golbalParams.networkName, formikData.collection.address])
+    }, [formikData.golbalParams.networkName, formikData.collection.name])
 
 
     const { data: tokenIds721 } = useContractRead({

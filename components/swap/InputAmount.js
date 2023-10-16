@@ -135,10 +135,22 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                         formikData.userCollection.tokenIds721.map((nft, index) => (
                             (formikData.isBanSelect || formikData.filterPairs.length===0) && !personName.includes(nft) ?
                             <MenuItem disabled style={getStyles(name, personName, theme)} key={nft} value={nft} className={styles.selectItem}><img className={styles.logoStyle} src={formikData.collection.img} alt=""/>{nft}</MenuItem>
-                            :<MenuItem style={getStyles(name, personName, theme)} key={nft} value={nft} className={styles.selectItem}><img className={styles.logoStyle} src={formikData.collection.img} alt=""/>{nft}</MenuItem>
+                            :<MenuItem style={getStyles(name, personName, theme)} key={nft} value={nft} className={styles.selectItem}>
+                                    <div className={styles.optionStyle}>
+                                        <div className={styles.optionImgText}>
+                                        <img className={styles.logoStyle} src={formikData.collection.img} alt=""/>{nft}
+                                        </div>
+                                        <div>
+                                            {personName.includes(nft)?<img className={styles.yesStyle} src='/yes.svg' alt=""/>:null}
+                                        </div>
+                                    </div>
+                            </MenuItem>
                         )): null}
                 </Select>
             </FormControl>
+            <div>
+                {collectionSearchStatus ?null: formikData.isBanSelect? <div>this pair has no liquidity</div>:null}
+            </div>
         </div>
     )
 }

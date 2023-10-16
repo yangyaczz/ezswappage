@@ -22,9 +22,10 @@ const SwapButton = ({formikData, owner, reset23}) => {
         args: [owner, formikData.golbalParams.router],
         watch: true,
         onSuccess(data) {
-            if (data) {
-                setNftApproval(true)
-            }
+            console.log('SwapButton isApprovedForAll', data)
+            // if (data) {
+                setNftApproval(data)
+            // }
         }
     })
 
@@ -81,7 +82,6 @@ const SwapButton = ({formikData, owner, reset23}) => {
         // }
         swapNFTToToken()
     }
-
 
     useEffect(() => {
         if (approveStatus === 'error') {

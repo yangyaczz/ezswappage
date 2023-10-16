@@ -15,6 +15,7 @@ import * as Yup from 'yup';
 import { useNetwork, useAccount } from 'wagmi'
 
 import networkConfig from '../data/networkconfig.json'
+import {useSelector} from "react-redux";
 
 const Swap = () => {
 
@@ -133,6 +134,7 @@ const Swap = () => {
   if (!isMounted) {
     return null; //  <Loading /> ??
   }
+
   return (
       <div className={styles.divBackground}>
     <div className='flex min-h-screen items-center justify-center'>

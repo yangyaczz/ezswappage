@@ -149,7 +149,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                     value={age}
                     onChange={handleNFTClick}
                     displayEmpty
-                    inputProps={{ 'aria-label': 'Without label' }}
+                    inputProps={{ 'aria-label': 'Without label','max-height': '224px' }}
                     className={styles.selectItem}
                     sx={{color:'white',background: '#06080F'}}
                     renderValue={(selected) => {
@@ -168,7 +168,17 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                         <div>Select Collection</div>
                     </MenuItem>
                     {filteredNFTs.map((nft, index) => (
-                        <MenuItem key={nft.address+nft.tokenId1155} value={nft.address+nft.tokenId1155} className={styles.selectItem}><img className={styles.logoStyle} src={nft.img} alt=""/>{nft.name}</MenuItem>
+                        <MenuItem key={nft.address+nft.tokenId1155} value={nft.address+nft.tokenId1155} className={styles.selectItem}>
+                            <div className={styles.optionStyle}>
+                                <div className={styles.optionImgText}>
+                                    <img className={styles.logoStyle} src={nft.img} alt=""/>
+                                    {nft.name}
+                                </div>
+                                <div>
+                                    {age === nft.address+nft.tokenId1155?<img className={styles.yesStyle} src='/yes.svg' alt=""/>:null}
+                                </div>
+                            </div>
+                        </MenuItem>
                     ))}
                 </Select>
             </FormControl>

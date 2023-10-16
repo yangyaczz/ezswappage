@@ -7,6 +7,11 @@
   height: 50px;
   margin-right: 10px;
 }
+
+.yesStyle{
+  width: 20px;
+  height: 20px;
+}
 .selectedStyle{
   display: flex;
   align-items: center;
@@ -35,4 +40,14 @@
 .swapButton:hover{
   background: #28B7BC;
   color: #000000;
+}
+.optionStyle{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.optionImgText{
+  display: flex;
+  align-items: center;
 }

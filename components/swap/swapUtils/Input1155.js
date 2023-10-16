@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import styles from "./index.module.scss";
 import FormControl from "@mui/material/FormControl";
 import {update1155SellToPairs,nftSetBanSelect} from "./Input1155Math";
+import {useSelector} from "react-redux";
 
 function Input1155({formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded, setIsBanSelect}) {
 
@@ -85,9 +86,11 @@ function Input1155({formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
     // if (formikData.userCollection.tokenAmount1155 === 0) {
     //     return <div>you dont have this nft</div>
     // }
+    const collectionSearchStatus = useSelector((state) => state.collectionSearchStatus.value);
 
 
     return (
+        <div>
         <FormControl sx={{m: 1, minWidth: 400}}>
             <div className={styles.nft1155}>
                 <div>Sell Amount ({formikData.userCollection.tokenAmount1155}) :</div>
@@ -106,6 +109,10 @@ function Input1155({formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
                 </div>
             </div>
         </FormControl>
+            <div>
+                {collectionSearchStatus ?null: formikData.isBanSelect? <div>this pair has no liquidity</div>:null}
+            </div>
+        </div>
     )
 }
 

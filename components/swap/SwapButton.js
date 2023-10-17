@@ -14,29 +14,6 @@ const SwapButton = ({formikData, owner, reset23}) => {
 
     const [nftApproval, setNftApproval] = useState(false)
     const [errorMsg, setErrorMsg] = useState("")
-    const [alertText, setAlertText] = useState({
-        className: '',
-        text: '',
-        svg: '',
-    })
-    const [showAlert, setShowAlert] = useState(false);
-
-
-
-    const svgError = (<svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>)
-    const svgSuccess = (<svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>)
-
-    // useEffect(() => {
-    //     let timer;
-    //     if (showAlert) {
-    //         timer = setTimeout(() => {
-    //             setShowAlert(false);
-    //         }, 1500);
-    //     }
-    //     return () => {
-    //         clearTimeout(timer);
-    //     };
-    // }, [showAlert]);
 
     const {data: nftApprovalData} = useContractRead({
         address: formikData.collection.address,
@@ -69,25 +46,13 @@ const SwapButton = ({formikData, owner, reset23}) => {
         hash: approveNFTData?.hash,
         confirmations: 1,
         onSuccess(data) {
-            // console.log(robustSwapNFTsForTokenData?.hash, data)
-            // setState({...{message: 'Approve Success', open: true}, open: true});
-            setAlertText({
-                className: 'alert-success',
-                text: 'Approve Success',
-                svg: svgSuccess,
-            })
-            setShowAlert(true);
+            console.log(robustSwapNFTsForTokenData?.hash, data)
+            setState({...{message: 'Approve Success', open: true}, open: true});
             doSwapNFTToToken()
         },
         onError(err) {
-            // console.log('approve tx error data ', robustSwapNFTsForTokenData?.hash, err);
-            // setState({...{message: 'Approve Fail', open: true}, open: true});
-            setAlertText({
-                className: 'alert-error',
-                text: "Approve Fail",
-                svg: svgError,
-            })
-            setShowAlert(true);
+            console.log('approve tx error data ', robustSwapNFTsForTokenData?.hash, err);
+            setState({...{message: 'Approve Fail', open: true}, open: true});
         }
     })
 
@@ -96,29 +61,18 @@ const SwapButton = ({formikData, owner, reset23}) => {
         confirmations: 1,
         onSuccess(data) {
             console.log(robustSwapNFTsForTokenData?.hash, data)
-            // setState({...{message: 'Swap Success', open: true}, open: true});
-            setAlertText({
-                className: 'alert-success',
-                text: 'Swap Success',
-                svg: svgSuccess,
-            })
+            setState({...{message: 'Swap Success', open: true}, open: true});
             reset23()
         },
         onError(err) {
-            // console.log('approve tx error data ', robustSwapNFTsForTokenData?.hash, err);
-            // setState({...{message: 'Swap Fail', open: true}, open: true});
-            setAlertText({
-                className: 'alert-error',
-                text: 'Swap Fail',
-                svg: svgError,
-            })
-            setShowAlert(true);
+            console.log('approve tx error data ', robustSwapNFTsForTokenData?.hash, err);
+            setState({...{message: 'Swap Fail', open: true}, open: true});
         }
     })
 
     function doApprove() {
         approveNFT()
-        // setState({...{message: 'Swap Success', open: true}, open: true});
+        setState({...{message: 'Swap Success', open: true}, open: true});
     }
 
     function doSwapNFTToToken() {
@@ -126,14 +80,7 @@ const SwapButton = ({formikData, owner, reset23}) => {
         //     setErrorMsg('Reduce Nft Amount')
             // return;
         // }
-        // swapNFTToToken()
-        console.log('faa')
-        setAlertText({
-            className: 'alert-success',
-            text: 'Swap Fail',
-            svg: svgError,
-        })
-        setShowAlert(true);
+        swapNFTToToken()
     }
 
     useEffect(() => {

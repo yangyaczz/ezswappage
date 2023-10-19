@@ -19,6 +19,13 @@
             },
             {
                 "type": "ERC721",
+                "address": "0x2c236CCb897e7d22e238E98dB4b960445506BFc0",
+                "name": "ZKholdem",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+            },
+            {
+                "type": "ERC721",
                 "address": "0x422105Aa59601426568651808Ed8294E99fd5a19",
                 "name": "ts721ec2",
                 "tokenId1155": "",
@@ -81,6 +88,31 @@
         "ERC20": "0xB32eFC47Bf503B3593a23204cF891295a85115Ea",
         "ERC721": "0xE567f07cD4aeC9AEDD8A54E4F2A4d24de204eB98",
         "ERC1155": "0x7e19ae65b9DE48C09eAdFdF0e4Be2CF977eE63b3",
-        "recommendNFT": []
+        "recommendNFT": [
+            {
+                "type": "ERC721",
+                "address": "0xd7d2d92081e5afc352c12f7c9e619dc7403d969d",
+                "name": "Holdem Tier 1",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.jpg"
+            },
+            {
+                "type": "ERC721",
+                "address": "0xeeaaa26bcc421851497584ea44a329a2c1eb567c",
+                "name": "Holdem Tier 5",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t5.jpg"
+            }
+        ],
+        "recommendERC20": [
+            {
+                "address": "ETH",
+                "name": "ETH"
+            },
+            {
+                "address": "0x0B20E82DAC9dCc7b9D082C2Abb32AEf2D33a42D6",
+                "name": "tsez20"
+            }
+        ]
     }
 }

@@ -10,10 +10,10 @@ import {useSelector} from "react-redux";
 
 
 const TokenSearch = ({formikData, owner, reset23, setToken, setTokenName, setFilterPairs, setSwapMode, setIsBanSelect}) => {
-    const [age, setAge] = useState('ETH');
+    const [age, setAge] = useState(formikData.tokenName);
 
     const handleTokenClick = (event, tokenName) => {
-        setAge(event.target.value);
+        console.log('age',age)
         reset23()
         tokenName = tokenName.props.value
         console.log('tokenName', tokenName)
@@ -27,6 +27,7 @@ const TokenSearch = ({formikData, owner, reset23, setToken, setTokenName, setFil
     }
 
     useEffect(() => {
+        setAge(formikData.tokenName);
         //721需要看nft下拉框还能不能勾选,可能达到了池子的上限
         if (formikData.collection.type === 'ERC721') {
             const result = nftSetBanSelect([], formikData)
@@ -41,6 +42,7 @@ const TokenSearch = ({formikData, owner, reset23, setToken, setTokenName, setFil
         <FormControl sx={{m: 1, minWidth: 400}} className={styles.selectItem}>
             <Select
                 value={age}
+                defaultValue={formikData.tokenName}
                 onChange={handleTokenClick}
                 disabled={collectionSearchStatus}
                 displayEmpty
@@ -49,14 +51,18 @@ const TokenSearch = ({formikData, owner, reset23, setToken, setTokenName, setFil
                 sx={{color: 'white', background: '#06080F'}}
                 renderValue={(selected) => {
                     if (formikData.tokenName === '') {
-                        return collectionSearchStatus?<span class="loading loading-spinner loading-sm text-accent"></span>:
-                        <div className={styles.selectDefault}><span className={styles.selectDefaultSpan}>Select Token</span>
-                            <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path>
-                            </svg>
-                        </div>;
+                        return collectionSearchStatus ? <span class="loading loading-spinner loading-sm text-accent"></span> :
+                            <div className={styles.selectDefault}><span className={styles.selectDefaultSpan}>Select Token</span>
+                                <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path>
+                                </svg>
+                            </div>;
                     }
-                    return <div className={styles.tokenStyle}><span>{formikData.tokenName}</span><span>{formikData.totalGet ? formikData.totalGet.toFixed(3) : 0}</span></div>;
+                    console.log(formikData)
+                    return <div className={styles.tokenStyle}>
+                        <span>{formikData.tokenName}</span>
+                        <span>{formikData.totalGet ? formikData.totalGet.toFixed(3) : 0}</span>
+                    </div>;
                 }}
             >
                 <MenuItem disabled value="">

@@ -96,6 +96,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
     useEffect(() => {
         setPersonName([])
     }, [formikData?.userCollection?.tokenIds721,formikData.tokenName]);
+
     const collectionSearchStatus = useSelector((state) => state.collectionSearchStatus.value);
     return (
         <div className="form-control">

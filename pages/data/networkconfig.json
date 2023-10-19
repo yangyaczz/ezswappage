@@ -51,6 +51,12 @@
                 "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
                 "name": "ts1155tk4",
                 "tokenId1155": "4"
+            },
+            {
+                "type": "ERC721",
+                "address": "0x2c236CCb897e7d22e238E98dB4b960445506BFc0",
+                "name": "ZKholdem",
+                "tokenId1155": ""
             }
         ],
         "recommendERC20": [

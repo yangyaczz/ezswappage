@@ -59,7 +59,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                     }
 
                     console.log(filteredData)
-                    
+
                     setPairs(filteredData)
 
                     let canTradeToken = [...new Set(filteredData.map(item => item.token))].map(token => token === null ? 'ETH' : token);
@@ -87,6 +87,8 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                         setTokenName(tokensNames[0])
 
                         multiSetFilterPairMode(formikData, filteredData, owner, token, setFilterPairs, setSwapMode)
+
+                        console.log('isBanSelect', formikData.isBanSelect === true)
                     }
                 }
             }

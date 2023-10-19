@@ -3,7 +3,7 @@ import React from 'react'
 import Input721 from './swapUtils/Input721';
 import Input1155 from './swapUtils/Input1155';
 
-const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded,setIsBanSelect }) => {
+const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded, setIsBanSelect }) => {
 
     const displayFrame = () => {
         if (!formikData.selectIds.length) {
@@ -42,6 +42,8 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
 
     const displayDialog = () => {
 
+        console.log('displayDialog', formikData.collection.filterPairs)
+
         if (!formikData.collection.type || !formikData.token) {
             return <div>Select collection and token first...</div>
         }
@@ -51,7 +53,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
         }
 
         if (formikData.pairs && formikData.filterPairs.length === 0) {
-            return <div>No liquidity for swap...</div> 
+            return <div>No liquidity for swap...</div>
         }
 
         if (formikData.collection.type == "ERC721") {

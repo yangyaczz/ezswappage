@@ -3,7 +3,7 @@ import {ethers} from "ethers";
 import Input1155 from "./Input1155";
 
 const update1155SellToPairs = (tokenId, pairs) => {
-    let protocolFee = 5000000000000000   // 0.5%  get from smartcontract
+    let protocolFee = 10000000000000000   // 0.5%  get from smartcontract
     let dec = 1e18
     let maxPrice = 0
     let maxPriceIndex = -1

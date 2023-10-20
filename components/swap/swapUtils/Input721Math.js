@@ -2,7 +2,7 @@ import {BuyPoolExp, BuyPoolLiner, TradePoolExp, TradePoolLiner} from "../../util
 import {ethers} from "ethers";
 
 const update721SellToPairs = (tokenId, pairs) => {
-    let protocolFee = 5000000000000000   // 0.5%  get from smartcontract
+    let protocolFee = 10000000000000000   // 0.5%  get from smartcontract
     let dec = 1e18
     let maxPrice = 0
     let maxPriceIndex = -1

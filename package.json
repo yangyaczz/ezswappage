@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "NEXT_PUBLIC_APP_ENV=dev next dev",
+    "build": "NEXT_PUBLIC_APP_ENV=prod next build",
+    "start": "NEXT_PUBLIC_APP_ENV=dev next start",
+    "lint": "NEXT_PUBLIC_APP_ENV=test next lint"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -16,6 +16,7 @@
     "@reduxjs/toolkit": "^1.9.7",
     "ahooks": "^3.7.8",
     "axios": "^1.5.1",
+    "dotenv": "^16.3.1",
     "ethers": "^5.7.2",
     "formik": "^2.4.5",
     "next": "latest",

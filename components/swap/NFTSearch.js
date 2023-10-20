@@ -49,6 +49,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
 
     useEffect(() => {
         const fetchData = async () => {
+
             if (formikData.golbalParams.networkName && formikData.collection.address) {
                 dispatch(increment())
                 const params = {

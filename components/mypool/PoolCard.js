@@ -1,27 +1,37 @@
 import React, { useState } from 'react'
 import { ethers } from 'ethers';
 
-import { useSendTransaction, usePrepareSendTransaction, useContractWrite } from 'wagmi'
+import { useSendTransaction, useContractWrite } from 'wagmi'
 
 const PoolCard = ({ item }) => {
 
-    const [depositInputValue, setDepositInputValue] = useState('');  // 用于存储输入框的值
-    const [depositError, setdepositError] = useState(false);  // 用于存储输入框的值
+    const [depositInputValue, setDepositInputValue] = useState('');
+    const [withdrawInputValue, setWithdrawInputValue] = useState('');
+
+    const [depositError, setDepositError] = useState('');
+    const [withdrawError, setWithdrawError] = useState('');
+
 
 
 
     const handleDepositInputChange = (e) => {
         if (/^\d*\.?\d*$/.test(e.target.value)) {
             setDepositInputValue(e.target.value);
-            setdepositError(false)
+            setDepositError('')
         } else {
-            setdepositError(true)
+            setDepositError('invalid number')
         }
     };
 
-    const handleDeposit = () => {
-        depositETH()
+    const handleWithdrawInputChange = (e) => {
+        if (/^\d*\.?\d*$/.test(e.target.value)) {
+            setWithdrawInputValue(e.target.value);
+            setWithdrawError('')
+        } else {
+            setWithdrawError('invalid number')
+        }
     };
+
 
 
     /////////////////////////////////////////////////
@@ -31,7 +41,6 @@ const PoolCard = ({ item }) => {
             to: depositInputValue ? item.id : null,
             value: !depositInputValue ? null : ethers.utils.parseEther(depositInputValue.toString()),
         },
-
         onError(error) {
             console.log('Error', error)
             console.log('Error', error.message)
@@ -40,16 +49,54 @@ const PoolCard = ({ item }) => {
 
 
 
-    // const { data: robustSwapNFTsForTokenData, write: swapNFTToToken, isSuccess: swapIsSuccess, isLoading: swapIsLoading } = useContractWrite({
-    //     address: formikData.golbalParams.router,
-    //     abi: RouterABI,
-    //     functionName: 'robustSwapNFTsForToken',
-    //     args: [formikData.tupleEncode, owner, (Date.parse(new Date()) / 1000 + 60 * 3600)],
-    //     onSettled(data, error) {
-    //         alert('settle', { data, error })
-    //         console.log(data, error)
-    //     }
-    // })
+    const { data: withdrawETHData, write: withdrawETH } = useContractWrite({
+        address: withdrawInputValue ? item.id : null,
+        abi: [{
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "withdrawETH",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }],
+        functionName: 'withdrawETH',
+        args: [!withdrawInputValue ? null : ethers.utils.parseEther(withdrawInputValue.toString())],
+        onSettled(data, error) {
+            console.log(data, error)
+        }
+    })
+
+    const { data: withdrawERC20Data, write: withdrawERC20 } = useContractWrite({
+        address: item.id,
+        abi: [{
+            "inputs": [
+                {
+                    "internalType": "contract ERC20",
+                    "name": "a",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "withdrawERC20",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }],
+        functionName: 'withdrawERC20',
+        args: [item.token],
+        onSettled(data, error) {
+            console.log(data, error)
+        }
+    })
 
 
     return (
@@ -98,10 +145,10 @@ const PoolCard = ({ item }) => {
                                 value={depositInputValue}
                                 onChange={handleDepositInputChange}
                             />
-                            <button className="btn" onClick={handleDeposit}>Deposit</button>
+                            <button className="btn" onClick={() => depositETH?.()}>Deposit</button>
                         </div>
-                        <div>
-                            {depositError && 'invalid number'}
+                        <div className='text-red-600'>
+                            {depositError}
                         </div>
 
                         <form method="dialog">
@@ -118,7 +165,42 @@ const PoolCard = ({ item }) => {
                 {/* /////////////////////////////////////////// */}
 
 
-                <button className='btn mt-3 w-1/6'>withdraw token</button>
+                <button className='btn mt-3 w-1/6' onClick={() => document.getElementById(`withdraw_token_${item.id}`).showModal()}>
+                    withdraw token
+                </button>
+
+                <dialog id={`withdraw_token_${item.id}`} className="modal">
+                    <div className="modal-box">
+                        <h3 className="font-bold text-lg">Withdraw Token:</h3>
+
+                        <div className="flex space-x-4 items-center">
+                            <input
+                                type="text"
+                                className="border p-2 rounded-md"
+                                placeholder="Enter Amount"
+                                value={withdrawInputValue}
+                                onChange={handleWithdrawInputChange}
+                            />
+                            <button className="btn" onClick={() => withdrawETH?.()}>Withdraw</button>
+                        </div>
+                        <div className='text-red-600'>
+                            {withdrawError}
+                        </div>
+
+                        <form method="dialog">
+                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                        </form>
+                    </div>
+
+                    <form method="dialog" className="modal-backdrop">
+                        <button>close</button>
+                    </form>
+                </dialog>
+
+
+
+
+
             </div>
 
         </div>

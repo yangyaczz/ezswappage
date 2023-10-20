@@ -1,13 +1,16 @@
 import React from 'react'
 import {ConnectButton} from '@rainbow-me/rainbowkit'
 import styles from './index.module.scss'
+import Link from "next/link";
 
 const NavBar = () => {
     return (
         <div className={styles.wrapNewHeader}>
             <div className={styles.headerBox}>
                 <div className={styles.ezLogo}>
-                    <img src='/logo.svg'/>
+                    <Link href='/swap'>
+                        <img src='/logo.svg'/>
+                    </Link>
                 </div>
                 <div>
                     <div className={styles.headerLeft}>

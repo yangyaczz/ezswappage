@@ -92,14 +92,14 @@
             {
                 "type": "ERC721",
                 "address": "0xd7d2d92081e5afc352c12f7c9e619dc7403d969d",
-                "name": "Holdem Tier 1",
+                "name": "zkHoldem NFT",
                 "tokenId1155": "",
                 "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.jpg"
             },
             {
                 "type": "ERC721",
                 "address": "0xeeaaa26bcc421851497584ea44a329a2c1eb567c",
-                "name": "Holdem Tier 5",
+                "name": "Stellar Gambits",
                 "tokenId1155": "",
                 "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t5.jpg"
             }

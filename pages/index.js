@@ -1,8 +1,11 @@
-import Image from 'next/image'
-import { ConnectButton } from '@rainbow-me/rainbowkit'
-
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 export default function Home() {
-  return (
-    <div>home page</div>
-  )
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace('/swap');
+  }, []);
+
+  return null;
 }

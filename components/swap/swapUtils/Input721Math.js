@@ -76,7 +76,7 @@ const nftSetBanSelect = (newSids, formikData) => {
         })
     }
 
-    console.log('newSidsPlus.length > IdsPlusAmount',newSidsPlus.length , IdsPlusAmount)
+    // console.log('newSidsPlus.length > IdsPlusAmount',newSidsPlus.length , IdsPlusAmount)
     if (newSidsPlus.length > IdsPlusAmount) {
         return true
     } else {

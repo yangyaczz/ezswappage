@@ -22,7 +22,7 @@ const SwapButton = ({formikData, owner, reset23}) => {
         args: [owner, formikData.golbalParams.router],
         watch: true,
         onSuccess(data) {
-            console.log('SwapButton isApprovedForAll', data)
+            // console.log('SwapButton isApprovedForAll', data)
             // if (data) {
                 setNftApproval(data)
             // }
@@ -46,7 +46,7 @@ const SwapButton = ({formikData, owner, reset23}) => {
         hash: approveNFTData?.hash,
         confirmations: 1,
         onSuccess(data) {
-            console.log(robustSwapNFTsForTokenData?.hash, data)
+            // console.log(robustSwapNFTsForTokenData?.hash, data)
             setState({...{message: 'Approve Success', open: true}, open: true});
             doSwapNFTToToken()
         },
@@ -60,7 +60,7 @@ const SwapButton = ({formikData, owner, reset23}) => {
         hash: robustSwapNFTsForTokenData?.hash,
         confirmations: 1,
         onSuccess(data) {
-            console.log(robustSwapNFTsForTokenData?.hash, data)
+            // console.log(robustSwapNFTsForTokenData?.hash, data)
             setState({...{message: 'Swap Success', open: true}, open: true});
             reset23()
         },

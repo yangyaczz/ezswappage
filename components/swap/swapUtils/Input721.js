@@ -96,7 +96,7 @@ const Input721 = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
 
         setTupleEncode(tupleEncode)
         setTotalGet(totalGet)
-        console.log(totalGet)
+        // console.log(totalGet)
         ///////////////////////////////////////////////////////////////
 
         // check if is execeeded

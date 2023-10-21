@@ -58,7 +58,7 @@ const TokenSearch = ({formikData, owner, reset23, setToken, setTokenName, setFil
                                 </svg>
                             </div>;
                     }
-                    console.log(formikData)
+                    // console.log(formikData)
                     return <div className={styles.tokenStyle}>
                         <span>{formikData.tokenName}</span>
                         <span>{formikData.totalGet ? formikData.totalGet.toFixed(3) : 0}</span>

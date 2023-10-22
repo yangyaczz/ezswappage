@@ -114,6 +114,10 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
 
     }, [formikData.golbalParams.networkName, formikData.collection.address + formikData.collection.tokenId1155])
 
+    useEffect(() => {
+        setAge('')
+    }, [formikData?.swapSuccessCount]);
+
 
     const { data: tokenIds721 } = useContractRead({
         address: (formikData.collection.type === "ERC721" ? formikData.collection.address : ''),

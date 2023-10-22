@@ -24,7 +24,7 @@ const Swap = () => {
 
       // 0   全局变量设置
       golbalParams: '',
-
+      swapSuccessCount: 0,
       // 1   nft search 要设置成功的 collection , 所有的pairs 和 能交易所的 tokens, 用户拥有的这个nft情况
       collection: {
         type: "",
@@ -128,6 +128,9 @@ const Swap = () => {
     formik.setFieldValue('isExceeded', '')
     formik.setFieldValue('isBanSelect', '')
   }
+  const addSwapSuccessCount = () => {
+    formik.setFieldValue('swapSuccessCount', formik.values.swapSuccessCount+1)
+  }
 
 
 
@@ -193,7 +196,7 @@ const Swap = () => {
                     />
                   </div>
                   <div className={styles.swapButton}>
-                  <SwapButton formikData={formik.values} owner={owner} reset23={reset23}/>
+                  <SwapButton formikData={formik.values} owner={owner} reset123={reset123} addSwapSuccessCount={addSwapSuccessCount}/>
                   </div>
                 </div>
             </div>

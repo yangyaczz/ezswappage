@@ -10,7 +10,7 @@ import RouterABI from '../../pages/data/ABI/Router.json'
 import {Alert, AlertTitle, Box, CircularProgress, Snackbar} from "@mui/material";
 
 
-const SwapButton = ({formikData, owner, reset23}) => {
+const SwapButton = ({formikData, owner, reset123,addSwapSuccessCount}) => {
 
     const [nftApproval, setNftApproval] = useState(false)
     const [errorMsg, setErrorMsg] = useState("")
@@ -47,12 +47,12 @@ const SwapButton = ({formikData, owner, reset23}) => {
         confirmations: 1,
         onSuccess(data) {
             // console.log(robustSwapNFTsForTokenData?.hash, data)
-            setState({...{message: 'Approve Success', open: true}, open: true});
+            setMsgState({...{message: 'Approve Success', open: true}, open: true});
             doSwapNFTToToken()
         },
         onError(err) {
             console.log('approve tx error data ', robustSwapNFTsForTokenData?.hash, err);
-            setState({...{message: 'Approve Fail', open: true}, open: true});
+            setMsgState({...{message: 'Approve Fail', open: true}, open: true});
         }
     })
 
@@ -60,37 +60,43 @@ const SwapButton = ({formikData, owner, reset23}) => {
         hash: robustSwapNFTsForTokenData?.hash,
         confirmations: 1,
         onSuccess(data) {
-            // console.log(robustSwapNFTsForTokenData?.hash, data)
-            setState({...{message: 'Swap Success', open: true}, open: true});
-            reset23()
+            console.log('swap success', robustSwapNFTsForTokenData?.hash, data)
+            setMsgState({...{message: 'Swap Success', open: true}, open: true});
+            reset123()
         },
         onError(err) {
             console.log('approve tx error data ', robustSwapNFTsForTokenData?.hash, err);
-            setState({...{message: 'Swap Fail', open: true}, open: true});
+            setMsgState({...{message: 'Swap Fail', open: true}, open: true});
         }
     })
 
     function doApprove() {
         approveNFT()
-        setState({...{message: 'Swap Success', open: true}, open: true});
+        setMsgState({...{message: 'Approve Success', open: true}, open: true});
     }
 
     function doSwapNFTToToken() {
-        // if (formikData.isExceeded) {
-        //     setErrorMsg('Reduce Nft Amount')
-            // return;
-        // }
-        swapNFTToToken()
+        // swapNFTToToken()
+        // reset123()
+        // addSwapSuccessCount()
+        // console.log('formikData.swapSuccessCount', formikData.swapSuccessCount)
+        // setMsgState({...{message: 'Swap Success', open: true}, open: true});
+        setAlertText({
+            className: 'alert-success',
+            text: 'mint nft success',
+            svg: svgSuccess,
+        })
+        setShowAlert(true);
     }
 
     useEffect(() => {
         if (approveStatus === 'error') {
             if (approveError.message.indexOf('token owner or approved') > -1) {
-                setState({...{message: 'caller is not token owner or approved', open: true}, open: true});
+                setMsgState({...{message: 'caller is not token owner or approved', open: true}, open: true});
             }else if (approveError.message.indexOf('insufficient funds') > -1) {
-                setState({...{message: 'insufficient funds', open: true}, open: true});
+                setMsgState({...{message: 'insufficient funds', open: true}, open: true});
             }else {
-                setState({...{message: 'approve error', open: true}, open: true});
+                setMsgState({...{message: 'approve error', open: true}, open: true});
             }
         }
     }, [approveStatus]);
@@ -98,25 +104,50 @@ const SwapButton = ({formikData, owner, reset23}) => {
     useEffect(() => {
         if (swapStatus === 'error') {
             if (swapError.message.indexOf('token owner or approved') > -1) {
-                setState({...{message: 'caller is not token owner or approved', open: true}, open: true});
+                setMsgState({...{message: 'caller is not token owner or approved', open: true}, open: true});
             }else if (swapError.message.indexOf('insufficient funds') > -1) {
-                setState({...{message: 'insufficient funds', open: true}, open: true});
+                setMsgState({...{message: 'insufficient funds', open: true}, open: true});
             }else {
-                setState({...{message: 'swap error', open: true}, open: true});
+                setMsgState({...{message: 'swap error', open: true}, open: true});
             }
         }
     }, [swapStatus]);
 
-
-    const [state, setState] = useState({
+    //mui的snackbar
+    const [msgState, setMsgState] = useState({
         open: false,
         message: 'Swap Success'
     });
-    const {message, open} = state;
+    const {message, open} = msgState;
 
     const handleClose = () => {
-        setState({...state, open: false});
+        setMsgState({...msgState, open: false});
     };
+    //mui的snackbar
+    //新版
+    const svgError = (<svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>)
+    const svgSuccess = (<svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>)
+
+    const [alertText, setAlertText] = useState({
+        className: '',
+        text: '',
+        svg: '',
+    })
+    const [showAlert, setShowAlert] = useState(false);
+    useEffect(() => {
+        let timer;
+        if (showAlert) {
+            timer = setTimeout(() => {
+                setShowAlert(false);
+            }, 1500);
+        }
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [showAlert]);
+    //新版
+
+
     const buttonText = () => {
         let text
         if (!formikData.collection.address) {

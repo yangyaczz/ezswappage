@@ -161,7 +161,7 @@ const Mint = () => {
             >
 
                 <option disabled value=''>Select NFT</option>
-                {formik.values.golbalParams?.recommendNFT.map(item =>
+                {formik.values.golbalParams.recommendNFT ===undefined ? null : formik.values.golbalParams?.recommendNFT.map(item =>
                 (<option value={item.name} key={item.name}>
                     {item.name}
                 </option>)

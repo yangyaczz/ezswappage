@@ -67,7 +67,6 @@ const SwapButton = ({formikData, owner, reset123,addSwapSuccessCount}) => {
 
     function doApprove() {
         approveNFT()
-        showSuccessAlert('Approve Success')
     }
 
     function doSwapNFTToToken() {

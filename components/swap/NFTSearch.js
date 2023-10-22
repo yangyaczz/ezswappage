@@ -65,8 +65,6 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                 });
 
                 const data = await response.json();
-                dispatch(decrement())
-
                 if (data.success) {
                     const pairsList = data.data
                     let filteredData = pairsList.filter(item => item.type === 'buy' || item.type === 'trade');
@@ -106,6 +104,11 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                         }
                     }
                 }
+                // 不知道为什么不加延时,就会把错误提示弹出来一下
+                setTimeout(function() {
+                    // code to be executed
+                    dispatch(decrement())
+                }, 1);
             }
         }
         fetchData()

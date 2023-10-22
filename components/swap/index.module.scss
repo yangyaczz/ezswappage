@@ -50,3 +50,14 @@
   display: flex;
   align-items: center;
 }
+
+.alertPosition{
+  position: fixed;
+  top: 134px;
+  right: 20px;
+  z-index: 999;
+}
+
+.alertPadding{
+  padding: 10px 16px;
+}

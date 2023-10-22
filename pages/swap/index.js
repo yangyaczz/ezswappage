@@ -130,6 +130,7 @@ const Swap = () => {
   }
   const addSwapSuccessCount = () => {
     formik.setFieldValue('swapSuccessCount', formik.values.swapSuccessCount+1)
+    reset123()
   }
 
 

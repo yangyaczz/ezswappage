@@ -150,7 +150,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                 </Select>
             </FormControl>
             <div>
-                {collectionSearchStatus ?null: formikData.isBanSelect? <div>this pair has no liquidity</div>:null}
+                {collectionSearchStatus ?null: formikData.isBanSelect && <div>this pair has no liquidity</div>}
             </div>
         </div>
     )

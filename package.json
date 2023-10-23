@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NEXT_PUBLIC_APP_ENV=dev next dev",
-    "build": "NEXT_PUBLIC_APP_ENV=prod next build",
-    "buildForTest": "NEXT_PUBLIC_APP_ENV=dev next build",
-    "start": "NEXT_PUBLIC_APP_ENV=dev next start",
-    "lint": "NEXT_PUBLIC_APP_ENV=test next lint"
+    "dev": "cross-env NEXT_PUBLIC_APP_ENV=dev next dev",
+    "build": "cross-env NEXT_PUBLIC_APP_ENV=prod next build",
+    "buildForTest": "cross-env NEXT_PUBLIC_APP_ENV=dev next build",
+    "start": "cross-env NEXT_PUBLIC_APP_ENV=dev next start",
+    "lint": "cross-env NEXT_PUBLIC_APP_ENV=test next lint"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "autoprefixer": "latest",
+    "cross-env": "^7.0.3",
     "daisyui": "^3.8.0",
     "eslint": "latest",
     "eslint-config-next": "latest",

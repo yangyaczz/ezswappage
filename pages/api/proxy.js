@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     try {
         console.log('BASE_URL',BASE_URL)
         console.log('BASE_URL',nextConfig.publicRuntimeConfig.env.API)
-        const response = await axios.post(BASE_URL+'queryCollectionPoolList', req.body);
+        const response = await axios.post(BASE_URL+'api/queryCollectionPoolList', req.body);
         res.status(200).json(response.data);
     } catch (error) {
         res.status(error.response?.status || 500).json(error.response?.data || {});

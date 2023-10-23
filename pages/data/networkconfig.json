@@ -20,7 +20,14 @@
             {
                 "type": "ERC721",
                 "address": "0x2c236CCb897e7d22e238E98dB4b960445506BFc0",
-                "name": "ZKholdem",
+                "name": "ZKholdem 1",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+            },
+            {
+                "type": "ERC721",
+                "address": "0x7989661932b11204049d466abf2cef8bfff9a218",
+                "name": "ZKholdem 2",
                 "tokenId1155": "",
                 "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
             },

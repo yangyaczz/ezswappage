@@ -109,6 +109,13 @@
                 "name": "Stellar Gambits",
                 "tokenId1155": "",
                 "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t5.jpg"
+            },
+            {
+                "type": "ERC721",
+                "address": "0x5865Bd7a1C7FcC69E364528bB278E1F7A82079B9",
+                "name": "zkHoldem NFT mini",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/zkHoldem_NFT_mini.jpeg"
             }
         ],
         "recommendERC20": [

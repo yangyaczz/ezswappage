@@ -130,7 +130,7 @@ const MyPool = () => {
                             tokenBalance: ((item.ethBalance === null ? item.tokenBalance : item.ethBalance) / 1e18).toFixed(3),   // this pool token balance, vaild or not
                             tokenName: tokenName,
                             NFTName: NFTName,
-                            currentPrice: res.userSellPrice,
+                            currentPrice: res?.userSellPrice,
                             BondingCurveName: BondingCurveName,
                             poolTypeName: poolTypeName,
                             deltaText: BondingCurveName === 'Linear' ? ((item.delta) / 1e18).toFixed(2) : (((item.delta) / 1e18).toFixed(2).toString() + '%')

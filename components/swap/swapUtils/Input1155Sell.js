@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BuyPoolLiner, TradePoolLiner, BuyPoolExp, TradePoolExp } from '../../utils/calculate'
 import { ethers } from 'ethers';
 
-function Input1155({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded }) {
+function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded }) {
 
     const [value, setValue] = useState(1);
     const tId = formikData.collection.tokenId1155
@@ -172,4 +172,4 @@ function Input1155({ formikData, setSelectIds, setTupleEncode, setTotalGet, setI
     )
 }
 
-export default Input1155;
+export default Input1155Sell;

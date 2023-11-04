@@ -38,6 +38,41 @@ export function BuyPoolLiner(spotPrice, delta, tfee, pfee, n = 1, action = 'read
 }
 
 
+export function SellPoolLiner(spotPrice, delta, tfee, pfee, n = 1, action = 'read') {
+    if (action !== 'read') {
+        spotPrice = spotPrice / (1 + tfee + pfee) - delta
+    }
+    const newspotPrice = spotPrice + delta
+
+    // user buy nft from pool
+    const poolSellPrice = sumIncLiner(newspotPrice, n, delta) * (1 + tfee)
+    const poolSellPriceFee = sumIncLiner(newspotPrice, n, delta) * tfee
+    const userBuyPrice = sumIncLiner(newspotPrice, n, delta) * (1 + pfee + tfee)
+    const userBuyPriceFee = sumIncLiner(newspotPrice, n, delta) * (tfee + pfee)
+
+    const last = n - 1
+    const lastUserBuyPrice = sumIncLiner(newspotPrice, last, delta) * (1 + pfee + tfee)
+    const currentUintBuyPrice = userBuyPrice - lastUserBuyPrice
+
+    const data = {
+        delta: delta,
+        spotPrice: spotPrice,
+        userBuyPrice: userBuyPrice,
+        poolSellPrice: poolSellPrice,
+        userBuyPriceFee: userBuyPriceFee,
+        poolSellPriceFee: poolSellPriceFee,
+        lastUserBuyPrice: lastUserBuyPrice,
+        currentUintBuyPrice: currentUintBuyPrice
+    }
+
+    Object.keys(data).forEach(key => {
+        data[key] = parseFloat(data[key].toFixed(10));
+    });
+
+    return data
+}
+
+
 
 export function TradePoolLiner(spotPrice, delta, tfee, pfee, n = 1, action = 'read') {
 
@@ -125,6 +160,43 @@ export function BuyPoolExp(spotPrice, delta, tfee, pfee, n = 1, action = 'read')
         poolBuyPriceFee: poolBuyPriceFee,
         lastUserSellPrice: lastUserSellPrice,
         currentUintSellPrice: currentUintSellPrice
+    }
+
+    Object.keys(data).forEach(key => {
+        data[key] = parseFloat(data[key].toFixed(10));
+    });
+
+    return data
+}
+
+
+export function SellPoolExp(spotPrice, delta, tfee, pfee, n = 1, action = 'read') {
+    if (action !== 'read') {
+        spotPrice = spotPrice / (1 + tfee + pfee) / q
+    }
+    const q = action === 'read' ? delta : ((100 + delta) / 100)
+    const newSpotPrice = spotPrice / (1 + tfee + pfee)                   //  spotPrice * q
+
+    // user buy nft from pool
+    const poolSellPrice = sumIncExp(newSpotPrice, n, q) * (1 + tfee)
+    const poolSellPriceFee = sumIncExp(newSpotPrice, n, q) * tfee
+    const userBuyPrice = sumIncExp(newSpotPrice, n, q) * (1 + tfee + pfee)
+    const userBuyPriceFee = sumIncExp(newSpotPrice, n, q) * (tfee + pfee)
+
+    //
+    const last = n - 1
+    const lastUserBuyPrice = sumIncExp(newSpotPrice, last, q) * (1 + pfee + tfee)
+    const currentUintBuyPrice = userBuyPrice - lastUserBuyPrice
+
+    const data = {
+        delta: q,
+        spotPrice: spotPrice,
+        userBuyPrice: userBuyPrice,
+        poolSellPrice: poolSellPrice,
+        userBuyPriceFee: userBuyPriceFee,
+        poolSellPriceFee: poolSellPriceFee,
+        lastUserBuyPrice: lastUserBuyPrice,
+        currentUintBuyPrice: currentUintBuyPrice
     }
 
     Object.keys(data).forEach(key => {

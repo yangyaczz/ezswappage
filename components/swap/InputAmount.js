@@ -1,9 +1,12 @@
 import React from 'react'
 
-import Input721 from './swapUtils/Input721';
-import Input1155 from './swapUtils/Input1155';
+import Input721Sell from './swapUtils/Input721Sell';
+import Input1155Sell from './swapUtils/Input1155Sell';
 
-const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded, setIsBanSelect }) => {
+import Input721Buy from './swapUtils/Input721Buy';
+
+
+const InputAmount = ({ swapType, formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded, setIsBanSelect }) => {
 
     const displayFrame = () => {
         if (!formikData.selectIds.length) {
@@ -12,37 +15,15 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
             </div>
         }
 
-
         return <div>
             amount
         </div>
-
-
-        if (formikData.collection.type === "ERC721") {
-
-            return <div>
-                amount
-            </div>
-
-            return <div className='flex'>
-                tokenId: {formikData.selectIds.map((id, index) => (<div className='mr-1' key={index}>
-                    {id}
-                </div>))}
-            </div>
-        }
-
-        // todo 1155
-        if (formikData.collection.type === "ERC1155") {
-            return <div>
-                xxxxxxxx
-            </div>
-        }
     }
 
 
-    const displayDialog = () => {
+    const displaySellDialog = () => {
 
-        console.log('displayDialog', formikData.collection.filterPairs)
+        // console.log('displaySellDialog', formikData.collection.filterPairs)
 
         if (!formikData.collection.type || !formikData.token) {
             return <div>Select collection and token first...</div>
@@ -58,7 +39,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
 
         if (formikData.collection.type == "ERC721") {
             return (
-                <Input721
+                <Input721Sell
                     formikData={formikData}
                     setSelectIds={setSelectIds}
                     setTotalGet={setTotalGet}
@@ -71,7 +52,7 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
 
         if (formikData.collection.type == "ERC1155") {
             return (
-                <Input1155
+                <Input1155Sell
                     formikData={formikData}
                     setSelectIds={setSelectIds}
                     setTotalGet={setTotalGet}
@@ -82,12 +63,51 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
         }
     }
 
+    const displayBuyDialog = () => {
+
+        // console.log('displaySellDialog', formikData.collection.filterPairs)
+
+        if (!formikData.collection.type || !formikData.token) {
+            return <div>Select collection and token first...</div>
+        }
+
+        if (formikData.userCollection.tokenBalance20 === '') {
+            return <div>Loading.....</div>
+        }
+
+        if (formikData.pairs && formikData.filterPairs.length === 0) {
+            return <div>No liquidity for swap...</div>
+        }
+
+        if (formikData.collection.type == "ERC721") {
+            return (
+                <Input721Buy
+                    formikData={formikData}
+                    setSelectIds={setSelectIds}
+                    setTotalGet={setTotalGet}
+                    setTupleEncode={setTupleEncode}
+                    setIsExceeded={setIsExceeded}
+                    setIsBanSelect={setIsBanSelect}
+                />
+            )
+        }
+
+        // if (formikData.collection.type == "ERC1155") {
+        //     return (
+        //         <Input1155
+        //             formikData={formikData}
+        //             setSelectIds={setSelectIds}
+        //             setTotalGet={setTotalGet}
+        //             setTupleEncode={setTupleEncode}
+        //             setIsExceeded={setIsExceeded}
+        //         />
+        //     )
+        // }
+    }
+
 
     return (
         <div className="form-control">
-
-
-
             <button className="btn justify-between" onClick={() => document.getElementById('input_sell').showModal()}>
                 <div className='flex justify-start items-center space-x-2'>
                     {displayFrame()}
@@ -100,13 +120,12 @@ const InputAmount = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Item:</h3>
 
-                    {displayDialog()}
+                    {(swapType === 'buy') ? displayBuyDialog() : displaySellDialog()}
 
                     <div>{formikData.isExceeded && 'The amount of nft is out of range, please reduce it'}</div>
                     <div className="divider"></div>
 
                     <h3 className="font-bold text-lg">Amount:</h3>
-                    {/* <input type="range" min={0} max={initialSquares.length} value={selectedCount} className="range"></input> */}
 
                     <div className="mt-4">
                         You have select {formikData.selectIds.length} and you will get {formikData.totalGet}

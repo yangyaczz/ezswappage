@@ -2,7 +2,7 @@ import React from 'react'
 import { BuyPoolLiner, TradePoolLiner, BuyPoolExp, TradePoolExp } from '../../utils/calculate'
 import { ethers } from 'ethers';
 
-const Input721 = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded, setIsBanSelect }) => {
+const Input721Sell = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded, setIsBanSelect }) => {
 
     const update721SellToPairs = (tokenId, pairs) => {
 
@@ -159,4 +159,4 @@ const Input721 = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIs
 
 }
 
-export default Input721
+export default Input721Sell

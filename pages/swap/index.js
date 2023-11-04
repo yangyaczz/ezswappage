@@ -1,7 +1,5 @@
 import InputAmount from '@/components/swap/InputAmount'
-import OutputAmount from '@/components/swap/OutputAmount'
 import NFTSearch from '@/components/swap/NFTSearch'
-import Slippage from '@/components/swap/Slippage'
 import SwapButton from '@/components/swap/SwapButton'
 import TokenSearch from '@/components/swap/TokenSearch'
 
@@ -18,6 +16,8 @@ import networkConfig from '../data/networkconfig.json'
 
 const Swap = () => {
 
+  const [swapType, setSwapType] = useState('buy');
+
   const formik = useFormik({
     initialValues: {
 
@@ -33,7 +33,8 @@ const Swap = () => {
       },
       userCollection: {
         tokenIds721: '',
-        tokenAmount1155: ''
+        tokenAmount1155: '',
+        tokenBalance20: ''
       },
       pairs: '',
       tokens: '',
@@ -103,7 +104,8 @@ const Swap = () => {
     formik.setFieldValue('userCollection',
       {
         tokenIds721: '',
-        tokenAmount1155: ''
+        tokenAmount1155: '',
+        tokenBalance20: ''
       })
     formik.setFieldValue('pairs', '')
     formik.setFieldValue('tokens', '')
@@ -127,6 +129,10 @@ const Swap = () => {
     formik.setFieldValue('isBanSelect', '')
   }
 
+  const handleInputSwapTypeChange = (event) => {
+    setSwapType(event.target.value);
+    reset123()
+  };
 
 
   if (!isMounted) {
@@ -139,13 +145,34 @@ const Swap = () => {
         <span>Your purchase has been confirmed!</span>
       </div> */}
 
+      <div className="join border-y-2 mb-10">
+        <input
+          className="join-item btn"
+          type="radio"
+          name="options"
+          value="buy"
+          aria-label="BUY"
+          checked={swapType === 'buy'}
+          onChange={handleInputSwapTypeChange}
+        />
+        <input
+          className="join-item btn"
+          type="radio"
+          name="options"
+          value="sell"
+          aria-label="SELL"
+          checked={swapType === 'sell'}
+          onChange={handleInputSwapTypeChange}
+        />
+      </div>
+
       <div className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100 items-center">
         <div className="card-body w-2/3 space-y-6">
-
 
           <div className='space-y-2'>
             <span className="font-bold text-sm">Collection</span>
             <NFTSearch
+              swapType={swapType}
               formikData={formik.values}
               owner={owner}
               reset123={reset123}
@@ -162,6 +189,7 @@ const Swap = () => {
             />
 
             <InputAmount
+              swapType={swapType}
               formikData={formik.values}
               setSelectIds={(value) => { formik.setFieldValue('selectIds', value) }}
               setTotalGet={(value) => { formik.setFieldValue('totalGet', value) }}
@@ -179,6 +207,7 @@ const Swap = () => {
           <div className='space-y-2'>
             <div className="font-bold text-sm">Token</div>
             <TokenSearch
+              swapType={swapType}
               formikData={formik.values}
               owner={owner}
               reset23={reset23}
@@ -190,6 +219,7 @@ const Swap = () => {
           </div>
 
           <SwapButton
+            swapType={swapType}
             formikData={formik.values}
             owner={owner}
           />

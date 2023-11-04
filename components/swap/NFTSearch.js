@@ -1,14 +1,14 @@
 
 import React, { useState, useEffect } from 'react'
 
-import { useNetwork, useContractRead, useAccount } from 'wagmi'
+import { useContractRead, useBalance } from 'wagmi'
 
 import ERC721EnumABI from '../../pages/data/ABI/ERC721Enum.json'
 import ERC1155ABI from '../../pages/data/ABI/ERC1155.json'
 
 import multiSetFilterPairMode from './swapUtils/multiSetFilterPairMode'
 
-const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollection, setPairs, setTokens, setTokensName, setToken, setTokenName, setFilterPairs, setSwapMode }) => {
+const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUserCollection, setPairs, setTokens, setTokensName, setToken, setTokenName, setFilterPairs, setSwapMode }) => {
 
 
     const [searchQuery, setSearchQuery] = useState('');
@@ -50,9 +50,16 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
 
                 if (data.success) {
                     const pairsList = data.data
-                    let filteredData = pairsList.filter(item => item.type === 'buy' || item.type === 'trade');
 
-                    console.log(filteredData)
+                    let filteredData
+                    // divide buy and sell
+                    if (swapType === 'sell') {
+                        filteredData = pairsList.filter(item => item.type === 'buy' || item.type === 'trade');
+                    } else if (swapType === 'buy') {
+                        filteredData = pairsList.filter(item => item.type === 'sell' || item.type === 'trade');
+                    }
+
+                    console.log(swapType, filteredData)
 
                     if (formikData.collection.type == 'ERC1155') {
                         filteredData = filteredData.filter(item => item.nftId1155 === formikData.collection.tokenId1155);
@@ -86,7 +93,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
                         setToken(token)
                         setTokenName(tokensNames[0])
 
-                        multiSetFilterPairMode(formikData, filteredData, owner, token, setFilterPairs, setSwapMode)
+                        multiSetFilterPairMode(swapType, formikData, filteredData, owner, token, setFilterPairs, setSwapMode)
 
                         console.log('isBanSelect', formikData.isBanSelect === true)
                     }
@@ -100,8 +107,9 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
     }, [formikData.golbalParams.networkName, formikData.collection.name])
 
 
+    // if sell nft, get user nft info
     const { data: tokenIds721 } = useContractRead({
-        address: (formikData.collection.type === "ERC721" ? formikData.collection.address : ''),
+        address: ((formikData.collection.type === "ERC721" && swapType === 'sell') ? formikData.collection.address : ''),
         abi: ERC721EnumABI,
         functionName: 'tokensOfOwner',
         args: [owner],
@@ -115,7 +123,7 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
     })
 
     const { data: tokenAmount1155 } = useContractRead({
-        address: (formikData.collection.type === "ERC1155" ? formikData.collection.address : ''),
+        address: ((formikData.collection.type === "ERC1155" && swapType === 'sell') ? formikData.collection.address : ''),
         abi: ERC1155ABI,
         functionName: 'balanceOf',
         args: [owner, formikData.collection.tokenId1155],
@@ -127,6 +135,19 @@ const NFTSearch = ({ formikData, owner, reset123, setCollection, setUserCollecti
             })
         }
     })
+
+    // if buy nft, get user eth or erc20 balance
+    const { data: tokenBalance20 } = useBalance({
+        address: (swapType === 'buy' && formikData.collection.name) ? owner : '',
+        token: (formikData.token !== '' && formikData.token === 'ETH' && swapType === 'buy') ? '' : formikData.token,
+        onSuccess(data) {
+            console.log('erc20 balance', data.formatted)
+            setUserCollection({
+                tokenBalance20: data.formatted
+            })
+        }
+    })
+
 
 
 

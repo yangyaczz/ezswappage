@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import multiSetFilterPairMode from './swapUtils/multiSetFilterPairMode'
 
-const TokenSearch = ({ formikData, owner, reset23, setToken, setTokenName, setFilterPairs, setSwapMode }) => {
+const TokenSearch = ({ swapType,formikData, owner, reset23, setToken, setTokenName, setFilterPairs, setSwapMode }) => {
 
     const handleTokenClick = (tokenName) => {
         reset23()
@@ -14,7 +14,7 @@ const TokenSearch = ({ formikData, owner, reset23, setToken, setTokenName, setFi
         setTokenName(tokenName)
 
         let filteredData = formikData.pairs
-        multiSetFilterPairMode(formikData, filteredData, owner, token, setFilterPairs, setSwapMode)
+        multiSetFilterPairMode(swapType, formikData, filteredData, owner, token, setFilterPairs, setSwapMode)
     }
 
 

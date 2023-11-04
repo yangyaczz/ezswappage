@@ -9,9 +9,9 @@ import ERC1155ABI from '../../pages/data/ABI/ERC1155.json'
 import RouterABI from '../../pages/data/ABI/Router.json'
 
 
+// robustSwapETHForSpecificNFTs
 
-
-const SwapButton = ({ formikData, owner }) => {
+const SwapButton = ({ swapType, formikData, owner }) => {
 
     const [nftApproval, setNftApproval] = useState(false)
 
@@ -44,8 +44,27 @@ const SwapButton = ({ formikData, owner }) => {
         functionName: 'robustSwapNFTsForToken',
         args: [formikData.tupleEncode, owner, (Date.parse(new Date()) / 1000 + 60 * 3600)],
         onSettled(data, error) {
-            alert('settle', { data, error })
             console.log(data, error)
+        }
+    })
+
+    const { data: robustSwapETHForSpecificNFTsData, write: swapETHToNFT, isSuccess: swapETHToNFTIsSuccess, isLoading: swapETHToNFTIsLoading } = useContractWrite({
+        address: formikData.golbalParams.router,
+        abi: RouterABI,
+        functionName: 'robustSwapETHForSpecificNFTs',
+        args: [
+            formikData.tupleEncode,
+            owner,
+            owner,
+            (Date.parse(new Date()) / 1000 + 60 * 3600)
+        ],
+        overrides: {
+            value: formikData.totalGet ? ethers.utils.parseEther(formikData.totalGet.toString()) : 0,
+        },
+        onSettled(data, error) {
+            console.log(data, error)
+            console.log(formikData.tupleEncode)
+            console.log('totalGet', formikData.totalGet)
         }
     })
 
@@ -78,20 +97,27 @@ const SwapButton = ({ formikData, owner }) => {
         }
 
         text = 'swap'
-        return (
-            <>
-                <button onClick={() => swapNFTToToken()}>
-                    {swapIsLoading ? <div>Loading...</div> : <div>{text}</div>}
-                </button>
-                {swapIsLoading && <div>
-                    <div className="alert alert-success">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        <span>Your purchase has been confirmed!</span>
-                    </div>
-                </div>}
-                {/* {swapIsSuccess && <div>Transaction: {JSON.stringify(robustSwapNFTsForTokenData)}</div>} */}
-            </>
-        )
+
+        if (swapType === 'sell') {
+            return (
+                <>
+                    <button onClick={() => swapNFTToToken()}>
+                        {swapIsLoading ? <div>Loading...</div> : <div>{text}</div>}
+                    </button>
+                </>
+            )
+        } else if (swapType === 'buy') {
+            text = 'swappp'
+            return (
+                <>
+                    <button onClick={() => swapETHToNFT()}>
+                        {swapIsLoading ? <div>Loading...</div> : <div>{text}</div>}
+                    </button>
+                </>
+            )
+        } else {
+            return null
+        }
     }
 
 
@@ -110,3 +136,21 @@ const SwapButton = ({ formikData, owner }) => {
 }
 
 export default SwapButton
+
+// [
+//     [
+//         [
+//             "0x449dbf54f3a8dc9ab3796849c3c88c7907364c68",
+//             [
+//                 "54"
+//             ],
+//             [
+//                 1
+//             ]
+//         ],
+//         {
+//             "type": "BigNumber",
+//             "hex": "0x2b7d4e799fe000"
+//         }
+//     ]
+// ]

@@ -1,0 +1,23 @@
+.divBackground{
+  background: black;
+  background-image:linear-gradient(rgba(46, 209, 216, 0.2) 1px, transparent 1px),
+  linear-gradient(to right, rgba(46, 209, 216, 0.2) 1px, rgba(46, 209, 216, 0.1)1px);
+  background-size: 18px 18px;
+  z-index:99;
+}
+.containDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.swapButton{
+  margin-top: 20px;
+}
+.exchangeIcon{
+  margin-top: 20px;
+}
+.cardStyle{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

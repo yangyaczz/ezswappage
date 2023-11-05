@@ -4,7 +4,7 @@ import { WagmiConfig, chain, configureChains, createClient } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 import { mainnet, polygon} from "wagmi/chains";
 import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/bar/NavBar";
 
 const mantatest = {
   id: 3441005,

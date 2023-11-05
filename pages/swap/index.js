@@ -2,7 +2,7 @@ import InputAmount from '@/components/swap/InputAmount'
 import NFTSearch from '@/components/swap/NFTSearch'
 import SwapButton from '@/components/swap/SwapButton'
 import TokenSearch from '@/components/swap/TokenSearch'
-
+import styles from './index.module.scss'
 import { ethers } from 'ethers'
 
 import React, { useState, useEffect } from 'react'
@@ -29,7 +29,8 @@ const Swap = () => {
         type: "",
         address: "",
         name: "",
-        tokenId1155: ""
+        tokenId1155: "",
+        img:""
       },
       userCollection: {
         tokenIds721: '',
@@ -41,7 +42,7 @@ const Swap = () => {
       tokensName: '',
 
 
-      // 2 用户点击tokensearch，从canTradeToken中选要换的token  得到能交易的池子 
+      // 2 用户点击tokensearch，从canTradeToken中选要换的token  得到能交易的池子
       token: '',
       tokenName: '',
       filterPairs: '',
@@ -62,7 +63,7 @@ const Swap = () => {
 
   const [isMounted, setIsMounted] = useState(false);
 
-  // 0 
+  // 0
   const { chain } = useNetwork();
   const { address: owner } = useAccount()
 
@@ -99,7 +100,7 @@ const Swap = () => {
         type: "",
         address: "",
         name: "",
-        tokenId1155: ""
+        tokenId1155: "",
       })
     formik.setFieldValue('userCollection',
       {
@@ -128,6 +129,10 @@ const Swap = () => {
     formik.setFieldValue('isExceeded', '')
     formik.setFieldValue('isBanSelect', '')
   }
+  const addSwapSuccessCount = () => {
+    formik.setFieldValue('swapSuccessCount', formik.values.swapSuccessCount+1)
+    reset123()
+  }
 
   const handleInputSwapTypeChange = (event) => {
     setSwapType(event.target.value);
@@ -139,15 +144,16 @@ const Swap = () => {
     return null; //  <Loading /> ??
   }
   return (
-    <div className='flex flex-col min-h-screen bg-base-200 items-center justify-center'>
+      <div className={styles.divBackground}>
+    <div className='flex flex-col min-h-screen items-center justify-center'>
       {/* <div className="alert alert-success top-4 right-4 w-1/3">
         <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
         <span>Your purchase has been confirmed!</span>
       </div> */}
 
-      <div className="join border-y-2 mb-10">
+      <div className="join mb-10">
         <input
-          className="join-item btn"
+          className="join-item btn bg-[#0E1729] hover:bg-[#0E1729]"
           type="radio"
           name="options"
           value="buy"
@@ -156,7 +162,7 @@ const Swap = () => {
           onChange={handleInputSwapTypeChange}
         />
         <input
-          className="join-item btn"
+          className="join-item btn bg-[#0E1729] hover:bg-[#0E1729]"
           type="radio"
           name="options"
           value="sell"
@@ -166,11 +172,11 @@ const Swap = () => {
         />
       </div>
 
-      <div className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100 items-center">
-        <div className="card-body w-2/3 space-y-6">
-
-          <div className='space-y-2'>
-            <span className="font-bold text-sm">Collection</span>
+      <div className="card w-full max-w-5xl bg-base-100">
+        <div className="card-body">
+          <div className={styles.cardStyle}>
+          <div className='space-y-2 w-2/5'>
+            <span className="font-bold text-sm">NFT</span>
             <NFTSearch
               swapType={swapType}
               formikData={formik.values}
@@ -187,7 +193,6 @@ const Swap = () => {
               setFilterPairs={(value) => { formik.setFieldValue('filterPairs', value) }}
               setSwapMode={(value) => { formik.setFieldValue('swapMode', value) }}
             />
-
             <InputAmount
               swapType={swapType}
               formikData={formik.values}
@@ -198,13 +203,14 @@ const Swap = () => {
               setIsBanSelect={(value) => { formik.setFieldValue('isBanSelect', value) }}
             />
           </div>
+          </div>
 
           <div className='flex justify-center'>
             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
           </div>
 
-
-          <div className='space-y-2'>
+          <div className={styles.cardStyle}>
+          <div className='space-y-2  w-2/5 mb-4'>
             <div className="font-bold text-sm">Token</div>
             <TokenSearch
               swapType={swapType}
@@ -217,17 +223,20 @@ const Swap = () => {
               setSwapMode={(value) => { formik.setFieldValue('swapMode', value) }}
             />
           </div>
+          </div>
 
           <SwapButton
             swapType={swapType}
             formikData={formik.values}
             owner={owner}
+            addSwapSuccessCount={addSwapSuccessCount}
           />
 
         </div>
       </div>
 
     </div>
+      </div>
   )
 }
 

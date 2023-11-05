@@ -3,19 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "cross-env NEXT_PUBLIC_APP_ENV=dev next dev",
+    "build": "cross-env NEXT_PUBLIC_APP_ENV=prod next build",
+    "buildForTest": "cross-env NEXT_PUBLIC_APP_ENV=dev next build",
+    "start": "cross-env NEXT_PUBLIC_APP_ENV=dev next start",
+    "lint": "cross-env NEXT_PUBLIC_APP_ENV=test next lint"
   },
   "dependencies": {
     "@rainbow-me/rainbowkit": "^0.11.1",
     "axios": "^1.5.1",
+    "cross-env": "^7.0.3",
     "ethers": "^5.7.2",
     "formik": "^2.4.5",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "sass": "^1.69.5",
     "wagmi": "^0.11.7",
     "yup": "^1.3.1"
   },

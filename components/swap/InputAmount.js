@@ -118,7 +118,7 @@ const InputAmount = ({ swapType, formikData, setSelectIds, setTupleEncode, setTo
 
             <dialog id="input_sell" className="modal">
                 <div className="modal-box">
-                    <h3 className="font-bold text-lg">Item:</h3>
+                    <h3 className="font-bold text-lg mb-6">Item:</h3>
 
                     {(swapType === 'buy') ? displayBuyDialog() : displaySellDialog()}
 
@@ -126,9 +126,8 @@ const InputAmount = ({ swapType, formikData, setSelectIds, setTupleEncode, setTo
                     <div className="divider"></div>
 
                     <h3 className="font-bold text-lg">Amount:</h3>
-
-                    <div className="mt-4">
-                        You have select {formikData.selectIds.length} and you will get {formikData.totalGet}
+                    <div className="mt-2 flex">
+                        You have select {formikData.selectIds.length} and you will get <img className="w-6" src="/ETH.png" alt=""/> {formikData.totalGet ? formikData.totalGet.toFixed(5):0}
                     </div>
 
 

@@ -153,7 +153,7 @@ const Input721Buy = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                         return aSelected ? -1 : 1;
                     })
                     .map((square, index) => (
-                        <div key={square} className='flex flex-col items-center justify-center w-20 h-28'>
+                        <div key={square} className='flex flex-col mr-5 mb-5'>
                             <div
                                 className={`
                                     flex items-center justify-center w-20 h-20 cursor-pointer
@@ -167,8 +167,8 @@ const Input721Buy = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                             >
                                 {square}
                             </div>
-                            <div className="w-20 h-8">
-                                {idPriceMap[square]}
+                            <div className="flex items-center content-center mt-1">
+                                <img src="/ETH.png" className="w-6" alt=""/> <span>{idPriceMap[square]}</span>
                             </div>
                         </div>
                     ))

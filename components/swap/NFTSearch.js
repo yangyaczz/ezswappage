@@ -152,44 +152,44 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
 
 
     return (
-        <div className="form-control">
+        <div className="form-control ">
 
-
-            <button className="btn justify-start" onClick={() => document.getElementById('nft_search_sell').showModal()}>
+            <button className="btn justify-start mb-2" onClick={() => document.getElementById('nft_search_sell').showModal()}>
                 {(formikData.collection.name) ? formikData.collection.name : "select collection"}
                 <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>
             </button>
 
             <dialog id="nft_search_sell" className="modal">
                 <div className="modal-box">
-                    <h3 className="font-bold text-lg">Search Collection:</h3>
-                    <div className='input-group'>
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-                        </span>
-                        <input
-                            type="text"
-                            placeholder="NFT Contract Address or Name"
-                            className="input input-bordered w-full"
-                            value={searchQuery}
-                            onChange={handleSearchChange}
-                        />
-                    </div>
-                    <div className="divider"></div>
-                    <h3 className="font-bold text-lg">Collaborative Collection:</h3>
+                {/*    <h3 className="font-bold text-lg">Search Collection:</h3>*/}
+                {/*    <div className='input-group'>*/}
+                {/*        <span>*/}
+                {/*            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>*/}
+                {/*        </span>*/}
+                {/*        <input*/}
+                {/*            type="text"*/}
+                {/*            placeholder="NFT Contract Address or Name"*/}
+                {/*            className="input input-bordered w-full"*/}
+                {/*            value={searchQuery}*/}
+                {/*            onChange={handleSearchChange}*/}
+                {/*        />*/}
+                {/*    </div>*/}
+                {/*    <div className="divider"></div>*/}
+                    <h3 className="font-bold text-lg mb-6">Recommend Collection:</h3>
 
-                    <form method="dialog" className='flex flex-col space-y-2'>
+                    <form method="dialog" className='flex flex-wrap justify-center'>
                         {filteredNFTs.map((nft, index) => (
                             <button
                                 key={index}
-                                className="btn"
                                 onClick={() => handleNFTClick(nft)}>
-                                {nft.name}: {nft.address}
+                                <div className="flex flex-col mr-5 mb-5">
+                                    <img className="w-20" src={nft.img} alt=""/>
+                                    <div>{nft.name}</div>
+                                </div>
+
                             </button>
                         ))}
                     </form>
-
-
                     <form method="dialog">
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>

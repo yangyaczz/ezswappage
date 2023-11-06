@@ -133,6 +133,7 @@ const Input721Buy = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
 
 
     useEffect(() => {
+        console.log('formikData111', formikData.collection.img)
         const ids = formikData.filterPairs?.map(item => item.nftIds)
         const prices = formikData.filterPairs?.map(item => item.nftIdsPrice)
         const idPriceMap = mapIdsToPrices(ids, prices);
@@ -141,7 +142,7 @@ const Input721Buy = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
 
 
     return (
-        <div className='grid grid-cols-5 gap-4'>
+        <div className='flex flex-wrap justify-between'>
             {
                 Object.keys(idPriceMap)
                     .sort((a, b) => {
@@ -153,19 +154,20 @@ const Input721Buy = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                         return aSelected ? -1 : 1;
                     })
                     .map((square, index) => (
-                        <div key={square} className='flex flex-col mr-5 mb-5'>
-                            <div
-                                className={`
-                                    flex items-center justify-center w-20 h-20 cursor-pointer
-                                    ${formikData.selectIds.includes(square) ? 'bg-gray-400' : formikData.isBanSelect ? 'bg-black' : 'bg-white'}
+                        <div key={square}
+                             className={`
+                                    p-3 mr-2 mb-5 cursor-pointer
+                                    ${formikData.selectIds.includes(square) ? 'bg-[#28B7BC3B]' : formikData.isBanSelect && 'cursor-not-allowed'}
                                 `}
-                                onClick={() => {
+                             >
+                            <div onClick={() => {
                                     if ((formikData.selectIds.includes(square)) || !formikData.isBanSelect) {
                                         toggleSelected(square);
                                     }
-                                }}
-                            >
-                                {square}
+                                }}>
+                                {formikData.selectIds.includes(square) && <img className="w-6 absolute" src="/yes.svg" alt=""/>}
+                                <img className="w-20" src={formikData.collection.img} alt=""/>
+                                <div>#{square}</div>
                             </div>
                             <div className="flex items-center content-center mt-1">
                                 <img src="/ETH.png" className="w-6" alt=""/> <span>{idPriceMap[square]}</span>

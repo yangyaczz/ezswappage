@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import multiSetFilterPairMode from './swapUtils/multiSetFilterPairMode'
+import styles from "./index.module.scss";
 
 const TokenSearch = ({ swapType,formikData, owner, reset23, setToken, setTokenName, setFilterPairs, setSwapMode }) => {
 
@@ -48,7 +49,7 @@ const TokenSearch = ({ swapType,formikData, owner, reset23, setToken, setTokenNa
     return (
         <div className="form-control">
 
-            <button className="btn justify-between" onClick={() => document.getElementById('token_search_sell').showModal()}>
+            <button disabled={!formikData.collection.type}  className={"btn justify-between"+" "+styles.buttonDisabled}  onClick={() => document.getElementById('token_search_sell').showModal()}>
                 <div className='flex justify-start items-center space-x-2'>
                     <div>
                         {formikData.tokenName ? formikData.tokenName : 'select token'}

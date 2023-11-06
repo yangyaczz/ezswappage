@@ -61,3 +61,18 @@
 .alertPadding{
   padding: 10px 16px;
 }
+
+.buttonDisabled:disabled {
+  pointer-events: auto!important;
+  cursor: not-allowed!important;
+  --tw-border-opacity: 0;
+   background-color: #06080F;
+   --tw-bg-opacity: 0;
+  color: white;
+  --tw-text-opacity: 0;
+}
+
+.itemSelect{
+  background: #28B7BC3B;
+
+}

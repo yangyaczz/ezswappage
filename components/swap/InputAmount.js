@@ -4,7 +4,7 @@ import Input721Sell from './swapUtils/Input721Sell';
 import Input1155Sell from './swapUtils/Input1155Sell';
 
 import Input721Buy from './swapUtils/Input721Buy';
-
+import styles from './index.module.scss'
 
 const InputAmount = ({ swapType, formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded, setIsBanSelect }) => {
 
@@ -65,7 +65,7 @@ const InputAmount = ({ swapType, formikData, setSelectIds, setTupleEncode, setTo
 
     const displayBuyDialog = () => {
 
-        console.log('display buy Dialog', formikData.collection)
+        // console.log('display buy Dialog', formikData.collection)
 
         if (!formikData.collection.type || !formikData.token) {
             return <div>Select collection and token first...</div>
@@ -108,7 +108,7 @@ const InputAmount = ({ swapType, formikData, setSelectIds, setTupleEncode, setTo
 
     return (
         <div className="form-control">
-            <button className="btn justify-between" onClick={() => document.getElementById('input_sell').showModal()}>
+            <button disabled={!formikData.collection.type} className={"btn justify-between"+" "+styles.buttonDisabled} onClick={() => document.getElementById('input_sell').showModal()}>
                 <div className='flex justify-start items-center space-x-2'>
                     {displayFrame()}
                     <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>

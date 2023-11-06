@@ -183,7 +183,8 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
                                 key={index}
                                 onClick={() => handleNFTClick(nft)}>
                                 {/*<div className={"mr-5" + " " + "mb-5" + " " + styles.buttonCenter}>*/}
-                                <div className={"mr-5 mb-5 flex flex-col items-center justify-center"}>
+                                {nft.address === formikData.collection.address && <img className="w-6 absolute" src="/yes.svg" alt=""/>}
+                                <div className={"mr-5 mb-5 flex flex-col items-center justify-center cursor-pointer"}>
                                     <img className="w-20 mb-2" src={nft.img} alt=""/>
                                     <div>{nft.name}</div>
                                 </div>

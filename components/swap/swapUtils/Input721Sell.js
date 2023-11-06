@@ -137,13 +137,13 @@ const Input721Sell = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, s
     }
 
     return (
-        <div className='grid grid-cols-5 gap-4'>
+        <div className='flex flex-wrap justify-between'>
             {initialSquares.map((square, index) => (
                 <div
                     key={index}
                     className={`
-                        flex items-center justify-center w-20 h-20 cursor-pointer
-                        ${(formikData.selectIds.includes(square)) ? 'bg-gray-400' : formikData.isBanSelect ? 'bg-black' : 'bg-white'} 
+                        p-3 mr-2 mb-5 cursor-pointer
+                        ${(formikData.selectIds.includes(square)) ? 'bg-[#28B7BC3B]' : formikData.isBanSelect && 'cursor-not-allowed'}
                     `}
                     onClick={() => {
                         if ((formikData.selectIds.includes(square)) || !formikData.isBanSelect) {
@@ -151,7 +151,9 @@ const Input721Sell = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, s
                         }
                     }}
                 >
-                    {square}
+                    {formikData.selectIds.includes(square) && <img className="w-6 absolute" src="/yes.svg" alt=""/>}
+                    <img className="w-20" src={formikData.collection.img} alt=""/>
+                    <div>#{square}</div>
                 </div>
             ))}
         </div>

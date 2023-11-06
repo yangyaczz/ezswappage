@@ -9,7 +9,7 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
     const max = formikData.userCollection.tokenAmount1155
 
     const update1155SellToPairs = (tokenId, pairs) => {
-        let protocolFee = 5000000000000000   // 0.5%  get from smartcontract 
+        let protocolFee = 5000000000000000   // 0.5%  get from smartcontract
         let dec = 1e18
         let maxPrice = 0
         let maxPriceIndex = -1
@@ -97,7 +97,7 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
         console.log(totalGet)
         ///////////////////////////////////////////////////////////////
 
-        // check if is execeeded 
+        // check if is execeeded
         if (newSids.length > IdsAmount) {
             setIsExceeded(true)
         } else {
@@ -137,7 +137,7 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
 
     //////////////////////////////////////////////////////////////////////////////
     if (formikData.userCollection.tokenAmount1155 === 0) {
-        return <div>you dont have this nft</div>
+        return <div>you don't have this nft</div>
     }
 
 

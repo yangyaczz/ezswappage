@@ -23,10 +23,10 @@ const InputAmount = ({ swapType, formikData, setSelectIds, setTupleEncode, setTo
 
     const displaySellDialog = () => {
 
-        // console.log('displaySellDialog', formikData.collection.filterPairs)
+        // console.log('display Sell Dialog', formikData.collection.filterPairs)
 
         if (!formikData.collection.type || !formikData.token) {
-            return <div>Select collection and token first...</div>
+            return <div>Select collection first...</div>
         }
 
         if (formikData.userCollection.tokenIds721 === '') {
@@ -65,7 +65,7 @@ const InputAmount = ({ swapType, formikData, setSelectIds, setTupleEncode, setTo
 
     const displayBuyDialog = () => {
 
-        // console.log('displaySellDialog', formikData.collection.filterPairs)
+        console.log('display buy Dialog', formikData.collection)
 
         if (!formikData.collection.type || !formikData.token) {
             return <div>Select collection and token first...</div>
@@ -127,7 +127,7 @@ const InputAmount = ({ swapType, formikData, setSelectIds, setTupleEncode, setTo
 
                     <h3 className="font-bold text-lg">Amount:</h3>
                     <div className="mt-2 flex">
-                        You have select {formikData.selectIds.length} and you will get <img className="w-6" src="/ETH.png" alt=""/> {formikData.totalGet ? formikData.totalGet.toFixed(5):0}
+                        You have select {formikData.selectIds.length} and {swapType === 'buy'?"you need pay" : "you will get"} <img className="w-6" src="/ETH.png" alt=""/> {formikData.totalGet ? formikData.totalGet.toFixed(5):0}
                     </div>
 
 

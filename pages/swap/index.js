@@ -35,6 +35,7 @@ const Swap = () => {
       userCollection: {
         tokenIds721: '',
         tokenAmount1155: '',
+        // todo 这个是干啥的
         tokenBalance20: ''
       },
       pairs: '',
@@ -225,12 +226,14 @@ const Swap = () => {
           </div>
           </div>
 
+          <div className={styles.cardStyle}>
           <SwapButton
             swapType={swapType}
             formikData={formik.values}
             owner={owner}
             addSwapSuccessCount={addSwapSuccessCount}
           />
+          </div>
 
         </div>
       </div>

@@ -7,7 +7,7 @@ import ERC721EnumABI from '../../pages/data/ABI/ERC721Enum.json'
 import ERC1155ABI from '../../pages/data/ABI/ERC1155.json'
 
 import multiSetFilterPairMode from './swapUtils/multiSetFilterPairMode'
-
+import styles from './index.module.scss'
 const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUserCollection, setPairs, setTokens, setTokensName, setToken, setTokenName, setFilterPairs, setSwapMode }) => {
 
 
@@ -182,8 +182,9 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
                             <button
                                 key={index}
                                 onClick={() => handleNFTClick(nft)}>
-                                <div className="flex flex-col mr-5 mb-5">
-                                    <img className="w-20" src={nft.img} alt=""/>
+                                {/*<div className={"mr-5" + " " + "mb-5" + " " + styles.buttonCenter}>*/}
+                                <div className={"mr-5 mb-5 flex flex-col items-center justify-center"}>
+                                    <img className="w-20 mb-2" src={nft.img} alt=""/>
                                     <div>{nft.name}</div>
                                 </div>
 

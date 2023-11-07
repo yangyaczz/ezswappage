@@ -87,13 +87,15 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
 
                     if (canTradeToken.length) {
                         let token
-                        if (canTradeToken.includes('ETH')) {
-                            token = 'ETH'
+                        if (canTradeToken.includes("ETH")) {
+                            token = "ETH"
+                            setToken(token)
+                            setTokenName('ETH')
                         } else {
                             token = canTradeToken[0]
+                            setToken(token)
+                            setTokenName(tokensNames[0])
                         }
-                        setToken(token)
-                        setTokenName(tokensNames[0])
 
                         multiSetFilterPairMode(swapType, formikData, filteredData, owner, token, setFilterPairs, setSwapMode)
 

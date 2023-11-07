@@ -148,7 +148,7 @@ const Input721Sell = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, s
         } else {
             setIsBanSelect(false)
         }
-    }, [])
+    }, [formikData.token])
 
 
 

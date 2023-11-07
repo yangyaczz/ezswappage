@@ -25,8 +25,10 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
 
 
     const handleNFTClick = (nft) => {
-        reset123()
-        setCollection(nft)
+        if (formikData.collection.name !== nft.name) {
+            reset123()
+            setCollection(nft)
+        }
     }
 
     useEffect(() => {
@@ -161,20 +163,20 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
 
             <dialog id="nft_search_sell" className="modal">
                 <div className="modal-box">
-                {/*    <h3 className="font-bold text-lg">Search Collection:</h3>*/}
-                {/*    <div className='input-group'>*/}
-                {/*        <span>*/}
-                {/*            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>*/}
-                {/*        </span>*/}
-                {/*        <input*/}
-                {/*            type="text"*/}
-                {/*            placeholder="NFT Contract Address or Name"*/}
-                {/*            className="input input-bordered w-full"*/}
-                {/*            value={searchQuery}*/}
-                {/*            onChange={handleSearchChange}*/}
-                {/*        />*/}
-                {/*    </div>*/}
-                {/*    <div className="divider"></div>*/}
+                    {/*    <h3 className="font-bold text-lg">Search Collection:</h3>*/}
+                    {/*    <div className='input-group'>*/}
+                    {/*        <span>*/}
+                    {/*            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>*/}
+                    {/*        </span>*/}
+                    {/*        <input*/}
+                    {/*            type="text"*/}
+                    {/*            placeholder="NFT Contract Address or Name"*/}
+                    {/*            className="input input-bordered w-full"*/}
+                    {/*            value={searchQuery}*/}
+                    {/*            onChange={handleSearchChange}*/}
+                    {/*        />*/}
+                    {/*    </div>*/}
+                    {/*    <div className="divider"></div>*/}
                     <h3 className="font-bold text-lg mb-6">Recommend Collection:</h3>
 
                     <form method="dialog" className='flex flex-wrap justify-center'>
@@ -183,9 +185,9 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
                                 key={index}
                                 onClick={() => handleNFTClick(nft)}>
                                 {/*<div className={"mr-5" + " " + "mb-5" + " " + styles.buttonCenter}>*/}
-                                {nft.address === formikData.collection.address && <img className="w-6 absolute" src="/yes.svg" alt=""/>}
+                                {nft.address === formikData.collection.address && <img className="w-6 absolute" src="/yes.svg" alt="" />}
                                 <div className={"mr-5 mb-5 flex flex-col items-center justify-center cursor-pointer"}>
-                                    <img className="w-20 mb-2" src={nft.img} alt=""/>
+                                    <img className="w-20 mb-2" src={nft.img} alt="" />
                                     <div>{nft.name}</div>
                                 </div>
 

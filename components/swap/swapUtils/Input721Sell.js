@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BuyPoolLiner, TradePoolLiner, BuyPoolExp, TradePoolExp } from '../../utils/calculate'
 import { ethers } from 'ethers';
 
@@ -127,6 +127,29 @@ const Input721Sell = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, s
         }
     }
 
+    useEffect(() => {
+        console.log('check if ban init....')
+        // check if ban
+        let initSid = [0]
+        let initpair = JSON.parse(JSON.stringify(formikData.filterPairs))
+        initSid.forEach(id => {
+            update721SellToPairs(id, initpair)
+        })
+
+        let IdsPlusAmount = 0
+        initpair.forEach(pair => {
+            if (pair.tuple) {
+                IdsPlusAmount += pair.tokenIds.length
+            }
+        })
+
+        if (initSid.length > IdsPlusAmount) {
+            setIsBanSelect(true)
+        } else {
+            setIsBanSelect(false)
+        }
+    }, [])
+
 
 
     const initialSquares = formikData.userCollection.tokenIds721
@@ -151,8 +174,8 @@ const Input721Sell = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, s
                         }
                     }}
                 >
-                    {formikData.selectIds.includes(square) && <img className="w-6 absolute" src="/yes.svg" alt=""/>}
-                    <img className="w-20" src={formikData.collection.img} alt=""/>
+                    {formikData.selectIds.includes(square) && <img className="w-6 absolute" src="/yes.svg" alt="" />}
+                    <img className="w-20" src={formikData.collection.img} alt="" />
                     <div>#{square}</div>
                 </div>
             ))}

@@ -107,7 +107,7 @@ const Swap = () => {
       {
         tokenIds721: '',
         tokenAmount1155: '',
-        tokenBalance20: ''
+        tokenBalance20: formik.values.userCollection.tokenBalance20
       })
     formik.setFieldValue('pairs', '')
     formik.setFieldValue('tokens', '')

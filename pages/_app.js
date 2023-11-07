@@ -77,7 +77,6 @@ const wagmiClinet = createClient({
 });
 
 export default function App({ Component, pageProps }) {
-  console.log(pageProps);
   return (
     <WagmiConfig client={wagmiClinet}>
       <RainbowKitProvider chains={chains}>

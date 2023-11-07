@@ -4,7 +4,20 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         "4-auto": "repeat(4,minmax(0,auto))",
+        "2-auto": "repeat(2,minmax(0,auto))",
+        "7-3": "7fr 3fr",
+        "2-1": "2fr 1fr",
       },
+      gridTemplateRows: {
+        "2-auto": "repeat(2,minmax(0,auto))",
+        "3-2": "3fr 2fr",
+      },
+      // fontSize: {
+      //   base: "1rem",
+      //   sm: "1.1rem",
+      //   md: "1.2rem",
+      //   lg: "1.5rem",
+      // },
     },
   },
   content: [

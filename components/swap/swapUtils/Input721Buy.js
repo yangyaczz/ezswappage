@@ -142,7 +142,7 @@ const Input721Buy = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
 
 
     return (
-        <div className='flex flex-wrap justify-between'>
+        <div className='flex flex-wrap'>
             {
                 Object.keys(idPriceMap)
                     .sort((a, b) => {

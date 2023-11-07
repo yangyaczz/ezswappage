@@ -171,6 +171,11 @@ const SwapButton = ({swapType,formikData, owner,addSwapSuccessCount}) => {
                 {text}
             </div>)
         }
+        if (formikData.isExceeded) {
+            return (<div>
+                Insufficient balance
+            </div>)
+        }
 
         if (!nftApproval) {
             text = 'Approve'

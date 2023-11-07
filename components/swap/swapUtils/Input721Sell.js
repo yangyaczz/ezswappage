@@ -160,7 +160,7 @@ const Input721Sell = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, s
     }
 
     return (
-        <div className='flex flex-wrap justify-between'>
+        <div className='flex flex-wrap'>
             {initialSquares.map((square, index) => (
                 <div
                     key={index}

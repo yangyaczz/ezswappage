@@ -122,13 +122,18 @@ const InputAmount = ({ swapType, formikData, setSelectIds, setTupleEncode, setTo
 
                     {(swapType === 'buy') ? displayBuyDialog() : displaySellDialog()}
 
-                    <div>{formikData.isExceeded && 'The amount of nft is out of range, please reduce it'}</div>
+                    <div>{formikData.isExceeded && 'Insufficient balance'}</div>
                     <div className="divider"></div>
 
-                    <h3 className="font-bold text-lg">Amount:</h3>
-                    <div className="mt-2 flex">
-                        You have select {formikData.selectIds.length} and {swapType === 'buy'?"you need pay" : "you will get"} <img className="w-6" src="/ETH.png" alt=""/> {formikData.totalGet ? formikData.totalGet.toFixed(5):0}
-                    </div>
+                    <h3 className="font-bold text-lg flex justify-end">
+                        <div>Amount:</div>
+                        <div className="flex ml-2">
+                            <img className="w-6" src="/ETH.png" alt=""/>{formikData.totalGet ? formikData.totalGet.toFixed(5):0}
+                        </div>
+                    </h3>
+                    {/*<div className="mt-2 flex">*/}
+                    {/*    You have select {formikData.selectIds.length} and {swapType === 'buy'?"you need pay" : "you will get"} <img className="w-6" src="/ETH.png" alt=""/> {formikData.totalGet ? formikData.totalGet.toFixed(5):0}*/}
+                    {/*</div>*/}
 
 
                     <form method="dialog">

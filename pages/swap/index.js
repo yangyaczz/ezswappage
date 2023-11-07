@@ -66,7 +66,6 @@ const Swap = () => {
   const { chain } = useNetwork();
   const { address: owner } = useAccount()
 
-
   // 0 => 1 , reset 2 3
   useEffect(() => {
     setIsMounted(true);
@@ -78,9 +77,6 @@ const Swap = () => {
       }
     }
   }, [chain, owner]);
-
-
-
 
   const reset123 = () => {
     reset1()
@@ -105,7 +101,7 @@ const Swap = () => {
       {
         tokenIds721: '',
         tokenAmount1155: '',
-        tokenBalance20: ''
+        tokenBalance20: formik.values.userCollection.tokenBalance20
       })
     formik.setFieldValue('pairs', '')
     formik.setFieldValue('tokens', '')

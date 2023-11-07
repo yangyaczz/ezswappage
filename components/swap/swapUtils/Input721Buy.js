@@ -71,6 +71,8 @@ const Input721Buy = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
 
     const toggleSelected = (id) => {
 
+        console.log('user erc20balance', formikData.userCollection.tokenBalance20)
+
         // add new id to formikdata
         let newSids
         if (formikData.selectIds.includes(id)) {

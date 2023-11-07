@@ -25,8 +25,10 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
 
 
     const handleNFTClick = (nft) => {
-        reset123()
-        setCollection(nft)
+        if (formikData.collection.name !== nft.name) {
+            reset123()
+            setCollection(nft)
+        }
     }
 
     useEffect(() => {

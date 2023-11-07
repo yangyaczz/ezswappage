@@ -18,7 +18,7 @@ service.interceptors.response.use((response) => {
     return response.data
   }
 })
-// 查看白单
+// 查询元数据
 export function queryIpfs (parameter, ipfsUrl) {
   return service({
     url: ipfsUrl,

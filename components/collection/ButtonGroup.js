@@ -8,7 +8,7 @@ const ButtonGroup = () => {
         Quick Sell
       </button>
       <button
-        className="btn btn-success btn-xs w-16 md:w-24  lg:w-32 h-10"
+        className="btn btn-success btn-xs w-20 md:w-24 lg:w-32 h-10"
         onClick={() => {
           window.location.href = "https://swap.ezswap.io";
         }}

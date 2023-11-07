@@ -17,7 +17,7 @@ const CollectionHeader = ({ name, img, COLLECTION_PIC_SIZE }) => {
           <p className="text-lg md:text-xl lg:text-2xl">{name}</p>
           <p className="text-sm md:text-base lg:text-xl">Estimated APR: 20%</p>
         </header>
-        <div className="grid grid-cols-2-auto grid-rows-2-auto lg:grid-cols-4-auto lg:grid-rows-1 gap-x-4">
+        <div className="grid grid-cols-2 grid-rows-2 gap-4 md:gap-6 xl:grid-cols-4-auto xl:grid-rows-1 gap-x-4">
           <p className="text-sm lg:text-base">
             Floor Price: <span>10 ETH</span>
           </p>

@@ -63,7 +63,7 @@ const Input721Sell = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, s
 
 
     const toggleSelected = (id) => {
-
+        console.log('fasfadfadfasf')
         // add new id to formikdata
         let newSids
         if (formikData.selectIds.includes(id)) {
@@ -148,7 +148,7 @@ const Input721Sell = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, s
         } else {
             setIsBanSelect(false)
         }
-    }, [])
+    }, [formikData.token])
 
 
 
@@ -166,10 +166,11 @@ const Input721Sell = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, s
                     key={index}
                     className={`
                         p-3 mr-2 mb-5 cursor-pointer
-                        ${(formikData.selectIds.includes(square)) ? 'bg-[#28B7BC3B]' : formikData.isBanSelect && 'cursor-not-allowed'}
+                        ${(formikData.selectIds.includes(square)) ? 'bg-[#28B7BC3B]' : formikData.isBanSelect && '!cursor-not-allowed'}
                     `}
                     onClick={() => {
-                        if ((formikData.selectIds.includes(square)) || !formikData.isBanSelect) {
+                        console.log(formikData.selectIds.includes(square),formikData.isBanSelect)
+                        if (formikData.selectIds.includes(square) || !formikData.isBanSelect) {
                             toggleSelected(square);
                         }
                     }}

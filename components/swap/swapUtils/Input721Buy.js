@@ -157,7 +157,7 @@ const Input721Buy = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                         <div key={square}
                              className={`
                                     p-3 mr-2 mb-5 cursor-pointer
-                                    ${formikData.selectIds.includes(square) ? 'bg-[#28B7BC3B]' : formikData.isBanSelect && 'cursor-not-allowed'}
+                                    ${formikData.selectIds.includes(square) ? 'bg-[#28B7BC3B]' : formikData.isBanSelect && '!cursor-not-allowed'}
                                 `}
                              >
                             <div onClick={() => {

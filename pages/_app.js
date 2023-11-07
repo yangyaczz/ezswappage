@@ -2,48 +2,60 @@ import "@/styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import { WagmiConfig, chain, configureChains, createClient } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
-import { mainnet, polygon} from "wagmi/chains";
+import { mainnet, polygon } from "wagmi/chains";
 import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
 import NavBar from "@/components/bar/NavBar";
 
 const mantatest = {
   id: 3441005,
-  name: 'Manta Testnet',
-  network: 'Manta Testnet',
-  iconBackground: '#008000',
+  name: "Manta Testnet",
+  network: "Manta Testnet",
+  iconBackground: "#008000",
   nativeCurrency: {
     decimals: 18,
-    name: 'ETH',
-    symbol: 'ETH',
+    name: "ETH",
+    symbol: "ETH",
   },
   rpcUrls: {
-    public: { http: ['https://manta-testnet.calderachain.xyz/http'] },
-    default: { http: ['https://manta-testnet.calderachain.xyz/http'] },
+    public: { http: ["https://manta-testnet.calderachain.xyz/http"] },
+    default: { http: ["https://manta-testnet.calderachain.xyz/http"] },
   },
   blockExplorers: {
-    default: { name: 'pacific', url: 'https://pacific-explorer.testnet.manta.network/' },
-    etherscan: { name: 'pacific', url: 'https://pacific-explorer.testnet.manta.network/' },
+    default: {
+      name: "pacific",
+      url: "https://pacific-explorer.testnet.manta.network/",
+    },
+    etherscan: {
+      name: "pacific",
+      url: "https://pacific-explorer.testnet.manta.network/",
+    },
   },
   testnet: true,
 };
 
 const mantamain = {
   id: 169,
-  name: 'Manta Pacific',
-  network: 'Manta Pacific',
-  iconBackground: '#008000',
+  name: "Manta Pacific",
+  network: "Manta Pacific",
+  iconBackground: "#008000",
   nativeCurrency: {
     decimals: 18,
-    name: 'ETH',
-    symbol: 'ETH',
+    name: "ETH",
+    symbol: "ETH",
   },
   rpcUrls: {
-    public: { http: ['https://pacific-rpc.manta.network/http'] },
-    default: { http: ['https://pacific-rpc.manta.network/http'] },
+    public: { http: ["https://pacific-rpc.manta.network/http"] },
+    default: { http: ["https://pacific-rpc.manta.network/http"] },
   },
   blockExplorers: {
-    default: { name: 'pacific', url: 'https://pacific-explorer.manta.network/' },
-    etherscan: { name: 'pacific', url: 'https://pacific-explorer.manta.network/' },
+    default: {
+      name: "pacific",
+      url: "https://pacific-explorer.manta.network/",
+    },
+    etherscan: {
+      name: "pacific",
+      url: "https://pacific-explorer.manta.network/",
+    },
   },
   testnet: false,
 };
@@ -65,11 +77,14 @@ const wagmiClinet = createClient({
 });
 
 export default function App({ Component, pageProps }) {
+  console.log(pageProps);
   return (
     <WagmiConfig client={wagmiClinet}>
       <RainbowKitProvider chains={chains}>
-        <NavBar></NavBar>
-        <Component {...pageProps} />
+        <div className="grid auto-rows-auto auto-cols-auto">
+          <NavBar></NavBar>
+          <Component {...pageProps} />
+        </div>
       </RainbowKitProvider>
     </WagmiConfig>
   );

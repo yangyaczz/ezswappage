@@ -30,7 +30,7 @@ const TokenSearch = ({ swapType,formikData, owner, reset23, setToken, setTokenNa
         }
 
         if (formikData.collection.address && !formikData.pairs.length) {
-            return <div>This collection have no liquidity...</div>
+            return <div>This collection has no liquidity...</div>
         }
 
         return (

@@ -3,7 +3,7 @@ import { Html, Head, Main, NextScript } from 'next/document'
 export default function Document() {
   return (
     <Html lang="en" data-theme="light">
-      <Head />
+        <Head><title>EZSwap</title></Head>
       <body>
         <Main />
         <NextScript />

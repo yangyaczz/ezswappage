@@ -110,6 +110,13 @@
                 "name": "zkHoldem NFT mini",
                 "tokenId1155": "",
                 "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/zkHoldem_NFT_mini.jpeg"
+            },
+            {
+                "type": "ERC721",
+                "address": "0xB9dcc0AeD41A30B81D380Acba495533B2F94973f",
+                "name": "AsMatch zkPortrait Pass Lite",
+                "tokenId1155": "",
+                "img": "https://asmatch-resources.s3-accelerate.amazonaws.com/nft/zkpl.jpeg"
             }
         ],
         "recommendERC20": [

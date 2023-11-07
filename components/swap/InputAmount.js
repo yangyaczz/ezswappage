@@ -26,7 +26,7 @@ const InputAmount = ({ swapType, formikData, setSelectIds, setTupleEncode, setTo
         // console.log('display Sell Dialog', formikData.collection.filterPairs)
 
         if (!formikData.collection.type || !formikData.token) {
-            return <div>Select collection first...</div>
+            return <div>Select collection and token first...</div>
         }
 
         if (formikData.userCollection.tokenIds721 === '') {
@@ -34,7 +34,7 @@ const InputAmount = ({ swapType, formikData, setSelectIds, setTupleEncode, setTo
         }
 
         if (formikData.pairs && formikData.filterPairs.length === 0) {
-            return <div>No liquidity for swap...</div>
+            return <div>this pair has no liquidity</div>
         }
 
         if (formikData.collection.type == "ERC721") {
@@ -76,7 +76,7 @@ const InputAmount = ({ swapType, formikData, setSelectIds, setTupleEncode, setTo
         }
 
         if (formikData.pairs && formikData.filterPairs.length === 0) {
-            return <div>No liquidity for swap...</div>
+            return <div>this pair has no liquidity</div>
         }
 
         if (formikData.collection.type == "ERC721") {

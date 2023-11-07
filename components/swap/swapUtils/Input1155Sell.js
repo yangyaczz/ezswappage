@@ -137,7 +137,7 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
 
     //////////////////////////////////////////////////////////////////////////////
     if (formikData.userCollection.tokenAmount1155 === 0) {
-        return <div>you don't have this nft</div>
+        return <div>{`you don't have this nft`}</div>
     }
 
 

@@ -156,7 +156,7 @@ const Input721Sell = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, s
 
 
     if (!initialSquares.length) {
-        return <div>you don't have this nft</div>
+        return <div>{`you don't have this nft`}</div>
     }
 
     return (

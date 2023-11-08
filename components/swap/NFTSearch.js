@@ -25,22 +25,90 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
         : [];
 
 
-    const handleNFTClick =async (nft) => {
-        console.log('formikDataformikData',formikData)
+    const handleNFTClick = async (nft) => {
         if (formikData.collection.name !== nft.name) {
-            // todo 通过graph查询数据
-            const metaDataList = await queryMantaNFT({
-                // todo 这里的0xE3a463d743F762D538031BAD3f1E748BB41f96ec要改成动态的,不晓得去哪个参数
-                query: '{erc721Tokens(where: { owner: "' + "0xE3a463d743F762D538031BAD3f1E748BB41f96ec" + '",contract:"'+nft.address+'" }) {\n    contract{\n      id\n      name\n      symbol\n    }\n  \turi\n    identifier\n  }\n}',
-                queryMantaNFT:formikData.golbalParams.networkName
-            })
             reset123()
             setCollection(nft)
         }
     }
 
     useEffect(() => {
+        const fetchSellNFT = async () => {
+            // if sell, get user collection detail  
+            if (formikData.collection.type === 'ERC1155' && swapType === 'sell') {
+                let nftAddress = formikData.collection.address
+                let tid = '0x' + formikData.collection.tokenId1155.toString(16)
+                let parseStr = (nftAddress + '/' + tid + '/' + owner).toLowerCase()
 
+                const networkType = formikData.golbalParams.networkName;
+                const params = {
+                    query: `
+                    {
+                        erc1155Balances(
+                          where: {id: "${parseStr}"}
+                        ) {
+                          valueExact
+                        }
+                    }
+                    `,
+                    urlKey: networkType
+                };
+
+                const response = await fetch('/api/queryMantaNFT', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(params),
+                });
+                const data = await response.json();
+                let num1155 = data?.data?.erc1155Balances[0].valueExact
+
+                setUserCollection({
+                    tokenAmount1155: num1155
+                })
+
+            } else if (formikData.collection.type === 'ERC721' && swapType === 'sell') {
+                let nftAddress = formikData.collection.address
+
+                const networkType = formikData.golbalParams.networkName;
+                const params = {
+                    query: `
+                    {
+                        erc721Tokens(where: { owner: "${owner.toLowerCase()}", contract: "${nftAddress.toLowerCase()}" }) {
+                          identifier
+                        }
+                    }
+                    `,
+                    urlKey: networkType
+                };
+
+                const response = await fetch('/api/queryMantaNFT', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(params),
+                });
+                const data = await response.json();
+
+                let ids721 = data?.data?.erc721Tokens.map(id => Number(id.identifier))
+                ids721.sort(function (a, b) {
+                    return a - b;
+                });
+
+                setUserCollection({
+                    tokenIds721: ids721
+                })
+            }
+
+        }
+        if (formikData.collection.name !== '') {
+            fetchSellNFT()
+        }
+    }, [formikData.collection.name])
+
+    useEffect(() => {
         const fetchData = async () => {
             if (formikData.golbalParams.networkName && formikData.collection.address) {
                 const params = {
@@ -69,13 +137,12 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
                         filteredData = pairsList.filter(item => item.type === 'sell' || item.type === 'trade');
                     }
 
-                    console.log(swapType, filteredData)
+
 
                     if (formikData.collection.type == 'ERC1155') {
                         filteredData = filteredData.filter(item => item.nftId1155 === formikData.collection.tokenId1155);
                     }
 
-                    console.log(filteredData)
 
                     setPairs(filteredData)
 
@@ -109,7 +176,7 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
 
                         multiSetFilterPairMode(swapType, formikData, filteredData, owner, token, setFilterPairs, setSwapMode)
 
-                        console.log('isBanSelect', formikData.isBanSelect === true)
+
                     }
                 }
             }
@@ -121,41 +188,12 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
     }, [formikData.golbalParams.networkName, formikData.collection.name])
 
 
-    // if sell nft, get user nft info
-    const { data: tokenIds721 } = useContractRead({
-        address: ((formikData.collection.type === "ERC721" && swapType === 'sell') ? formikData.collection.address : ''),
-        abi: ERC721EnumABI,
-        functionName: 'tokensOfOwner',
-        args: [owner],
-        watch: false,
-        onSuccess(data) {
-            const num = data.map(item => parseInt(item._hex, 16))
-            setUserCollection({
-                tokenIds721: num
-            })
-        }
-    })
-
-    const { data: tokenAmount1155 } = useContractRead({
-        address: ((formikData.collection.type === "ERC1155" && swapType === 'sell') ? formikData.collection.address : ''),
-        abi: ERC1155ABI,
-        functionName: 'balanceOf',
-        args: [owner, formikData.collection.tokenId1155],
-        watch: false,
-        onSuccess(data) {
-            const num = parseInt(data, 16)
-            setUserCollection({
-                tokenAmount1155: num
-            })
-        }
-    })
-
     // if buy nft, get user eth or erc20 balance
     const { data: tokenBalance20 } = useBalance({
         address: (swapType === 'buy' && formikData.collection.name) ? owner : '',
         token: (formikData.token !== '' && formikData.token === 'ETH' && swapType === 'buy') ? '' : formikData.token,
         onSuccess(data) {
-            console.log('erc20 balance', data.formatted)
+            // console.log('erc20 balance', data.formatted)
             setUserCollection({
                 tokenBalance20: data.formatted
             })

@@ -89,11 +89,15 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
                         let token
                         if (canTradeToken.includes('ETH')) {
                             token = 'ETH'
+                            setToken(token)
+                            setTokenName('ETH')
                         } else {
                             token = canTradeToken[0]
+                            setToken(token)
+                            setTokenName(tokensNames[0])
                         }
-                        setToken(token)
-                        setTokenName(tokensNames[0])
+                        // setToken(token)
+                        // setTokenName(tokensNames[0])
 
                         multiSetFilterPairMode(swapType, formikData, filteredData, owner, token, setFilterPairs, setSwapMode)
 
@@ -185,7 +189,7 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
                                 key={index}
                                 onClick={() => handleNFTClick(nft)}>
                                 {/*<div className={"mr-5" + " " + "mb-5" + " " + styles.buttonCenter}>*/}
-                                {nft.address === formikData.collection.address && <img className="w-6 absolute" src="/yes.svg" alt="" />}
+                                {nft.name === formikData.collection.name && <img className="w-6 absolute" src="/yes.svg" alt="" />}
                                 <div className={"mr-5 mb-5 flex flex-col items-center justify-center cursor-pointer"}>
                                     <img className="w-20 mb-2" src={nft.img} alt="" />
                                     <div>{nft.name}</div>

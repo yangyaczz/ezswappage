@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { useContractRead, useBalance } from 'wagmi'
+import { queryMantaNFT } from '../../pages/api/manta-query'
 
 import ERC721EnumABI from '../../pages/data/ABI/ERC721Enum.json'
 import ERC1155ABI from '../../pages/data/ABI/ERC1155.json'
@@ -24,8 +25,15 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
         : [];
 
 
-    const handleNFTClick = (nft) => {
+    const handleNFTClick =async (nft) => {
+        console.log('formikDataformikData',formikData)
         if (formikData.collection.name !== nft.name) {
+            // todo 通过graph查询数据
+            const metaDataList = await queryMantaNFT({
+                // todo 这里的0xE3a463d743F762D538031BAD3f1E748BB41f96ec要改成动态的,不晓得去哪个参数
+                query: '{erc721Tokens(where: { owner: "' + "0xE3a463d743F762D538031BAD3f1E748BB41f96ec" + '",contract:"'+nft.address+'" }) {\n    contract{\n      id\n      name\n      symbol\n    }\n  \turi\n    identifier\n  }\n}',
+                queryMantaNFT:formikData.golbalParams.networkName
+            })
             reset123()
             setCollection(nft)
         }
@@ -189,9 +197,11 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
                                 key={index}
                                 onClick={() => handleNFTClick(nft)}>
                                 {/*<div className={"mr-5" + " " + "mb-5" + " " + styles.buttonCenter}>*/}
-                                {nft.name === formikData.collection.name && <img className="w-6 absolute" src="/yes.svg" alt="" />}
                                 <div className={"mr-5 mb-5 flex flex-col items-center justify-center cursor-pointer"}>
-                                    <img className="w-20 mb-2" src={nft.img} alt="" />
+                                    <div className="relative">
+                                        {nft.name === formikData.collection.name && <img className="w-6 absolute -left-2 -top-2" src="/yes.svg" alt="" />}
+                                        <img className="w-20 mb-2" src={nft.img} alt="" />
+                                    </div>
                                     <div>{nft.name}</div>
                                 </div>
 

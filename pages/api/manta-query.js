@@ -8,7 +8,7 @@
  */
 const axios = require('axios')
 const service = axios.create({
-  baseURL: sessionStorage.getItem('selectedChainId') === '0x34816d' ? 'https://api.goldsky.com/api/public/project_clnv4qr7e30dv33vpgx7y0f1d/subgraphs/fer-testnet/manta-pacific-testnet-nfts' : 'https://api.goldsky.com/api/public/project_clnv4qr7e30dv33vpgx7y0f1d/subgraphs/fer/manta-pacific-mainnet-nfts',
+  baseURL: "",
   timeout: 300000 // 请求超时时间
 })
 
@@ -19,10 +19,10 @@ service.interceptors.response.use((response) => {
     return response.data
   }
 })
-// 查看白单
-exports.queryMantaNFT = function (parameter) {
+// 查询元数据
+exports.queryMantaNFT = function (parameter,networkName) {
   return service({
-    url: '/gn',
+    url: networkName === '0x34816d' ? 'https://api.goldsky.com/api/public/project_clnv4qr7e30dv33vpgx7y0f1d/subgraphs/fer-testnet/manta-pacific-testnet-nfts' : 'https://api.goldsky.com/api/public/project_clnv4qr7e30dv33vpgx7y0f1d/subgraphs/fer/manta-pacific-mainnet-nfts'+'/gn',
     method: 'post',
     data: parameter
   })

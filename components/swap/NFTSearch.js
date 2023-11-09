@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react'
 
 import { useContractRead, useBalance } from 'wagmi'
-import { queryMantaNFT } from '../../pages/api/manta-query'
 
 import ERC721EnumABI from '../../pages/data/ABI/ERC721Enum.json'
 import ERC1155ABI from '../../pages/data/ABI/ERC1155.json'
@@ -34,7 +33,7 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
 
     useEffect(() => {
         const fetchSellNFT = async () => {
-            // if sell, get user collection detail  
+            // if sell, get user collection detail
             if (formikData.collection.type === 'ERC1155' && swapType === 'sell') {
                 let nftAddress = formikData.collection.address
                 let tid = '0x' + formikData.collection.tokenId1155.toString(16)

@@ -56,7 +56,8 @@ const Input721Buy = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
             }
 
             pair.nftIdsPrice = res.currentUintBuyPrice
-            pair.userGetPrice = res.lastUserBuyPrice * 1.005   // 0.5 % slippling
+            pair.userGetPrice = Number((res.lastUserBuyPrice * 1.005).toFixed(10))   // 0.5 % slippling
+            console.log('userGetPrice',pair.userGetPrice)      
             pair.tuple = [
                 [
                     pair.id,
@@ -118,6 +119,8 @@ const Input721Buy = ({ formikData, setSelectIds, setTupleEncode, setTotalGet, se
                 totalGet += pair.userGetPrice
             }
         })
+
+        totalGet = Number(totalGet.toFixed(10))
 
         setTupleEncode(tupleEncode)
         setTotalGet(totalGet)

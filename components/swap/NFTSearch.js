@@ -69,7 +69,6 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
 
             } else if (formikData.collection.type === 'ERC721' && swapType === 'sell') {
                 let nftAddress = formikData.collection.address
-
                 const networkType = formikData.golbalParams.networkName;
                 const params = {
                     query: `

@@ -177,7 +177,7 @@ const SwapButton = ({swapType,formikData, owner,addSwapSuccessCount}) => {
             </div>)
         }
 
-        if (!nftApproval) {
+        if (swapType === 'sell' && !nftApproval) {
             text = 'Approve'
             return (<button onClick={() => doApprove()}>{approveLoading || waitApproveLoading ? <span class="loading loading-spinner loading-sm"></span> : text}</button>)
         }

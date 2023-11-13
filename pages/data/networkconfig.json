@@ -18,34 +18,6 @@
                 "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
             },
             {
-                "type": "ERC721",
-                "address": "0x422105Aa59601426568651808Ed8294E99fd5a19",
-                "name": "ts721ec2",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
-            },
-            {
-                "type": "ERC721",
-                "address": "0xFBD152E487A8d5c638365357F6bdfa197C150992",
-                "name": "ts721ec3",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
-                "name": "ts1155tk1",
-                "tokenId1155": "1",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
-                "name": "ts1155tk2",
-                "tokenId1155": "2",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
-            },
-            {
                 "type": "ERC1155",
                 "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
                 "name": "ts1155tk3",
@@ -63,6 +35,20 @@
                 "type": "ERC721",
                 "address": "0x2c236CCb897e7d22e238E98dB4b960445506BFc0",
                 "name": "ZKholdem",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+            },
+            {
+                "type": "ERC721",
+                "address": "0x2AD088E42Ab634009f1cF1406795dC05782139e9",
+                "name": "ZKholdem Test1",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+            },
+            {
+                "type": "ERC721",
+                "address": "0x84C11897C1f1c4599f74E9e792e2CFfDEA25daC1",
+                "name": "ZKholdem Test2",
                 "tokenId1155": "",
                 "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
             }

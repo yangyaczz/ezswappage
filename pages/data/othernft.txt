@@ -1,0 +1,32 @@
+
+/*
+
+            {
+                "type": "ERC721",
+                "address": "0x422105Aa59601426568651808Ed8294E99fd5a19",
+                "name": "ts721ec2",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+            },
+            {
+                "type": "ERC721",
+                "address": "0xFBD152E487A8d5c638365357F6bdfa197C150992",
+                "name": "ts721ec3",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+            },
+            {
+                "type": "ERC1155",
+                "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
+                "name": "ts1155tk1",
+                "tokenId1155": "1",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+            },
+            {
+                "type": "ERC1155",
+                "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
+                "name": "ts1155tk2",
+                "tokenId1155": "2",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+            },
+*/

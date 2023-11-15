@@ -12,7 +12,7 @@ const CollectionHeader = ({ name, img, COLLECTION_PIC_SIZE }) => {
         src={img}
         alt={name}
       />
-      <div className="flex flex-col justify-start items-start gap-y-8">
+      <div className="flex flex-col  justify-start items-start gap-y-8 ">
         <header className="flex justify-start items-center w-full gap-x-8">
           <p className="text-lg md:text-xl lg:text-2xl">{name}</p>
           <p className="text-sm md:text-base lg:text-xl">Estimated APR: 20%</p>

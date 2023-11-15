@@ -9,7 +9,7 @@ const AddLiquidityButton = () => {
       >
         Add Liquidity
       </button>
-      <p className="text-sm">Add liquidity to earn rewards</p>
+      <p className="text-xs md:text-sm">Add liquidity to earn rewards</p>
     </section>
   );
 };

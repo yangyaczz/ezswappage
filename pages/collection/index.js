@@ -4,10 +4,15 @@ import networkConfig from "../data/networkconfig.json";
 import { useNetwork, useContractWrite, useWaitForTransaction } from "wagmi";
 import { useFormik } from "formik";
 import CollectionList from "@/components/collection/CollectionList";
+import PlaceBidsPopup from "@/components/collection/PlaceBidsPopup";
 
 const Collection = () => {
+  const [popupOpen, setPopupOpen] = useState(false);
+  useEffect(() => {
+    setPopupOpen(true);
+  }, []);
   return (
-    <div className="flex flex-col justify-center gap-x-6 items-center w-full">
+    <div className="flex flex-col justify-center gap-x-6 items-center w-full relative">
       <header className="flex flex-col justify-around items-center h-48 m-5">
         <h1 className="text-2xl sm:text-4xl lg:text-5xl">
           Add liquidity & earn profit on your NFTs
@@ -17,6 +22,12 @@ const Collection = () => {
         </p>
       </header>
       <CollectionList />
+      {popupOpen && (
+        <PlaceBidsPopup
+          collectionName="Bored Ape Yacht Club"
+          setPopupOpen={setPopupOpen}
+        />
+      )}
     </div>
   );
 };

@@ -34,9 +34,21 @@ body > div > div {
   color: black;
   border: none;
 }
+.ezBtnPrimary:hover {
+  background-color: #00a0a0;
+  color: black;
+  border: none;
+}
+
 .ezBtnPrimaryOutline {
   background-color: transparent;
-  border: #00a0a0 solid 2;
+  border: #00a0a0 solid 1px;
+  color: #00a0a0;
+}
+
+.ezBtnPrimaryOutline:hover {
+  background-color: transparent;
+  border: #00a0a0 solid 1px;
   color: #00a0a0;
 }
 

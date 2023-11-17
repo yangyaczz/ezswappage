@@ -5,6 +5,7 @@ import { useNetwork, useContractWrite, useWaitForTransaction } from "wagmi";
 import { useFormik } from "formik";
 import CollectionList from "@/components/collection/CollectionList";
 import PlaceBidsPopup from "@/components/collection/PlaceBidsPopup";
+import DepositPopup from "@/components/collection/DepositPopup";
 
 const Collection = () => {
   const [popupOpen, setPopupOpen] = useState(false);
@@ -23,7 +24,12 @@ const Collection = () => {
       </header>
       <CollectionList />
       {popupOpen && (
-        <PlaceBidsPopup
+        // <PlaceBidsPopup
+        //   collectionName="Bored Ape Yacht Club"
+        //   setPopupOpen={setPopupOpen}
+        // />
+
+        <DepositPopup
           collectionName="Bored Ape Yacht Club"
           setPopupOpen={setPopupOpen}
         />

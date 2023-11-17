@@ -107,7 +107,7 @@ const DepositPopup = ({
         </section>
         <section
           id="NFT_Controller_Section"
-          className="grid grid-rows-[1fr,1fr,1fr,3fr,1fr,1fr] grid-cols-[2fr,7fr] gap-y-1"
+          className="grid grid-rows-[1fr,1fr,2fr,3fr,1fr,1fr] grid-cols-[2fr,7fr] gap-y-1 max-h-full"
         >
           <p className="text-lg sm:text-xl lg:text-2xl col-span-full">
             {selectedNFTs.length} / {NFTList.length} Selected
@@ -121,7 +121,7 @@ const DepositPopup = ({
             onChange={handleRangeChange}
             className="range range-primary col-span-full"
           />
-          <div className="flex justify-start items-center gap-x-2 col-span-full">
+          <div className="flex justify-start items-start gap-x-2 col-span-full">
             <p>Listing Price:</p>
             <div className="flex justify-center items-center">
               <input

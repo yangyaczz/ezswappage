@@ -19,9 +19,11 @@ const Rewards = ({ COLLECTION_PIC_SIZE, network }) => {
             height={26}
             className="w-5 h-5 lg:w-6 lg:h-6"
           />
-          <p className="text-sm md:text-xl xl:text-2xl">10</p>
+          <p className="text-xl sm:text-sm md:text-base lg:text-xl xl:text-2xl">
+            10
+          </p>
         </div>
-        <button className="btn btn-success btn-xs xl:btn-sm text-xs lg:text-sm xl:text-base w-12 md:w-16 xl:w-24 text-white justify-self-start">
+        <button className="btn btn-success ezBtn btn-xs text-xs lg:text-sm xl:text-base xl:btn-sm w-full md:w-12 lg:w-16 xl:w-22 text-white font-normal justify-self-start">
           Claim
         </button>
       </div>

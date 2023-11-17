@@ -18,7 +18,7 @@ const CollectionContainer = ({ collection }) => {
     
     */
 
-    <div className="w-11/12 md:h-64 border-2 border-solid border-zinc-100 grid gap-3 p-3 xl:p-6 grid-cols-2-1 lg:grid-cols-7-3 grid-rows-3-2">
+    <div className="w-11/12 border-2 border-solid border-zinc-100 grid gap-x-3 p-3 xl:p-6 grid-cols-2-1 lg:grid-cols-7-3 grid-rows-[3fr,2fr]">
       <CollectionHeader
         name={name}
         img={img}

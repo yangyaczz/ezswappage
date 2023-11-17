@@ -6,7 +6,7 @@ const Rewards = ({ COLLECTION_PIC_SIZE, network }) => {
     <section className="flex justify-between items-start">
       <div
         id="Rewards"
-        className="grid grid-cols-1 grid-rows-3 md:grid-cols-2 md:grid-rows-2 gap-y-2 bg-[#D9D9D9] text-zinc-950 py-2 px-1 sm:px-4 rounded-md"
+        className="grid grid-cols-1 grid-rows-3 md:grid-cols-2 md:grid-rows-2 gap-y-2 w-20 sm:w-28 md:w-32 lg:w-40 xl:w-48 bg-[#D9D9D9] text-zinc-950 py-2 px-1 sm:px-4 rounded-md"
       >
         <p className="col-span-full text-sm sm:text-base xl:text-lg ">
           Rewards
@@ -23,7 +23,7 @@ const Rewards = ({ COLLECTION_PIC_SIZE, network }) => {
             10
           </p>
         </div>
-        <button className="btn btn-success ezBtn btn-xs text-xs !bg-[#3C9F9F] lg:text-sm xl:text-base xl:btn-sm w-full md:w-12 lg:w-16 xl:w-22 text-white font-normal justify-self-start">
+        <button className="btn btn-success ezBtn btn-xs text-xs !bg-[#3C9F9F] lg:text-sm xl:text-base xl:btn-sm w-full  text-white font-normal justify-self-start">
           Claim
         </button>
       </div>

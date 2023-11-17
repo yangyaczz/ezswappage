@@ -2,32 +2,29 @@ import Image from "next/image";
 
 const CollectionHeader = ({ name, img, COLLECTION_PIC_SIZE }) => {
   return (
-    <section
-      className="grid gap-4"
-      style={{ gridTemplateColumns: "90px auto", gridTemplateRows: "1fr" }}
-    >
+    <section className="grid gap-4 grid-cols-[90px,auto] grid-rows-1">
       <Image
         width={COLLECTION_PIC_SIZE}
         height={COLLECTION_PIC_SIZE}
         src={img}
         alt={name}
       />
-      <div className="flex flex-col  justify-start items-start gap-y-8 ">
+      <div className="flex flex-col justify-start items-start gap-y-4 ">
         <header className="flex justify-start items-center w-full gap-x-8">
-          <p className="text-lg md:text-xl lg:text-2xl">{name}</p>
-          <p className="text-sm md:text-base lg:text-xl">Estimated APR: 20%</p>
+          <p className="font-bold text-sm md:text-lg lg:text-xl">{name}</p>
+          <p className="text-sm lg:text-base">Estimated APR: 20%</p>
         </header>
-        <div className="grid grid-cols-2 grid-rows-2 gap-4 md:gap-6 xl:grid-cols-4-auto xl:grid-rows-1 gap-x-4">
-          <p className="text-sm lg:text-base">
+        <div className="grid grid-cols-2 grid-rows-2 gap-2 md:gap-4 lg:grid-cols-4-auto lg:grid-rows-1 gap-x-4">
+          <p className="text-sm xl:text-base">
             Floor Price: <span>10 ETH</span>
           </p>
-          <p className="text-sm lg:text-base">
+          <p className="text-sm xl:text-base">
             NFT Amount: <span>10</span>
           </p>
-          <p className="text-sm lg:text-base">
+          <p className="text-sm xl:text-base">
             Top Bid: <span>9 ETH</span>
           </p>
-          <p className="text-sm lg:text-base">
+          <p className="text-sm xl:text-base">
             Offer TVL: <span>50 ETH</span>
           </p>
         </div>

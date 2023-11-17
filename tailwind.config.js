@@ -12,6 +12,10 @@ module.exports = {
         "2-auto": "repeat(2,minmax(0,auto))",
         "3-2": "3fr 2fr",
       },
+      // backgroundImage: (theme) => ({
+      //   "zinc800-transparent-gradient":
+      //     "linear-gradient(to top, rgba(39,39,42,0.8), rgba(39,39,42, 0))",
+      // }),
       // fontSize: {
       //   base: "1rem",
       //   sm: "1.1rem",

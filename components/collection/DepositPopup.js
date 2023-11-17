@@ -128,13 +128,13 @@ const DepositPopup = ({
                 type="number"
                 min={0}
                 placeholder="Bid amount"
-                className="input input-bordered w-[150px] max-w-xs inline pr-[45px]"
+                className="input input-bordered w-[160px] max-w-xs inline pr-[45px]"
               />
               <Image
                 src="/ETH.png"
                 alt="Ethereum"
-                width={42}
-                height={42}
+                width={36}
+                height={36}
                 className="-translate-x-10"
               />
             </div>

@@ -1,4 +1,4 @@
-import { networkChains } from "@/pages/data/collection-data";
+import networkChains from "@/pages/data/networkChains";
 import Image from "next/image";
 
 const Rewards = ({ COLLECTION_PIC_SIZE, network }) => {

@@ -1,5 +1,5 @@
 import CollectionContainer from "./CollectionContainer";
-import { collections, networkChains } from "@/pages/data/collection-data";
+import collections from "@/pages/data/collection-data";
 
 const CollectionList = () => {
   return (

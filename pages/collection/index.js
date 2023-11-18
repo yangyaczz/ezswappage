@@ -16,9 +16,6 @@ const Collection = () => {
         <h1 className="text-xl sm:text-3xl lg:text-4xl">
           Add liquidity & earn profit on your NFTs
         </h1>
-        <p className="text-lg sm:text-xl lg:text-2xl">
-          Featured collections on zkSync Era:
-        </p>
       </header>
       <CollectionList />
       {popupOpen && (

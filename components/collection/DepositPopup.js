@@ -69,16 +69,16 @@ const DepositPopup = ({
     <BlurBackgroundForPopup setPopupOpen={setPopupOpen}>
       <div className="w-full h-full grid grid-cols-2 grid-rows-[1fr,6fr]">
         <h1 className="text-xl sm:text-2xl lg:text-3xl justify-self-start place-self-center col-span-full">
-          Place bid on {collectionName}
+          {collectionName}
         </h1>
         <section
           id="NFTs_View_Section"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-2 pr-4 py-1 overflow-auto"
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 px-2 pr-4 py-1 overflow-auto"
         >
           {NFTList.map((NFT) => (
             <div
               key={NFT.tokenId}
-              className="w-full h- flex flex-col justify-center items-center cursor-pointer hover:ring-2 hover:ring-offset-4"
+              className="w-full flex flex-col justify-center items-center cursor-pointer hover:ring-2 hover:ring-offset-4"
               onClick={() => handleNFTClicked(NFT.tokenId)}
             >
               <div className="w-[220px] md:w-full relative flex items-center justify-center">
@@ -121,21 +121,21 @@ const DepositPopup = ({
             onChange={handleRangeChange}
             className="range range-primary col-span-full"
           />
-          <div className="flex justify-start items-start gap-x-2 col-span-full">
+          <div className="flex justify-start items-start flex-wrap col-span-full gap-x-4">
             <p>Listing Price:</p>
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center relative">
               <input
                 type="number"
                 min={0}
                 placeholder="Bid amount"
-                className="input input-bordered w-[160px] max-w-xs inline pr-[45px]"
+                className="input input-bordered w-[160px] max-w-xs inline pr-[35px] text-sm"
               />
               <Image
                 src="/ETH.png"
                 alt="Ethereum"
                 width={36}
                 height={36}
-                className="-translate-x-10"
+                className="absolute right-0"
               />
             </div>
             <p>Floor Price: 11 ETH</p>
@@ -143,10 +143,14 @@ const DepositPopup = ({
           <ConstantLadderSelection
             bidType={bidType}
             setBidType={setBidType}
-            styleGridCol="grid-cols-[2fr,7fr]"
+            styleGrid="grid grid-cols-1 md:grid-cols-[2fr,7fr] auto-rows-auto"
+            popupType="deposit"
           />
           <p className="col-span-2">Average Price: 11ETH</p>
           <p className="col-span-2">Total Price: 11ETH</p>
+          <button className="btn ezBtn ezBtnPrimaryOutline btn-sm md:btn-md w-[110px] ">
+            Confirm
+          </button>
         </section>
       </div>
     </BlurBackgroundForPopup>

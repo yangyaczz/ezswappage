@@ -9,7 +9,7 @@ const BlurBackgroundForPopup = ({ setPopupOpen, children }) => {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="fixed top-[50%] left-[50%] translate-y-[-42%] translate-x-[-50%] w-11/12 h-5/6 sm:h-2/3 sm:w-3/4 max-w-[1052px] max-h-[720px] sm:max-h-[600px] bg-zinc-900 border-2 border-solid border-zinc-100 flex justify-center items-center px-4 py-4 md:px-8 lg:px-16 lg:py-8 xl:px-20 xl:py-10"
+        className="fixed top-[50%] left-[50%] translate-y-[-41%] translate-x-[-50%] w-11/12 h-4/5 min-h-[480px] max-h-[740px] sm:w-3/4 max-w-[1052px] bg-zinc-900 border-2 border-solid border-zinc-100 flex justify-center items-center px-4 py-4 md:px-8 lg:px-16 lg:py-8 xl:px-20 xl:py-10 overflow-auto"
       >
         {children}
       </div>

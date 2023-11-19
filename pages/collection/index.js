@@ -8,7 +8,7 @@ import PlaceBidsPopup from "@/components/collection/PlaceBidsPopup";
 import DepositPopup from "@/components/collection/DepositPopup";
 
 const Collection = () => {
-  const [popupOpen, setPopupOpen] = useState(false);
+  const [popupOpen, setPopupOpen] = useState(true);
 
   return (
     <div className="flex flex-col justify-center gap-x-6 items-center w-full relative bg-black">
@@ -19,15 +19,15 @@ const Collection = () => {
       </header>
       <CollectionList />
       {popupOpen && (
-        // <PlaceBidsPopup
-        //   collectionName="Bored Ape Yacht Club"
-        //   setPopupOpen={setPopupOpen}
-        // />
-
-        <DepositPopup
+        <PlaceBidsPopup
           collectionName="Bored Ape Yacht Club"
           setPopupOpen={setPopupOpen}
         />
+
+        // <DepositPopup
+        //   collectionName="Bored Ape Yacht Club"
+        //   setPopupOpen={setPopupOpen}
+        // />
       )}
     </div>
   );

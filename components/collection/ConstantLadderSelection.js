@@ -1,16 +1,21 @@
 import { useState } from "react";
 
-const ConstantLadderSelection = ({ bidType, setBidType, styleGridCol }) => {
+const ConstantLadderSelection = ({
+  bidType,
+  setBidType,
+  styleGrid,
+  popupType,
+}) => {
   const [ladderType, setLadderType] = useState("PERCENT");
   const handleRadioChange = (e) => {
     setLadderType(e.target.value);
   };
   return (
-    <div className={`grid ${styleGridCol} auto-rows-auto col-span-full w-full`}>
+    <div className={`${styleGrid} col-span-full w-full`}>
       <p>Set to:</p>
-      <div className="flex justify-start items-start gap-x-6 h-full">
+      <div className="flex justify-start items-start gap-x-2 md:gap-x-6 h-full">
         <button
-          className={`btn btn-success btn-outline btn-sm md:btn-md w-[110px] ${
+          className={`btn ezBtn ezBtnPrimaryOutline btn-sm md:btn-md w-[110px] ${
             bidType === "CONSTANT" ? "glass" : ""
           }`}
           onClick={() => setBidType("CONSTANT")}
@@ -18,7 +23,7 @@ const ConstantLadderSelection = ({ bidType, setBidType, styleGridCol }) => {
           Constant
         </button>
         <button
-          className={`btn btn-success btn-outline btn-sm md:btn-md w-[110px] ${
+          className={`btn ezBtn ezBtnPrimaryOutline btn-sm md:btn-md w-[110px] ${
             bidType === "LADDER" ? "glass" : ""
           }`}
           onClick={() => setBidType("LADDER")}
@@ -27,7 +32,11 @@ const ConstantLadderSelection = ({ bidType, setBidType, styleGridCol }) => {
         </button>
       </div>
       {bidType === "LADDER" && (
-        <div className="flex justify-start items-center col-start-2 gap-x-2 flex-wrap">
+        <div
+          className={`flex justify-start items-center ${
+            popupType === "deposit" ? "col-start-1" : "col-start-2"
+          } md:col-start-2 gap-x-2 flex-wrap`}
+        >
           <div className="flex justify-start items-center">
             <div class="form-control">
               <label class="label cursor-pointer">

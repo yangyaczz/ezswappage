@@ -24,19 +24,19 @@ const PlaceBidsPopup = ({
           <p>1 ETH</p>
 
           <p>Bid Price:</p>
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center relative">
             <input
               type="number"
               min={0}
               placeholder="Bid amount"
-              className="input input-bordered w-full max-w-xs inline pr-[45px]"
+              className="input input-bordered w-[160px] max-w-xs inline pr-[35px] text-sm"
             />
             <Image
               src="/ETH.png"
               alt="Ethereum"
-              width={50}
-              height={50}
-              className="-translate-x-10"
+              width={36}
+              height={36}
+              className="absolute right-0"
             />
           </div>
 
@@ -67,13 +67,14 @@ const PlaceBidsPopup = ({
           <ConstantLadderSelection
             bidType={bidType}
             setBidType={setBidType}
-            styleGridCol="grid-cols-[3fr,6fr]"
+            styleGrid="grid grid-cols-[3fr,6fr] auto-rows-auto"
+            popupType="placebids"
           />
         </section>
         <section className="grid grid-cols-[3fr,6fr] grid-rows-2 self-center ">
           <p>Total Bid:</p>
           <p>11 ETH</p>
-          <button className="btn btn-success btn-outline btn-md w-full col-span-full">
+          <button className="btn ezBtn ezBtnPrimaryOutline btn-md w-full col-span-full">
             Confirm Bid
           </button>
         </section>

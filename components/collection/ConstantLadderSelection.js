@@ -15,17 +15,17 @@ const ConstantLadderSelection = ({
       <p>Set to:</p>
       <div className="flex justify-start items-start gap-x-2 md:gap-x-6 h-full">
         <button
-          className={`btn ezBtn ezBtnPrimaryOutline btn-sm md:btn-md w-[110px] ${
-            bidType === "CONSTANT" ? "glass" : ""
-          }`}
+          className={`btn ezBtn ezBtnPrimaryOutline w-[110px] md:btn-md 
+          ${bidType === "CONSTANT" ? "glass" : ""} 
+          `}
           onClick={() => setBidType("CONSTANT")}
         >
           Constant
         </button>
         <button
-          className={`btn ezBtn ezBtnPrimaryOutline btn-sm md:btn-md w-[110px] ${
-            bidType === "LADDER" ? "glass" : ""
-          }`}
+          className={`btn ezBtn ezBtnPrimaryOutline w-[110px] md:btn-md 
+          ${bidType === "LADDER" ? "glass" : ""}
+          `}
           onClick={() => setBidType("LADDER")}
         >
           Ladder
@@ -65,12 +65,18 @@ const ConstantLadderSelection = ({
               </label>
             </div>
           </div>
-          <input
-            type="number"
-            min={0}
-            className="input input-bordered w-36 max-w-xs inline "
-          />
-          {ladderType === "PERCENT" ? <span>%</span> : <span>ETH</span>}
+          <div>
+            <input
+              type="number"
+              min={0}
+              className="input input-bordered w-36 max-w-xs inline "
+            />
+            {ladderType === "PERCENT" ? (
+              <span>%</span>
+            ) : (
+              <span className="text-base">ETH</span>
+            )}
+          </div>
         </div>
       )}
     </div>

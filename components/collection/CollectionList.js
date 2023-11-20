@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import CollectionContainer from "./CollectionContainer";
 import collections from "@/pages/data/collection-data";
 

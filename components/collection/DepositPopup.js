@@ -7,6 +7,8 @@ const { default: BlurBackgroundForPopup } = require("./BlurBackgroundForPopup");
 const DepositPopup = ({
   collectionName = "Bored Ape Yacht Club",
   setPopupOpen,
+  fromAddLiquidityPage = false,
+  handleApproveClick,
 }) => {
   const NFTs = [
     { tokenId: 1123, imgUrl: "/bayc.jpg", bidPrice: "99" },
@@ -68,8 +70,12 @@ const DepositPopup = ({
   return (
     <BlurBackgroundForPopup setPopupOpen={setPopupOpen}>
       <div className="w-full h-full grid grid-cols-2 grid-rows-[1fr,6fr]">
-        <h1 className="text-xl sm:text-2xl lg:text-3xl justify-self-start place-self-center col-span-full">
+        <h1 className="text-xl sm:text-2xl lg:text-3xl justify-self-start place-self-center col-span-full w-full flex justify-between items-center flex-wrap">
+          {fromAddLiquidityPage && "Add Liquidity for "}
           {collectionName}
+          {fromAddLiquidityPage && (
+            <span className="text-sm underline">Step 1: Add NFTs</span>
+          )}
         </h1>
         <section
           id="NFTs_View_Section"
@@ -81,7 +87,7 @@ const DepositPopup = ({
               className="w-full flex flex-col justify-center items-center cursor-pointer hover:ring-2 hover:ring-offset-4"
               onClick={() => handleNFTClicked(NFT.tokenId)}
             >
-              <div className="w-[220px] md:w-full relative flex items-center justify-center">
+              <div className="max-w-[220px] w-full relative flex items-center justify-center">
                 <Image
                   src={NFT.imgUrl}
                   alt={NFT.tokenId}
@@ -99,7 +105,7 @@ const DepositPopup = ({
                 </div>
               </div>
 
-              <p className="w-[220px] md:w-full text-center bg-zinc-700 z-10">
+              <p className="max-w-[220px] w-full text-center bg-zinc-700 z-10">
                 {NFT.bidPrice} ETH
               </p>
             </div>
@@ -143,14 +149,23 @@ const DepositPopup = ({
           <ConstantLadderSelection
             bidType={bidType}
             setBidType={setBidType}
-            styleGrid="grid grid-cols-1 md:grid-cols-[2fr,7fr] auto-rows-auto"
+            styleGrid="grid grid-cols-1 md:grid-cols-[2fr,7fr] grid-rows-[1fr,2fr]"
             popupType="deposit"
           />
           <p className="col-span-2">Average Price: 11ETH</p>
           <p className="col-span-2">Total Price: 11ETH</p>
-          <button className="btn ezBtn ezBtnPrimaryOutline btn-sm md:btn-md w-[110px] ">
-            Confirm
-          </button>
+          {fromAddLiquidityPage ? (
+            <button
+              className="btn ezBtn ezBtnPrimaryOutline btn-sm md:btn-md w-[110px]"
+              onClick={handleApproveClick}
+            >
+              Approve
+            </button>
+          ) : (
+            <button className="btn ezBtn ezBtnPrimaryOutline btn-sm md:btn-md w-[110px] ">
+              Confirm
+            </button>
+          )}
         </section>
       </div>
     </BlurBackgroundForPopup>

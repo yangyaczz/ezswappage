@@ -1,33 +1,38 @@
 import { useState } from "react";
 
-const ConstantLadderSelection = ({ bidType, setBidType, styleGridCol }) => {
+const ConstantLadderSelection = ({ styleGrid, popupType }) => {
+  const [bidType, setBidType] = useState("CONSTANT");
   const [ladderType, setLadderType] = useState("PERCENT");
   const handleRadioChange = (e) => {
     setLadderType(e.target.value);
   };
   return (
-    <div className={`grid ${styleGridCol} auto-rows-auto col-span-full w-full`}>
+    <div className={`${styleGrid} col-span-full w-full`}>
       <p>Set to:</p>
-      <div className="flex justify-start items-start gap-x-6 h-full">
+      <div className="flex justify-start items-start gap-x-2 md:gap-x-6 h-full">
         <button
-          className={`btn btn-success btn-outline btn-sm md:btn-md w-[110px] ${
-            bidType === "CONSTANT" ? "glass" : ""
-          }`}
+          className={`btn ezBtn ezBtnPrimaryOutline w-[110px] md:btn-md 
+          ${bidType === "CONSTANT" ? "glass" : ""} 
+          `}
           onClick={() => setBidType("CONSTANT")}
         >
           Constant
         </button>
         <button
-          className={`btn btn-success btn-outline btn-sm md:btn-md w-[110px] ${
-            bidType === "LADDER" ? "glass" : ""
-          }`}
+          className={`btn ezBtn ezBtnPrimaryOutline w-[110px] md:btn-md 
+          ${bidType === "LADDER" ? "glass" : ""}
+          `}
           onClick={() => setBidType("LADDER")}
         >
           Ladder
         </button>
       </div>
       {bidType === "LADDER" && (
-        <div className="flex justify-start items-center col-start-2 gap-x-2 flex-wrap">
+        <div
+          className={`flex justify-start items-center ${
+            popupType === "deposit" ? "col-start-1" : "col-start-2"
+          } md:col-start-2 gap-x-2 flex-wrap`}
+        >
           <div className="flex justify-start items-center">
             <div class="form-control">
               <label class="label cursor-pointer">
@@ -56,12 +61,18 @@ const ConstantLadderSelection = ({ bidType, setBidType, styleGridCol }) => {
               </label>
             </div>
           </div>
-          <input
-            type="number"
-            min={0}
-            className="input input-bordered w-36 max-w-xs inline "
-          />
-          {ladderType === "PERCENT" ? <span>%</span> : <span>ETH</span>}
+          <div>
+            <input
+              type="number"
+              min={0}
+              className="input input-bordered w-36 max-w-xs inline "
+            />
+            {ladderType === "PERCENT" ? (
+              <span>%</span>
+            ) : (
+              <span className="text-base">ETH</span>
+            )}
+          </div>
         </div>
       )}
     </div>

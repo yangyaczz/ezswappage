@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400;1,500&family=Inter:wght@400;500;600;700&family=Montserrat:wght@300&family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&display=swap");
+/* Downloaded Montserrat font */
+@font-face {
+  font-family: "Montserrat";
+  src: url("./Montserrat/Montserrat-VariableFont_wght.ttf") format("ttf");
+}
 
 html {
   height: 100vh;
@@ -12,7 +16,7 @@ html {
 body {
   height: 100%;
   width: 100%;
-  font-family: "Monserrat", "Inter", sans-serif;
+  font-family: "Montserrat";
 }
 
 body > div,
@@ -25,8 +29,11 @@ body > div > div {
   border-radius: 0.2rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  font-size: 0.65rem;
-  font-weight: normal;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding-left: 4px;
+  padding-right: 4px;
+  min-width: max-content;
 }
 
 .ezBtnPrimary {
@@ -34,6 +41,7 @@ body > div > div {
   color: black;
   border: none;
 }
+
 .ezBtnPrimary:hover {
   background-color: #00a0a0;
   color: black;
@@ -54,11 +62,11 @@ body > div > div {
 
 @media (min-width: 768px) {
   .ezBtn {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
   }
 }
 
-@media (min-width: 1024) {
+@media (min-width: 1024px) {
   .ezBtn {
     font-size: 0.9rem;
   }

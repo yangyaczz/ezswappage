@@ -1,15 +1,31 @@
-const AddLiquidityButton = () => {
+import { useCollection } from "@/contexts/CollectionContext";
+
+const AddLiquidityButton = ({
+  collectionName,
+  contractAddress,
+  collectionType,
+}) => {
+  const { openPopup } = useCollection();
+
+  function handleAddLiquidityClick() {
+    // openPopup("ADD_LIQUIDITY", collectionName);
+    const url =
+      process.env.NODE_ENV === "production"
+        ? "https://ezswap.io"
+        : `https://test.ezswap.io/#/pool/create?contractAddress=${contractAddress}&poolType=2&collectionType=${collectionType}`;
+
+    window.open(url, `newTab_${Date.now()}`);
+  }
+
   return (
     <section className="flex justify-start items-center gap-x-4">
       <button
-        className="btn ezBtn ezBtnPrimary !font-bold !bg-[#00D5DA] btn-xs w-20 md:w-24 lg:w-32 h-10"
-        onClick={() => {
-          window.location.href = "https://swap.ezswap.io";
-        }}
+        className="btn ezBtn ezBtnPrimary !font-extrabold !bg-[#00D5DA] btn-xs lg:btn-sm w-20 sm:w-24 min-[816px]:w-28 lg:w-36 xl:w-40 h-10 lg:h-11"
+        onClick={handleAddLiquidityClick}
       >
         Add Liquidity
       </button>
-      <p className="text-xs md:text-sm">Add liquidity to earn rewards</p>
+      <p className="text-xs lg:text-sm">Add liquidity to earn rewards</p>
     </section>
   );
 };

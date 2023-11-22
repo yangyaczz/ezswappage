@@ -1,4 +1,5 @@
 import { useCollection } from "@/contexts/CollectionContext";
+import { REDIRECT_URL } from "@/config/constant";
 
 const AddLiquidityButton = ({
   collectionName,
@@ -9,10 +10,8 @@ const AddLiquidityButton = ({
 
   function handleAddLiquidityClick() {
     // openPopup("ADD_LIQUIDITY", collectionName);
-    const url =
-      process.env.NODE_ENV === "production"
-        ? "https://ezswap.io"
-        : `https://test.ezswap.io/#/pool/create?contractAddress=${contractAddress}&poolType=2&collectionType=${collectionType}`;
+
+    const url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&poolType=2&collectionType=${collectionType}`;
 
     window.open(url, `newTab_${Date.now()}`);
   }

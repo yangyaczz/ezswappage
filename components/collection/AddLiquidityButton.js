@@ -12,7 +12,7 @@ const AddLiquidityButton = ({
     const url =
       process.env.NODE_ENV === "production"
         ? "https://ezswap.io"
-        : `https://test.ezswap.io/#/pool/create?contractAddress=${contractAddress}&step=2&collectionType=${collectionType}`;
+        : `https://test.ezswap.io/#/pool/create?contractAddress=${contractAddress}&poolType=2&collectionType=${collectionType}`;
 
     window.open(url, `newTab_${Date.now()}`);
   }

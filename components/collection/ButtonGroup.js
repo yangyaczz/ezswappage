@@ -15,7 +15,7 @@ const ButtonGroup = ({ collectionName, contractAddress, collectionType }) => {
     const url =
       process.env.NODE_ENV === "production"
         ? "https://ezswap.io"
-        : `https://test.ezswap.io/#/pool/create?contractAddress=${contractAddress}&step=0&collectionType=${collectionType}`;
+        : `https://test.ezswap.io/#/pool/create?contractAddress=${contractAddress}&poolType=0&collectionType=${collectionType}`;
 
     window.open(url, `newTab_${Date.now()}`);
   }
@@ -25,7 +25,7 @@ const ButtonGroup = ({ collectionName, contractAddress, collectionType }) => {
     const url =
       process.env.NODE_ENV === "production"
         ? "https://ezswap.io"
-        : `https://test.ezswap.io/#/pool/create?contractAddress=${contractAddress}&step=1&collectionType=${collectionType}`;
+        : `https://test.ezswap.io/#/pool/create?contractAddress=${contractAddress}&poolType=1&collectionType=${collectionType}`;
 
     window.open(url, `newTab_${Date.now()}`);
   }

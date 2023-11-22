@@ -3,14 +3,15 @@ import { useCollection } from "@/contexts/CollectionContext";
 const ButtonGroup = ({ collectionName, contractAddress, collectionType }) => {
   const { openPopup } = useCollection();
   function handleBuyClick() {
-    openPopup("BUY", collectionName);
+    // openPopup("BUY", collectionName);
   }
 
   function handleSellClick() {
-    openPopup("SELL", collectionName);
+    // openPopup("SELL", collectionName);
   }
 
   function handlePlaceBidClick() {
+    // openPopup("PLACEBIDS", collectionName);
     const url =
       process.env.NODE_ENV === "production"
         ? "https://ezswap.io"
@@ -20,6 +21,7 @@ const ButtonGroup = ({ collectionName, contractAddress, collectionType }) => {
   }
 
   function handleDepositClick() {
+    // openPopup("DEPOSIT", collectionName);
     const url =
       process.env.NODE_ENV === "production"
         ? "https://ezswap.io"

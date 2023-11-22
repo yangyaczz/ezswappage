@@ -1,6 +1,8 @@
+import { useCollection } from "@/contexts/CollectionContext";
 import Image from "next/image";
 
-const NFTListView = ({ selectedNFTs, NFTList, handleNFTClicked }) => {
+const NFTListView = ({ handleNFTClicked }) => {
+  const { selectedNFTs, NFTList } = useCollection();
   return (
     <section
       id="NFTs_View_Section"

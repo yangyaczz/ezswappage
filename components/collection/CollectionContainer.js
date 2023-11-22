@@ -184,7 +184,11 @@ const CollectionContainer = ({ collection }) => {
         contractAddress={address}
         collectionType={type}
       />
-      <AddLiquidityButton contractAddress={address} collectionType={type} />
+      <AddLiquidityButton
+        collectionName={name}
+        contractAddress={address}
+        collectionType={type}
+      />
     </div>
   );
 };

@@ -1,5 +1,14 @@
-const AddLiquidityButton = ({ contractAddress, collectionType }) => {
+import { useCollection } from "@/contexts/CollectionContext";
+
+const AddLiquidityButton = ({
+  collectionName,
+  contractAddress,
+  collectionType,
+}) => {
+  const { openPopup } = useCollection();
+
   function handleAddLiquidityClick() {
+    // openPopup("ADD_LIQUIDITY", collectionName);
     const url =
       process.env.NODE_ENV === "production"
         ? "https://ezswap.io"

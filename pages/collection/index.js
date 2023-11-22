@@ -30,9 +30,7 @@ const Collection = () => {
 
       {popupOpen && popupWindow === "DEPOSIT" && <PopupDeposit />}
 
-      {popupOpen && popupWindow === "ADD_LIQUIDITY" && (
-        <PopupAddLiquidity setPopupOpen={setPopupOpen} />
-      )}
+      {popupOpen && popupWindow === "ADD_LIQUIDITY" && <PopupAddLiquidity />}
     </div>
   );
 };

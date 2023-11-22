@@ -1,11 +1,7 @@
 import { useState } from "react";
 
-const ConstantLadderSelection = ({
-  bidType,
-  setBidType,
-  styleGrid,
-  popupType,
-}) => {
+const ConstantLadderSelection = ({ styleGrid, popupType }) => {
+  const [bidType, setBidType] = useState("CONSTANT");
   const [ladderType, setLadderType] = useState("PERCENT");
   const handleRadioChange = (e) => {
     setLadderType(e.target.value);

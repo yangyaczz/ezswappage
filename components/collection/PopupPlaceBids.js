@@ -11,7 +11,6 @@ const PopupPlaceBids = ({
   handleApproveClick,
 }) => {
   const [size, setSize] = useState(1);
-  const [bidType, setBidType] = useState("CONSTANT");
   const { collectionName } = useCollection();
 
   return (
@@ -73,8 +72,6 @@ const PopupPlaceBids = ({
             </button>
           </div>
           <ConstantLadderSelection
-            bidType={bidType}
-            setBidType={setBidType}
             styleGrid="grid grid-cols-[3fr,6fr] grid-rows-[1fr,2fr]"
             popupType="placebids"
           />

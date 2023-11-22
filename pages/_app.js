@@ -5,6 +5,7 @@ import { publicProvider } from "wagmi/providers/public";
 import { mainnet, polygon } from "wagmi/chains";
 import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
 import NavBar from "@/components/bar/NavBar";
+import { CollectionProvider } from "@/contexts/CollectionContext";
 
 const mantatest = {
   id: 3441005,
@@ -82,7 +83,9 @@ export default function App({ Component, pageProps }) {
       <RainbowKitProvider chains={chains}>
         <div className="grid auto-rows-auto auto-cols-auto">
           <NavBar></NavBar>
-          <Component {...pageProps} />
+          <CollectionProvider>
+            <Component {...pageProps} />
+          </CollectionProvider>
         </div>
       </RainbowKitProvider>
     </WagmiConfig>

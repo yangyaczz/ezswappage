@@ -1,0 +1,10 @@
+{
+  "manta": {
+    "networkId": "169",
+    "networkLogo": "/manta.jpg"
+  },
+  "mantatest": {
+    "networkId": "3441005",
+    "networkLogo": "/manta-testnet.png"
+  }
+}

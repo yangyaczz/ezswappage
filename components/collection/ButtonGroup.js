@@ -1,7 +1,9 @@
 import { useCollection } from "@/contexts/CollectionContext";
+import { REDIRECT_URL } from "@/config/constant";
 
 const ButtonGroup = ({ collectionName, contractAddress, collectionType }) => {
   const { openPopup } = useCollection();
+
   function handleBuyClick() {
     // openPopup("BUY", collectionName);
   }
@@ -12,20 +14,16 @@ const ButtonGroup = ({ collectionName, contractAddress, collectionType }) => {
 
   function handlePlaceBidClick() {
     // openPopup("PLACEBIDS", collectionName);
-    const url =
-      process.env.NODE_ENV === "production"
-        ? "https://ezswap.io"
-        : `https://test.ezswap.io/#/pool/create?contractAddress=${contractAddress}&poolType=0&collectionType=${collectionType}`;
+
+    const url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&poolType=0&collectionType=${collectionType}`;
 
     window.open(url, `newTab_${Date.now()}`);
   }
 
   function handleDepositClick() {
     // openPopup("DEPOSIT", collectionName);
-    const url =
-      process.env.NODE_ENV === "production"
-        ? "https://ezswap.io"
-        : `https://test.ezswap.io/#/pool/create?contractAddress=${contractAddress}&poolType=1&collectionType=${collectionType}`;
+
+    const url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&poolType=1&collectionType=${collectionType}`;
 
     window.open(url, `newTab_${Date.now()}`);
   }

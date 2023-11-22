@@ -1,9 +1,8 @@
+import { REDIRECT_URL } from "@/config/constant";
+
 const PoolTab = ({ contractAddress }) => {
   function handleClick() {
-    const url =
-      process.env.NODE_ENV === "production"
-        ? `https://ezswap.io/#/wallet/list/${contractAddress}`
-        : `https://test.ezswap.io/`;
+    const url = `${REDIRECT_URL}#/wallet/list/${contractAddress}`;
 
     window.open(url, `newTab_${Date.now()}`);
   }

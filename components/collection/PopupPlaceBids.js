@@ -1,27 +1,29 @@
 import Image from "next/image";
-import BlurBackgroundForPopup from "./BlurBackgroundForPopup";
+import BlurBackgroundForPopup from "./PopupBlurBackground";
 import { useState } from "react";
 import ConstantLadderSelection from "./ConstantLadderSelection";
+import PopupBlurBackground from "./PopupBlurBackground";
+import CollectionTitle from "./CollectionTitle";
+import { useCollection } from "@/contexts/CollectionContext";
 
-const PlaceBidsPopup = ({
-  collectionName = "Bored Ape Yacht Club",
-  setPopupOpen,
+const PopupPlaceBids = ({
   fromAddLiquidityPage = false,
   handleApproveClick,
 }) => {
   const [size, setSize] = useState(1);
   const [bidType, setBidType] = useState("CONSTANT");
+  const { collectionName } = useCollection();
 
   return (
-    <BlurBackgroundForPopup setPopupOpen={setPopupOpen}>
+    <PopupBlurBackground>
       <div className="grid grid-cols-1 grid-rows-[2fr,7fr,3fr] w-full h-full text-base md:text-lg lg:text-xl">
-        <h1 className="text-xl sm:text-2xl lg:text-3xl justify-self-start place-self-center w-full flex justify-between items-center flex-wrap">
+        <CollectionTitle>
           {fromAddLiquidityPage ? "Add Liquidity for " : "Place bid on "}
           {collectionName}
           {fromAddLiquidityPage && (
             <span className="text-sm underline">Step 2: Add Tokens</span>
           )}
-        </h1>
+        </CollectionTitle>
         <section className="grid grid-cols-[3fr,6fr] grid-rows-[1fr,1fr,1fr,1fr,3fr] justify-items-start pt-10">
           <p>Floor Price:</p>
           <p>11 ETH</p>
@@ -94,8 +96,8 @@ const PlaceBidsPopup = ({
           )}
         </section>
       </div>
-    </BlurBackgroundForPopup>
+    </PopupBlurBackground>
   );
 };
 
-export default PlaceBidsPopup;
+export default PopupPlaceBids;

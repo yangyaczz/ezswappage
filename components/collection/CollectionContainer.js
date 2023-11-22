@@ -12,6 +12,7 @@ import {
   TradePoolExp,
   TradePoolLiner,
 } from "../utils/calculate";
+import PoolTab from "./PoolTab";
 
 const CollectionContainer = ({ collection }) => {
   const { name, address, type, tokenId1155, img, network } = collection;
@@ -176,9 +177,14 @@ const CollectionContainer = ({ collection }) => {
         nftAmount={nftAmount}
         offerTVL={offerTVL}
       />
-      <Rewards COLLECTION_PIC_SIZE={COLLECTION_PIC_SIZE} network={network} />
-      <ButtonGroup />
-      <AddLiquidityButton />
+      {/* <Rewards COLLECTION_PIC_SIZE={COLLECTION_PIC_SIZE} network={network} /> */}
+      <PoolTab contractAddress={address} />
+      <ButtonGroup
+        collectionName={name}
+        contractAddress={address}
+        collectionType={type}
+      />
+      <AddLiquidityButton contractAddress={address} collectionType={type} />
     </div>
   );
 };

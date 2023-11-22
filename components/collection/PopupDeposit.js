@@ -1,15 +1,15 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import ConstantLadderSelection from "./ConstantLadderSelection";
+import PopupBlurBackground from "./PopupBlurBackground";
+import NFTListView from "./NFTListView";
+import NFTsSelectedRange from "./NFTsSelectedRange";
+import CollectionTitle from "./CollectionTitle";
+import { useCollection } from "@/contexts/CollectionContext";
 
-const { default: BlurBackgroundForPopup } = require("./BlurBackgroundForPopup");
+const PopupDeposit = ({ fromAddLiquidityPage = false, handleApproveClick }) => {
+  const { collectionName } = useCollection();
 
-const DepositPopup = ({
-  collectionName = "Bored Ape Yacht Club",
-  setPopupOpen,
-  fromAddLiquidityPage = false,
-  handleApproveClick,
-}) => {
   const NFTs = [
     { tokenId: 1123, imgUrl: "/bayc.jpg", bidPrice: "99" },
     { tokenId: 1143, imgUrl: "/bayc.jpg", bidPrice: "89" },
@@ -68,64 +68,29 @@ const DepositPopup = ({
   }
 
   return (
-    <BlurBackgroundForPopup setPopupOpen={setPopupOpen}>
-      <div className="w-full h-full grid grid-cols-2 grid-rows-[1fr,6fr]">
-        <h1 className="text-xl sm:text-2xl lg:text-3xl justify-self-start place-self-center col-span-full w-full flex justify-between items-center flex-wrap">
+    <PopupBlurBackground>
+      <div className="w-full h-full grid grid-cols-2 grid-rows-[1fr,6fr] gap-x-4">
+        <CollectionTitle>
           {fromAddLiquidityPage && "Add Liquidity for "}
           {collectionName}
           {fromAddLiquidityPage && (
             <span className="text-sm underline">Step 1: Add NFTs</span>
           )}
-        </h1>
-        <section
-          id="NFTs_View_Section"
-          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 px-2 pr-4 py-1 overflow-auto"
-        >
-          {NFTList.map((NFT) => (
-            <div
-              key={NFT.tokenId}
-              className="w-full flex flex-col justify-center items-center cursor-pointer hover:ring-2 hover:ring-offset-4"
-              onClick={() => handleNFTClicked(NFT.tokenId)}
-            >
-              <div className="max-w-[220px] w-full relative flex items-center justify-center">
-                <Image
-                  src={NFT.imgUrl}
-                  alt={NFT.tokenId}
-                  width={220}
-                  height={220}
-                />
-                <p className="absolute top-0 left-0">{NFT.tokenId}</p>
-                <div className="form-control absolute top-0 right-0">
-                  <input
-                    type="checkbox"
-                    checked={selectedNFTs.includes(NFT.tokenId)}
-                    onChange={() => handleNFTClicked(NFT.tokenId)}
-                    className="checkbox checkbox-primary"
-                  />
-                </div>
-              </div>
-
-              <p className="max-w-[220px] w-full text-center bg-zinc-700 z-10">
-                {NFT.bidPrice} ETH
-              </p>
-            </div>
-          ))}
-        </section>
+        </CollectionTitle>
+        <NFTListView
+          selectedNFTs={selectedNFTs}
+          NFTList={NFTList}
+          handleNFTClicked={handleNFTClicked}
+        />
         <section
           id="NFT_Controller_Section"
           className="grid grid-rows-[1fr,1fr,2fr,3fr,1fr,1fr] grid-cols-[2fr,7fr] gap-y-1 max-h-full"
         >
-          <p className="text-lg sm:text-xl lg:text-2xl col-span-full">
-            {selectedNFTs.length} / {NFTList.length} Selected
-          </p>
-          <input
-            type="range"
-            min={0}
-            max={NFTList.length}
-            // value={selectedNFTs.length}
-            ref={radioRef}
-            onChange={handleRangeChange}
-            className="range range-primary col-span-full"
+          <NFTsSelectedRange
+            selectedNFTLength={selectedNFTs.length}
+            NFTListLength={NFTList.length}
+            radioRef={radioRef}
+            handleRangeChange={handleRangeChange}
           />
           <div className="flex justify-start items-start flex-wrap col-span-full gap-x-4">
             <p>Listing Price:</p>
@@ -168,8 +133,8 @@ const DepositPopup = ({
           )}
         </section>
       </div>
-    </BlurBackgroundForPopup>
+    </PopupBlurBackground>
   );
 };
 
-export default DepositPopup;
+export default PopupDeposit;

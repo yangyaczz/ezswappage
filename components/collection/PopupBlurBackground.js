@@ -1,6 +1,9 @@
-const BlurBackgroundForPopup = ({ setPopupOpen, children }) => {
+import { useCollection } from "@/contexts/CollectionContext";
+
+const PopupBlurBackground = ({ children }) => {
+  const { closePopup } = useCollection();
   function handleClick(e) {
-    setPopupOpen(false);
+    closePopup();
   }
   return (
     <div
@@ -17,4 +20,4 @@ const BlurBackgroundForPopup = ({ setPopupOpen, children }) => {
   );
 };
 
-export default BlurBackgroundForPopup;
+export default PopupBlurBackground;

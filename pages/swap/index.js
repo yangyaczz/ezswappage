@@ -87,24 +87,21 @@ const Swap = () => {
   };
 
   const reset1 = () => {
-
-    formik.setFieldValue('collection',
-      {
-        type: "",
-        address: "",
-        name: "",
-        tokenId1155: "",
-      })
-    formik.setFieldValue('userCollection',
-      {
-        tokenIds721: '',
-        tokenAmount1155: '',
-        tokenBalance20: formik.values.userCollection.tokenBalance20
-      })
-    formik.setFieldValue('pairs', '')
-    formik.setFieldValue('tokens', '')
-    formik.setFieldValue('tokensName', '')
-  }
+    formik.setFieldValue("collection", {
+      type: "",
+      address: "",
+      name: "",
+      tokenId1155: "",
+    });
+    formik.setFieldValue("userCollection", {
+      tokenIds721: "",
+      tokenAmount1155: "",
+      tokenBalance20: formik.values.userCollection.tokenBalance20,
+    });
+    formik.setFieldValue("pairs", "");
+    formik.setFieldValue("tokens", "");
+    formik.setFieldValue("tokensName", "");
+  };
 
   const reset2 = () => {
     formik.setFieldValue("token", "");

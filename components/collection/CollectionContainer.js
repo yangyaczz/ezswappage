@@ -2,7 +2,6 @@ import CollectionHeader from "./CollectionHeader";
 import Rewards from "./Rewards";
 import ButtonGroup from "./ButtonGroup";
 import AddLiquidityButton from "./AddLiquidityButton";
-import getPoolsOfCollection from "../../pages/api/proxy.js";
 import { useEffect, useState } from "react";
 import {
   BuyPoolExp,
@@ -24,17 +23,26 @@ const CollectionContainer = ({ collection }) => {
   const COLLECTION_PIC_SIZE = 90;
   const EIGHTEEN_ZEROS = 1e18;
 
-  //on page load useEffect
+  //on page load, get each collection's pools
   useEffect(() => {
     async function queryCollectionPools() {
-      const response = await getPoolsOfCollection({
+      const params = {
         contractAddress: address,
         network,
+      };
+
+      const response = await fetch("/api/proxy", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(params),
       });
-      setPools(response.data);
+      const data = await response.json();
+      setPools(data.data);
     }
     queryCollectionPools();
-  }, []);
+  }, [address, network]);
 
   //useEffect to calculate floor price, nft amount, top bids, offer tvl
   useEffect(() => {

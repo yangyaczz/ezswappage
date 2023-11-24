@@ -1,43 +1,57 @@
+import React, { useState, useEffect } from "react";
 
-import React, { useState, useEffect } from 'react'
+import { useContractRead, useBalance } from "wagmi";
 
-import { useContractRead, useBalance } from 'wagmi'
+import ERC721EnumABI from "../../pages/data/ABI/ERC721Enum.json";
+import ERC1155ABI from "../../pages/data/ABI/ERC1155.json";
 
-import ERC721EnumABI from '../../pages/data/ABI/ERC721Enum.json'
-import ERC1155ABI from '../../pages/data/ABI/ERC1155.json'
-
-import multiSetFilterPairMode from './swapUtils/multiSetFilterPairMode'
-import styles from './index.module.scss'
-const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUserCollection, setPairs, setTokens, setTokensName, setToken, setTokenName, setFilterPairs, setSwapMode }) => {
-
-
-    const [searchQuery, setSearchQuery] = useState('');
+import multiSetFilterPairMode from "./swapUtils/multiSetFilterPairMode";
+import styles from "./index.module.scss";
+const NFTSearch = ({
+    swapType,
+    formikData,
+    owner,
+    reset123,
+    setCollection,
+    setUserCollection,
+    setPairs,
+    setTokens,
+    setTokensName,
+    setToken,
+    setTokenName,
+    setFilterPairs,
+    setSwapMode,
+}) => {
+    const [searchQuery, setSearchQuery] = useState("");
+    const apiSell = ['mantatest', 'manta']
 
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value.toLowerCase());
     };
 
     const filteredNFTs = formikData.golbalParams.recommendNFT
-        ? formikData.golbalParams.recommendNFT.filter(nft =>
-            nft.name.toLowerCase().includes(searchQuery) || nft.address.toLowerCase().includes(searchQuery)
+        ? formikData.golbalParams.recommendNFT.filter(
+            (nft) =>
+                nft.name.toLowerCase().includes(searchQuery) ||
+                nft.address.toLowerCase().includes(searchQuery)
         )
         : [];
 
-
     const handleNFTClick = async (nft) => {
         if (formikData.collection.name !== nft.name) {
-            reset123()
-            setCollection(nft)
+            reset123();
+            setCollection(nft);
         }
-    }
+    };
+
 
     useEffect(() => {
         const fetchSellNFT = async () => {
             // if sell, get user collection detail
-            if (formikData.collection.type === 'ERC1155' && swapType === 'sell') {
-                let nftAddress = formikData.collection.address
-                let tid = '0x' + formikData.collection.tokenId1155.toString(16)
-                let parseStr = (nftAddress + '/' + tid + '/' + owner).toLowerCase()
+            if (formikData.collection.type === "ERC1155" && swapType === "sell") {
+                let nftAddress = formikData.collection.address;
+                let tid = "0x" + formikData.collection.tokenId1155.toString(16);
+                let parseStr = (nftAddress + "/" + tid + "/" + owner).toLowerCase();
 
                 const networkType = formikData.golbalParams.networkName;
                 const params = {
@@ -50,25 +64,27 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
                         }
                     }
                     `,
-                    urlKey: networkType
+                    urlKey: networkType,
                 };
 
-                const response = await fetch('/api/queryMantaNFT', {
-                    method: 'POST',
+                const response = await fetch("/api/queryMantaNFT", {
+                    method: "POST",
                     headers: {
-                        'Content-Type': 'application/json',
+                        "Content-Type": "application/json",
                     },
                     body: JSON.stringify(params),
                 });
                 const data = await response.json();
-                let num1155 = data?.data?.erc1155Balances[0].valueExact
+                let num1155 = data?.data?.erc1155Balances[0].valueExact;
 
                 setUserCollection({
-                    tokenAmount1155: num1155
-                })
-
-            } else if (formikData.collection.type === 'ERC721' && swapType === 'sell') {
-                let nftAddress = formikData.collection.address
+                    tokenAmount1155: num1155,
+                });
+            } else if (
+                formikData.collection.type === "ERC721" &&
+                swapType === "sell"
+            ) {
+                let nftAddress = formikData.collection.address;
                 const networkType = formikData.golbalParams.networkName;
                 const params = {
                     query: `
@@ -78,46 +94,50 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
                         }
                     }
                     `,
-                    urlKey: networkType
+                    urlKey: networkType,
                 };
 
-                const response = await fetch('/api/queryMantaNFT', {
-                    method: 'POST',
+                const response = await fetch("/api/queryMantaNFT", {
+                    method: "POST",
                     headers: {
-                        'Content-Type': 'application/json',
+                        "Content-Type": "application/json",
                     },
                     body: JSON.stringify(params),
                 });
                 const data = await response.json();
 
-                let ids721 = data?.data?.erc721Tokens.map(id => Number(id.identifier))
+                let ids721 = data?.data?.erc721Tokens.map((id) =>
+                    Number(id.identifier)
+                );
                 ids721.sort(function (a, b) {
                     return a - b;
                 });
 
                 setUserCollection({
-                    tokenIds721: ids721
-                })
+                    tokenIds721: ids721,
+                });
             }
-
+        };
+        if (formikData.collection.name !== "" && apiSell.includes(formikData.golbalParams.networkName)) {
+            fetchSellNFT();
         }
-        if (formikData.collection.name !== '') {
-            fetchSellNFT()
-        }
-    }, [formikData.collection.name])
+    }, [formikData.collection.name]);
 
     useEffect(() => {
         const fetchData = async () => {
-            if (formikData.golbalParams.networkName && formikData.collection.address) {
+            if (
+                formikData.golbalParams.networkName &&
+                formikData.collection.address
+            ) {
                 const params = {
                     contractAddress: formikData.collection.address,
                     network: formikData.golbalParams.networkName,
                 };
 
-                const response = await fetch('/api/proxy', {
-                    method: 'POST',
+                const response = await fetch("/api/proxy", {
+                    method: "POST",
                     headers: {
-                        'Content-Type': 'application/json',
+                        "Content-Type": "application/json",
                     },
                     body: JSON.stringify(params),
                 });
@@ -125,88 +145,143 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
                 const data = await response.json();
 
                 if (data.success) {
-                    const pairsList = data.data
+                    const pairsList = data.data;
 
-                    let filteredData
+                    let filteredData;
                     // divide buy and sell
-                    if (swapType === 'sell') {
-                        filteredData = pairsList.filter(item => item.type === 'buy' || item.type === 'trade');
-                    } else if (swapType === 'buy') {
-                        filteredData = pairsList.filter(item => item.type === 'sell' || item.type === 'trade');
+                    if (swapType === "sell") {
+                        filteredData = pairsList.filter(
+                            (item) => item.type === "buy" || item.type === "trade"
+                        );
+                    } else if (swapType === "buy") {
+                        filteredData = pairsList.filter(
+                            (item) => item.type === "sell" || item.type === "trade"
+                        );
                     }
 
-
-
-                    if (formikData.collection.type == 'ERC1155') {
-                        filteredData = filteredData.filter(item => item.nftId1155 === formikData.collection.tokenId1155);
+                    if (formikData.collection.type == "ERC1155") {
+                        filteredData = filteredData.filter(
+                            (item) => item.nftId1155 === formikData.collection.tokenId1155
+                        );
                     }
 
+                    setPairs(filteredData);
 
-                    setPairs(filteredData)
+                    let canTradeToken = [
+                        ...new Set(filteredData.map((item) => item.token)),
+                    ].map((token) => (token === null ? "ETH" : token));
+                    let permitTokens = formikData.golbalParams.recommendERC20.map(
+                        (item) => item.address.toLowerCase()
+                    );
+                    canTradeToken = canTradeToken.filter((token) =>
+                        permitTokens.includes(token.toLowerCase())
+                    );
 
-                    let canTradeToken = [...new Set(filteredData.map(item => item.token))].map(token => token === null ? 'ETH' : token);
-                    let permitTokens = formikData.golbalParams.recommendERC20.map(item => item.address.toLowerCase())
-                    canTradeToken = canTradeToken.filter(token => permitTokens.includes(token.toLowerCase()))
+                    setTokens(canTradeToken);
 
-                    setTokens(canTradeToken)
-
-                    const tokensNames = canTradeToken.map(address => {
-                        const mappingObject = formikData.golbalParams.recommendERC20.find(obj => obj.address.toLowerCase() === address.toLowerCase());
+                    const tokensNames = canTradeToken.map((address) => {
+                        const mappingObject = formikData.golbalParams.recommendERC20.find(
+                            (obj) => obj.address.toLowerCase() === address.toLowerCase()
+                        );
                         return mappingObject ? mappingObject.name : null;
                     });
 
-                    setTokensName(tokensNames)
-
+                    setTokensName(tokensNames);
 
                     if (canTradeToken.length) {
-                        let token
-                        if (canTradeToken.includes('ETH')) {
-                            token = 'ETH'
-                            setToken(token)
-                            setTokenName('ETH')
+                        let token;
+                        if (canTradeToken.includes("ETH")) {
+                            token = "ETH";
+                            setToken(token);
+                            setTokenName("ETH");
                         } else {
-                            token = canTradeToken[0]
-                            setToken(token)
-                            setTokenName(tokensNames[0])
+                            token = canTradeToken[0];
+                            setToken(token);
+                            setTokenName(tokensNames[0]);
                         }
                         // setToken(token)
                         // setTokenName(tokensNames[0])
 
-                        multiSetFilterPairMode(swapType, formikData, filteredData, owner, token, setFilterPairs, setSwapMode)
-
-
+                        multiSetFilterPairMode(
+                            swapType,
+                            formikData,
+                            filteredData,
+                            owner,
+                            token,
+                            setFilterPairs,
+                            setSwapMode
+                        );
                     }
                 }
             }
-        }
-        fetchData()
+        };
+        fetchData();
+    }, [formikData.golbalParams.networkName, formikData.collection.name]);
 
-
-
-    }, [formikData.golbalParams.networkName, formikData.collection.name])
-
-
-    // if buy nft, get user eth or erc20 balance
-    const { data: tokenBalance20 } = useBalance({
-        address: (swapType === 'buy' && formikData.collection.name) ? owner : '',
-        token: (formikData.token !== '' && formikData.token === 'ETH' && swapType === 'buy') ? '' : formikData.token,
+    // if sell nft, get user nft info
+    const { data: tokenIds721 } = useContractRead({
+        address: ((formikData.collection.type === "ERC721" && swapType === 'sell' && !apiSell.includes(formikData.golbalParams.networkName)) ? formikData.collection.address : ''),
+        abi: ERC721EnumABI,
+        functionName: 'tokensOfOwner',
+        args: [owner],
+        watch: false,
         onSuccess(data) {
-            // console.log('erc20 balance', data.formatted)
+            const num = data.map(item => parseInt(item._hex, 16))
             setUserCollection({
-                tokenBalance20: data.formatted
+                tokenIds721: num
             })
         }
     })
 
+    const { data: tokenAmount1155 } = useContractRead({
+        address: ((formikData.collection.type === "ERC1155" && swapType === 'sell' && !apiSell.includes(formikData.golbalParams.networkName)) ? formikData.collection.address : ''),
+        abi: ERC1155ABI,
+        functionName: 'balanceOf',
+        args: [owner, formikData.collection.tokenId1155],
+        watch: false,
+        onSuccess(data) {
+            const num = parseInt(data, 16)
+            setUserCollection({
+                tokenAmount1155: num
+            })
+        }
+    })
 
-
+    // if buy nft, get user eth or erc20 balance
+    const { data: tokenBalance20 } = useBalance({
+        address: swapType === "buy" && formikData.collection.name ? owner : "",
+        token:
+            formikData.token !== "" &&
+                formikData.token === "ETH" &&
+                swapType === "buy"
+                ? ""
+                : formikData.token,
+        onSuccess(data) {
+            // console.log('erc20 balance', data.formatted)
+            setUserCollection({
+                tokenBalance20: data.formatted,
+            });
+        },
+    });
 
     return (
         <div className="form-control ">
-
-            <button className="btn justify-start mb-2 text-white" onClick={() => document.getElementById('nft_search_sell').showModal()}>
-                {(formikData.collection.name) ? formikData.collection.name : "select collection"}
-                <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path></svg>
+            <button
+                className="btn justify-start mb-2 text-white"
+                onClick={() => document.getElementById("nft_search_sell").showModal()}
+            >
+                {formikData.collection.name
+                    ? formikData.collection.name
+                    : "select collection"}
+                <svg
+                    width="12"
+                    height="7"
+                    viewBox="0 0 12 7"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path>
+                </svg>
             </button>
 
             <dialog id="nft_search_sell" className="modal">
@@ -227,37 +302,43 @@ const NFTSearch = ({ swapType, formikData, owner, reset123, setCollection, setUs
                     {/*    <div className="divider"></div>*/}
                     <h3 className="font-bold text-lg mb-6">Recommend Collection:</h3>
 
-                    <form method="dialog" className='flex flex-wrap justify-center'>
+                    <form method="dialog" className="flex flex-wrap justify-center">
                         {filteredNFTs.map((nft, index) => (
-                            <button
-                                key={index}
-                                onClick={() => handleNFTClick(nft)}>
+                            <button key={index} onClick={() => handleNFTClick(nft)}>
                                 {/*<div className={"mr-5" + " " + "mb-5" + " " + styles.buttonCenter}>*/}
-                                <div className={"mr-5 mb-5 flex flex-col items-center justify-center cursor-pointer"}>
+                                <div
+                                    className={
+                                        "mr-5 mb-5 flex flex-col items-center justify-center cursor-pointer"
+                                    }
+                                >
                                     <div className="relative">
-                                        {nft.name === formikData.collection.name && <img className="w-6 absolute -left-2 -top-2" src="/yes.svg" alt="" />}
+                                        {nft.name === formikData.collection.name && (
+                                            <img
+                                                className="w-6 absolute -left-2 -top-2"
+                                                src="/yes.svg"
+                                                alt=""
+                                            />
+                                        )}
                                         <img className="w-20 mb-2" src={nft.img} alt="" />
                                     </div>
                                     <div>{nft.name}</div>
                                 </div>
-
                             </button>
                         ))}
                     </form>
                     <form method="dialog">
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                            ✕
+                        </button>
                     </form>
                 </div>
-
 
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>
                 </form>
             </dialog>
-
-
         </div>
-    )
-}
+    );
+};
 
-export default NFTSearch
+export default NFTSearch;

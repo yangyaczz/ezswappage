@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import addressSymbol from "@/pages/data/address_symbol";
 import {
   SellPoolLiner,
   TradePoolLiner,
@@ -72,6 +73,7 @@ const Input721Buy = ({
       pair.nftIdsPrice = res.currentUintBuyPrice;
       pair.userGetPrice = Number((res.lastUserBuyPrice * 1.005).toFixed(10)); // 0.5 % slippling
       console.log("userGetPrice", pair.userGetPrice);
+      console.log('formikData', formikData)
       pair.tuple = [
         [pair.id, pair.tokenIds, [pair.tokenIds.length]],
         ethers.utils.parseEther(pair.userGetPrice.toString()),
@@ -190,8 +192,7 @@ const Input721Buy = ({
               <div>#{square}</div>
             </div>
             <div className="flex items-center content-center mt-1">
-              <img src="/ETH.png" className="w-6" alt="" />{" "}
-              <span>{idPriceMap[square]}</span>
+              <span>{idPriceMap[square]}</span>&nbsp;{addressSymbol[formikData.golbalParams.hex]["0x0000000000000000000000000000000000000000"]}
             </div>
           </div>
         ))}

@@ -5,7 +5,7 @@ import Input1155Sell from "./swapUtils/Input1155Sell";
 
 import Input721Buy from "./swapUtils/Input721Buy";
 import styles from "./index.module.scss";
-
+import addressSymbol from "@/pages/data/address_symbol";
 const InputAmount = ({
   swapType,
   formikData,
@@ -139,8 +139,9 @@ const InputAmount = ({
           <h3 className="font-bold text-lg flex justify-end">
             <div>Amount:</div>
             <div className="flex ml-2">
-              <img className="w-6" src="/ETH.png" alt="" />
-              {formikData.totalGet ? formikData.totalGet.toFixed(5) : 0}
+              {/*<img className="w-6" src="/ETH.png" alt="" />*/}
+              {formikData.totalGet ? formikData.totalGet.toFixed(5) : 0}&nbsp;
+              {addressSymbol[formikData.golbalParams.hex]["0x0000000000000000000000000000000000000000"]}
             </div>
           </h3>
           {/*<div className="mt-2 flex">*/}

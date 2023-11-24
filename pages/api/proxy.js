@@ -8,7 +8,6 @@ export default async function handler(req, res) {
       BASE_URL + "api/queryCollectionPoolList",
       req.body
     );
-    console.log(response);
     res.status(200).json(response.data);
   } catch (error) {
     res.status(error.response?.status || 500).json(error.response?.data || {});

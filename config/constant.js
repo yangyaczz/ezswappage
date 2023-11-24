@@ -11,3 +11,5 @@ export const REDIRECT_URL = {
   test: "https://test.ezswap.io/",
   prod: "https://ezswap.io/",
 }[nextConfig.publicRuntimeConfig.env.API];
+
+export const PROTOCOL_FEE = 10000000000000000;

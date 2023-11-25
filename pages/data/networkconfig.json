@@ -18,34 +18,6 @@
                 "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
             },
             {
-                "type": "ERC721",
-                "address": "0x422105Aa59601426568651808Ed8294E99fd5a19",
-                "name": "ts721ec2",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
-            },
-            {
-                "type": "ERC721",
-                "address": "0xFBD152E487A8d5c638365357F6bdfa197C150992",
-                "name": "ts721ec3",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
-                "name": "ts1155tk1",
-                "tokenId1155": "1",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
-                "name": "ts1155tk2",
-                "tokenId1155": "2",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
-            },
-            {
                 "type": "ERC1155",
                 "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
                 "name": "ts1155tk3",
@@ -63,6 +35,20 @@
                 "type": "ERC721",
                 "address": "0x2c236CCb897e7d22e238E98dB4b960445506BFc0",
                 "name": "ZKholdem",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+            },
+            {
+                "type": "ERC721",
+                "address": "0x2AD088E42Ab634009f1cF1406795dC05782139e9",
+                "name": "ZKholdem Test1",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+            },
+            {
+                "type": "ERC721",
+                "address": "0x84C11897C1f1c4599f74E9e792e2CFfDEA25daC1",
+                "name": "ZKholdem Test2",
                 "tokenId1155": "",
                 "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
             }
@@ -117,6 +103,13 @@
                 "name": "AsMatch zkPortrait Pass Lite",
                 "tokenId1155": "",
                 "img": "https://asmatch-resources.s3-accelerate.amazonaws.com/nft/zkpl.jpeg"
+            },
+            {
+                "type": "ERC721",
+                "address": "0x1186E87Fda52f310575559CbFbb82e3B4B72De37",
+                "name": "EZswap",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
             }
         ],
         "recommendERC20": [
@@ -127,6 +120,58 @@
             {
                 "address": "0x0B20E82DAC9dCc7b9D082C2Abb32AEf2D33a42D6",
                 "name": "tsez20"
+            }
+        ]
+    },
+    "15557": {
+        "networkName": "eostest",
+        "hex": "0x3cc5",
+        "router": "0x9D79c95314eB049e1FAFEAf14bc7B221Baf95F81",
+        "factory": "0xe893287f3B0e5682e639caa51fdAfe9653AB4abf",
+        "linear": "0x0d197261f32dd36B07cAFe633Af072B12832aA5a",
+        "exponential": "0xD7d30a3069E034558e2639325EB89f87E4fCB001",
+        "ERC20": "",
+        "ERC721": "",
+        "ERC1155": "",
+        "recommendNFT": [
+            {
+                "type": "ERC721",
+                "address": "0xeb44b631bf4c525ac8d2ec658c0329b9bbe2c70f",
+                "name": "Ezswap EOS Testnet test",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
+            }
+        ],
+        "recommendERC20": [
+            {
+                "address": "ETH",
+                "name": "EOS"
+            }
+        ]
+    },
+    "17777": {
+        "networkName": "eosmain",
+        "hex": "0x4571",
+        "router": "0x3d51749Cb2Db7355392100BAc202216BE7071E66",
+        "factory": "0x353F4106641Db62384cF0e4F1Ef15F8Ac9A9fb4B",
+        "linear": "0x9Be2Dc731bFf38B0a5D893c7a5ECE8e170c67b86",
+        "exponential": "0x20C318AA7c2eC1190F20D41EB6C6F3Ec9f5955fe",
+        "ERC20": "",
+        "ERC721": "",
+        "ERC1155": "",
+        "recommendNFT": [
+            {
+                "type": "ERC721",
+                "address": "0xd7d2d92081e5afc352c12f7c9e619dc7403d969d",
+                "name": "Ezswap EOS main Test",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
+            }
+        ],
+        "recommendERC20": [
+            {
+                "address": "ETH",
+                "name": "EOS"
             }
         ]
     }

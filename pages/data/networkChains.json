@@ -1,0 +1,12 @@
+{
+  "169": {
+    "chainName":"manta",
+    "hex": "0xa9",
+    "networkLogo": "/manta.jpg"
+  },
+  "3441005": {
+    "chainName":"mantatest",
+    "hex": "0x34816d",
+    "networkLogo": "/manta-testnet.png"
+  }
+}

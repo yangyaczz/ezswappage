@@ -166,6 +166,13 @@
                 "name": "Ezswap EOS main Test",
                 "tokenId1155": "",
                 "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
+            },
+            {
+                "type": "ERC721",
+                "address": "0x0693426a53ef2Dd0c50f595c203312E8c7788246",
+                "name": "Ezswap EOS main Test2",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
             }
         ],
         "recommendERC20": [

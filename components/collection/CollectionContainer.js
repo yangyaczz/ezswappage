@@ -104,8 +104,6 @@ const CollectionContainer = ({ collection }) => {
         });
         nftCount += filteredNFTIds.length; //accumulate number of nfts in all the pools, update 'nftAmount' later on
         volume+=ethVolume;
-      if(name === 'ts721ec1') console.log(ethVolume)
-
 
         //prettier-ignore
         let userBuyPrice = 0, userSellPrice = 0;

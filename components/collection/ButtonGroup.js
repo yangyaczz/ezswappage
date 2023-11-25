@@ -1,7 +1,7 @@
 import { useCollection } from "@/contexts/CollectionContext";
 import { REDIRECT_URL } from "@/config/constant";
 
-const ButtonGroup = ({ collectionName, contractAddress, collectionType }) => {
+const ButtonGroup = ({ collectionName, contractAddress, collectionType,chainId }) => {
   const { openPopup } = useCollection();
 
   function handleBuyClick() {
@@ -15,7 +15,7 @@ const ButtonGroup = ({ collectionName, contractAddress, collectionType }) => {
   function handlePlaceBidClick() {
     // openPopup("PLACEBIDS", collectionName);
 
-    const url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&poolType=0&collectionType=${collectionType}`;
+    const url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&poolType=0&collectionType=${collectionType}&chainId=${chainId}`;
 
     window.open(url, `newTab_${Date.now()}`);
   }

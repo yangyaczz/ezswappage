@@ -13,21 +13,3 @@ export default async function handler(req, res) {
     res.status(error.response?.status || 500).json(error.response?.data || {});
   }
 }
-
-// export default async function handler(body) {
-//   const res = { ok: false, status: null, data: {} };
-//   try {
-//     const response = await axios.post(
-//       BASE_URL + "api/queryCollectionPoolList",
-//       body
-//     );
-//     res.status = response.status;
-//     res.data = response.data.data;
-//     res.ok = true;
-//   } catch (error) {
-//     res.status = error.status;
-//     res.ok = false;
-//   }
-
-//   return res;
-// }

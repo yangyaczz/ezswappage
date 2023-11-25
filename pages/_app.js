@@ -128,7 +128,7 @@ export default function App({ Component, pageProps }) {
   return (
     <WagmiConfig client={wagmiClinet}>
       <RainbowKitProvider chains={chains}>
-        <div className="grid auto-rows-auto auto-cols-auto">
+        <div className="grid grid-rows-[126px,auto] auto-cols-auto h-full">
           <NavBar></NavBar>
           <CollectionProvider>
             <Component {...pageProps} />

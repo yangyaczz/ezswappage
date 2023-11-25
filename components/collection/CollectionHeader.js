@@ -27,21 +27,26 @@ const CollectionHeader = ({
         alt={name}
       />
       <div className="flex flex-col justify-start items-start gap-y-4 flex-wrap">
-        <header className="flex justify-start items-end w-full gap-x-8">
-          <p className="flex justify-start items-center gap-x-2 justifont-bold text-sm md:text-lg lg:text-xl whitespace-nowrap">
-            {name}
-            <Image
-              src={currencyImage.src}
-              alt={currencyImage.label}
-              width={28}
-              height={28}
-              className="inline"
-            />
+        <header className="flex justify-start items-baseline w-full gap-x-8 leading-4  max-w-lg">
+          <p className="text-md md:text-lg lg:text-2xl whitespace-nowrap">
+            <span className="font-bold mx-1">
+              {name}
+              {currencyImage && (
+                <Image
+                  src={currencyImage.src}
+                  alt={currencyImage.label}
+                  width={28}
+                  height={28}
+                  className="inline mx-1 align-baseline"
+                />
+              )}
+            </span>
+            <span className="text-sm align-baseline mx-3">
+              vol: {totalVolume} {tradingCurrencyName}
+            </span>
           </p>
-          <p className="text-xs self-end">
-            vol: {totalVolume} {tradingCurrencyName}
-          </p>
-          <div className="grow flex items-end justify-end gap-x-2 ">
+
+          <div className="grow flex items-center justify-end gap-x-2 ">
             <div
               className="flex items-center gap-x-2  bg-[rgba(82,82,91,0.8)] opacity-80 px-3 py-[0.1rem] rounded-md cursor-pointer hover:bg-[rgba(63,63,70,0.8)] hover:text-white tooltip tooltip-top"
               data-tip={"copy address"}

@@ -105,6 +105,7 @@ const InputAmount = ({
     // }
   };
 
+  console.log(formikData)
   return (
     <div className="form-control">
       <button

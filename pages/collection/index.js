@@ -14,7 +14,7 @@ const Collection = () => {
   const { popupOpen, popupWindow } = useCollection();
 
   return (
-    <div className="flex flex-col justify-center gap-x-6 items-center w-full relative bg-black">
+    <div className="flex flex-col justify-start gap-x-6 items-center w-full relative bg-black self-stretch justify-self-stretch">
       <header className="flex flex-col justify-around items-center h-32">
         <h1 className="text-xl sm:text-3xl lg:text-4xl">
           Add liquidity & earn profit on your NFTs

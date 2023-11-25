@@ -38,9 +38,13 @@ const CollectionList = () => {
    TOKEN_2 - DAI
 
    logic:
-   1. we will get all the pools of each NFT collection by address
-   2. figure out how many types of trading pairs are there by iterating pools of each collection 
-   3. assign the (collectionAddress, tradingCurrency and related pools) to each new variable 'collectionsByTradingPair'
+  1. get all the pools of each NFT collection by address
+  2. if there's valid pools
+      2.1. figure out how many types of trading pairs are there by iterating through pools of each collection 
+      2.2. assign the (collectionAddress, tradingCurrency... and related pools) to each new variable 'collectionsByTradingPair'
+  3. if there is no valid pools
+      3.1. still display collections, but no dynamic data and not filtered with trading pairs by pools
+      3.2. which means push 'null' data into 'tradingCurrency...' and 'pools' variable
    */
   useEffect(() => {
     //set the chain params
@@ -61,21 +65,37 @@ const CollectionList = () => {
             collection.address,
             collection.network
           );
-          let colByCurrency =
-            filterCollectionsByTradingPair(eachCollectionPools);
 
-          for (let [currencyAddress, pools] of Object.entries(colByCurrency)) {
+          //if there are pools found, sort the collections by trading pairs and show dynamic data
+          if (eachCollectionPools.length>0) {
+            let colByCurrency =
+              filterCollectionsByTradingPair(eachCollectionPools);
+            for (let [currencyAddress, pools] of Object.entries(
+              colByCurrency
+            )) {
+              colByPair.push({
+                ...collection,
+                id: `${collection.address}-${currencyAddress}`,
+                pools: pools,
+                tradingCurrencyAddr: currencyAddress,
+                tradingCurrencyName:
+                  addressSymbol[chainConfig?.hex]?.[currencyAddress] ||
+                  "(UNKNOWN)",
+                currencyImage: addressIcon[chainConfig?.hex]?.[
+                  currencyAddress
+                ] || { label: "(UNKNOWN)", src: "/unknown.png" },
+                chainId: chainConfig?.hex,
+              });
+            }
+          } else {
+            //no pools found for this collection, still show collections but just only static data (default values to 0) and not filtered
             colByPair.push({
               ...collection,
-              id: `${collection.address}-${currencyAddress}`,
-              pools: pools,
-              tradingCurrencyAddr: currencyAddress,
-              tradingCurrencyName:
-                addressSymbol[chainConfig?.hex]?.[currencyAddress] ||
-                "(UNKNOWN)",
-              currencyImage: addressIcon[chainConfig?.hex]?.[
-                currencyAddress
-              ] || { label: "(UNKNOWN)", src: "/unknown.png" },
+              id: `${collection.address}`,
+              pools: [],
+              tradingCurrencyAddr: null,
+              tradingCurrencyName: null,
+              currencyImage: null,
               chainId: chainConfig?.hex,
             });
           }

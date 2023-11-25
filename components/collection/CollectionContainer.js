@@ -17,8 +17,7 @@ import { MaxFiveDecimal,MaxThreeDecimal } from "../utils/roundoff";
 
 const CollectionContainer = ({ collection }) => {
   //prettier-ignore
-  const { name, address, type, tokenId1155, img, network, pools, tradingCurrency, tradingCurrencyName, currencyImage,chainId} = collection;
-  // const [pools, setPools] = useState([]);
+  const { name, address, type, img, pools, tradingCurrencyName, currencyImage,chainId} = collection;
   const [floorPrice, setFloorPrice] = useState(0);
   const [topBid, setTopBid] = useState(0);
   const [nftAmount, setNFTAmount] = useState(0);
@@ -27,27 +26,6 @@ const CollectionContainer = ({ collection }) => {
   const [poolsByTradingPair, setPoolsByTradingPair] = useState({});
   const COLLECTION_PIC_SIZE = 90;
   const EIGHTEEN_ZEROS = 1e18;
-
-  // //on page load, get each collection's pools
-  // useEffect(() => {
-  //   async function queryCollectionPools() {
-  //     const params = {
-  //       contractAddress: address,
-  //       network,
-  //     };
-
-  //     const response = await fetch("/api/proxy", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(params),
-  //     });
-  //     const data = await response.json();
-  //     if (data.success) setPools(data.data);
-  //   }
-  //   queryCollectionPools();
-  // }, [address, network]);
 
   //useEffect to calculate floor price, nft amount, top bids, offer tvl
   useEffect(() => {

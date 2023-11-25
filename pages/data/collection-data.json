@@ -104,8 +104,16 @@
     "network": "eosmain"
   },
   {
-    "name": "Ezswap EOS main Test2",
-    "address": "0x0693426a53ef2Dd0c50f595c203312E8c7788246",
+    "name": "Ezswap EOS Testnet Test2",
+    "address": "0xdC43817b9D819202f90E68E773C06C33D3CcADff",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png",
+    "network": "eostest"
+  },
+  {
+    "name": "Ezswap EOS main Test3",
+    "address": "0x69309D81B7c717E095a2CC8861d962a28Bc00B73",
     "type": "ERC721",
     "tokenId1155": "",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png",

@@ -12,7 +12,7 @@ const AddLiquidityButton = ({
   function handleAddLiquidityClick() {
     // openPopup("ADD_LIQUIDITY", collectionName);
 
-    const url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&collectionType=${collectionType}&chainId=${chainId}&poolType=0`;
+    const url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&collectionType=${collectionType}&chainId=${chainId}&poolType=2`;
 
     window.open(url, `newTab_${Date.now()}`);
   }

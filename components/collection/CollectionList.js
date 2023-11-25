@@ -137,7 +137,7 @@ const CollectionList = () => {
       {isLoading ? (
         <p className="h-max loading loading-bars loading-lg"></p>
       ) : (
-        <div>
+        <>
           {collectionsByTradingPair.length === 0 ? (
             <p>No data</p>
           ) : (
@@ -148,7 +148,7 @@ const CollectionList = () => {
               />
             ))
           )}
-        </div>
+        </>
       )}
     </div>
   );

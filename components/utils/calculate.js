@@ -202,7 +202,7 @@ export function SellPoolExp(
     spotPrice = spotPrice / (1 + tfee + pfee) / q;
   }
   const q = action === "read" ? delta : (100 + delta) / 100;
-  const newSpotPrice = spotPrice / (1 + tfee + pfee); //  spotPrice * q
+  const newSpotPrice = spotPrice * q; //  spotPrice * q  spotPrice / (1 + tfee + pfee)
 
   // user buy nft from pool
   const poolSellPrice = sumIncExp(newSpotPrice, n, q) * (1 + tfee);
@@ -245,8 +245,8 @@ export function TradePoolExp(
     spotPrice = spotPrice / (1 + tfee + pfee) / q;
   }
 
-  const q = action === "read" ? delta : (100 + delta) / 100;
-  const newSpotPrice = spotPrice / (1 + tfee + pfee); //  spotPrice * q
+  const q = action === "read" ? delta : (100 + delta) / 100; 
+  const newSpotPrice = spotPrice * q; //  spotPrice * q   spotPrice / (1 + tfee + pfee)
 
   // user sell nft to pool
   const poolBuyPrice = sumDesExp(spotPrice, n, q) * (1 - tfee);

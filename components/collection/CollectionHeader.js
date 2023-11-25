@@ -13,11 +13,10 @@ const CollectionHeader = ({
   topBid,
   nftAmount,
   offerTVL,
-  tradingCurrencyAddr,
   tradingCurrencyName,
   currencyImage,
+  totalVolume,
 }) => {
-  console.log(currencyImage);
   const tooltipRef = useRef("");
   return (
     <section className="grid gap-4 grid-cols-[90px,auto] grid-rows-1">
@@ -28,7 +27,7 @@ const CollectionHeader = ({
         alt={name}
       />
       <div className="flex flex-col justify-start items-start gap-y-4 flex-wrap">
-        <header className="flex justify-start items-center w-full gap-x-8">
+        <header className="flex justify-start items-end w-full gap-x-8">
           <p className="flex justify-start items-center gap-x-2 justifont-bold text-sm md:text-lg lg:text-xl whitespace-nowrap">
             {name}
             <Image
@@ -39,24 +38,28 @@ const CollectionHeader = ({
               className="inline"
             />
           </p>
-          <div
-            className="flex items-end self-end gap-x-2 bg-[rgba(82,82,91,0.8)] opacity-80 px-2 py-1 rounded-lg cursor-pointer hover:bg-[rgba(63,63,70,0.8)] hover:text-white tooltip tooltip-top"
-            data-tip={"copy address"}
-            ref={tooltipRef}
-            onMouseEnter={()=>{tooltipRef.current.setAttribute("data-tip","copy address")}}
-            onMouseExit={()=>{tooltipRef.current.setAttribute("data-tip","copy address")}}
-            onClick={() => {
-              navigator.clipboard.writeText(address);
-              tooltipRef.current.setAttribute("data-tip","copied")
-            }}
-          >
-            <FontAwesomeIcon
-              icon={faCopy}
-              size="sm"
-            />
-            <label className="text-xs text-end cursor-pointer">{`${address.substring(0, 5)}......${address.substring(
-              address.length - 4
-            )}`}</label>
+          <p className="text-xs self-end">
+            vol: {totalVolume} {tradingCurrencyName}
+          </p>
+          <div className="grow flex items-end justify-end gap-x-2 ">
+            <div
+              className="flex items-center gap-x-2  bg-[rgba(82,82,91,0.8)] opacity-80 px-3 py-[0.1rem] rounded-md cursor-pointer hover:bg-[rgba(63,63,70,0.8)] hover:text-white tooltip tooltip-top"
+              data-tip={"copy address"}
+              ref={tooltipRef}
+              onMouseEnter={() => {
+                tooltipRef.current.setAttribute("data-tip", "copy address");
+              }}
+              onClick={() => {
+                navigator.clipboard.writeText(address);
+                tooltipRef.current.setAttribute("data-tip", "copied");
+              }}
+            >
+              <FontAwesomeIcon icon={faCopy} size="xs" />
+              <label className="text-xs text-end self-end cursor-pointer align-baseline">{`${address.substring(
+                0,
+                5
+              )}......${address.substring(address.length - 4)}`}</label>
+            </div>
           </div>
 
           {/* <p className="text-sm lg:text-base">Estimated APR: 20%</p> */}

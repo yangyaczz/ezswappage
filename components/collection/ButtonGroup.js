@@ -15,7 +15,7 @@ const ButtonGroup = ({ collectionName, contractAddress, collectionType,chainId }
   function handlePlaceBidClick() {
     // openPopup("PLACEBIDS", collectionName);
 
-    const url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&poolType=0&collectionType=${collectionType}&chainId=${chainId}`;
+    const url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&collectionType=${collectionType}&chainId=${chainId}&poolType=0`;
 
     window.open(url, `newTab_${Date.now()}`);
   }
@@ -23,7 +23,7 @@ const ButtonGroup = ({ collectionName, contractAddress, collectionType,chainId }
   function handleDepositClick() {
     // openPopup("DEPOSIT", collectionName);
 
-    const url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&poolType=1&collectionType=${collectionType}`;
+    const url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&collectionType=${collectionType}&chainId=${chainId}&poolType=1`;
 
     window.open(url, `newTab_${Date.now()}`);
   }

@@ -16,35 +16,37 @@ import PoolTab from "./PoolTab";
 import { MaxFiveDecimal } from "../utils/roundoff";
 
 const CollectionContainer = ({ collection }) => {
-  const { name, address, type, tokenId1155, img, network } = collection;
-  const [pools, setPools] = useState([]);
+  //prettier-ignore
+  const { name, address, type, tokenId1155, img, network, pools, tradingCurrency, tradingCurrencyName, currencyImage,chainId} = collection;
+  // const [pools, setPools] = useState([]);
   const [floorPrice, setFloorPrice] = useState(0);
   const [topBid, setTopBid] = useState(0);
   const [nftAmount, setNFTAmount] = useState(0);
   const [offerTVL, setOfferTVL] = useState(0);
+  const [poolsByTradingPair, setPoolsByTradingPair] = useState({});
   const COLLECTION_PIC_SIZE = 90;
   const EIGHTEEN_ZEROS = 1e18;
 
-  //on page load, get each collection's pools
-  useEffect(() => {
-    async function queryCollectionPools() {
-      const params = {
-        contractAddress: address,
-        network,
-      };
+  // //on page load, get each collection's pools
+  // useEffect(() => {
+  //   async function queryCollectionPools() {
+  //     const params = {
+  //       contractAddress: address,
+  //       network,
+  //     };
 
-      const response = await fetch("/api/proxy", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(params),
-      });
-      const data = await response.json();
-      if (data.success) setPools(data.data);
-    }
-    queryCollectionPools();
-  }, [address, network]);
+  //     const response = await fetch("/api/proxy", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(params),
+  //     });
+  //     const data = await response.json();
+  //     if (data.success) setPools(data.data);
+  //   }
+  //   queryCollectionPools();
+  // }, [address, network]);
 
   //useEffect to calculate floor price, nft amount, top bids, offer tvl
   useEffect(() => {
@@ -62,75 +64,67 @@ const CollectionContainer = ({ collection }) => {
           if token != null but some address, means it's some alt coin address
           if token is null, means its ETH
         */
-        if (pool.token === null) {
-          //prettier-ignore
-          let { type,bondingCurve, spotPrice, delta, fee, protocolFee, nftIds, token, ethBalance, tokenBalance} = pool;
+        //prettier-ignore
+        let { type,bondingCurve, spotPrice, delta, fee, protocolFee, nftIds, token, ethBalance, tokenBalance} = pool;
 
-          //----------------------------------------------------
-          protocolFee = PROTOCOL_FEE; // 0.5%  get from smartcontract
-          //----------------------------------------------------
+        //----------------------------------------------------
+        protocolFee = PROTOCOL_FEE; // 0.5%  get from smartcontract
+        //----------------------------------------------------
 
-          //ethBalance is for ETH trading pair
-          //tokenBalance is for other token trading pair
-          //which means tokenBalance could be zero if it is a ETH trading pair
+        //we will use "tokenBalance" for all trading pairs
+        //so, assign ethBalance to tokenBalance if ethBalance is not empty
+        tokenBalance = ethBalance === null ? tokenBalance : ethBalance;
 
-          //we will use "tokenBalance" for all trading pairs
-          //so, assign ethBalance to tokenBalance if ethBalance is not empty
-          tokenBalance = ethBalance === null ? tokenBalance : ethBalance;
+        //remove 18 zeros from big numbers
+        spotPrice /= EIGHTEEN_ZEROS;
+        delta /= EIGHTEEN_ZEROS;
+        fee /= EIGHTEEN_ZEROS;
+        protocolFee /= EIGHTEEN_ZEROS;
 
-          //remove 18 zeros from big numbers
-          spotPrice /= EIGHTEEN_ZEROS;
-          delta /= EIGHTEEN_ZEROS;
-          fee /= EIGHTEEN_ZEROS;
-          protocolFee /= EIGHTEEN_ZEROS;
+        //ethBalance and tokenBalance could be 'null', so need to convert to '0'
+        ethBalance = ethBalance !== null ? ethBalance / EIGHTEEN_ZEROS : 0;
+        //prettier-ignore
+        tokenBalance = tokenBalance !== null ? tokenBalance / EIGHTEEN_ZEROS : 0;
 
-          //ethBalance and tokenBalance could be 'null', so need to convert to '0'
-          ethBalance = ethBalance !== null ? ethBalance / EIGHTEEN_ZEROS : 0;
-          //prettier-ignore
-          tokenBalance = tokenBalance !== null ? tokenBalance / EIGHTEEN_ZEROS : 0;
+        const params = {
+          bondingCurve,
+          spotPrice: parseFloat(spotPrice),
+          delta: parseFloat(delta),
+          tfee: fee,
+          pfee: protocolFee,
+        };
 
-          const params = {
-            bondingCurve,
-            spotPrice: parseFloat(spotPrice),
-            delta: parseFloat(delta),
-            tfee: fee,
-            pfee: protocolFee,
-            name,
-            token,
-          };
+        nftCount += nftIds.length; //accumulate number of nfts in all the pools, update 'nftAmount' later on
+        TVL += ethBalance; //accumulate the total ETH in the pools
 
-          nftCount += nftIds.length; //accumulate number of nfts in all the pools, update 'nftAmount' later on
-          TVL += ethBalance; //accumulate the total ETH in the pools
+        //prettier-ignore
+        let userBuyPrice = 0, userSellPrice = 0;
 
-          //prettier-ignore
-          let userBuyPrice = 0, userSellPrice = 0;
-
-          //calculate best prices (floor price & top bid) from all three pools (buy, sell, trade)
-          if (type === "sell" && nftIds.length > 0)
-            userBuyPrice = sellPoolFloorPrices(params);
-          else if (type === "buy" && nftIds.length > 0)
-            userSellPrice = buyPoolTopBid(params);
-          else if (type === "trade" && nftIds.length > 0) {
-            userBuyPrice = tradePoolFloorPrices(params);
-            userSellPrice = tradePoolTopBid(params);
-          }
-
-          //in every loop, compare the current price with the best prices, and replace if needed
-          //-----------
-          //floor price
-          bestUserBuyPrice =
-            bestUserBuyPrice === 0 || bestUserBuyPrice > userBuyPrice
-              ? userBuyPrice
-              : bestUserBuyPrice;
-
-          //top bid
-          //we need to check if the pool has enough ETH balance (tokenBalance) to purchase the NFT. if not enough balance, then we would skip this pool.
-          bestUserSellPrice =
-            (bestUserSellPrice === 0 || bestUserSellPrice < userSellPrice) &&
-            tokenBalance >= userSellPrice
-              ? userSellPrice
-              : bestUserSellPrice;
+        //calculate best prices (floor price & top bid) from all three pools (buy, sell, trade)
+        if (type === "sell" && nftIds.length > 0)
+          userBuyPrice = sellPoolFloorPrices(params);
+        else if (type === "buy" && nftIds.length > 0)
+          userSellPrice = buyPoolTopBid(params);
+        else if (type === "trade" && nftIds.length > 0) {
+          userBuyPrice = tradePoolFloorPrices(params);
+          userSellPrice = tradePoolTopBid(params);
         }
+
+        //in every loop, compare the current price with the best prices, and replace if needed
+        //-----------
+        //floor price
+        bestUserBuyPrice =
+          bestUserBuyPrice === 0 || bestUserBuyPrice > userBuyPrice
+            ? userBuyPrice
+            : bestUserBuyPrice;
+
+        //top bid
+        //we need to check if the pool has enough ETH balance (tokenBalance) to purchase the NFT. if not enough balance, then we would skip this pool.
+        bestUserSellPrice =
+          (bestUserSellPrice === 0 || bestUserSellPrice < userSellPrice) &&
+          tokenBalance >= userSellPrice
+            ? userSellPrice
+            : bestUserSellPrice;
       }
 
       //just to format the prices to  2 decimals. But no decimal if equals to 0.
@@ -149,7 +143,7 @@ const CollectionContainer = ({ collection }) => {
     }
 
     // prettier-ignore
-    function buyPoolTopBid({bondingCurve, spotPrice, delta, tfee, pfee,name, token}){
+    function buyPoolTopBid({bondingCurve, spotPrice, delta, tfee, pfee}){
       let data;
       //use linear pool calculation
       //prettier-ignore
@@ -161,7 +155,7 @@ const CollectionContainer = ({ collection }) => {
     }
 
     //prettier-ignore
-    function tradePoolTopBid({bondingCurve, spotPrice, delta, tfee, pfee,name,token}){
+    function tradePoolTopBid({bondingCurve, spotPrice, delta, tfee, pfee}){
       let data;
       //use linear pool calculation
       //prettier-ignore
@@ -208,13 +202,17 @@ const CollectionContainer = ({ collection }) => {
 
     <div className="w-11/12 max-w-[1240px] border-[1px] border-solid border-zinc-100 rounded-md grid gap-x-3 p-3 xl:p-6 grid-cols-2-1 lg:grid-cols-7-3 grid-rows-[3fr,2fr]">
       <CollectionHeader
+        address={address}
         name={name}
+        tradingCurrency={tradingCurrency}
+        tradingCurrencyName={tradingCurrencyName}
         img={img}
         COLLECTION_PIC_SIZE={COLLECTION_PIC_SIZE}
         floorPrice={floorPrice}
         topBid={topBid}
         nftAmount={nftAmount}
         offerTVL={offerTVL}
+        currencyImage={currencyImage}
       />
       {/* <Rewards COLLECTION_PIC_SIZE={COLLECTION_PIC_SIZE} network={network} /> */}
       <PoolTab contractAddress={address} />
@@ -222,6 +220,7 @@ const CollectionContainer = ({ collection }) => {
         collectionName={name}
         contractAddress={address}
         collectionType={type}
+        chainId={chainId}
       />
       <AddLiquidityButton
         collectionName={name}

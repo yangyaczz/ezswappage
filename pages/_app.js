@@ -6,6 +6,7 @@ import { mainnet, polygon } from "wagmi/chains";
 import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
 import NavBar from "@/components/bar/NavBar";
 import { CollectionProvider } from "@/contexts/CollectionContext";
+import { StrictMode } from "react";
 
 const mantatest = {
   id: 3441005,

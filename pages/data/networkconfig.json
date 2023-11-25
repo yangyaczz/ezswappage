@@ -137,9 +137,9 @@
             {
                 "type": "ERC721",
                 "address": "0xeb44b631bf4c525ac8d2ec658c0329b9bbe2c70f",
-                "name": "eos721a",
+                "name": "Ezswap EOS Testnet test",
                 "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.jpg"
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
             }
         ],
         "recommendERC20": [
@@ -163,9 +163,9 @@
             {
                 "type": "ERC721",
                 "address": "0xd7d2d92081e5afc352c12f7c9e619dc7403d969d",
-                "name": "zkHoldem NFTxxxxxxxxxxxxxx eos ",
+                "name": "Ezswap EOS main Test",
                 "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.jpg"
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
             }
         ],
         "recommendERC20": [

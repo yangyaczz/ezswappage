@@ -86,5 +86,29 @@
     "tokenId1155": "",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/zkHoldem_NFT_mini.jpeg",
     "network": "manta"
+  },
+  {
+    "name": "Ezswap EOS Testnet test",
+    "address": "0xeb44b631bf4c525ac8d2ec658c0329b9bbe2c70f",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png",
+    "network": "eostest"
+  },
+  {
+    "name": "Ezswap EOS main Test",
+    "address": "0xd7d2d92081e5afc352c12f7c9e619dc7403d969d",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png",
+    "network": "eosmain"
+  },
+  {
+    "name": "Ezswap EOS main Test2",
+    "address": "0x0693426a53ef2Dd0c50f595c203312E8c7788246",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png",
+    "network": "eosmain"
   }
 ]

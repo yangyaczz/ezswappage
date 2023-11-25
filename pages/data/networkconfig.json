@@ -122,5 +122,64 @@
                 "name": "tsez20"
             }
         ]
+    },
+    "15557": {
+        "networkName": "eostest",
+        "hex": "0x3cc5",
+        "router": "0x9D79c95314eB049e1FAFEAf14bc7B221Baf95F81",
+        "factory": "0xe893287f3B0e5682e639caa51fdAfe9653AB4abf",
+        "linear": "0x0d197261f32dd36B07cAFe633Af072B12832aA5a",
+        "exponential": "0xD7d30a3069E034558e2639325EB89f87E4fCB001",
+        "ERC20": "",
+        "ERC721": "",
+        "ERC1155": "",
+        "recommendNFT": [
+            {
+                "type": "ERC721",
+                "address": "0xeb44b631bf4c525ac8d2ec658c0329b9bbe2c70f",
+                "name": "Ezswap EOS Testnet test",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
+            }
+        ],
+        "recommendERC20": [
+            {
+                "address": "ETH",
+                "name": "EOS"
+            }
+        ]
+    },
+    "17777": {
+        "networkName": "eosmain",
+        "hex": "0x4571",
+        "router": "0x3d51749Cb2Db7355392100BAc202216BE7071E66",
+        "factory": "0x353F4106641Db62384cF0e4F1Ef15F8Ac9A9fb4B",
+        "linear": "0x9Be2Dc731bFf38B0a5D893c7a5ECE8e170c67b86",
+        "exponential": "0x20C318AA7c2eC1190F20D41EB6C6F3Ec9f5955fe",
+        "ERC20": "",
+        "ERC721": "",
+        "ERC1155": "",
+        "recommendNFT": [
+            {
+                "type": "ERC721",
+                "address": "0xd7d2d92081e5afc352c12f7c9e619dc7403d969d",
+                "name": "Ezswap EOS main Test",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
+            },
+            {
+                "type": "ERC721",
+                "address": "0x0693426a53ef2Dd0c50f595c203312E8c7788246",
+                "name": "Ezswap EOS main Test2",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
+            }
+        ],
+        "recommendERC20": [
+            {
+                "address": "ETH",
+                "name": "EOS"
+            }
+        ]
     }
 }

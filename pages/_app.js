@@ -62,8 +62,54 @@ const mantamain = {
   testnet: false,
 };
 
+const eosevmtest = {
+  id: 15557,
+  name: "EOS EVM Testnet",
+  network: "EOS EVM Testnet",
+  iconBackground: "#008000",
+  nativeCurrency: {
+    decimals: 18,
+    name: "EOS",
+    symbol: "EOS",
+  },
+  rpcUrls: {
+    public: { http: ["https://api.testnet.evm.eosnetwork.com/"] },
+    default: { http: ["https://api.testnet.evm.eosnetwork.com/"] },
+  },
+  blockExplorers: {
+    default: {
+      name: "Block Explorer",
+      url: "https://explorer.testnet.evm.eosnetwork.com/",
+    }
+  },
+  testnet: true,
+};
+
+const eosevmmain = {
+  id: 17777,
+  name: "EOS EVM",
+  network: "EOS EVM",
+  iconBackground: "#008000",
+  nativeCurrency: {
+    decimals: 18,
+    name: "EOS",
+    symbol: "EOS",
+  },
+  rpcUrls: {
+    public: { http: ["https://api.evm.eosnetwork.com/"] },
+    default: { http: ["https://api.evm.eosnetwork.com/"] },
+  },
+  blockExplorers: {
+    default: {
+      name: "Block Explorer",
+      url: "https://explorer.evm.eosnetwork.com/",
+    }
+  },
+  testnet: false,
+};
+
 const { chains, provider } = configureChains(
-  [mantatest, mantamain],
+  [mantatest, mantamain, eosevmtest, eosevmmain],
   [publicProvider()]
 );
 

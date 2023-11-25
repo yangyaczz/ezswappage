@@ -5,13 +5,14 @@ const AddLiquidityButton = ({
   collectionName,
   contractAddress,
   collectionType,
+  chainId
 }) => {
   const { openPopup } = useCollection();
 
   function handleAddLiquidityClick() {
     // openPopup("ADD_LIQUIDITY", collectionName);
 
-    const url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&poolType=2&collectionType=${collectionType}`;
+    const url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&collectionType=${collectionType}&chainId=${chainId}&poolType=0`;
 
     window.open(url, `newTab_${Date.now()}`);
   }

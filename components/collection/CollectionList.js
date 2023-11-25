@@ -26,6 +26,7 @@ const CollectionList = () => {
   */
 
   const [collectionsByTradingPair, setCollectionsByTradingPair] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   /**
    We are going to sort all those collections into 'collection by trading pair'
@@ -50,13 +51,12 @@ const CollectionList = () => {
     arrangeCollectionsByTradingPair();
 
     async function arrangeCollectionsByTradingPair() {
+      setIsLoading(() => true);
+
       let colByPair = [];
       for (let collection of collections) {
         //only collections of the same network are visible
         if (collection.network === chainConfig.networkName) {
-          console.log(
-            `this is network ${collection.network}, right now on ${collection.name}`
-          );
           let eachCollectionPools = await queryPoolsOfEachCollection(
             collection.address,
             collection.network
@@ -76,13 +76,14 @@ const CollectionList = () => {
               currencyImage: addressIcon[chainConfig?.hex]?.[
                 currencyAddress
               ] || { label: "(UNKNOWN)", src: "/unknown.png" },
-              chainId:chainConfig?.hex
+              chainId: chainConfig?.hex,
             });
           }
         }
       }
 
       setCollectionsByTradingPair(colByPair);
+      setIsLoading(() => false);
     }
 
     function filterCollectionsByTradingPair(eachCollectionPools) {
@@ -133,12 +134,21 @@ const CollectionList = () => {
 
   return (
     <div className="grid grid-cols-1 grid-rows-2 gap-3 w-11/12 place-items-center">
-      {collectionsByTradingPair.length === 0 ? (
+      {isLoading ? (
         <p className="h-max loading loading-bars loading-lg"></p>
       ) : (
-        collectionsByTradingPair.map((collection) => (
-          <CollectionContainer key={collection.id} collection={collection} />
-        ))
+        <div>
+          {collectionsByTradingPair.length === 0 ? (
+            <p>No data</p>
+          ) : (
+            collectionsByTradingPair.map((collection) => (
+              <CollectionContainer
+                key={collection.id}
+                collection={collection}
+              />
+            ))
+          )}
+        </div>
       )}
     </div>
   );

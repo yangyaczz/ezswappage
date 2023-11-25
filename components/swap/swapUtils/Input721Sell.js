@@ -71,8 +71,8 @@ const Input721Sell = ({
         ],
         ethers.utils
           .parseEther(pairs[maxPriceIndex].userGetPrice.toString())
-          .mul(ethers.BigNumber.from("100"))
-          .div(ethers.BigNumber.from("100")),
+          .mul(ethers.BigNumber.from("995"))
+          .div(ethers.BigNumber.from("1000")),
       ];
     } else {
       // console.log('nft execced amount')

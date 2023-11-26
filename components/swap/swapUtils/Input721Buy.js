@@ -192,7 +192,7 @@ const Input721Buy = ({
               <div>#{square}</div>
             </div>
             <div className="flex items-center content-center mt-1">
-              <span>{idPriceMap[square]}</span>&nbsp;{addressSymbol[formikData.golbalParams.hex]["0x0000000000000000000000000000000000000000"]}
+              <span>{idPriceMap[square].toFixed(5)}</span>&nbsp;{addressSymbol[formikData.golbalParams.hex]["0x0000000000000000000000000000000000000000"]}
             </div>
           </div>
         ))}

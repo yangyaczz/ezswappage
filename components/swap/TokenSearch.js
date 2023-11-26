@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import multiSetFilterPairMode from "./swapUtils/multiSetFilterPairMode";
 import styles from "./index.module.scss";
+import addressSymbol from "@/pages/data/address_symbol";
 
 const TokenSearch = ({
   swapType,
@@ -69,7 +70,7 @@ const TokenSearch = ({
       >
         <div className="flex justify-start items-center space-x-2">
           <div>
-            {formikData.tokenName ? formikData.tokenName : "select token"}
+            {formikData.tokenName === 'ETH' && addressSymbol[formikData.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : formikData.tokenName ? formikData.tokenName : "select token"}
           </div>
           <svg
             width="12"

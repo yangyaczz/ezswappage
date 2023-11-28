@@ -147,6 +147,13 @@
                 "name": "Ezswap EOS Testnet test2",
                 "tokenId1155": "",
                 "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
+            },
+            {
+                "type": "ERC721",
+                "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+                "name": "Block World Test",
+                "tokenId1155": "",
+                "img": "https://data.skytest.club/bimg/VALKYRIE.gif"
             }
         ],
         "recommendERC20": [

@@ -159,7 +159,7 @@
                 "type": "ERC1155",
                 "address": "0x058169768d0484a043997073598e49F8dbb4e8e2",
                 "name": "EZ Test1155",
-                "tokenId1155": "",
+                "tokenId1155": "1",
                 "img": "https://data.skytest.club/bimg/VALKYRIE.gif"
             }
         ],

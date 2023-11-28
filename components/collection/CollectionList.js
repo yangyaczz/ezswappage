@@ -30,7 +30,7 @@ const CollectionList = () => {
 
   /**
    We are going to sort all those collections into 'collection by trading pair'
-   etc: 
+   etc:
    TOKEN_1 - ETH
    TOKEN_1 - USDT
 
@@ -40,7 +40,7 @@ const CollectionList = () => {
    logic:
   1. get all the pools of each NFT collection by address
   2. if there's valid pools
-      2.1. figure out how many types of trading pairs are there by iterating through pools of each collection 
+      2.1. figure out how many types of trading pairs are there by iterating through pools of each collection
       2.2. assign the (collectionAddress, tradingCurrency... and related pools) to each new variable 'collectionsByTradingPair'
   3. if there is no valid pools
       3.1. still display collections, but no dynamic data and not filtered with trading pairs by pools
@@ -67,7 +67,7 @@ const CollectionList = () => {
           );
 
           //if there are pools found, sort the collections by trading pairs and show dynamic data
-          if (eachCollectionPools.length>0) {
+          if (eachCollectionPools?.length>0) {
             let colByCurrency =
               filterCollectionsByTradingPair(eachCollectionPools);
             for (let [currencyAddress, pools] of Object.entries(

@@ -4,6 +4,7 @@ import Input721Sell from "./swapUtils/Input721Sell";
 import Input1155Sell from "./swapUtils/Input1155Sell";
 
 import Input721Buy from "./swapUtils/Input721Buy";
+import Input1155Buy from "./swapUtils/Input1155Buy";
 import styles from "./index.module.scss";
 import addressSymbol from "@/pages/data/address_symbol";
 const InputAmount = ({
@@ -87,22 +88,21 @@ const InputAmount = ({
           setTotalGet={setTotalGet}
           setTupleEncode={setTupleEncode}
           setIsExceeded={setIsExceeded}
-          setIsBanSelect={setIsBanSelect}
         />
       );
     }
 
-    // if (formikData.collection.type == "ERC1155") {
-    //     return (
-    //         <Input1155
-    //             formikData={formikData}
-    //             setSelectIds={setSelectIds}
-    //             setTotalGet={setTotalGet}
-    //             setTupleEncode={setTupleEncode}
-    //             setIsExceeded={setIsExceeded}
-    //         />
-    //     )
-    // }
+    if (formikData.collection.type == "ERC1155") {
+        return (
+            <Input1155Buy
+                formikData={formikData}
+                setSelectIds={setSelectIds}
+                setTotalGet={setTotalGet}
+                setTupleEncode={setTupleEncode}
+                setIsExceeded={setIsExceeded}
+            />
+        )
+    }
   };
 
   console.log(formikData)

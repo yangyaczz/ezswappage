@@ -1,6 +1,6 @@
 [
   {
-    "name": "Block World Test:1",
+    "name": "Block World Test",
     "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
     "type": "ERC1155",
     "tokenId1155": "1",
@@ -8,10 +8,42 @@
     "network": "eostest"
   },
   {
-    "name": "Block World Test:2",
+    "name": "Block World Test",
     "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
     "type": "ERC1155",
     "tokenId1155": "2",
+    "img": "https://data.skytest.club/bimg/VALKYRIE.gif",
+    "network": "eostest"
+  },
+  {
+    "name": "Block World Test",
+    "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+    "type": "ERC1155",
+    "tokenId1155": "3",
+    "img": "https://data.skytest.club/bimg/VALKYRIE.gif",
+    "network": "eostest"
+  },
+  {
+    "name": "Block World Test",
+    "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+    "type": "ERC1155",
+    "tokenId1155": "4",
+    "img": "https://data.skytest.club/bimg/VALKYRIE.gif",
+    "network": "eostest"
+  },
+  {
+    "name": "Block World Test",
+    "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+    "type": "ERC1155",
+    "tokenId1155": "5",
+    "img": "https://data.skytest.club/bimg/VALKYRIE.gif",
+    "network": "eostest"
+  },
+  {
+    "name": "Block World Test",
+    "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+    "type": "ERC1155",
+    "tokenId1155": "6",
     "img": "https://data.skytest.club/bimg/VALKYRIE.gif",
     "network": "eostest"
   },

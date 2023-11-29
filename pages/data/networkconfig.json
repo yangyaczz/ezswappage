@@ -149,6 +149,34 @@
                 "img": "https://data.skytest.club/bimg/VALKYRIE.gif"
             },
             {
+                "type": "ERC1155",
+                "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+                "name": "Block World Test:3",
+                "tokenId1155": "3",
+                "img": "https://data.skytest.club/bimg/VALKYRIE.gif"
+            },
+            {
+                "type": "ERC1155",
+                "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+                "name": "Block World Test:4",
+                "tokenId1155": "4",
+                "img": "https://data.skytest.club/bimg/VALKYRIE.gif"
+            },
+            {
+                "type": "ERC1155",
+                "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+                "name": "Block World Test:5",
+                "tokenId1155": "5",
+                "img": "https://data.skytest.club/bimg/VALKYRIE.gif"
+            },
+            {
+                "type": "ERC1155",
+                "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+                "name": "Block World Test:6",
+                "tokenId1155": "6",
+                "img": "https://data.skytest.club/bimg/VALKYRIE.gif"
+            },
+            {
                 "type": "ERC721",
                 "address": "0xeb44b631bf4c525ac8d2ec658c0329b9bbe2c70f",
                 "name": "Ezswap EOS Testnet test",

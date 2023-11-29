@@ -63,7 +63,9 @@ const CollectionList = () => {
         if (collection.network === chainConfig.networkName) {
           let eachCollectionPools = await queryPoolsOfEachCollection(
             collection.address,
-            collection.network
+            collection.network,
+            collection.type,
+            collection.tokenId1155
           );
 
           //if there are pools found, sort the collections by trading pairs and show dynamic data
@@ -130,11 +132,12 @@ const CollectionList = () => {
       return colByCurrency;
     }
 
-    async function queryPoolsOfEachCollection(address, network) {
-      const params = {
+    async function queryPoolsOfEachCollection(address, network,type,tokenId1155) {
+      let params = {
         contractAddress: address,
         network,
       };
+      if(type==="ERC1155") params = {...params, tokenId:tokenId1155}
 
       const response = await fetch("/api/proxy", {
         method: "POST",
@@ -153,7 +156,7 @@ const CollectionList = () => {
   }, [chain]);
 
   return (
-    <div className="grid grid-cols-1 grid-rows-2 gap-3 w-11/12 place-items-center">
+    <div className="grid w-11/12 grid-cols-1 grid-rows-2 gap-3 place-items-center">
       {isLoading ? (
         <p className="h-max loading loading-bars loading-lg"></p>
       ) : (

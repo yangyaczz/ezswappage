@@ -7,6 +7,8 @@ import { useRef } from "react";
 const CollectionHeader = ({
   address,
   name,
+  type,
+  tokenId1155,
   img,
   COLLECTION_PIC_SIZE,
   floorPrice,
@@ -26,11 +28,12 @@ const CollectionHeader = ({
         src={img}
         alt={name}
       />
-      <div className="flex flex-col justify-start items-start gap-y-4 flex-wrap">
-        <header className="flex justify-start items-baseline w-full gap-x-8 leading-4  max-w-lg">
+      <div className="flex flex-col flex-wrap items-start justify-start gap-y-4">
+        <header className="flex items-baseline justify-start w-full max-w-lg leading-4 gap-x-8">
           <p className="text-md md:text-lg lg:text-2xl whitespace-nowrap">
-            <span className="font-bold mx-1">
+            <span className="mx-1 font-bold">
               {name}
+              {type==="ERC1155" && <span className="text-base"> token {tokenId1155}</span>}
               {currencyImage && (
                 <Image
                   src={currencyImage.src}
@@ -41,12 +44,12 @@ const CollectionHeader = ({
                 />
               )}
             </span>
-            <span className="text-sm align-baseline mx-3">
+            <span className="mx-3 text-sm align-baseline">
               vol: {totalVolume} {tradingCurrencyName}
             </span>
           </p>
 
-          <div className="grow flex items-center justify-end gap-x-2 ">
+          <div className="flex items-center justify-end grow gap-x-2 ">
             <div
               className="flex items-center gap-x-2  bg-[rgba(82,82,91,0.8)] opacity-80 px-3 py-[0.1rem] rounded-md cursor-pointer hover:bg-[rgba(63,63,70,0.8)] hover:text-white tooltip tooltip-top"
               data-tip={"copy address"}
@@ -60,7 +63,7 @@ const CollectionHeader = ({
               }}
             >
               <FontAwesomeIcon icon={faCopy} size="xs" />
-              <label className="text-xs text-end self-end cursor-pointer align-baseline">{`${address.substring(
+              <label className="self-end text-xs align-baseline cursor-pointer text-end">{`${address.substring(
                 0,
                 5
               )}......${address.substring(address.length - 4)}`}</label>

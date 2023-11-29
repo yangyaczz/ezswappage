@@ -17,7 +17,7 @@ import { MaxFiveDecimal,MaxThreeDecimal } from "../utils/roundoff";
 
 const CollectionContainer = ({ collection }) => {
   //prettier-ignore
-  const { name, address, type, img, pools, tradingCurrencyName, currencyImage,chainId} = collection;
+  const { name, address, type,tokenId1155, img, pools, tradingCurrencyName, currencyImage,chainId} = collection;
   const [floorPrice, setFloorPrice] = useState(0);
   const [topBid, setTopBid] = useState(0);
   const [nftAmount, setNFTAmount] = useState(0);
@@ -194,6 +194,8 @@ const CollectionContainer = ({ collection }) => {
       <CollectionHeader
         address={address}
         name={name}
+        type={type}
+        tokenId1155={tokenId1155}
         tradingCurrencyName={tradingCurrencyName}
         img={img}
         COLLECTION_PIC_SIZE={COLLECTION_PIC_SIZE}
@@ -211,12 +213,16 @@ const CollectionContainer = ({ collection }) => {
         contractAddress={address}
         collectionType={type}
         chainId={chainId}
+        type={type}
+        tokenId1155={tokenId1155}
       />
       <AddLiquidityButton
         collectionName={name}
         contractAddress={address}
         collectionType={type}
         chainId={chainId}
+        type={type}
+        tokenId1155={tokenId1155}
       />
     </div>
   );

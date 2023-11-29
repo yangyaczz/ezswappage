@@ -154,7 +154,7 @@ function Input1155Buy({ formikData, setSelectIds, setTupleEncode, setTotalGet, s
 
     return (
         <div className='flex items-center p-5 space-x-4'>
-            <div>you want to sell nft amount :</div>
+            <div>you want to buy nft amount :</div>
             <div className='form-control'>
                 <div className="input-group">
                     <button

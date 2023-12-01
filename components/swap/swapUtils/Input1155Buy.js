@@ -1,64 +1,75 @@
 import React, { useState, useEffect } from 'react';
-import { BuyPoolLiner, TradePoolLiner, BuyPoolExp, TradePoolExp } from '../../utils/calculate'
+import { SellPoolLiner, TradePoolLiner, SellPoolExp, TradePoolExp, } from "../../utils/calculate";
 import { ethers } from 'ethers';
 
-function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded }) {
+function Input1155Buy({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded }) {
 
-    const [value, setValue] = useState(1);
+    const [value, setValue] = useState(0);
     const tId = formikData.collection.tokenId1155
-    const max = formikData.userCollection.tokenAmount1155
+    const [max, setMax] = useState(0);
 
-    const update1155SellToPairs = (tokenId, pairs) => {
+    useEffect(() => {
+        let totalNftCount1155 = formikData.filterPairs.reduce((sum, item) => sum + item.nftCount1155, 0);
+        setMax(totalNftCount1155)
+    }, [formikData.filterPairs])
+
+    const update1155BuyToPairs = (tokenId, pairs) => {
         let protocolFee = 10000000000000000   // 0.5%  get from smartcontract
         let dec = 1e18
-        let maxPrice = 0
-        let maxPriceIndex = -1
+        let minPrice = 0
+        let minPriceIndex = -1
 
-        // get pool buy price
+        // get pool sell price
         pairs.forEach((pair, index) => {
 
             let res
             let params = [pair.spotPrice / dec, pair.delta / dec, pair.fee / dec, protocolFee / dec, pair.tokenIds.length + 1]
 
-            if (pair.bondingCurve === 'Linear' && pair.type === 'buy') {
-                res = BuyPoolLiner(...params)
-            } else if (pair.bondingCurve === 'Linear' && pair.type === 'trade') {
-                res = TradePoolLiner(...params)
-            } else if (pair.bondingCurve === 'Exponential' && pair.type === 'buy') {
-                res = BuyPoolExp(...params)
-            } else if (pair.bondingCurve === 'Exponential' && pair.type === 'trade') {
-                res = TradePoolExp(...params)
+            if (pair.bondingCurve === "Linear" && pair.type === "sell") {
+                res = SellPoolLiner(...params);
+            } else if (pair.bondingCurve === "Linear" && pair.type === "trade") {
+                res = TradePoolLiner(...params);
+            } else if (pair.bondingCurve === "Exponential" && pair.type === "sell") {
+                res = SellPoolExp(...params);
+            } else if (pair.bondingCurve === "Exponential" && pair.type === "trade") {
+                res = TradePoolExp(...params);
             } else {
-                res
+                res;
             }
 
             if (res) {
-                pair.userGetPrice = res.lastUserSellPrice
-                pair.ifUserAddGetPrice = res.userSellPrice
+                pair.userGetPrice = res.lastUserBuyPrice
+                pair.ifUserAddGetPrice = res.userBuyPrice
 
-                // get maxPrice pool
-                if (pair.tokenBalance / dec >= res.poolBuyPrice) {
-                    const currentPrice = res.currentUintSellPrice
-                    if (currentPrice > maxPrice) {
-                        maxPrice = currentPrice
-                        maxPriceIndex = index
+                // get max Price pool   // if token enough       pair.nftCount1155 > pair.tokenIds.length
+                if (pair.nftCount1155 > pair.tokenIds.length) {
+                    const currentPrice = res.currentUintBuyPrice
+
+                    if (minPrice === 0) {
+                        minPrice = currentPrice
+                        minPriceIndex = index
+                    } else {
+                        if (currentPrice < minPrice) {
+                            minPrice = currentPrice
+                            minPriceIndex = index
+                        }
                     }
                 }
             }
         })
 
 
-        if (maxPriceIndex !== -1) {
+        if (minPriceIndex !== -1) {
 
-            pairs[maxPriceIndex].tokenIds.push(tokenId)
-            pairs[maxPriceIndex].userGetPrice = pairs[maxPriceIndex].ifUserAddGetPrice
-            pairs[maxPriceIndex].tuple = [
+            pairs[minPriceIndex].tokenIds.push(tokenId)
+            pairs[minPriceIndex].userGetPrice = Number((pairs[minPriceIndex].ifUserAddGetPrice * 1.005 ).toFixed(10))   // 0.5 % slippling
+            pairs[minPriceIndex].tuple = [
                 [
-                    pairs[maxPriceIndex].id,
+                    pairs[minPriceIndex].id,
                     [tokenId],
-                    [pairs[maxPriceIndex].tokenIds.length]
+                    [pairs[minPriceIndex].tokenIds.length]
                 ],
-                ethers.utils.parseEther(pairs[maxPriceIndex].userGetPrice.toString()).mul(ethers.BigNumber.from('995')).div(ethers.BigNumber.from('1000'))
+                ethers.utils.parseEther(pairs[minPriceIndex].userGetPrice.toString())
             ]
         } else {
             console.log('nft execced amount')
@@ -78,7 +89,7 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
         let pairs = JSON.parse(JSON.stringify(formikData.filterPairs))
 
         newSids.forEach((id) => {
-            update1155SellToPairs(id, pairs)
+            update1155BuyToPairs(id, pairs)
         })
 
         let tupleEncode = []
@@ -94,14 +105,14 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
 
         setTupleEncode(tupleEncode)
         setTotalGet(totalGet)
-        console.log(totalGet)
+        console.log('totalGet', totalGet)
         ///////////////////////////////////////////////////////////////
 
         // check if is execeeded
-        if (newSids.length > IdsAmount) {
-            setIsExceeded(true)
+        if (formikData.userCollection.tokenBalance20 < totalGet) {
+            setIsExceeded(true);
         } else {
-            setIsExceeded(false)
+            setIsExceeded(false);
         }
     }
 
@@ -113,9 +124,9 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
 
         // check
         if (/^\d+$/.test(inputValue)) {
-            setValue(Math.min(Math.max(1, Number(inputValue)), max));
+            setValue(Math.min(Math.max(0, Number(inputValue)), max));
         } else {
-            setValue(1);
+            setValue(0);
         }
     };
 
@@ -125,7 +136,7 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
     };
 
     const handleDecrement = () => {
-        setValue(prev => Math.max(prev - 1, 1))
+        setValue(prev => Math.max(prev - 1, 0))
     };
 
 
@@ -136,14 +147,14 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
 
 
     //////////////////////////////////////////////////////////////////////////////
-    if (formikData.userCollection.tokenAmount1155 === 0) {
-        return <div>{`you don't have this nft`}</div>
-    }
+    // if (formikData.userCollection.tokenAmount1155 === 0) {
+    //     return <div>{`you don't have this nft`}</div>
+    // }
 
 
     return (
         <div className='flex items-center p-5 space-x-4'>
-            <div>you want to sell nft amount :</div>
+            <div>you want to buy nft amount :</div>
             <div className='form-control'>
                 <div className="input-group">
                     <button
@@ -172,4 +183,4 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
     )
 }
 
-export default Input1155Sell;
+export default Input1155Buy;

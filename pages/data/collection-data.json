@@ -1,5 +1,53 @@
 [
   {
+    "name": "Block World Test",
+    "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+    "type": "ERC1155",
+    "tokenId1155": "1",
+    "img": "https://data.skytest.club/bimg/VALKYRIE.gif",
+    "network": "eostest"
+  },
+  {
+    "name": "Block World Test",
+    "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+    "type": "ERC1155",
+    "tokenId1155": "2",
+    "img": "https://data.skytest.club/bimg/VALKYRIE.gif",
+    "network": "eostest"
+  },
+  {
+    "name": "Block World Test",
+    "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+    "type": "ERC1155",
+    "tokenId1155": "3",
+    "img": "https://data.skytest.club/bimg/VALKYRIE.gif",
+    "network": "eostest"
+  },
+  {
+    "name": "Block World Test",
+    "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+    "type": "ERC1155",
+    "tokenId1155": "4",
+    "img": "https://data.skytest.club/bimg/VALKYRIE.gif",
+    "network": "eostest"
+  },
+  {
+    "name": "Block World Test",
+    "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+    "type": "ERC1155",
+    "tokenId1155": "5",
+    "img": "https://data.skytest.club/bimg/VALKYRIE.gif",
+    "network": "eostest"
+  },
+  {
+    "name": "Block World Test",
+    "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+    "type": "ERC1155",
+    "tokenId1155": "6",
+    "img": "https://data.skytest.club/bimg/VALKYRIE.gif",
+    "network": "eostest"
+  },
+  {
     "name": "ts721ec1",
     "address": "0x3D3fa1f6dE1a8e8f466BF6598b2601a250643464",
     "type": "ERC721",
@@ -120,11 +168,19 @@
     "network": "eosmain"
   },
   {
-    "name": "Block World Test",
-    "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
-    "type": "ERC721",
-    "tokenId1155": "",
-    "img": "https://data.skytest.club/bimg/VALKYRIE.gif",
+    "name": "EZ test 1155",
+    "address": "0x058169768d0484a043997073598e49F8dbb4e8e2",
+    "type": "ERC1155",
+    "tokenId1155": "1",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png",
+    "network": "eostest"
+  },
+  {
+    "name": "EZ test 1155 token2",
+    "address": "0x058169768d0484a043997073598e49F8dbb4e8e2",
+    "type": "ERC1155",
+    "tokenId1155": "2",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png",
     "network": "eostest"
   }
 ]

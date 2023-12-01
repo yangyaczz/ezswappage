@@ -26,7 +26,6 @@ const Input721Buy = ({
   setTupleEncode,
   setTotalGet,
   setIsExceeded,
-  setIsBanSelect,
 }) => {
   const [idPriceMap, setIdPriceMap] = useState({});
 

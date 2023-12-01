@@ -30,7 +30,7 @@ const CollectionList = () => {
 
   /**
    We are going to sort all those collections into 'collection by trading pair'
-   etc: 
+   etc:
    TOKEN_1 - ETH
    TOKEN_1 - USDT
 
@@ -40,7 +40,7 @@ const CollectionList = () => {
    logic:
   1. get all the pools of each NFT collection by address
   2. if there's valid pools
-      2.1. figure out how many types of trading pairs are there by iterating through pools of each collection 
+      2.1. figure out how many types of trading pairs are there by iterating through pools of each collection
       2.2. assign the (collectionAddress, tradingCurrency... and related pools) to each new variable 'collectionsByTradingPair'
   3. if there is no valid pools
       3.1. still display collections, but no dynamic data and not filtered with trading pairs by pools
@@ -63,11 +63,13 @@ const CollectionList = () => {
         if (collection.network === chainConfig.networkName) {
           let eachCollectionPools = await queryPoolsOfEachCollection(
             collection.address,
-            collection.network
+            collection.network,
+            collection.type,
+            collection.tokenId1155
           );
 
           //if there are pools found, sort the collections by trading pairs and show dynamic data
-          if (eachCollectionPools.length>0) {
+          if (eachCollectionPools?.length>0) {
             let colByCurrency =
               filterCollectionsByTradingPair(eachCollectionPools);
             for (let [currencyAddress, pools] of Object.entries(
@@ -130,11 +132,12 @@ const CollectionList = () => {
       return colByCurrency;
     }
 
-    async function queryPoolsOfEachCollection(address, network) {
-      const params = {
+    async function queryPoolsOfEachCollection(address, network,type,tokenId1155) {
+      let params = {
         contractAddress: address,
         network,
       };
+      if(type==="ERC1155") params = {...params, tokenId:tokenId1155}
 
       const response = await fetch("/api/proxy", {
         method: "POST",
@@ -153,7 +156,7 @@ const CollectionList = () => {
   }, [chain]);
 
   return (
-    <div className="grid grid-cols-1 grid-rows-2 gap-3 w-11/12 place-items-center">
+    <div className="grid w-11/12 grid-cols-1 grid-rows-2 gap-3 place-items-center">
       {isLoading ? (
         <p className="h-max loading loading-bars loading-lg"></p>
       ) : (

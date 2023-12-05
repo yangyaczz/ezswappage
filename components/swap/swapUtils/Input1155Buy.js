@@ -62,14 +62,14 @@ function Input1155Buy({ formikData, setSelectIds, setTupleEncode, setTotalGet, s
         if (minPriceIndex !== -1) {
 
             pairs[minPriceIndex].tokenIds.push(tokenId)
-            pairs[minPriceIndex].userGetPrice = pairs[minPriceIndex].ifUserAddGetPrice
+            pairs[minPriceIndex].userGetPrice = Number((pairs[minPriceIndex].ifUserAddGetPrice * 1.005 ).toFixed(10))   // 0.5 % slippling
             pairs[minPriceIndex].tuple = [
                 [
                     pairs[minPriceIndex].id,
                     [tokenId],
                     [pairs[minPriceIndex].tokenIds.length]
                 ],
-                ethers.utils.parseEther(pairs[minPriceIndex].userGetPrice.toString()).mul(ethers.BigNumber.from('1000')).div(ethers.BigNumber.from('995'))
+                ethers.utils.parseEther(pairs[minPriceIndex].userGetPrice.toString())
             ]
         } else {
             console.log('nft execced amount')

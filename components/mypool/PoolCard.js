@@ -532,7 +532,7 @@ const PoolCard = ({ item,formikData, owner }) => {
         <div className="flex flex-col bg-base-100 shadow-md p-6 rounded-lg mb-4">
             <div className="flex flex-row justify-between mb-4">
                 <span className="text-sm text-white p-1 rounded-md bg-base-200 border border-gray-300">{item.id}</span>
-                <span className="text-sm text-white">Balance: {parseFloat(item.tokenBalance)} {item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName} and {item.tokenType==='ERC721'?item.nftCount:item.nftCount1155} NFT</span>
+                <span className="text-sm text-white">Balance: {parseFloat(item.tokenBalance)}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName} and {item.tokenType==='ERC721'?item.nftCount:item.nftCount1155} NFT</span>
             </div>
             <div className="mb-4">
                 <span className="text-lg font-medium">{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName} - {item.NFTName}</span>
@@ -540,7 +540,7 @@ const PoolCard = ({ item,formikData, owner }) => {
             <div className="flex justify-between p-4 rounded-lg bg-base-200 ">
                 <div className='flex flex-col'>
                     <span className=" text-white">Current Price</span>
-                    <span className=" text-gray-500 mt-1">{item.currentPrice === undefined? 0 :parseFloat(item.currentPrice.toFixed(5))} {item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName}</span>
+                    <span className=" text-gray-500 mt-1">{item.currentPrice === undefined? 0 :parseFloat(item.currentPrice.toFixed(5))}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName}</span>
                 </div>
                 <div className='flex flex-col'>
                     <span className=" text-white">Bonding Curve</span>
@@ -574,7 +574,7 @@ const PoolCard = ({ item,formikData, owner }) => {
                         <div className="flex flex-wrap justify-center">
                         {
                             item.tokenType==='ERC721' ?
-                                addressSelectNFT.length === 0 ? <span className="mb-4">you don't have nft</span>:addressSelectNFT.map((square, index) => (
+                                addressSelectNFT.length === 0 ? <span className="mb-4">you don&apos;t have nft</span>:addressSelectNFT.map((square, index) => (
                             <div
                                 key={index}
                                 data-tip={
@@ -633,7 +633,7 @@ const PoolCard = ({ item,formikData, owner }) => {
                         <div className="flex justify-center">
                         {
                             item.tokenType==='ERC721' ?
-                                addressSelectNFT.length === 0 ? <span className="mb-4">pool don't have nft</span>:addressSelectNFT.map((square, index) => (
+                                addressSelectNFT.length === 0 ? <span className="mb-4">pool don&apos;t have nft</span>:addressSelectNFT.map((square, index) => (
                                     <div
                                         key={index}
                                         data-tip={addressSelectNFT.length===0 && "pool don't have nft"}

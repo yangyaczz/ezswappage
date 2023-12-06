@@ -187,16 +187,16 @@ const MyPool = () => {
   }
   if (isLoading) {
     return (
-      <div className="flex flex-col min-h-screen bg-base-200 items-center">
-        Loading...
+      <div className="flex justify-center bg-base-200">
+          <span>Loading...<span className="ml-3 loading loading-spinner loading-sm"></span></span>
       </div>
     );
   }
   return (
-    <div className="flex flex-col min-h-screen bg-base-200 items-center">
+    <div className="flex flex-col bg-base-200 items-center">
       <div className="mt-6 w-2/3">
-        {formik.values.filterPairs?.map((item) => (
-          <PoolCard key={item.id} item={item} />
+        {formik.values.filterPairs.length===0 ? <div className="flex justify-center ">No Data</div>:formik.values.filterPairs?.map((item) => (
+          <PoolCard key={item.id} item={item} formikData={formik} owner={owner} />
         ))}
       </div>
     </div>

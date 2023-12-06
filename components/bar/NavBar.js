@@ -24,7 +24,7 @@ const NavBar = () => {
                 </div>
                 <div className={styles.headerRight}>
                     {/*<div className={styles.headerBtn + " " + styles.rightBtn}>My NFT</div>*/}
-                    {/*<div className={styles.headerBtn + " " + styles.rightBtn}>My Pool</div>*/}
+                    <Link className={styles.headerBtn + " " + styles.rightBtn} href='/mypool'>My Pool</Link>
                     <ConnectButton/>
                 </div>
             </div>

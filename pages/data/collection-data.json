@@ -144,28 +144,12 @@
     "network": "eostest"
   },
   {
-    "name": "Ezswap EOS main Test",
-    "address": "0xd7d2d92081e5afc352c12f7c9e619dc7403d969d",
-    "type": "ERC721",
-    "tokenId1155": "",
-    "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png",
-    "network": "eosmain"
-  },
-  {
     "name": "Ezswap EOS Testnet Test2",
     "address": "0xdC43817b9D819202f90E68E773C06C33D3CcADff",
     "type": "ERC721",
     "tokenId1155": "",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png",
     "network": "eostest"
-  },
-  {
-    "name": "Ezswap EOS main Test3",
-    "address": "0x69309D81B7c717E095a2CC8861d962a28Bc00B73",
-    "type": "ERC721",
-    "tokenId1155": "",
-    "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png",
-    "network": "eosmain"
   },
   {
     "name": "EZ test 1155",

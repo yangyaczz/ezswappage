@@ -142,7 +142,7 @@ const InputAmount = ({
             <div className="flex ml-2">
               {/*<img className="w-6" src="/ETH.png" alt="" />*/}
               {formikData.totalGet ? formikData.totalGet.toFixed(5) : 0}&nbsp;
-              {addressSymbol[formikData.golbalParams.hex]["0x0000000000000000000000000000000000000000"]}
+              {addressSymbol[formikData.golbalParams.hex] === undefined ? '' : addressSymbol[formikData.golbalParams.hex]["0x0000000000000000000000000000000000000000"]}
             </div>
           </h3>
           {/*<div className="mt-2 flex">*/}

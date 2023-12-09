@@ -30,3 +30,48 @@
                 "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
             },
 */
+
+
+
+{
+    "name": "Ezswap EOS main Test",
+    "address": "0xd7d2d92081e5afc352c12f7c9e619dc7403d969d",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png",
+    "network": "eosmain"
+  },
+  {
+    "name": "Ezswap EOS main Test3",
+    "address": "0x69309D81B7c717E095a2CC8861d962a28Bc00B73",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png",
+    "network": "eosmain"
+  },
+
+
+  ,
+              {
+                  "type": "ERC721",
+                  "address": "0x1186E87Fda52f310575559CbFbb82e3B4B72De37",
+                  "name": "EZswap",
+                  "tokenId1155": "",
+                  "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
+              }
+
+
+              {
+                              "type": "ERC721",
+                              "address": "0xd7d2d92081e5afc352c12f7c9e619dc7403d969d",
+                              "name": "Ezswap EOS main Test",
+                              "tokenId1155": "",
+                              "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
+                          },
+                          {
+                              "type": "ERC721",
+                              "address": "0x69309D81B7c717E095a2CC8861d962a28Bc00B73",
+                              "name": "Ezswap EOS main Test3",
+                              "tokenId1155": "",
+                              "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
+                          }

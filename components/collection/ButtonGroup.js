@@ -31,18 +31,18 @@ const ButtonGroup = ({ collectionName, contractAddress, collectionType,chainId, 
   }
   return (
     <section className="flex items-center justify-start gap-x-2 md:gap-x-4 lg:gap-x-8">
-      <button
-        className="btn ezBtn ezBtnPrimaryOutline  btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11"
-        onClick={handleBuyClick}
-      >
-        Buy
-      </button>
-      <button
-        className="btn ezBtn ezBtnPrimaryOutline btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11"
-        onClick={handleSellClick}
-      >
-        Quick Sell
-      </button>
+      {/*<button*/}
+      {/*  className="btn ezBtn ezBtnPrimaryOutline  btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11"*/}
+      {/*  onClick={handleBuyClick}*/}
+      {/*>*/}
+      {/*  Buy*/}
+      {/*</button>*/}
+      {/*<button*/}
+      {/*  className="btn ezBtn ezBtnPrimaryOutline btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11"*/}
+      {/*  onClick={handleSellClick}*/}
+      {/*>*/}
+      {/*  Quick Sell*/}
+      {/*</button>*/}
       <button
         className="btn ezBtn ezBtnPrimary btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11"
         onClick={handlePlaceBidClick}

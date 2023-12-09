@@ -107,9 +107,9 @@ const eosevmmain = {
   },
   testnet: false,
 };
-
+//  [mantatest, mantamain, eosevmtest, eosevmmain],
 const { chains, provider } = configureChains(
-  [mantatest, mantamain, eosevmtest, eosevmmain],
+  [mantamain, eosevmmain],
   [publicProvider()]
 );
 

@@ -60,6 +60,7 @@ const CollectionList = () => {
       let colByPair = [];
       for (let collection of collections) {
         //only collections of the same network are visible
+        console.log('collection.network === chainConfig.networkName', collection.network, chainConfig.networkName, collection.address, collection.name)
         if (collection.network === chainConfig.networkName) {
           let eachCollectionPools = await queryPoolsOfEachCollection(
             collection.address,
@@ -103,7 +104,7 @@ const CollectionList = () => {
           }
         }
       }
-
+      console.log('colByPair', colByPair)
       setCollectionsByTradingPair(colByPair);
       setIsLoading(() => false);
     }

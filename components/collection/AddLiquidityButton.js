@@ -1,5 +1,6 @@
 import { useCollection } from "@/contexts/CollectionContext";
 import { REDIRECT_URL } from "@/config/constant";
+import {useNetwork} from "wagmi";
 
 const AddLiquidityButton = ({
   collectionName,

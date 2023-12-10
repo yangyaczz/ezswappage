@@ -174,5 +174,13 @@
     "tokenId1155": "2",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png",
     "network": "eostest"
+  },
+  {
+    "name": "Ezswap EOS main Test3",
+    "address": "0x69309D81B7c717E095a2CC8861d962a28Bc00B73",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png",
+    "network": "eosmain"
   }
 ]

@@ -1,6 +1,8 @@
 import { useCollection } from "@/contexts/CollectionContext";
 import { REDIRECT_URL } from "@/config/constant";
 import {useNetwork} from "wagmi";
+import React, {useEffect, useState} from "react";
+import styles from "../swap/index.module.scss";
 
 const AddLiquidityButton = ({
   collectionName,
@@ -11,8 +13,41 @@ const AddLiquidityButton = ({
   tokenId1155,
 }) => {
   const { openPopup } = useCollection();
+  const { chain } = useNetwork();
+
+    const svgError = (<svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>)
+    function showErrorAlert(msg) {
+        setAlertText({
+            className: 'alert-error',
+            text: msg,
+            svg: svgError,
+        })
+        setShowAlert(true);
+    }
+    const [alertText, setAlertText] = useState({
+        className: '',
+        text: '',
+        svg: '',
+    })
+    const [showAlert, setShowAlert] = useState(false);
+    useEffect(() => {
+        let timer;
+        if (showAlert) {
+            timer = setTimeout(() => {
+                setShowAlert(false);
+            }, 3000);
+        }
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [showAlert]);
 
   function handleAddLiquidityClick() {
+      console.log('chainaaa', chain, parseInt(chainId, 16));
+      if (chain.id !== parseInt(chainId, 16)){
+          showErrorAlert('Please switch to ' + chain.name);
+          return
+      }
     // openPopup("ADD_LIQUIDITY", collectionName);
 
     let url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&collectionType=${collectionType}&chainId=${chainId}&poolType=2`;
@@ -30,6 +65,12 @@ const AddLiquidityButton = ({
         Add Liquidity
       </button>
       <p className="text-xs lg:text-sm">Add liquidity to earn rewards</p>
+        {showAlert && <div className={styles.alertPosition}>
+            <div className={'alert'+" "+ alertText.className+ " "+styles.alertPadding}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <span>{alertText.text}</span>
+            </div>
+        </div>}
     </section>
   );
 };

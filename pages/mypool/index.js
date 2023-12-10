@@ -47,7 +47,6 @@ const MyPool = () => {
   useEffect(() => {
     const fetchData = async () => {
       // setIsLoading(true);
-
       if (formik.values.golbalParams.networkName) {
         const params = {
           userAddress: owner?.toLowerCase(),
@@ -188,7 +187,7 @@ const MyPool = () => {
   if (!isMounted) {
     return null; //  <Loading /> ??
   }
-  if (isLoading) {
+  if (isLoading && formik.values.golbalParams.networkName !== undefined) {
     return (
       <div className="flex justify-center bg-base-200">
           <span>Loading...<span className="ml-3 loading loading-spinner loading-sm"></span></span>

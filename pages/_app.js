@@ -1,12 +1,13 @@
 import "@/styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
-import { WagmiConfig, chain, configureChains, createClient } from "wagmi";
+import {WagmiConfig, chain, configureChains, createClient, useNetwork} from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 import { mainnet, polygon } from "wagmi/chains";
 import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
 import NavBar from "@/components/bar/NavBar";
 import { CollectionProvider } from "@/contexts/CollectionContext";
 import { StrictMode } from "react";
+import nextConfig from "../next.config.js";
 
 const mantatest = {
   id: 3441005,
@@ -109,7 +110,7 @@ const eosevmmain = {
 };
 //  [mantatest, mantamain, eosevmtest, eosevmmain],
 const { chains, provider } = configureChains(
-  [mantamain, eosevmmain],
+    nextConfig.publicRuntimeConfig.env.API === 'prod' ? [mantamain, eosevmmain] : [mantatest, mantamain, eosevmtest, eosevmmain],
   [publicProvider()]
 );
 

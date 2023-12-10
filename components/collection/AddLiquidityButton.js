@@ -45,7 +45,7 @@ const AddLiquidityButton = ({
   function handleAddLiquidityClick() {
       console.log('chainaaa', chain, parseInt(chainId, 16));
       if (chain.id !== parseInt(chainId, 16)){
-          showErrorAlert('Please switch to ' + chain.name);
+          showErrorAlert('Please switch to right chain');
           return
       }
     // openPopup("ADD_LIQUIDITY", collectionName);

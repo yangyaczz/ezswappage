@@ -15,6 +15,9 @@ const nextConfig = {
       },{
         protocol: "https",
         hostname: "data.skytest.club",
+      },{
+        protocol: "https",
+        hostname: "asmatch-resources.s3-accelerate.amazonaws.com",
       },
     ],
   },

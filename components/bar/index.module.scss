@@ -30,6 +30,24 @@ $searching-height: 640px;
     padding: 10px 20px;
     box-sizing: border-box;
   }
+  .airdropBtn {
+    margin-top: 7px;
+    font-family: "Inter";
+    //    text-transform: uppercase;
+    font-weight: bold;
+    position: relative;
+    outline: none;
+    //padding: 10px 20px;
+    box-sizing: border-box;
+    //border: 1px solid;
+    padding-right: 50px;
+    //border-radius:40px;
+    border-image-source:linear-gradient(180deg, #1400FF 0%, #B500F4 47.92%, #E3CF18 69.99%, #F70000 100%);
+    background-image: linear-gradient(180deg, #1400FF 0%, #B500F4 47.92%, #E3CF18 69.99%, #F70000 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+    background: url("/airdropButton.svg") no-repeat;
+  }
 
   .headerBtn::before,
   .headerBtn::after {
@@ -74,6 +92,7 @@ $searching-height: 640px;
     flex-grow: 1;
     padding-left: 240px;
     display: flex;
+    //align-items: center;
 
     .searchBtn {
       cursor: pointer;
@@ -136,6 +155,42 @@ $searching-height: 640px;
       width: 100%;
       box-sizing: border-box;
       // background: transparent;
+    }
+  }
+  .airdropColorBtn{
+    background-color:transparent;
+    border-radius: 40px;
+    margin-top: 5px;
+    &:hover {
+      background-color:transparent;
+    }
+    &:active {
+      color: rgb(240, 248, 255);
+      background-color:transparent;
+      border-color: rgb(148, 197, 238);
+    }
+  }
+  .headerScore {
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(180deg, #1400FF 0%, #B500F4 47.92%, #E3CF18 69.99%, #F70000 100%);
+  }
+  .alertPosition{
+    position: fixed;
+    top: 134px;
+    right: 20px;
+    z-index: 999;
+  }
+  .getScore {
+    padding-left: 10px;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(180deg, #1400FF 0%, #B500F4 47.92%, #E3CF18 69.99%, #F70000 100%);
+  }
+  .cantPunch{
+    color: grey;
+    &:hover {
+      cursor:not-allowed!important;
     }
   }
 }

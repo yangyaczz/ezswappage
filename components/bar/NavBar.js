@@ -82,7 +82,7 @@ const NavBar = () => {
             if (addressInfo.todayPunch === 1){
                 return
             }
-            window.open('https://twitter.com/intent/tweet?text=Today marks day '+(addressInfo.punchCount+1)+' of my daily attendance for EZswap. Get ur $EZ here ' + owner, '_blank')
+            window.open('https://twitter.com/intent/tweet?text=Today marks day '+(addressInfo.punchCount+1)+' of my daily attendance for EZswap. Get ur $EZ here: https://ezswap.io/%23/event/airdropOverview?inviteAddress= ' + owner, '_blank')
             // 打卡
             const params = {address: owner?.toLowerCase()};
             const response = await fetch("/api/addressPunch", {

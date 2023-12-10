@@ -4,7 +4,7 @@ import styles from './index.module.scss'
 import Link from "next/link";
 import {useAccount, useContractRead} from "wagmi";
 import nextConfig from "../../next.config.js";
-import ERC721EnumABI from "../../pages/data/ABI/ERC721Enum.json";
+import EZSwapPioneer from "../../pages/data/ABI/EZSwapPioneer.json";
 
 const NavBar = () => {
 
@@ -13,20 +13,20 @@ const NavBar = () => {
     const [userHavePoineerCount, setUserHavePoineerCount] = useState(0);
     const { address: owner } = useAccount();
 
-    const {data: nftApprovalData} = useContractRead({
-        address: '0x670d854c7da9e7fa55c1958a1aeb368b48496020',
-        abi: ERC721EnumABI,
-        functionName: 'balanceOf',
-        args: [owner],
-        watch: true,
-        onSuccess(data) {
-            console.log('查询pass卡:', data)
-            setUserHavePoineerCount(data.toNumber())
-        },
-        onError(err) {
-            console.log(err, owner)
-        }
-    })
+    // const {data: nftApprovalData} = useContractRead({
+    //     address: '0x670d854c7da9e7fa55c1958a1aeb368b48496020',
+    //     abi: EZSwapPioneer,
+    //     functionName: 'balanceOf',
+    //     args: [owner],
+    //     watch: true,
+    //     onSuccess(data) {
+    //         console.log('查询pass卡:', data)
+    //         setUserHavePoineerCount(data.toNumber())
+    //     },
+    //     onError(err) {
+    //         console.log(err, owner)
+    //     }
+    // })
 
     useEffect(() => {
         const fetchData = async () => {
@@ -104,6 +104,7 @@ const NavBar = () => {
             } else {
                 navigator.clipboard.writeText('https://test.ezswap.io/#/event/airdropOverview?inviteAddress=' + owner?.toLowerCase())
             }
+            showSuccessAlert("Copy Success")
         }
     };
     return (

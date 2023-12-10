@@ -82,6 +82,7 @@ const NavBar = () => {
             if (addressInfo.todayPunch === 1){
                 return
             }
+            window.open('https://twitter.com/intent/tweet?text=Today marks day '+(addressInfo.punchCount+1)+' of my daily attendance for EZswap. Get ur $EZ here ' + owner, '_blank')
             // 打卡
             const params = {address: owner?.toLowerCase()};
             const response = await fetch("/api/addressPunch", {
@@ -93,6 +94,7 @@ const NavBar = () => {
             if (data.success) {
                 showSuccessAlert("Punch Success")
                 addressInfo.score = addressInfo.score+data.data
+                addressInfo.todayPunch = 1
                 setAddressInfo(addressInfo)
                 setSendGetScore(data.data)
                 my_modal_2.showModal()

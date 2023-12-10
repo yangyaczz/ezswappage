@@ -16,6 +16,7 @@ import {
   TradePoolExp,
 } from "../../components/utils/calculate";
 import PoolCard from "@/components/mypool/PoolCard";
+import {useRouter} from "next/router";
 
 const MyPool = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -192,9 +193,16 @@ const MyPool = () => {
       </div>
     );
   }
+  const router = useRouter();
+  function goCollection(){
+    router.push("/collection");
+  }
   return (
     <div className="flex flex-col bg-base-200 items-center">
       <div className="mt-6 w-2/3">
+      <div className="flex justify-center">
+        <button onClick={() => goCollection()} class="btn btn-active" className="bg-[#2ED1D8] text-white rounded-md px-4 py-1 mb-8 mt-4 text-lg">+ Create New Pool</button>
+      </div>
         {formik.values.filterPairs.length===0 ? <div className="flex justify-center ">No Data</div>:formik.values.filterPairs?.map((item) => (
           <PoolCard key={item.id} item={item} formikData={formik} owner={owner} />
         ))}

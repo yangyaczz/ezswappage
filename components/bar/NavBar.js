@@ -123,18 +123,20 @@ const NavBar = () => {
                         <Link className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href='/swap'>Swap</Link>
                         <Link className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href='/collection'>Collection</Link>
                         <a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href='https://forms.gle/U4wStoSQeszn16u46'target="_blank">Launchpad</a>
-                        {addressInfo.dcUserId === undefined || addressInfo.dcUserId === null || addressInfo.dcUserId === '' || addressInfo.sendTwitter !== 1 ?
-                            <a className={styles.launchpad + " " + styles.airdropBtn} href='https://ezswap.io/#/event/airdropOverview' target="_self">Airdrop</a>:
-                            <div className={"dropdown dropdown-hover" + " "+ styles.launchpad + " " + styles.airdropColorBtn+" "+styles.rainbowBar}>
-                                <div tabIndex="0" role="button" className={styles.airdropColorBtn+" "+styles.headerScore}>{addressInfo.score} PTS <span>{userHavePoineerCount>0?'1.25x':''}</span></div>
-                                <ul tabIndex="0" className={"dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"}>
-                                    <div className={addressInfo.todayPunch === 1 ? styles.cantPunch:''}>
-                                    <li className={addressInfo.todayPunch === 1 ? styles.cantPunch:''} onClick={() => handleClick(1)}><a>Get Today’s Free PTS</a></li>
-                                    </div>
-                                    <li onClick={() => handleClick(2)}><a>Copy Invite Link</a></li>
-                                </ul>
-                            </div>
-                        }
+                        {/*airdrop 上线后打开*/}
+                        {/*{addressInfo.dcUserId === undefined || addressInfo.dcUserId === null || addressInfo.dcUserId === '' || addressInfo.sendTwitter !== 1 ?*/}
+                        {/*    <a className={styles.launchpad + " " + styles.airdropBtn} href='https://ezswap.io/#/event/airdropOverview' target="_self">Airdrop</a>:*/}
+                        {/*    <div className={"dropdown dropdown-hover" + " "+ styles.launchpad + " " + styles.airdropColorBtn+" "+styles.rainbowBar}>*/}
+                        {/*        <div tabIndex="0" role="button" className={styles.airdropColorBtn+" "+styles.headerScore}>{addressInfo.score} PTS <span>{userHavePoineerCount>0?'1.25x':''}</span></div>*/}
+                        {/*        <ul tabIndex="0" className={"dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"}>*/}
+                        {/*            <div className={addressInfo.todayPunch === 1 ? styles.cantPunch:''}>*/}
+                        {/*            <li className={addressInfo.todayPunch === 1 ? styles.cantPunch:''} onClick={() => handleClick(1)}><a>Get Today’s Free PTS</a></li>*/}
+                        {/*            </div>*/}
+                        {/*            <li onClick={() => handleClick(2)}><a>Copy Invite Link</a></li>*/}
+                        {/*        </ul>*/}
+                        {/*    </div>*/}
+                        {/*}*/}
+                        {/*airdrop 上线后打开*/}
                         {/*<a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href='https://ezswap.readme.io/reference/overview'target="_blank">API</a>*/}
                         {/*<a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad}>Buy/Sell Crypto</a>*/}
                     </div>

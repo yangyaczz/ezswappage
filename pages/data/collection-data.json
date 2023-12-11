@@ -176,11 +176,51 @@
     "network": "eostest"
   },
   {
-    "name": "Ezswap EOS main Test3",
-    "address": "0x69309D81B7c717E095a2CC8861d962a28Bc00B73",
-    "type": "ERC721",
-    "tokenId1155": "",
-    "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png",
+    "name": "VALKYRIE",
+    "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
+    "type": "ERC1155",
+    "tokenId1155": "1",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/VALKYRIE.gif",
+    "network": "eosmain"
+  },
+  {
+    "name": "ABBOT",
+    "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
+    "type": "ERC1155",
+    "tokenId1155": "2",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/ABBOT.gif",
+    "network": "eosmain"
+  },
+  {
+    "name": "EMERALD DRAGON",
+    "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
+    "type": "ERC1155",
+    "tokenId1155": "3",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/EMERALD.gif",
+    "network": "eosmain"
+  },
+  {
+    "name": "ARDENT DRAGON",
+    "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
+    "type": "ERC1155",
+    "tokenId1155": "4",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/ARDENT.gif",
+    "network": "eosmain"
+  },
+  {
+    "name": "CELESTIAL",
+    "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
+    "type": "ERC1155",
+    "tokenId1155": "5",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/CELESTIAL.gif",
+    "network": "eosmain"
+  },
+  {
+    "name": "BLACK DRAGON",
+    "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
+    "type": "ERC1155",
+    "tokenId1155": "6",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/BLACK.gif",
     "network": "eosmain"
   }
 ]

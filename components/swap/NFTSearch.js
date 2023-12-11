@@ -285,7 +285,7 @@ const NFTSearch = ({
             </button>
 
             <dialog id="nft_search_sell" className="modal">
-                <div className="modal-box">
+                <div className={"modal-box"+" "+styles.modalSize}>
                     {/*    <h3 className="font-bold text-lg">Search Collection:</h3>*/}
                     {/*    <div className='input-group'>*/}
                     {/*        <span>*/}
@@ -319,7 +319,7 @@ const NFTSearch = ({
                                                 alt=""
                                             />
                                         )}
-                                        <img className="w-20 mb-2" src={nft.img} alt="" />
+                                        <img className="w-[8rem] mb-2" src={nft.img} alt="" />
                                     </div>
                                     <div>{nft.name}</div>
                                 </div>

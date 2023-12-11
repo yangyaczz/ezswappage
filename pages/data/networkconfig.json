@@ -231,11 +231,46 @@
         "ERC1155": "",
         "recommendNFT": [
             {
-                "type": "ERC721",
-                "address": "0x69309D81B7c717E095a2CC8861d962a28Bc00B73",
-                "name": "Ezswap EOS main Test3",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
+                "type": "ERC1155",
+                "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
+                "name": "VALKYRIE",
+                "tokenId1155": "1",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/VALKYRIE.gif"
+            },
+            {
+                "type": "ERC1155",
+                "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
+                "name": "ABBOT",
+                "tokenId1155": "2",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/ABBOT.gif"
+            },
+            {
+                "type": "ERC1155",
+                "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
+                "name": "EMERALD DRAGON",
+                "tokenId1155": "3",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/EMERALD.gif"
+            },
+            {
+                "type": "ERC1155",
+                "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
+                "name": "ARDENT DRAGON",
+                "tokenId1155": "4",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/ARDENT.gif"
+            },
+            {
+                "type": "ERC1155",
+                "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
+                "name": "CELESTIAL",
+                "tokenId1155": "5",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/CELESTIAL.gif"
+            },
+            {
+                "type": "ERC1155",
+                "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
+                "name": "BLACK DRAGON",
+                "tokenId1155": "6",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/BLACK.gif"
             }
         ],
         "recommendERC20": [

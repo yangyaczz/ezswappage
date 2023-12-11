@@ -31,7 +31,7 @@ $searching-height: 640px;
     box-sizing: border-box;
   }
   .airdropBtn {
-    margin-top: 7px;
+    height: 30px;
     font-family: "Inter";
     //    text-transform: uppercase;
     font-weight: bold;
@@ -57,6 +57,12 @@ $searching-height: 640px;
     border: 2px solid transparent;
     width: 0;
     height: 0;
+  }
+
+  .dropStyle{
+    //margin-top: 120px;
+    //margin-left: 70px;
+    //width: 500px;
   }
 
   .headerBtn::after {
@@ -92,6 +98,7 @@ $searching-height: 640px;
     flex-grow: 1;
     padding-left: 240px;
     display: flex;
+    align-items: center;
     //align-items: center;
 
     .searchBtn {
@@ -157,10 +164,20 @@ $searching-height: 640px;
       // background: transparent;
     }
   }
+  .rainbowBar{
+    background-image: url("/rainbowBar.svg");
+    width: 100px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    background-size: 100% 100%;
+    align-items: center;
+
+  }
   .airdropColorBtn{
     background-color:transparent;
     border-radius: 40px;
-    margin-top: 5px;
+    //margin-top: 5px;
     &:hover {
       background-color:transparent;
     }
@@ -173,7 +190,7 @@ $searching-height: 640px;
   .headerScore {
     -webkit-background-clip: text;
     color: transparent;
-    background-image: linear-gradient(180deg, #1400FF 0%, #B500F4 47.92%, #E3CF18 69.99%, #F70000 100%);
+    background-image: linear-gradient(180deg, #1400FF 0%, #B500F4 47.92%, #E3CF18 85.99%, #F70000 100%);
   }
   .alertPosition{
     position: fixed;

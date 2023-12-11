@@ -127,7 +127,7 @@ const NavBar = () => {
                             <a className={styles.launchpad + " " + styles.airdropBtn} href='https://ezswap.io/#/event/airdropOverview' target="_self">Airdrop</a>:
                             <div className={"dropdown dropdown-hover" + " "+ styles.launchpad + " " + styles.airdropColorBtn+" "+styles.rainbowBar}>
                                 <div tabIndex="0" role="button" className={styles.airdropColorBtn+" "+styles.headerScore}>{addressInfo.score} PTS <span>{userHavePoineerCount>0?'1.25x':''}</span></div>
-                                <ul tabIndex="0" className={"dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"+ +styles.dropStyle}>
+                                <ul tabIndex="0" className={"dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"}>
                                     <div className={addressInfo.todayPunch === 1 ? styles.cantPunch:''}>
                                     <li className={addressInfo.todayPunch === 1 ? styles.cantPunch:''} onClick={() => handleClick(1)}><a>Get Today’s Free PTS</a></li>
                                     </div>

@@ -11,6 +11,8 @@ const NavBar = () => {
     const [addressInfo, setAddressInfo] = useState({});
     const [sendGetScore, setSendGetScore] = useState(0);
     const [userHavePoineerCount, setUserHavePoineerCount] = useState(0);
+    const [airdropJumpUrl, setAirdropJumpUrl] = useState('');
+    const [launchpadJumpUrl, setLaunchpadJump] = useState('');
     const { address: owner } = useAccount();
 
     // const {data: nftApprovalData} = useContractRead({
@@ -48,6 +50,18 @@ const NavBar = () => {
         }
         fetchData();
     },[owner])
+
+    useEffect(() => {
+        const isProd = nextConfig.publicRuntimeConfig.env.API === 'prod'
+        if (isProd){
+            setAirdropJumpUrl('https://ezswap.io/#/event/airdropOverview')
+            setLaunchpadJump('https://ezswap.io/#/launchpadList')
+        }else {
+            setAirdropJumpUrl('https://test.ezswap.io/#/event/airdropOverview')
+            setLaunchpadJump('https://test.ezswap.io/#/launchpadList')
+        }
+
+    })
 
     const svgSuccess = (<svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>)
 
@@ -121,21 +135,21 @@ const NavBar = () => {
                     <div className={styles.headerLeft}>
                         {/*<a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad}>Search</a>*/}
                         <Link className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href='/swap'>Swap</Link>
-                        <Link className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href='/collection'>Collection</Link>
-                        <a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href='https://forms.gle/U4wStoSQeszn16u46'target="_blank">Launchpad</a>
+                        <Link className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href='/collection'>Pool</Link>
+                        <a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href={launchpadJumpUrl} target="_blank">Mint</a>
                         {/*airdrop 上线后打开*/}
-                        {/*{addressInfo.dcUserId === undefined || addressInfo.dcUserId === null || addressInfo.dcUserId === '' || addressInfo.sendTwitter !== 1 ?*/}
-                        {/*    <a className={styles.launchpad + " " + styles.airdropBtn} href='https://ezswap.io/#/event/airdropOverview' target="_self">Airdrop</a>:*/}
-                        {/*    <div className={"dropdown dropdown-hover" + " "+ styles.launchpad + " " + styles.airdropColorBtn+" "+styles.rainbowBar}>*/}
-                        {/*        <div tabIndex="0" role="button" className={styles.airdropColorBtn+" "+styles.headerScore}>{addressInfo.score} PTS <span>{userHavePoineerCount>0?'1.25x':''}</span></div>*/}
-                        {/*        <ul tabIndex="0" className={"dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"}>*/}
-                        {/*            <div className={addressInfo.todayPunch === 1 ? styles.cantPunch:''}>*/}
-                        {/*            <li className={addressInfo.todayPunch === 1 ? styles.cantPunch:''} onClick={() => handleClick(1)}><a>Get Today’s Free PTS</a></li>*/}
-                        {/*            </div>*/}
-                        {/*            <li onClick={() => handleClick(2)}><a>Copy Invite Link</a></li>*/}
-                        {/*        </ul>*/}
-                        {/*    </div>*/}
-                        {/*}*/}
+                        {addressInfo.dcUserId === undefined || addressInfo.dcUserId === null || addressInfo.dcUserId === '' || addressInfo.sendTwitter !== 1 ?
+                            <a className={styles.launchpad + " " + styles.airdropBtn} href={airdropJumpUrl} target="_self">Airdrop</a>:
+                            <div className={"dropdown dropdown-hover" + " "+ styles.launchpad + " " + styles.airdropColorBtn+" "+styles.rainbowBar}>
+                                <div tabIndex="0" role="button" className={styles.airdropColorBtn+" "+styles.headerScore}>{addressInfo.score} PTS <span>{userHavePoineerCount>0?'1.25x':''}</span></div>
+                                <ul tabIndex="0" className={"dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"}>
+                                    <div className={addressInfo.todayPunch === 1 ? styles.cantPunch:''}>
+                                    <li className={addressInfo.todayPunch === 1 ? styles.cantPunch:''} onClick={() => handleClick(1)}><a>Get Today’s Free PTS</a></li>
+                                    </div>
+                                    <li onClick={() => handleClick(2)}><a>Copy Invite Link</a></li>
+                                </ul>
+                            </div>
+                        }
                         {/*airdrop 上线后打开*/}
                         {/*<a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href='https://ezswap.readme.io/reference/overview'target="_blank">API</a>*/}
                         {/*<a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad}>Buy/Sell Crypto</a>*/}

@@ -176,6 +176,14 @@
     "network": "eostest"
   },
   {
+    "name": "Game Raider - EZswap EOS EVM",
+    "address": "0xd2ffD7e6644EC7266Ffb50582784EA3D4686026d",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg",
+    "network": "eosmain"
+  },
+  {
     "name": "VALKYRIE",
     "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
     "type": "ERC1155",

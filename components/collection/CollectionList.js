@@ -54,23 +54,21 @@ const CollectionList = () => {
 
     arrangeCollectionsByTradingPair();
 
-    async function arrangeCollectionsByTradingPair() {
-      setIsLoading(() => true);
+function arrangeCollectionsByTradingPair() {
+    setIsLoading(() => true);
 
-      let colByPair = [];
-      for (let collection of collections) {
-        //only collections of the same network are visible
-        console.log('collection.network === chainConfig.networkName', collection.network, chainConfig.networkName, collection.address, collection.name)
-        if (collection.network === chainConfig.networkName) {
-          let eachCollectionPools = await queryPoolsOfEachCollection(
-            collection.address,
-            collection.network,
-            collection.type,
-            collection.tokenId1155
-          );
-
+    let colByPair = [];
+    const fetchPromises = collections
+      .filter((collection) => collection.network === chainConfig.networkName)
+      .map((collection) =>
+        queryPoolsOfEachCollection(
+          collection.address,
+          collection.network,
+          collection.type,
+          collection.tokenId1155
+        ).then((eachCollectionPools) => {
           //if there are pools found, sort the collections by trading pairs and show dynamic data
-          if (eachCollectionPools?.length>0) {
+          if (eachCollectionPools?.length > 0) {
             let colByCurrency =
               filterCollectionsByTradingPair(eachCollectionPools);
             for (let [currencyAddress, pools] of Object.entries(
@@ -102,54 +100,69 @@ const CollectionList = () => {
               chainId: chainConfig?.hex,
             });
           }
-        }
-      }
-      console.log('colByPair', colByPair)
-      setCollectionsByTradingPair(colByPair);
-      setIsLoading(() => false);
-    }
+        })
+      );
 
-    function filterCollectionsByTradingPair(eachCollectionPools) {
-      let colByCurrency = {}; // { currency:pools }. eg. "ETH" : [...pools]
-
-      for (let pool of eachCollectionPools) {
-        let { token } = pool;
-
-        token = token === null ? ETH_ADDRESS : token; //when token is null, means ETH is the currency
-
-        /**
-        now append the pool to its relative currency
-        should look like this:
-        {
-          "ETH":[pool_1, pool_2],
-          "USDT":[pool_1, pool_2]
-        }
-         */
-        colByCurrency[token] = !colByCurrency[token]
-          ? [pool]
-          : [...colByCurrency[token], pool];
-      }
-
-      return colByCurrency;
-    }
-
-    async function queryPoolsOfEachCollection(address, network,type,tokenId1155) {
-      let params = {
-        contractAddress: address,
-        network,
-      };
-      if(type==="ERC1155") params = {...params, tokenId:tokenId1155}
-
-      const response = await fetch("/api/proxy", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(params),
+    // Wait for all promises to resolve
+    Promise.all(fetchPromises)
+      .then(() => {
+        colByPair.sort((a,b)=>a.name.localeCompare(b.name));
+        console.log(colByPair)
+        setCollectionsByTradingPair(colByPair);
+        setIsLoading(() => false);
+      })
+      .catch((error) => {
+        console.error("Error fetching collections:", error);
+        setIsLoading(() => false);
       });
-      const data = await response.json();
-      return data.data;
+  }
+
+  function filterCollectionsByTradingPair(eachCollectionPools) {
+    let colByCurrency = {}; // { currency:pools }. eg. "ETH" : [...pools]
+
+    for (let pool of eachCollectionPools) {
+      let { token } = pool;
+
+      token = token === null ? ETH_ADDRESS : token; //when token is null, means ETH is the currency
+
+      /**
+      now append the pool to its relative currency
+      should look like this:
+      {
+        "ETH":[pool_1, pool_2],
+        "USDT":[pool_1, pool_2]
+      }
+       */
+      colByCurrency[token] = !colByCurrency[token]
+        ? [pool]
+        : [...colByCurrency[token], pool];
     }
+
+    return colByCurrency;
+  }
+
+  function queryPoolsOfEachCollection(
+    address,
+    network,
+    type,
+    tokenId1155
+  ) {
+    let params = {
+      contractAddress: address,
+      network,
+    };
+    if (type === "ERC1155") params = { ...params, tokenId: tokenId1155 };
+
+    return fetch("/api/proxy", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    })
+      .then((response) => response.json())
+      .then((data) => data.data);
+  }
 
     return () => {
       setCollectionsByTradingPair([]);

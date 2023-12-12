@@ -12,6 +12,7 @@ const NavBar = () => {
     const [sendGetScore, setSendGetScore] = useState(0);
     const [userHavePoineerCount, setUserHavePoineerCount] = useState(0);
     const [airdropJumpUrl, setAirdropJumpUrl] = useState('');
+    const [mainPageJumpUrl, setMainPageJumpUrl] = useState('');
     const [launchpadJumpUrl, setLaunchpadJump] = useState('');
     const { address: owner } = useAccount();
 
@@ -56,9 +57,11 @@ const NavBar = () => {
         if (isProd){
             setAirdropJumpUrl('https://ezswap.io/#/event/airdropOverview')
             setLaunchpadJump('https://ezswap.io/#/launchpadList')
+            setMainPageJumpUrl('https://ezswap.io')
         }else {
             setAirdropJumpUrl('https://test.ezswap.io/#/event/airdropOverview')
             setLaunchpadJump('https://test.ezswap.io/#/launchpadList')
+            setMainPageJumpUrl('https://test.ezswap.io')
         }
 
     })
@@ -127,7 +130,7 @@ const NavBar = () => {
         <div className={styles.wrapNewHeader}>
             <div className={styles.headerBox}>
                 <div className={styles.ezLogo}>
-                    <Link href='/swap'>
+                    <Link href={mainPageJumpUrl}>
                         <img src='/logo.svg'/>
                     </Link>
                 </div>

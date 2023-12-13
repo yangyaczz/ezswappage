@@ -36,14 +36,6 @@ const MyPool = () => {
   });
 
   useEffect(() => {
-    // 当路由发生变化时，更新组件的状态
-    // 这里你可以从 router.query 中获取参数
-    const { yourParam } = router.query;
-    // 然后执行你的逻辑
-    console.log('Param:', yourParam);
-  }, [router.query]);
-
-  useEffect(() => {
     setIsMounted(true);
     if (chain) {
       if (chain.id in networkConfig) {

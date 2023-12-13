@@ -4,6 +4,8 @@ import Router from "next/router"
 const PoolTab = ({ contractAddress,tokenId }) => {
   function handleClick() {
     // const url = `${REDIRECT_URL}#/wallet/list/${contractAddress}`;
+      sessionStorage.setItem("collectionContractAddress", contractAddress);
+      sessionStorage.setItem("collectionTokenId", tokenId);
       Router.push({pathname: '/collectionpool', query: {contractAddress: contractAddress,tokenId:tokenId}});
     // window.open(url, `newTab_${Date.now()}`);
   }

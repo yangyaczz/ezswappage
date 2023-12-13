@@ -92,7 +92,7 @@ const ButtonGroup = ({ collectionName, contractAddress, collectionType,chainId, 
         className="btn ezBtn ezBtnPrimary btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11"
         onClick={handleDepositClick}
       >
-        Deposit NFT
+        List NFT
       </button>
         {showAlert && <div className={styles.alertPosition}>
             <div className={'alert'+" "+ alertText.className+ " "+styles.alertPadding}>

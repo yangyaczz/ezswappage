@@ -8,6 +8,14 @@
     "network": "manta"
   },
   {
+    "name": "Pacific Game Changer",
+    "address": "0x4F4cD5fF9c3eb5b20A5BC2780127Fb5e9dCa27Db",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/nft1.png",
+    "network": "manta"
+  },
+  {
     "name": "Block World Test",
     "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
     "type": "ERC1155",
@@ -174,6 +182,14 @@
     "tokenId1155": "2",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png",
     "network": "eostest"
+  },
+  {
+    "name": "Game Raider - EZswap EOS EVM",
+    "address": "0xd2ffD7e6644EC7266Ffb50582784EA3D4686026d",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg",
+    "network": "eosmain"
   },
   {
     "name": "VALKYRIE",

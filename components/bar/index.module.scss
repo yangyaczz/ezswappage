@@ -2,6 +2,10 @@ $primaryColor: #2ed1d8;
 $header-height: 126px;
 $higher-header-height: 380px;
 $searching-height: 640px;
+
+.liStyle{
+  font-family: 'Montserrat-bold';
+}
 .wrapNewHeader {
   transition: all 0.5s;
   height: $header-height;
@@ -175,6 +179,7 @@ $searching-height: 640px;
 
   }
   .airdropColorBtn{
+    font-family: 'Montserrat-bold';
     background-color:transparent;
     border-radius: 40px;
     //margin-top: 5px;

@@ -1,10 +1,13 @@
 import { REDIRECT_URL } from "@/config/constant";
+import Router from "next/router"
 
-const PoolTab = ({ contractAddress }) => {
+const PoolTab = ({ contractAddress,tokenId }) => {
   function handleClick() {
-    const url = `${REDIRECT_URL}#/wallet/list/${contractAddress}`;
-
-    window.open(url, `newTab_${Date.now()}`);
+    // const url = `${REDIRECT_URL}#/wallet/list/${contractAddress}`;
+      sessionStorage.setItem("collectionContractAddress", contractAddress);
+      sessionStorage.setItem("collectionTokenId", tokenId);
+      Router.push({pathname: '/collectionpool', query: {contractAddress: contractAddress,tokenId:tokenId}});
+    // window.open(url, `newTab_${Date.now()}`);
   }
   return (
     <div className="grid grid-cols-2 place-items-center">

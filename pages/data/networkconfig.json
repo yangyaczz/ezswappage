@@ -92,6 +92,13 @@
         "recommendNFT": [
             {
                 "type": "ERC721",
+                "address": "0x4F4cD5fF9c3eb5b20A5BC2780127Fb5e9dCa27Db",
+                "name": "Pacific Game Changer",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/nft1.png"
+            },
+            {
+                "type": "ERC721",
                 "address": "0xd7d2d92081e5afc352c12f7c9e619dc7403d969d",
                 "name": "zkHoldem NFT",
                 "tokenId1155": "",
@@ -230,6 +237,13 @@
         "ERC721": "",
         "ERC1155": "",
         "recommendNFT": [
+            {
+                "type": "ERC721",
+                "address": "0xd2ffD7e6644EC7266Ffb50582784EA3D4686026d",
+                "name": "Game Raider - EZswap EOS EVM",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg"
+            },
             {
                 "type": "ERC1155",
                 "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",

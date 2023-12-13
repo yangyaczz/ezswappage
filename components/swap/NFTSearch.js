@@ -319,7 +319,7 @@ const NFTSearch = ({
                                                 alt=""
                                             />
                                         )}
-                                        <img className="w-[8rem] mb-2" src={nft.img} alt="" />
+                                        <img className="w-[7rem] mb-2" src={nft.img} alt="" />
                                     </div>
                                     <div>{nft.name}</div>
                                 </div>

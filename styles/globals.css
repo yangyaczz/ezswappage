@@ -7,6 +7,10 @@
   font-family: "Montserrat";
   src: url("./Montserrat/Montserrat-VariableFont_wght.ttf") format("ttf");
 }
+@font-face {
+  font-family: "Montserrat-bold";
+  src: url("./Montserrat/Montserrat-Bold.ttf") format("ttf");
+}
 
 html {
   height: 100vh;

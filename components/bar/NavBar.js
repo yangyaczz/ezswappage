@@ -149,7 +149,7 @@ const NavBar = () => {
                                     <div className={addressInfo.todayPunch === 1 ? styles.cantPunch:''}>
                                     <li className={addressInfo.todayPunch === 1 ? styles.cantPunch:''} onClick={() => handleClick(1)}><a>Get Today’s Free PTS</a></li>
                                     </div>
-                                    <li onClick={() => handleClick(2)}><a>Copy Invite Link</a></li>
+                                    <li className={styles.liStyle} onClick={() => handleClick(2)}><a>Copy Invite Link</a></li>
                                 </ul>
                             </div>
                         }

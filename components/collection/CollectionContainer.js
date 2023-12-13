@@ -39,7 +39,7 @@ const CollectionContainer = ({ collection }) => {
         volume=0;
 
       for (let pool of pools) {
-        /* 
+        /*
           only need pools that deal with ETH right now. other pools are test data.
           if token != null but some address, means it's some alt coin address
           if token is null, means its ETH
@@ -54,19 +54,19 @@ const CollectionContainer = ({ collection }) => {
         //we will use "tokenBalance" for all trading pairs
         //so, assign ethBalance to tokenBalance if ethBalance is not empty
         tokenBalance = ethBalance === null ? tokenBalance : ethBalance;
-        
+
         //remove 18 zeros from big numbers
         spotPrice /= EIGHTEEN_ZEROS;
         delta /= EIGHTEEN_ZEROS;
         fee /= EIGHTEEN_ZEROS;
         protocolFee /= EIGHTEEN_ZEROS;
         ethVolume /=EIGHTEEN_ZEROS;
-        
+
         //ethBalance and tokenBalance could be 'null', so need to convert to '0'
         ethBalance = ethBalance !== null ? ethBalance / EIGHTEEN_ZEROS : 0;
         //prettier-ignore
         tokenBalance = tokenBalance !== null ? tokenBalance / EIGHTEEN_ZEROS : 0;
-        
+
         const params = {
           bondingCurve,
           spotPrice: parseFloat(spotPrice),
@@ -187,7 +187,7 @@ const CollectionContainer = ({ collection }) => {
     -----------------------------------------
     | ButtonGroup      | AddliquidityButton |
     -----------------------------------------
-    
+
     */
 
     <div className="w-11/12 max-w-[1240px] border-[1px] border-solid border-zinc-100 rounded-md grid gap-x-3 p-3 xl:p-6 grid-cols-2-1 lg:grid-cols-7-3 grid-rows-[3fr,2fr]">
@@ -207,7 +207,7 @@ const CollectionContainer = ({ collection }) => {
         currencyImage={currencyImage}
       />
       {/* <Rewards COLLECTION_PIC_SIZE={COLLECTION_PIC_SIZE} network={network} /> */}
-      <PoolTab contractAddress={address} />
+      <PoolTab contractAddress={address} tokenId={tokenId1155} />
       <ButtonGroup
         collectionName={name}
         contractAddress={address}

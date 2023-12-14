@@ -139,7 +139,7 @@ const NavBar = () => {
                         {/*<a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad}>Search</a>*/}
                         <Link className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href='/swap'>Swap</Link>
                         <Link className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href='/collection'>Pool</Link>
-                        <a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href={launchpadJumpUrl} target="_blank">Mint</a>
+                        <a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href={launchpadJumpUrl}>Mint</a>
                         {/*airdrop 上线后打开*/}
                         {/*{addressInfo.dcUserId === undefined || addressInfo.dcUserId === null || addressInfo.dcUserId === '' || addressInfo.sendTwitter !== 1 ?*/}
                         {/*    <a className={styles.launchpad + " " + styles.airdropBtn} href={airdropJumpUrl} target="_self">Airdrop</a>:*/}

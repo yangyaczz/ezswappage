@@ -10,8 +10,8 @@
   {
     "name": "Pacific Game Changer",
     "address": "0x4F4cD5fF9c3eb5b20A5BC2780127Fb5e9dCa27Db",
-    "type": "ERC721",
-    "tokenId1155": "",
+    "type": "ERC1155",
+    "tokenId1155": "1",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/nft1.png",
     "network": "manta"
   },

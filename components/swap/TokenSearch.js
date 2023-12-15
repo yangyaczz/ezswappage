@@ -53,7 +53,7 @@ const TokenSearch = ({
     return formikData.tokensName.map((tokenName, index) => (
       <button
         key={index}
-        className="btn justify-start"
+        className="justify-start btn"
         onClick={() => handleTokenClick(tokenName)}
       >
         {tokenName}
@@ -65,10 +65,10 @@ const TokenSearch = ({
     <div className="form-control">
       <button
         disabled={!formikData.collection.type}
-        className={"btn justify-between" + " " + styles.buttonDisabled}
+        className={"btn justify-between w-[240px] md:w-[300px]" + " " + styles.buttonDisabled}
         onClick={() => document.getElementById("token_search_sell").showModal()}
       >
-        <div className="flex justify-start items-center space-x-2">
+        <div className="flex items-center justify-start space-x-2">
           <div>
             {formikData.tokenName === 'ETH' && addressSymbol[formikData.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : formikData.tokenName ? formikData.tokenName : "select token"}
           </div>
@@ -89,14 +89,14 @@ const TokenSearch = ({
 
       <dialog id="token_search_sell" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Token:</h3>
+          <h3 className="text-lg font-bold">Token:</h3>
 
           <form method="dialog" className="flex flex-col space-y-2">
             {displayDialog()}
           </form>
 
           <form method="dialog">
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+            <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">
               ✕
             </button>
           </form>

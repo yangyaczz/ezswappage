@@ -12,7 +12,7 @@ const PoolTab = ({ contractAddress,tokenId }) => {
   return (
     <div className="grid grid-cols-2 place-items-center">
       <div
-        className="col-start-2 col-span-1 cursor-pointer"
+        className="col-span-1 col-start-2 cursor-pointer"
         style={{
           width: 0,
           height: 0,

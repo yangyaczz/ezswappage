@@ -10,7 +10,7 @@ $searching-height: 640px;
   transition: all 0.5s;
   height: $header-height;
   color: $primaryColor;
-  width: 100%;
+  max-width: 100%;
   // position: fixed;
   left: 0;
   top: 0;

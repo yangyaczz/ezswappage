@@ -14,6 +14,7 @@ import {
 } from "../utils/calculate";
 import PoolTab from "./PoolTab";
 import { MaxFiveDecimal,MaxThreeDecimal } from "../utils/roundoff";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const CollectionContainer = ({ collection }) => {
   //prettier-ignore

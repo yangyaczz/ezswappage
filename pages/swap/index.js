@@ -12,9 +12,11 @@ import * as Yup from "yup";
 import { useNetwork, useAccount } from "wagmi";
 
 import networkConfig from "../data/networkconfig.json";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Swap = () => {
   const [swapType, setSwapType] = useState("buy");
+  const {languageModel } = useLanguage();
 
   const formik = useFormik({
     initialValues: {
@@ -147,7 +149,7 @@ const Swap = () => {
             type="radio"
             name="options"
             value="buy"
-            aria-label="BUY"
+            aria-label={languageModel.Buy}
             checked={swapType === "buy"}
             onChange={handleInputSwapTypeChange}
           />
@@ -156,7 +158,7 @@ const Swap = () => {
             type="radio"
             name="options"
             value="sell"
-            aria-label="SELL"
+            aria-label={languageModel.Sell}
             checked={swapType === "sell"}
             onChange={handleInputSwapTypeChange}
           />
@@ -239,7 +241,7 @@ const Swap = () => {
 
             <div className={`${styles.cardStyle}`}>
               <div className="mb-4 space-y-2 min-w-2/5">
-                <div className="text-sm font-bold">Token</div>
+                <div className="text-sm font-bold">{languageModel.Token}</div>
                 <TokenSearch
                   swapType={swapType}
                   formikData={formik.values}

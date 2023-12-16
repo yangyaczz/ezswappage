@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { BuyPoolLiner, TradePoolLiner, BuyPoolExp, TradePoolExp } from '../../utils/calculate'
 import { ethers } from 'ethers';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded }) {
 
     const [value, setValue] = useState(1);
     const tId = formikData.collection.tokenId1155
     const max = formikData.userCollection.tokenAmount1155
-
+    const {languageModel} = useLanguage()
     const update1155SellToPairs = (tokenId, pairs) => {
         let protocolFee = 10000000000000000   // 0.5%  get from smartcontract
         let dec = 1e18
@@ -137,7 +138,7 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
 
     //////////////////////////////////////////////////////////////////////////////
     if (formikData.userCollection.tokenAmount1155 === 0) {
-        return <div>{`you don't have this nft`}</div>
+        return <div>{languageModel.YouDontHaveThisNFT}</div>
     }
 
 
@@ -156,7 +157,7 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
                         type="text"
                         value={value}
                         onChange={handleChange}
-                        className="input input-bordered w-20 text-center"
+                        className="w-20 text-center input input-bordered"
                     />
                     <button
                         onClick={handleIncrement}

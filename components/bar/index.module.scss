@@ -114,7 +114,6 @@ $searching-height: 640px;
     }
 
     .launchpad {
-      margin-left: 20px;
       cursor: pointer;
 
       //width: 130px;
@@ -124,13 +123,14 @@ $searching-height: 640px;
   .headerRight {
     display: flex;
     margin-right: 30px;
+    align-items: center;
+    gap:2rem;
 
     .rightBtn {
-      margin-right: 60px;
       cursor: pointer;
       border: 1px solid transparent;
       transition: all 0.5s;
-      padding: 10px 20px;
+      padding: 10px 10px;
     }
 
     .sign-in {

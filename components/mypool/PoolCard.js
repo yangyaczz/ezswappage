@@ -46,10 +46,8 @@ const PoolCard = ({ item,formikData, owner }) => {
     /////////////////////////////////////////////////
 
     const { data: depositETHData, sendTransaction: depositETH, isLoading: depositETHIsLoading, isSuccess: depositETHIsSuccess } = useSendTransaction({
-        request: {
-            to: depositInputValue ? item.id : null,
-            value: !depositInputValue ? null : ethers.utils.parseEther(depositInputValue.toString()),
-        },
+        to: depositInputValue ? item.id : null,
+        value: !depositInputValue ? null : ethers.utils.parseEther(depositInputValue.toString()),
         onError(error) {
             showErrorAlert('Operate Fail');
             console.log(error)

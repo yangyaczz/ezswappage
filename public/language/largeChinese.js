@@ -82,4 +82,8 @@ export default {
   ThisPairHasNoLiquidity: '此交易對沒有流動性',
   SelectCollectionFirst: '請先選擇集合',
   ThisCollectionHasNoLiquidity: '此交易對沒有流動性',
+  CongratsYouGet: '恭喜！您獲得了',
+  Close: '關閉',
+  PoolDontHaveNFT: '此池中沒有此NFT',
+
 }

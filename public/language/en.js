@@ -82,5 +82,8 @@ export default {
   ThisPairHasNoLiquidity:"This pair has no liquidity",
 
   SelectCollectionFirst:"Please select collection first",
-  ThisCollectionHasNoLiquidity:"This pair has no liquidity"
+  ThisCollectionHasNoLiquidity:"This pair has no liquidity",
+  CongratsYouGet:"Congrats! You get",
+  Close:"close",
+  PoolDontHaveNFT:"Pool don't have this NFT"
 }

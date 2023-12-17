@@ -82,4 +82,8 @@ export default {
   ThisPairHasNoLiquidity: '이 페어에는 유동성이 없습니다',
   SelectCollectionFirst: '컬렉션을 먼저 선택해주세요',
   ThisCollectionHasNoLiquidity: '이 페어에는 유동성이 없습니다',
+  CongratsYouGet: '축하합니다! 얻으셨습니다',
+  Close: '닫기',
+  PoolDontHaveNFT: '이 풀에는 이 NFT가 없습니다',
+
 }

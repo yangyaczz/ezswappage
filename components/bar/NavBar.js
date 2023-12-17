@@ -325,12 +325,12 @@ const NavBar = () => {
         <dialog id="my_modal_2" className="modal">
           <div className="modal-box">
             <p className="py-4 text-2xl">
-              Congrats! You get:
+              {languageModel.CongratsYouGet}:
               <span className={styles.getScore}> {sendGetScore} Pts</span>
             </p>
           </div>
           <form method="dialog" className="modal-backdrop">
-            <button>close</button>
+            <button>{languageModel.Close}</button>
           </form>
         </dialog>
       </div>

@@ -52,8 +52,6 @@ export default {
   Youneedtodeposit: 'Para yatırmanız gerekiyor',
   allSold: 'Havuzunuza yatırdığınız tüm NFT\'ler satılırsa, alacaksınız',
   Confirm: 'Onaylayın',
-
-
   Item: 'Ürün',
   Amount: 'Miktar',
   YouwanttobuyNftAmount: 'NFT miktarı satın almak istiyorsunuz',
@@ -82,7 +80,9 @@ export default {
   ThisPairHasNoLiquidity: 'Bu çiftte likidite yok',
   SelectCollectionFirst: 'Lütfen önce koleksiyonu seçin',
   ThisCollectionHasNoLiquidity: 'Bu çiftte likidite yok',
-  CongratsYouGet: 'Tebrikler! Kazandınız',
+  Congrats: 'Tebrikler! ',
+  YouGet:" Kazandınız",
+  Points: 'Puan',
   Close: 'kapat',
   PoolDontHaveNFT: 'Bu havuzda bu NFT yok',
 }

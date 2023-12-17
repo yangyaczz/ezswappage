@@ -77,13 +77,13 @@ export default {
   Withdraw:"Withdraw",
   Trade:"Trade",
   Loading:"Loading",
-  
   SelectCollectionAndTokenFirst:"Select collection and token first",
   ThisPairHasNoLiquidity:"This pair has no liquidity",
-
   SelectCollectionFirst:"Please select collection first",
   ThisCollectionHasNoLiquidity:"This pair has no liquidity",
-  CongratsYouGet:"Congrats! You get",
+  Congrats:"Congrats!",
+  YouGet:"You get",
+  Points:"Pts",
   Close:"close",
   PoolDontHaveNFT:"Pool don't have this NFT"
 }

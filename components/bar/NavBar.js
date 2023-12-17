@@ -21,7 +21,8 @@ const NavBar = () => {
   const [showLanguages, setShowLanguages] = useState(false);
   const [enteredDropdown, setEnteredDropdown] = useState(false);
 
-  const { lanMap, switchLanguage, languageModel } = useLanguage();
+  const { lanMap, switchLanguage, languageModel, chosenLanguage } =
+    useLanguage();
 
   // const {data: nftApprovalData} = useContractRead({
   //     address: '0x670d854c7da9e7fa55c1958a1aeb368b48496020',
@@ -279,7 +280,7 @@ const NavBar = () => {
               className="cursor-pointer"
             />
             <div
-              className={`absolute min-w-[120px] bg-white rounded-md -translate-x-2/4 translate-y-4 py-2 flex flex-col justify-start items-start gap-1 ${
+              className={`absolute min-w-[120px] max-h-[230px] bg-white rounded-md -translate-x-2/4 translate-y-4 py-2 flex flex-col justify-start items-start gap-1 ${
                 showLanguages ? "" : "hidden"
               }`}
               onMouseEnter={() => setShowLanguages(true)}
@@ -294,6 +295,12 @@ const NavBar = () => {
                   {lanMap[lan].name}
                 </button>
               ))}
+              <button
+              className="w-full h-8 capitalize border-t-2 text-slate-950 hover:bg-gray-200 drop-shadow-md"
+              onClick={()=>setShowLanguages(false)}
+              >
+                {languageModel.Close}
+              </button>
             </div>
           </div>
           <ConnectButton />
@@ -325,8 +332,18 @@ const NavBar = () => {
         <dialog id="my_modal_2" className="modal">
           <div className="modal-box">
             <p className="py-4 text-2xl">
-              {languageModel.CongratsYouGet}:
-              <span className={styles.getScore}> {sendGetScore} Pts</span>
+              {languageModel.Congrats}
+              {(chosenLanguage === "en" || chosenLanguage === "cn") &&
+                languageModel.YouGet + " "}
+              :
+              <span className={styles.getScore}>
+                {" "}
+                {sendGetScore} {languageModel.Points}
+                {(chosenLanguage === "jp" ||
+                  chosenLanguage === "kr" ||
+                  chosenLanguage === "tr") &&
+                  " " + languageModel.YouGet}
+              </span>
             </p>
           </div>
           <form method="dialog" className="modal-backdrop">

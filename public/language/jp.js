@@ -52,8 +52,6 @@ export default {
   Youneedtodeposit: 'を入金する必要があります。',
   allSold: 'プールに預託したNFTがすべて売却された場合、お客様は以下を受け取ります。',
   Confirm: '確認',
-
-
   Item: 'アイテム',
   Amount: '金額',
   YouwanttobuyNftAmount: 'NFT数量を購入したいです',
@@ -82,7 +80,9 @@ export default {
   ThisPairHasNoLiquidity: 'このペアには流動性がありません',
   SelectCollectionFirst: 'まずコレクションを選択してください',
   ThisCollectionHasNoLiquidity: 'このペアには流動性がありません',
-  CongratsYouGet: 'おめでとうございます！ゲットしました',
+  Congrats: 'おめでとうございます！',
+  YouGet:" ゲット",
+  Points: 'ポイント',
   Close: '閉じる',
   PoolDontHaveNFT: 'このプールにはこのNFTがありません',
 

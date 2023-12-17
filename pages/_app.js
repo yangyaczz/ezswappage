@@ -20,8 +20,8 @@ import { CollectionProvider } from "@/contexts/CollectionContext";
 import { StrictMode } from "react";
 import nextConfig from "../next.config.js";
 import { Wallet } from "ethers";
-require('dotenv').config();
-
+import { LanguageProvider } from "@/contexts/LanguageContext.js";
+require("dotenv").config();
 
 const mantatest = {
   id: 3441005,
@@ -178,12 +178,14 @@ export default function App({ Component, pageProps }) {
   return (
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider chains={chains}>
-        <div className="grid grid-rows-[126px,auto] auto-cols-auto h-full">
-          <NavBar></NavBar>
-          <CollectionProvider>
-            <Component {...pageProps} />
-          </CollectionProvider>
-        </div>
+        <LanguageProvider>
+          <div className="grid grid-rows-[126px,auto] auto-cols-auto h-full">
+            <NavBar></NavBar>
+            <CollectionProvider>
+              <Component {...pageProps} />
+            </CollectionProvider>
+          </div>
+        </LanguageProvider>
       </RainbowKitProvider>
     </WagmiConfig>
   );

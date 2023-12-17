@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import multiSetFilterPairMode from "./swapUtils/multiSetFilterPairMode";
 import styles from "./index.module.scss";
 import addressSymbol from "@/pages/data/address_symbol";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const TokenSearch = ({
   swapType,
@@ -14,6 +15,7 @@ const TokenSearch = ({
   setFilterPairs,
   setSwapMode,
 }) => {
+  const {languageModel} = useLanguage();
   const handleTokenClick = (tokenName) => {
     reset23();
 
@@ -39,15 +41,15 @@ const TokenSearch = ({
 
   const displayDialog = () => {
     if (!formikData.collection.address) {
-      return <div>Please select collection first...</div>;
+      return <div>{languageModel.SelectCollectionAndTokenFirst}...</div>;
     }
 
     if (formikData.collection.address && formikData.pairs === "") {
-      return <div>Loading...</div>;
+      return <div>{languageModel.Loading}...</div>;
     }
 
     if (formikData.collection.address && !formikData.pairs.length) {
-      return <div>This collection has no liquidity...</div>;
+      return <div>{languageModel.ThisPairHasNoLiquidity}</div>;
     }
 
     return formikData.tokensName.map((tokenName, index) => (
@@ -70,7 +72,7 @@ const TokenSearch = ({
       >
         <div className="flex items-center justify-start space-x-2">
           <div>
-            {formikData.tokenName === 'ETH' && addressSymbol[formikData.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : formikData.tokenName ? formikData.tokenName : "select token"}
+            {formikData.tokenName === 'ETH' && addressSymbol[formikData.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : formikData.tokenName ? formikData.tokenName : languageModel.SelectToken}
           </div>
           <svg
             width="12"
@@ -89,7 +91,7 @@ const TokenSearch = ({
 
       <dialog id="token_search_sell" className="modal">
         <div className="modal-box">
-          <h3 className="text-lg font-bold">Token:</h3>
+          <h3 className="text-lg font-bold">{languageModel.Token}:</h3>
 
           <form method="dialog" className="flex flex-col space-y-2">
             {displayDialog()}

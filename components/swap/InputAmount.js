@@ -7,6 +7,7 @@ import Input721Buy from "./swapUtils/Input721Buy";
 import Input1155Buy from "./swapUtils/Input1155Buy";
 import styles from "./index.module.scss";
 import addressSymbol from "@/pages/data/address_symbol";
+import { useLanguage } from "@/contexts/LanguageContext";
 const InputAmount = ({
   swapType,
   formikData,
@@ -16,9 +17,10 @@ const InputAmount = ({
   setIsExceeded,
   setIsBanSelect,
 }) => {
+  const {languageModel} = useLanguage();
   const displayFrame = () => {
     if (!formikData.selectIds.length) {
-      return <div>select item</div>;
+      return <div>{languageModel.selectItem}</div>;
     }
 
     return <div>amount</div>;
@@ -28,15 +30,15 @@ const InputAmount = ({
     // console.log('display Sell Dialog', formikData.collection.filterPairs)
 
     if (!formikData.collection.type || !formikData.token) {
-      return <div>Select collection and token first...</div>;
+      return <div>{languageModel.SelectCollectionAndTokenFirst}...</div>;
     }
 
     if (formikData.userCollection.tokenIds721 === "") {
-      return <div>Loading...</div>;
+      return <div>{languageModel.Loading}...</div>;
     }
 
     if (formikData.pairs && formikData.filterPairs.length === 0) {
-      return <div>this pair has no liquidity</div>;
+      return <div>{languageModel.ThisPairHasNoLiquidity}</div>;
     }
 
     if (formikData.collection.type == "ERC721") {
@@ -69,15 +71,15 @@ const InputAmount = ({
     // console.log('display buy Dialog', formikData.collection)
 
     if (!formikData.collection.type || !formikData.token) {
-      return <div>Select collection and token first...</div>;
+      return <div>{languageModel.SelectCollectionAndTokenFirst}...</div>;
     }
 
     if (formikData.userCollection.tokenBalance20 === "") {
-      return <div>Loading.....</div>;
+      return <div>{languageModel.Loading}.....</div>;
     }
 
     if (formikData.pairs && formikData.filterPairs.length === 0) {
-      return <div>this pair has no liquidity</div>;
+      return <div>{languageModel.ThisPairHasNoLiquidity}</div>;
     }
 
     if (formikData.collection.type == "ERC721") {
@@ -129,15 +131,15 @@ const InputAmount = ({
 
       <dialog id="input_sell" className="modal">
         <div className="modal-box">
-          <h3 className="mb-6 text-lg font-bold">Item:</h3>
+          <h3 className="mb-6 text-lg font-bold">{languageModel.Item}:</h3>
 
           {swapType === "buy" ? displayBuyDialog() : displaySellDialog()}
 
-          <div>{formikData.isExceeded && "Insufficient balance"}</div>
+          <div>{formikData.isExceeded && languageModel.InsufficientBalance}</div>
           <div className="divider"></div>
 
           <h3 className="flex justify-end text-lg font-bold">
-            <div>Amount:</div>
+            <div>{languageModel.Amount}:</div>
             <div className="flex ml-2">
               {/*<img className="w-6" src="/ETH.png" alt="" />*/}
               {formikData.totalGet ? formikData.totalGet.toFixed(5) : 0}&nbsp;

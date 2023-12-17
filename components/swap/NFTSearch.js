@@ -7,6 +7,7 @@ import ERC1155ABI from "../../pages/data/ABI/ERC1155.json";
 
 import multiSetFilterPairMode from "./swapUtils/multiSetFilterPairMode";
 import styles from "./index.module.scss";
+import { useLanguage } from "@/contexts/LanguageContext";
 const NFTSearch = ({
     swapType,
     formikData,
@@ -24,7 +25,7 @@ const NFTSearch = ({
 }) => {
     const [searchQuery, setSearchQuery] = useState("");
     const apiSell = ['mantatest', 'manta']
-
+    const {languageModel} = useLanguage();
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value.toLowerCase());
     };
@@ -272,7 +273,7 @@ const NFTSearch = ({
             >
                 {formikData.collection.name
                     ? formikData.collection.name
-                    : "select collection"}
+                    : languageModel.selectCollection}
                 <svg
                     width="12"
                     height="7"
@@ -300,7 +301,7 @@ const NFTSearch = ({
                     {/*        />*/}
                     {/*    </div>*/}
                     {/*    <div className="divider"></div>*/}
-                    <h3 className="mb-6 text-lg font-bold">Recommend Collection:</h3>
+                    <h3 className="mb-6 text-lg font-bold">{languageModel.recommendCollection}:</h3>
 
                     <form method="dialog" className="flex flex-wrap justify-center">
                         {filteredNFTs.map((nft, index) => (

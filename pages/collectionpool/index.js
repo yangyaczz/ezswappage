@@ -17,9 +17,10 @@ import {
 } from "../../components/utils/calculate";
 import PoolCard from "@/components/mypool/PoolCard";
 import {useRouter} from "next/router";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const MyPool = () => {
-
+  const {languageModel} = useLanguage();
   const [isMounted, setIsMounted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter()
@@ -194,7 +195,7 @@ const MyPool = () => {
   if (isLoading && formik.values.golbalParams.networkName !== undefined) {
     return (
       <div className="flex justify-center bg-base-200">
-          <span>Loading...<span className="ml-3 loading loading-spinner loading-sm"></span></span>
+          <span>{languageModel.Loading}...<span className="ml-3 loading loading-spinner loading-sm"></span></span>
       </div>
     );
   }
@@ -203,12 +204,12 @@ const MyPool = () => {
   //   router.push("/collection");
   // }
   return (
-    <div className="flex flex-col bg-base-200 items-center">
-      <div className="mt-6 w-2/3">
+    <div className="flex flex-col items-center bg-base-200">
+      <div className="w-2/3 mt-6">
       <div className="flex justify-center">
-        <button onClick={() => router.push('/collection')} class="btn btn-active" className="bg-[#2ED1D8] text-white rounded-md px-4 py-1 mb-8 mt-4 text-lg">+ Create New Pool</button>
+        <button onClick={() => router.push('/collection')} class="btn btn-active" className="bg-[#2ED1D8] text-white rounded-md px-4 py-1 mb-8 mt-4 text-lg">+ {languageModel.CreateNewPool}</button>
       </div>
-        {formik.values.filterPairs.length===0 ? <div className="flex justify-center ">No Data</div>:formik.values.filterPairs?.map((item) => (
+        {formik.values.filterPairs.length===0 ? <div className="flex justify-center ">{languageModel.noData}</div>:formik.values.filterPairs?.map((item) => (
           <PoolCard key={item.id} item={item} formikData={formik} owner={owner} />
         ))}
       </div>

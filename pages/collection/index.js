@@ -9,15 +9,16 @@ import PopupPlaceBids from "@/components/collection/PopupPlaceBids";
 import PopupAddLiquidity from "@/components/collection/PopupAddLiquidity";
 import PopupBuySell from "@/components/collection/PopupBuySell";
 import { useCollection } from "@/contexts/CollectionContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Collection = () => {
   const { popupOpen, popupWindow } = useCollection();
-
+  const {languageModel} = useLanguage();
   return (
-    <div className="flex flex-col justify-start gap-x-6 items-center w-full relative bg-black self-stretch justify-self-stretch">
-      <header className="flex flex-col justify-around items-center h-32">
+    <div className="relative flex flex-col items-center self-stretch justify-start w-full bg-black gap-x-6 justify-self-stretch">
+      <header className="flex flex-col items-center justify-around h-32">
         <h1 className="text-xl sm:text-3xl lg:text-4xl">
-          Add liquidity & earn profit on your NFTs
+          {languageModel.AddLiquidityToEarn}
         </h1>
       </header>
       <CollectionList />

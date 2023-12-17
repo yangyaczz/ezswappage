@@ -158,7 +158,7 @@ const InputAmount = ({
         </div>
 
         <form method="dialog" className="modal-backdrop">
-          <button>close</button>
+          <button>{languageModel.Close}</button>
         </form>
       </dialog>
     </div>

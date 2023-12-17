@@ -576,7 +576,7 @@ const PoolCard = ({ item,formikData, owner }) => {
                         <div className="flex flex-wrap justify-center">
                         {
                             item.tokenType==='ERC721' ?
-                                addressSelectNFT.length === 0 ? <span className="mb-4">you don&apos;t have nft</span>:addressSelectNFT.map((square, index) => (
+                                addressSelectNFT.length === 0 ? <span className="mb-4">{languageModel.YouDontHaveThisNFT}</span>:addressSelectNFT.map((square, index) => (
                             <div
                                 key={index}
                                 data-tip={
@@ -621,7 +621,7 @@ const PoolCard = ({ item,formikData, owner }) => {
                     </div>
 
                     <form method="dialog" className="modal-backdrop">
-                        <button>close</button>
+                        <button>{languageModel.Close}</button>
                     </form>
                 </dialog>
                 {/*deposit nft*/}
@@ -635,7 +635,7 @@ const PoolCard = ({ item,formikData, owner }) => {
                         <div className="flex justify-center">
                         {
                             item.tokenType==='ERC721' ?
-                                addressSelectNFT.length === 0 ? <span className="mb-4">pool don&apos;t have nft</span>:addressSelectNFT.map((square, index) => (
+                                addressSelectNFT.length === 0 ? <span className="mb-4">{languageModel.PoolDontHaveNFT}</span>:addressSelectNFT.map((square, index) => (
                                     <div
                                         key={index}
                                         data-tip={addressSelectNFT.length===0 && "pool don't have nft"}
@@ -676,7 +676,7 @@ const PoolCard = ({ item,formikData, owner }) => {
                     </div>
 
                     <form method="dialog" className="modal-backdrop">
-                        <button>close</button>
+                        <button>{languageModel.Close}</button>
                     </form>
                 </dialog>
                 {/*withdraw nft*/}
@@ -710,7 +710,7 @@ const PoolCard = ({ item,formikData, owner }) => {
                     </div>
 
                     <form method="dialog" className="modal-backdrop">
-                        <button>close</button>
+                        <button>{languageModel.Close}</button>
                     </form>
                 </dialog>
 
@@ -746,7 +746,7 @@ const PoolCard = ({ item,formikData, owner }) => {
                     </div>
 
                     <form method="dialog" className="modal-backdrop">
-                        <button>close</button>
+                        <button>{languageModel.Close}</button>
                     </form>
                 </dialog>
                 {showAlert && <div className={styles.alertPosition}>

@@ -52,8 +52,6 @@ export default {
   Youneedtodeposit: '입금해야 하는 금액',
   allSold: '풀에 예치한 모든 NFT가 판매되면, 다음과 같은 금액을 받게 됩니다.',
   Confirm: '확인',
-  
-
   Item: '아이템',
   Amount: '수량',
   YouwanttobuyNftAmount: 'NFT 수량을 구매하고 싶습니다',
@@ -80,4 +78,12 @@ export default {
   Loading: '로딩 중',
   SelectCollectionAndTokenFirst: '컬렉션 및 토큰을 먼저 선택하세요',
   ThisPairHasNoLiquidity: '이 페어에는 유동성이 없습니다',
+  SelectCollectionFirst: '컬렉션을 먼저 선택해주세요',
+  ThisCollectionHasNoLiquidity: '이 페어에는 유동성이 없습니다',
+  Congrats: '축하합니다! ',
+  YouGet:" 획득했습니다",
+  Points: '포인트',
+  Close: '닫기',
+  PoolDontHaveNFT: '이 풀에는 이 NFT가 없습니다',
+
 }

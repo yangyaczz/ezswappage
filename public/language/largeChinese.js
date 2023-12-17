@@ -52,8 +52,6 @@ export default {
   Youneedtodeposit: '您需要存入',
   allSold: '如果您存入池中的所有NFT都被出售，您將收到',
   Confirm: '確認',
-
-
   Item: '物品',
   Amount: '數量',
   YouwanttobuyNftAmount: '您想购买NFT数量',
@@ -80,4 +78,12 @@ export default {
   Loading: '載入中',
   SelectCollectionAndTokenFirst: '請先選擇集合和代幣',
   ThisPairHasNoLiquidity: '此交易對沒有流動性',
+  SelectCollectionFirst: '請先選擇集合',
+  ThisCollectionHasNoLiquidity: '此交易對沒有流動性',
+  Congrats: '恭喜！',
+  YouGet:"您獲得了",
+  Points: '積分',
+  Close: '關閉',
+  PoolDontHaveNFT: '此池中沒有此NFT',
+
 }

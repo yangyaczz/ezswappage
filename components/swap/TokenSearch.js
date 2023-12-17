@@ -41,7 +41,7 @@ const TokenSearch = ({
 
   const displayDialog = () => {
     if (!formikData.collection.address) {
-      return <div>{languageModel.SelectCollectionAndTokenFirst}...</div>;
+      return <div>{languageModel.SelectCollectionFirst}...</div>;
     }
 
     if (formikData.collection.address && formikData.pairs === "") {
@@ -49,7 +49,7 @@ const TokenSearch = ({
     }
 
     if (formikData.collection.address && !formikData.pairs.length) {
-      return <div>{languageModel.ThisPairHasNoLiquidity}</div>;
+      return <div>{languageModel.ThisCollectionHasNoLiquidity}</div>;
     }
 
     return formikData.tokensName.map((tokenName, index) => (
@@ -105,7 +105,7 @@ const TokenSearch = ({
         </div>
 
         <form method="dialog" className="modal-backdrop">
-          <button>close</button>
+          <button>{languageModel.Close}</button>
         </form>
       </dialog>
     </div>

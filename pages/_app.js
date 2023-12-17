@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import {WagmiConfig, chain, configureChains, createClient, useNetwork} from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
-import { mainnet, polygon } from "wagmi/chains";
+import { mainnet, arbitrum, polygon } from "wagmi/chains";
 import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
 import NavBar from "@/components/bar/NavBar";
 import { CollectionProvider } from "@/contexts/CollectionContext";
@@ -110,7 +110,7 @@ const eosevmmain = {
 };
 //  [mantatest, mantamain, eosevmtest, eosevmmain],
 const { chains, provider } = configureChains(
-    nextConfig.publicRuntimeConfig.env.API === 'prod' ? [mantamain, eosevmmain] : [mantatest, mantamain, eosevmtest, eosevmmain],
+    nextConfig.publicRuntimeConfig.env.API === 'prod' ? [mainnet, arbitrum, mantamain, eosevmmain] : [mainnet, arbitrum, mantatest, mantamain, eosevmtest, eosevmmain],
   [publicProvider()]
 );
 

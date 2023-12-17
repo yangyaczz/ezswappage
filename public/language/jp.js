@@ -80,4 +80,6 @@ export default {
   Loading: '読み込み中',
   SelectCollectionAndTokenFirst: 'まずコレクションとトークンを選択してください',
   ThisPairHasNoLiquidity: 'このペアには流動性がありません',
+  SelectCollectionFirst: 'まずコレクションを選択してください',
+  ThisCollectionHasNoLiquidity: 'このペアには流動性がありません',
 }

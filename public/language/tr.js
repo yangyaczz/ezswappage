@@ -80,4 +80,6 @@ export default {
   Loading: 'Yükleniyor',
   SelectCollectionAndTokenFirst: 'Önce koleksiyonu ve token\'ı seçin',
   ThisPairHasNoLiquidity: 'Bu çiftte likidite yok',
+  SelectCollectionFirst: 'Lütfen önce koleksiyonu seçin',
+  ThisCollectionHasNoLiquidity: 'Bu çiftte likidite yok',
 }

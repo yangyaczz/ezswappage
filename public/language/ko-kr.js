@@ -80,4 +80,6 @@ export default {
   Loading: '로딩 중',
   SelectCollectionAndTokenFirst: '컬렉션 및 토큰을 먼저 선택하세요',
   ThisPairHasNoLiquidity: '이 페어에는 유동성이 없습니다',
+  SelectCollectionFirst: '컬렉션을 먼저 선택해주세요',
+  ThisCollectionHasNoLiquidity: '이 페어에는 유동성이 없습니다',
 }

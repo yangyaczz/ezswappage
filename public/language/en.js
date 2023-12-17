@@ -79,5 +79,8 @@ export default {
   Loading:"Loading",
   
   SelectCollectionAndTokenFirst:"Select collection and token first",
-  ThisPairHasNoLiquidity:"This pair has no liquidity"
+  ThisPairHasNoLiquidity:"This pair has no liquidity",
+
+  SelectCollectionFirst:"Please select collection first",
+  ThisCollectionHasNoLiquidity:"This pair has no liquidity"
 }

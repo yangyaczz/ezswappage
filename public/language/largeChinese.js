@@ -80,4 +80,6 @@ export default {
   Loading: '載入中',
   SelectCollectionAndTokenFirst: '請先選擇集合和代幣',
   ThisPairHasNoLiquidity: '此交易對沒有流動性',
+  SelectCollectionFirst: '請先選擇集合',
+  ThisCollectionHasNoLiquidity: '此交易對沒有流動性',
 }

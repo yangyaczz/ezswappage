@@ -214,14 +214,13 @@ const NavBar = () => {
             {languageModel.mint}
           </a>
           {/*airdrop 上线后打开*/}
-          {/* a标签,上线后加上 href={airdropJumpUrl}*/}
           {addressInfo.dcUserId === undefined ||
           addressInfo.dcUserId === null ||
           addressInfo.dcUserId === "" ||
           addressInfo.sendTwitter !== 1 ? (
             <a
               className={styles.launchpad + " " + styles.airdropBtn}
-              target="_self"
+              href={airdropJumpUrl} target="_self"
             >
               {languageModel.Airdrop}
             </a>

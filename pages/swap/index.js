@@ -12,9 +12,11 @@ import * as Yup from "yup";
 import { useNetwork, useAccount } from "wagmi";
 
 import networkConfig from "../data/networkconfig.json";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Swap = () => {
   const [swapType, setSwapType] = useState("buy");
+  const {languageModel } = useLanguage();
 
   const formik = useFormik({
     initialValues: {
@@ -135,19 +137,19 @@ const Swap = () => {
   }
   return (
     <div className={styles.divBackground}>
-      <div className="flex flex-col min-h-screen items-center justify-start mt-11">
-        {/* <div className="alert alert-success top-4 right-4 w-1/3">
-        <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      <div className="flex flex-col items-center justify-start min-h-screen mt-11">
+        {/* <div className="w-1/3 alert alert-success top-4 right-4">
+        <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 stroke-current shrink-0" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
         <span>Your purchase has been confirmed!</span>
       </div> */}
 
-        <div className="join mb-10">
+        <div className="mb-10 join">
           <input
             className="join-item btn bg-[#0E1729] hover:bg-[#0E1729]"
             type="radio"
             name="options"
             value="buy"
-            aria-label="BUY"
+            aria-label={languageModel.Buy}
             checked={swapType === "buy"}
             onChange={handleInputSwapTypeChange}
           />
@@ -156,17 +158,17 @@ const Swap = () => {
             type="radio"
             name="options"
             value="sell"
-            aria-label="SELL"
+            aria-label={languageModel.Sell}
             checked={swapType === "sell"}
             onChange={handleInputSwapTypeChange}
           />
         </div>
 
-        <div className="card w-full max-w-5xl bg-base-100">
+        <div className="w-full max-w-5xl card bg-base-100">
           <div className="card-body">
             <div className={styles.cardStyle}>
-              <div className="space-y-2 w-2/5">
-                <span className="font-bold text-sm">NFT</span>
+              <div className="space-y-2 min-w-2/5">
+                <span className="text-sm font-bold">NFT</span>
                 <NFTSearch
                   swapType={swapType}
                   formikData={formik.values}
@@ -237,9 +239,9 @@ const Swap = () => {
               </svg>
             </div>
 
-            <div className={styles.cardStyle}>
-              <div className="space-y-2  w-2/5 mb-4">
-                <div className="font-bold text-sm">Token</div>
+            <div className={`${styles.cardStyle}`}>
+              <div className="mb-4 space-y-2 min-w-2/5">
+                <div className="text-sm font-bold">{languageModel.Token}</div>
                 <TokenSearch
                   swapType={swapType}
                   formikData={formik.values}

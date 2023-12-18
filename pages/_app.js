@@ -1,13 +1,27 @@
 import "@/styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
-import {WagmiConfig, chain, configureChains, createClient, useNetwork} from "wagmi";
+import { WagmiConfig, createConfig, configureChains } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
-import { mainnet, polygon } from "wagmi/chains";
-import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
+import {
+  RainbowKitProvider,
+  getDefaultWallets,
+  connectorsForWallets,
+} from "@rainbow-me/rainbowkit";
+import {
+  metaMaskWallet,
+  bitgetWallet,
+  injectedWallet,
+  rainbowWallet,
+  walletConnectWallet,
+  coinbaseWallet,
+} from "@rainbow-me/rainbowkit/wallets";
 import NavBar from "@/components/bar/NavBar";
 import { CollectionProvider } from "@/contexts/CollectionContext";
 import { StrictMode } from "react";
 import nextConfig from "../next.config.js";
+import { Wallet } from "ethers";
+import { LanguageProvider } from "@/contexts/LanguageContext.js";
+require("dotenv").config();
 
 const mantatest = {
   id: 3441005,
@@ -81,7 +95,7 @@ const eosevmtest = {
     default: {
       name: "Block Explorer",
       url: "https://explorer.testnet.evm.eosnetwork.com/",
-    }
+    },
   },
   testnet: true,
 };
@@ -104,37 +118,74 @@ const eosevmmain = {
     default: {
       name: "Block Explorer",
       url: "https://explorer.evm.eosnetwork.com/",
-    }
+    },
   },
   testnet: false,
 };
 //  [mantatest, mantamain, eosevmtest, eosevmmain],
-const { chains, provider } = configureChains(
-    nextConfig.publicRuntimeConfig.env.API === 'prod' ? [mantamain, eosevmmain] : [mantatest, mantamain, eosevmtest, eosevmmain],
+
+//old wagmi and rainbow kit versions
+//----------------------------------------------------------------------------------
+
+// const { chains, provider } = configureChains(
+//     nextConfig.publicRuntimeConfig.env.API === 'prod' ? [mantamain, eosevmmain] : [mantatest, mantamain, eosevmtest, eosevmmain],
+//   [publicProvider()]
+// );
+
+// const { connectors } = getDefaultWallets({
+//   appName: "xxx",
+//   chains,
+// });
+
+// const wagmiClient = createClient({
+//   autoConnect: true,
+//   connectors,
+//   provider,
+// });
+
+//latest wagmi and rainbow kit versions
+//----------------------------------------------------------------------
+const { chains, publicClient } = configureChains(
+  nextConfig.publicRuntimeConfig.env.API === "prod"
+    ? [mantamain, eosevmmain]
+    : [mantatest, mantamain, eosevmtest, eosevmmain],
   [publicProvider()]
 );
 
-const { connectors } = getDefaultWallets({
-  appName: "xxx",
-  chains,
-});
+const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_ID;
 
-const wagmiClinet = createClient({
+const connectors = connectorsForWallets([
+  {
+    groupName: "Recommended",
+    wallets: [
+      injectedWallet({ projectId, chains }),
+      metaMaskWallet({ projectId, chains }),
+      bitgetWallet({ projectId, chains }),
+      coinbaseWallet({ projectId, chains }),
+      rainbowWallet({ projectId, chains }),
+      walletConnectWallet({ projectId, chains }),
+    ],
+  },
+]);
+
+const wagmiConfig = createConfig({
   autoConnect: true,
+  publicClient,
   connectors,
-  provider,
 });
 
 export default function App({ Component, pageProps }) {
   return (
-    <WagmiConfig client={wagmiClinet}>
+    <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider chains={chains}>
-        <div className="grid grid-rows-[126px,auto] auto-cols-auto h-full">
-          <NavBar></NavBar>
-          <CollectionProvider>
-            <Component {...pageProps} />
-          </CollectionProvider>
-        </div>
+        <LanguageProvider>
+          <div className="grid grid-rows-[126px,auto] auto-cols-auto h-full">
+            <NavBar></NavBar>
+            <CollectionProvider>
+              <Component {...pageProps} />
+            </CollectionProvider>
+          </div>
+        </LanguageProvider>
       </RainbowKitProvider>
     </WagmiConfig>
   );

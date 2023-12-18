@@ -7,6 +7,7 @@ import Input721Buy from "./swapUtils/Input721Buy";
 import Input1155Buy from "./swapUtils/Input1155Buy";
 import styles from "./index.module.scss";
 import addressSymbol from "@/pages/data/address_symbol";
+import { useLanguage } from "@/contexts/LanguageContext";
 const InputAmount = ({
   swapType,
   formikData,
@@ -16,9 +17,10 @@ const InputAmount = ({
   setIsExceeded,
   setIsBanSelect,
 }) => {
+  const {languageModel} = useLanguage();
   const displayFrame = () => {
     if (!formikData.selectIds.length) {
-      return <div>select item</div>;
+      return <div>{languageModel.selectItem}</div>;
     }
 
     return <div>amount</div>;
@@ -28,15 +30,15 @@ const InputAmount = ({
     // console.log('display Sell Dialog', formikData.collection.filterPairs)
 
     if (!formikData.collection.type || !formikData.token) {
-      return <div>Select collection and token first...</div>;
+      return <div>{languageModel.SelectCollectionAndTokenFirst}...</div>;
     }
 
     if (formikData.userCollection.tokenIds721 === "") {
-      return <div>Loading...</div>;
+      return <div>{languageModel.Loading}...</div>;
     }
 
     if (formikData.pairs && formikData.filterPairs.length === 0) {
-      return <div>this pair has no liquidity</div>;
+      return <div>{languageModel.ThisPairHasNoLiquidity}</div>;
     }
 
     if (formikData.collection.type == "ERC721") {
@@ -69,15 +71,15 @@ const InputAmount = ({
     // console.log('display buy Dialog', formikData.collection)
 
     if (!formikData.collection.type || !formikData.token) {
-      return <div>Select collection and token first...</div>;
+      return <div>{languageModel.SelectCollectionAndTokenFirst}...</div>;
     }
 
     if (formikData.userCollection.tokenBalance20 === "") {
-      return <div>Loading.....</div>;
+      return <div>{languageModel.Loading}.....</div>;
     }
 
     if (formikData.pairs && formikData.filterPairs.length === 0) {
-      return <div>this pair has no liquidity</div>;
+      return <div>{languageModel.ThisPairHasNoLiquidity}</div>;
     }
 
     if (formikData.collection.type == "ERC721") {
@@ -105,15 +107,14 @@ const InputAmount = ({
     }
   };
 
-  console.log(formikData)
   return (
     <div className="form-control">
       <button
         disabled={!formikData.collection.type}
-        className={"btn justify-between" + " " + styles.buttonDisabled}
+        className={"btn justify-between w-[240px] md:w-[300px]" + " " + styles.buttonDisabled}
         onClick={() => document.getElementById("input_sell").showModal()}
       >
-        <div className="flex justify-start items-center space-x-2">
+        <div className="flex items-center justify-start space-x-2">
           {displayFrame()}
           <svg
             width="12"
@@ -130,34 +131,34 @@ const InputAmount = ({
 
       <dialog id="input_sell" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg mb-6">Item:</h3>
+          <h3 className="mb-6 text-lg font-bold">{languageModel.Item}:</h3>
 
           {swapType === "buy" ? displayBuyDialog() : displaySellDialog()}
 
-          <div>{formikData.isExceeded && "Insufficient balance"}</div>
+          <div>{formikData.isExceeded && languageModel.InsufficientBalance}</div>
           <div className="divider"></div>
 
-          <h3 className="font-bold text-lg flex justify-end">
-            <div>Amount:</div>
+          <h3 className="flex justify-end text-lg font-bold">
+            <div>{languageModel.Amount}:</div>
             <div className="flex ml-2">
               {/*<img className="w-6" src="/ETH.png" alt="" />*/}
               {formikData.totalGet ? formikData.totalGet.toFixed(5) : 0}&nbsp;
               {addressSymbol[formikData.golbalParams.hex] === undefined ? '' : addressSymbol[formikData.golbalParams.hex]["0x0000000000000000000000000000000000000000"]}
             </div>
           </h3>
-          {/*<div className="mt-2 flex">*/}
+          {/*<div className="flex mt-2">*/}
           {/*    You have select {formikData.selectIds.length} and {swapType === 'buy'?"you need pay" : "you will get"} <img className="w-6" src="/ETH.png" alt=""/> {formikData.totalGet ? formikData.totalGet.toFixed(5):0}*/}
           {/*</div>*/}
 
           <form method="dialog">
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+            <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">
               ✕
             </button>
           </form>
         </div>
 
         <form method="dialog" className="modal-backdrop">
-          <button>close</button>
+          <button>{languageModel.Close}</button>
         </form>
       </dialog>
     </div>

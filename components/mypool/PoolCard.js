@@ -6,6 +6,7 @@ import ERC1155ABI from "../../pages/data/ABI/ERC1155.json";
 import ERC721EnumABI from "../../pages/data/ABI/ERC721Enum.json";
 import styles from './index.module.scss'
 import addressSymbol from "@/pages/data/address_symbol";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 
 const PoolCard = ({ item,formikData, owner }) => {
@@ -22,6 +23,7 @@ const PoolCard = ({ item,formikData, owner }) => {
     const [userHaveNFTs1155, setUserHaveNFTs1155] = useState(0);
     const [loadingNFT, setLoadingNFT] = useState(false);
 
+    const {languageModel} = useLanguage();
 
     const handleDepositInputChange = (e) => {
         if (/^\d*\.?\d*$/.test(e.target.value)) {
@@ -44,10 +46,8 @@ const PoolCard = ({ item,formikData, owner }) => {
     /////////////////////////////////////////////////
 
     const { data: depositETHData, sendTransaction: depositETH, isLoading: depositETHIsLoading, isSuccess: depositETHIsSuccess } = useSendTransaction({
-        request: {
-            to: depositInputValue ? item.id : null,
-            value: !depositInputValue ? null : ethers.utils.parseEther(depositInputValue.toString()),
-        },
+        to: depositInputValue ? item.id : null,
+        value: !depositInputValue ? null : ethers.utils.parseEther(depositInputValue.toString()),
         onError(error) {
             showErrorAlert('Operate Fail');
             console.log(error)
@@ -488,8 +488,8 @@ const PoolCard = ({ item,formikData, owner }) => {
     }
 
     // alert
-    const svgError = (<svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>)
-    const svgSuccess = (<svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>)
+    const svgError = (<svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 stroke-current shrink-0" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>)
+    const svgSuccess = (<svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 stroke-current shrink-0" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>)
 
     const [alertText, setAlertText] = useState({
         className: '',
@@ -529,56 +529,56 @@ const PoolCard = ({ item,formikData, owner }) => {
     // alert
 
     return (
-        <div className="flex flex-col bg-base-100 shadow-md p-6 rounded-lg mb-4">
+        <div className="flex flex-col p-6 mb-4 rounded-lg shadow-md bg-base-100">
             <div className="flex flex-row justify-between mb-4">
-                <span className="text-sm text-white p-1 rounded-md bg-base-200 border border-gray-300">{item.id}</span>
-                <span className="text-sm text-white">Balance: {parseFloat(item.tokenBalance)}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName} and {item.tokenType==='ERC721'?item.nftCount:item.nftCount1155} NFT</span>
+                <span className="p-1 text-sm text-white border border-gray-300 rounded-md bg-base-200">{item.id}</span>
+                <span className="text-sm text-white">{languageModel.Balance}: {parseFloat(item.tokenBalance)}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName} {languageModel.And} {item.tokenType==='ERC721'?item.nftCount:item.nftCount1155} NFT</span>
             </div>
             <div className="mb-4">
                 <span className="text-lg font-medium">{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName} - {item.NFTName}</span>
             </div>
             <div className="flex justify-between p-4 rounded-lg bg-base-200 ">
                 <div className='flex flex-col'>
-                    <span className=" text-white">Current Price</span>
-                    <span className=" text-gray-500 mt-1">{item.currentPrice === undefined? 0 :parseFloat(item.currentPrice.toFixed(5))}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName}</span>
+                    <span className="text-white ">{languageModel.CurrentPrice}</span>
+                    <span className="mt-1 text-gray-500 ">{item.currentPrice === undefined? 0 :parseFloat(item.currentPrice.toFixed(5))}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName}</span>
                 </div>
                 <div className='flex flex-col'>
-                    <span className=" text-white">Bonding Curve</span>
-                    <button className="btn btn-outline btn-success btn-xs normal-case mt-1">{item.BondingCurveName}</button>
+                    <span className="text-white ">{languageModel.BondingCurve}</span>
+                    <button className="mt-1 normal-case btn btn-outline btn-success btn-xs">{languageModel[item.BondingCurveName]}</button>
 
-                    {/*<span className=" text-gray-500"></span>*/}
+                    {/*<span className="text-gray-500 "></span>*/}
                 </div>
                 <div className='flex flex-col'>
-                    <span className=" text-white">Pool Type</span>
-                    <span className=" text-gray-500 capitalize mt-1">{item.poolTypeName}</span>
+                    <span className="text-white ">{languageModel.PoolType}</span>
+                    <span className="mt-1 text-gray-500 capitalize ">{languageModel[item.poolTypeName.charAt(0).toUpperCase()+item.poolTypeName.slice(1)]}</span>
                 </div>
                 <div className='flex flex-col'>
-                    <span className="text-white">Delta</span>
-                    <span className="text-gray-500 mt-1">{item.BondingCurveName === 'Exponential' ? item.deltaText : parseFloat(item.deltaText) + " "+ (item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName) }</span>
+                    <span className="text-white">{languageModel.Delta}</span>
+                    <span className="mt-1 text-gray-500">{item.BondingCurveName === 'Exponential' ? item.deltaText : parseFloat(item.deltaText) + " "+ (item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName) }</span>
                 </div>
                 <div className='flex flex-col'>
-                    <span className="text-white">Volume</span>
-                    <span className="text-gray-500 mt-1">{parseFloat(Number(ethers.utils.formatEther(item.ethVolume.toString())).toFixed(5)) + " " +(item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName)}</span>
+                    <span className="text-white">{languageModel.Volume}</span>
+                    <span className="mt-1 text-gray-500">{parseFloat(Number(ethers.utils.formatEther(item.ethVolume.toString())).toFixed(5)) + " " +(item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName)}</span>
                 </div>
 
             </div>
 
             <div className='flex justify-end space-x-3'>
                 {/*deposit nft*/}
-                <button className='btn mt-3 w-1/6 normal-case' onClick={() => {openNFTDialog(item,'deposit');}}>
-                    {loadingNFT && actionStatus==='deposit'?<span className="loading loading-spinner loading-sm"></span>:<span>Deposit NFT</span>}
+                <button className='w-1/6 mt-3 normal-case btn' onClick={() => {openNFTDialog(item,'deposit');}}>
+                    {loadingNFT && actionStatus==='deposit'?<span className="loading loading-spinner loading-sm"></span>:<span>{languageModel.DepositNFT}</span>}
                 </button>
                 <dialog id={`deposit_nft_${item.id}`} className="modal">
                     <div className="modal-box">
-                        <h3 className="font-bold text-lg">Deposit NFT{item.tokenType==='ERC1155' && " ("+userHaveNFTs1155+") "}:</h3>
+                        <h3 className="text-lg font-bold">{languageModel.DepositNFT}{item.tokenType==='ERC1155' && " ("+userHaveNFTs1155+") "}:</h3>
                         <div className="flex flex-wrap justify-center">
                         {
                             item.tokenType==='ERC721' ?
-                                addressSelectNFT.length === 0 ? <span className="mb-4">you don&apos;t have nft</span>:addressSelectNFT.map((square, index) => (
+                                addressSelectNFT.length === 0 ? <span className="mb-4">{languageModel.YouDontHaveThisNFT}</span>:addressSelectNFT.map((square, index) => (
                             <div
                                 key={index}
                                 data-tip={
-                                    addressSelectNFT.length===0 && "you don't have nft"
+                                    addressSelectNFT.length===0 && languageModel.YouDontHaveThisNFT
                                 }
                                 className={`
                                 p-3 mr-2 mb-5 cursor-pointer
@@ -588,18 +588,18 @@ const PoolCard = ({ item,formikData, owner }) => {
                                     toggleSelected(square.identifier);
                                 }}>
                                 {selectNFTs.includes(square.identifier) && (
-                                    <img className="w-6 absolute" src="/yes.svg" alt="" />
+                                    <img className="absolute w-6" src="/yes.svg" alt="" />
                                 )}
                                 <img className="w-20" src={formikData.values.golbalParams.recommendNFT.filter(officer => officer.address.toLowerCase() === item.collection.toLowerCase())[0]?.img} alt="" />
                                 <div className="mt-1 text-center">#{square.identifier}</div>
                             </div>
                         ))
                                 :
-                            <div className="flex space-x-4 items-center mb-4 mt-4">
+                            <div className="flex items-center mt-4 mb-4 space-x-4">
                                 <input
                                     type="text"
-                                    className="border p-2 rounded-md"
-                                    placeholder="Enter Amount"
+                                    className="p-2 border rounded-md"
+                                    placeholder={languageModel.EnterAmount}
                                     value={depositInputValue}
                                     onChange={handleDepositInputChange}
                                 />
@@ -611,29 +611,29 @@ const PoolCard = ({ item,formikData, owner }) => {
                             {depositError}
                         </div>
                         <div className="flex justify-center">
-                            <button className="btn normal-case" onClick={() => doDepositNFT()}>{approvingLoading||approveLoading||deposit1155ingLoading||deposit1155Loading||depositLoading||depositingLoading?<span className="loading loading-spinner loading-sm"></span>:"Deposit"}</button>
+                            <button className="normal-case btn" onClick={() => doDepositNFT()}>{approvingLoading||approveLoading||deposit1155ingLoading||deposit1155Loading||depositLoading||depositingLoading?<span className="loading loading-spinner loading-sm"></span>:languageModel.Deposit}</button>
                         </div>
                         <form method="dialog">
-                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 normal-case">✕</button>
+                            <button className="absolute normal-case btn btn-sm btn-circle btn-ghost right-2 top-2">✕</button>
                         </form>
                     </div>
 
                     <form method="dialog" className="modal-backdrop">
-                        <button>close</button>
+                        <button>{languageModel.Close}</button>
                     </form>
                 </dialog>
                 {/*deposit nft*/}
                 {/*withdraw nft*/}
-                <button className='btn mt-3 w-1/6 normal-case' onClick={() => {openNFTDialog(item,'withdraw');}}>
-                    {loadingNFT && actionStatus==='withdraw'?<span className="loading loading-spinner loading-sm"></span>:<span>Withdraw NFT</span>}
+                <button className='w-1/6 mt-3 normal-case btn' onClick={() => {openNFTDialog(item,'withdraw');}}>
+                    {loadingNFT && actionStatus==='withdraw'?<span className="loading loading-spinner loading-sm"></span>:<span>{languageModel.WithdrawNFT}</span>}
                 </button>
                 <dialog id={`withdraw_nft_${item.id}`} className="modal">
                     <div className="modal-box">
-                        <h3 className="font-bold text-lg">Withdraw NFT:</h3>
+                        <h3 className="text-lg font-bold">{languageModel.WithdrawNFT}:</h3>
                         <div className="flex justify-center">
                         {
                             item.tokenType==='ERC721' ?
-                                addressSelectNFT.length === 0 ? <span className="mb-4">pool don&apos;t have nft</span>:addressSelectNFT.map((square, index) => (
+                                addressSelectNFT.length === 0 ? <span className="mb-4">{languageModel.PoolDontHaveNFT}</span>:addressSelectNFT.map((square, index) => (
                                     <div
                                         key={index}
                                         data-tip={addressSelectNFT.length===0 && "pool don't have nft"}
@@ -643,18 +643,18 @@ const PoolCard = ({ item,formikData, owner }) => {
                                             toggleSelected(square.identifier);
                                         }}>
                                         {selectNFTs.includes(square.identifier) && (
-                                            <img className="w-6 absolute" src="/yes.svg" alt="" />
+                                            <img className="absolute w-6" src="/yes.svg" alt="" />
                                         )}
                                         <img className="w-20" src={formikData.values.golbalParams.recommendNFT.filter(officer => officer.address.toLowerCase() === item.collection.toLowerCase())[0]?.img} alt="" />
                                         <div className="mt-1 text-center">#{square.identifier}</div>
                                     </div>
                                 )):
 
-                                <div className="flex space-x-4 items-center mb-4 mt-4">
+                                <div className="flex items-center mt-4 mb-4 space-x-4">
                                     <input
                                         type="text"
-                                        className="border p-2 rounded-md"
-                                        placeholder="Enter Amount"
+                                        className="p-2 border rounded-md"
+                                        placeholder={languageModel.EnterAmount}
                                         value={withdrawInputValue}
                                         onChange={handleWithdrawInputChange}
                                     />
@@ -666,49 +666,49 @@ const PoolCard = ({ item,formikData, owner }) => {
                             {depositError}
                         </div>
                         <div className="flex justify-center">
-                            <button className="btn normal-case" onClick={() => item.tokenType==='ERC721' ? doWithdrawNFT(): withdrawNFT1155()}>{withdraw1155Loading||withdraw1155ingLoading||withdrawLoading||withdrawingLoading?<span className="loading loading-spinner loading-sm"></span>:"Withdraw"}</button>
+                            <button className="normal-case btn" onClick={() => item.tokenType==='ERC721' ? doWithdrawNFT(): withdrawNFT1155()}>{withdraw1155Loading||withdraw1155ingLoading||withdrawLoading||withdrawingLoading?<span className="loading loading-spinner loading-sm"></span>:languageModel.Withdraw}</button>
                         </div>
                         <form method="dialog">
-                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                            <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</button>
                         </form>
                     </div>
 
                     <form method="dialog" className="modal-backdrop">
-                        <button>close</button>
+                        <button>{languageModel.Close}</button>
                     </form>
                 </dialog>
                 {/*withdraw nft*/}
 
 
-                <button className='btn mt-3 w-1/6 normal-case' onClick={() => document.getElementById(`deposit_token_${item.id}`).showModal()}>
-                    Deposit Token
+                <button className='w-1/6 mt-3 normal-case btn' onClick={() => document.getElementById(`deposit_token_${item.id}`).showModal()}>
+                    {languageModel.DepositToken}
                 </button>
 
                 <dialog id={`deposit_token_${item.id}`} className="modal">
                     <div className="modal-box">
-                        <h3 className="font-bold text-lg mb-4">Deposit Token:</h3>
+                        <h3 className="mb-4 text-lg font-bold">{languageModel.DepositToken}:</h3>
 
-                        <div className="flex space-x-4 items-center">
+                        <div className="flex items-center space-x-4">
                             <input
                                 type="text"
-                                className="border p-2 rounded-md"
-                                placeholder="Enter Amount"
+                                className="p-2 border rounded-md"
+                                placeholder={languageModel.EnterAmount}
                                 value={depositInputValue}
                                 onChange={handleDepositInputChange}
                             />
-                            <button className="btn normal-case" onClick={() => depositETH?.()}>{depositOrWithdrawETHingLoading||depositETHIsLoading?<span className="loading loading-spinner loading-sm"></span>:"Deposit"}</button>
+                            <button className="normal-case btn" onClick={() => depositETH?.()}>{depositOrWithdrawETHingLoading||depositETHIsLoading?<span className="loading loading-spinner loading-sm"></span>:languageModel.Deposit}</button>
                         </div>
                         <div className='text-red-600'>
                             {depositError}
                         </div>
 
                         <form method="dialog">
-                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                            <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</button>
                         </form>
                     </div>
 
                     <form method="dialog" className="modal-backdrop">
-                        <button>close</button>
+                        <button>{languageModel.Close}</button>
                     </form>
                 </dialog>
 
@@ -716,40 +716,40 @@ const PoolCard = ({ item,formikData, owner }) => {
                 {/* /////////////////////////////////////////// */}
 
 
-                <button className='btn mt-3 w-1/6 normal-case' onClick={() => document.getElementById(`withdraw_token_${item.id}`).showModal()}>
-                    Withdraw Token
+                <button className='w-1/6 mt-3 normal-case btn' onClick={() => document.getElementById(`withdraw_token_${item.id}`).showModal()}>
+                    {languageModel.WithdrawToken}
                 </button>
 
                 <dialog id={`withdraw_token_${item.id}`} className="modal">
                     <div className="modal-box">
-                        <h3 className="font-bold text-lg">Withdraw Token:</h3>
+                        <h3 className="text-lg font-bold">{languageModel.WithdrawToken}:</h3>
 
-                        <div className="flex space-x-4 items-center">
+                        <div className="flex items-center space-x-4">
                             <input
                                 type="text"
-                                className="border p-2 rounded-md"
-                                placeholder="Enter Amount"
+                                className="p-2 border rounded-md"
+                                placeholder={languageModel.EnterAmount}
                                 value={withdrawInputValue}
                                 onChange={handleWithdrawInputChange}
                             />
-                            <button className="btn normal-case" onClick={() => withdrawETH?.()}>{withdrawETHingLoading||withdrawETHLoading?<span className="loading loading-spinner loading-sm"></span>:"Withdraw"}</button>
+                            <button className="normal-case btn" onClick={() => withdrawETH?.()}>{withdrawETHingLoading||withdrawETHLoading?<span className="loading loading-spinner loading-sm"></span>:languageModel.Withdraw}</button>
                         </div>
                         <div className='text-red-600'>
                             {withdrawError}
                         </div>
 
                         <form method="dialog">
-                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                            <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</button>
                         </form>
                     </div>
 
                     <form method="dialog" className="modal-backdrop">
-                        <button>close</button>
+                        <button>{languageModel.Close}</button>
                     </form>
                 </dialog>
                 {showAlert && <div className={styles.alertPosition}>
                     <div className={'alert'+" "+ alertText.className+ " "+styles.alertPadding}>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 stroke-current shrink-0" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                         <span>{alertText.text}</span>
                     </div>
                 </div>}

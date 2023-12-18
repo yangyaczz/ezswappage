@@ -7,12 +7,13 @@ import ERC721EnumABI from '../../pages/data/ABI/ERC721Enum.json'
 import ERC1155ABI from '../../pages/data/ABI/ERC1155.json'
 import styles from "./index.module.scss";
 import RouterABI from '../../pages/data/ABI/Router.json'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 
 const SwapButton = ({swapType,formikData, owner,addSwapSuccessCount}) => {
 
     const [nftApproval, setNftApproval] = useState(false)
-
+    const {languageModel} = useLanguage();
     const {data: nftApprovalData} = useContractRead({
         address: formikData.collection.address,
         abi: ERC721EnumABI,
@@ -61,9 +62,7 @@ const SwapButton = ({swapType,formikData, owner,addSwapSuccessCount}) => {
             owner,
             (Date.parse(new Date()) / 1000 + 60 * 3600)
         ],
-        overrides: {
-            value: formikData.totalGet ? ethers.utils.parseEther(formikData.totalGet.toString()) : 0,
-        },
+        value: formikData.totalGet ? ethers.utils.parseEther(formikData.totalGet.toString()) : 0,
         onSettled(data, error) {
             console.log(data, error)
             console.log(formikData.tupleEncode)
@@ -133,8 +132,8 @@ const SwapButton = ({swapType,formikData, owner,addSwapSuccessCount}) => {
         }
     }, [swapStatus]);
 
-    const svgError = (<svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>)
-    const svgSuccess = (<svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>)
+    const svgError = (<svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 stroke-current shrink-0" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>)
+    const svgSuccess = (<svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 stroke-current shrink-0" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>)
 
     const [alertText, setAlertText] = useState({
         className: '',
@@ -158,7 +157,7 @@ const SwapButton = ({swapType,formikData, owner,addSwapSuccessCount}) => {
     const buttonText = () => {
         let text
         if (!formikData.collection.address) {
-            text = 'Select a Collection'
+            text = languageModel.SelectACollection
             return (<div>
                 <div>
                     {text}
@@ -166,14 +165,14 @@ const SwapButton = ({swapType,formikData, owner,addSwapSuccessCount}) => {
             </div>)
         }
         if (!formikData.selectIds.length > 0) {
-            text = 'Select a NFT'
+            text = languageModel.SelectAnNFT
             return (<div>
                 {text}
             </div>)
         }
         if (formikData.isExceeded) {
             return (<div>
-                Insufficient balance
+                {languageModel.InsufficientBalance}
             </div>)
         }
 
@@ -218,7 +217,7 @@ const SwapButton = ({swapType,formikData, owner,addSwapSuccessCount}) => {
     }
 
     if (!owner) return (
-        <div className='mx-6 p-6'>
+        <div className='p-6 mx-6'>
             <ConnectButton/>
         </div>
     )
@@ -230,7 +229,7 @@ const SwapButton = ({swapType,formikData, owner,addSwapSuccessCount}) => {
             </div>
             {showAlert && <div className={styles.alertPosition}>
                 <div className={'alert'+" "+ alertText.className+ " "+styles.alertPadding}>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 stroke-current shrink-0" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     <span>{alertText.text}</span>
                 </div>
             </div>}

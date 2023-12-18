@@ -5,11 +5,13 @@ import { useNetwork, useAccount } from "wagmi";
 import networkConfig from "../../pages/data/networkconfig.json";
 import addressSymbol from "@/pages/data/address_symbol";
 import addressIcon from "@/pages/data/address_icon";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ETH_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 const CollectionList = () => {
   const { chain } = useNetwork();
+  const {languageModel} = useLanguage()
   /*
     ideal data structure
     [
@@ -176,7 +178,7 @@ function arrangeCollectionsByTradingPair() {
       ) : (
         <>
           {collectionsByTradingPair.length === 0 ? (
-            <p>No data</p>
+            <p>{languageModel.noData}</p>
           ) : (
             collectionsByTradingPair.map((collection) => (
               <CollectionContainer

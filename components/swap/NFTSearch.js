@@ -7,6 +7,7 @@ import ERC1155ABI from "../../pages/data/ABI/ERC1155.json";
 
 import multiSetFilterPairMode from "./swapUtils/multiSetFilterPairMode";
 import styles from "./index.module.scss";
+import { useLanguage } from "@/contexts/LanguageContext";
 const NFTSearch = ({
     swapType,
     formikData,
@@ -24,7 +25,7 @@ const NFTSearch = ({
 }) => {
     const [searchQuery, setSearchQuery] = useState("");
     const apiSell = ['mantatest', 'manta']
-
+    const {languageModel} = useLanguage();
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value.toLowerCase());
     };
@@ -267,12 +268,12 @@ const NFTSearch = ({
     return (
         <div className="form-control ">
             <button
-                className="btn justify-start mb-2 text-white"
+                className="justify-start mb-2 text-xs text-white btn md:w-[300px] w-[240px]"
                 onClick={() => document.getElementById("nft_search_sell").showModal()}
             >
                 {formikData.collection.name
                     ? formikData.collection.name
-                    : "select collection"}
+                    : languageModel.selectCollection}
                 <svg
                     width="12"
                     height="7"
@@ -286,21 +287,21 @@ const NFTSearch = ({
 
             <dialog id="nft_search_sell" className="modal">
                 <div className={"modal-box"+" "+styles.modalSize}>
-                    {/*    <h3 className="font-bold text-lg">Search Collection:</h3>*/}
+                    {/*    <h3 className="text-lg font-bold">Search Collection:</h3>*/}
                     {/*    <div className='input-group'>*/}
                     {/*        <span>*/}
-                    {/*            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>*/}
+                    {/*            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>*/}
                     {/*        </span>*/}
                     {/*        <input*/}
                     {/*            type="text"*/}
                     {/*            placeholder="NFT Contract Address or Name"*/}
-                    {/*            className="input input-bordered w-full"*/}
+                    {/*            className="w-full input input-bordered"*/}
                     {/*            value={searchQuery}*/}
                     {/*            onChange={handleSearchChange}*/}
                     {/*        />*/}
                     {/*    </div>*/}
                     {/*    <div className="divider"></div>*/}
-                    <h3 className="font-bold text-lg mb-6">Recommend Collection:</h3>
+                    <h3 className="mb-6 text-lg font-bold">{languageModel.recommendCollection}:</h3>
 
                     <form method="dialog" className="flex flex-wrap justify-center">
                         {filteredNFTs.map((nft, index) => (
@@ -314,7 +315,7 @@ const NFTSearch = ({
                                     <div className="relative">
                                         {nft.name === formikData.collection.name && (
                                             <img
-                                                className="w-6 absolute -left-2 -top-2"
+                                                className="absolute w-6 -left-2 -top-2"
                                                 src="/yes.svg"
                                                 alt=""
                                             />
@@ -327,14 +328,14 @@ const NFTSearch = ({
                         ))}
                     </form>
                     <form method="dialog">
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                        <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">
                             ✕
                         </button>
                     </form>
                 </div>
 
                 <form method="dialog" className="modal-backdrop">
-                    <button>close</button>
+                    <button>{languageModel.Close}</button>
                 </form>
             </dialog>
         </div>

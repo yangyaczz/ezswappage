@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import multiSetFilterPairMode from "./swapUtils/multiSetFilterPairMode";
 import styles from "./index.module.scss";
 import addressSymbol from "@/pages/data/address_symbol";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const TokenSearch = ({
   swapType,
@@ -14,6 +15,7 @@ const TokenSearch = ({
   setFilterPairs,
   setSwapMode,
 }) => {
+  const {languageModel} = useLanguage();
   const handleTokenClick = (tokenName) => {
     reset23();
 
@@ -39,21 +41,21 @@ const TokenSearch = ({
 
   const displayDialog = () => {
     if (!formikData.collection.address) {
-      return <div>Please select collection first...</div>;
+      return <div>{languageModel.SelectCollectionFirst}...</div>;
     }
 
     if (formikData.collection.address && formikData.pairs === "") {
-      return <div>Loading...</div>;
+      return <div>{languageModel.Loading}...</div>;
     }
 
     if (formikData.collection.address && !formikData.pairs.length) {
-      return <div>This collection has no liquidity...</div>;
+      return <div>{languageModel.ThisCollectionHasNoLiquidity}</div>;
     }
 
     return formikData.tokensName.map((tokenName, index) => (
       <button
         key={index}
-        className="btn justify-start"
+        className="justify-start btn"
         onClick={() => handleTokenClick(tokenName)}
       >
         {tokenName}
@@ -65,12 +67,12 @@ const TokenSearch = ({
     <div className="form-control">
       <button
         disabled={!formikData.collection.type}
-        className={"btn justify-between" + " " + styles.buttonDisabled}
+        className={"btn justify-between w-[240px] md:w-[300px]" + " " + styles.buttonDisabled}
         onClick={() => document.getElementById("token_search_sell").showModal()}
       >
-        <div className="flex justify-start items-center space-x-2">
+        <div className="flex items-center justify-start space-x-2">
           <div>
-            {formikData.tokenName === 'ETH' && addressSymbol[formikData.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : formikData.tokenName ? formikData.tokenName : "select token"}
+            {formikData.tokenName === 'ETH' && addressSymbol[formikData.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : formikData.tokenName ? formikData.tokenName : languageModel.SelectToken}
           </div>
           <svg
             width="12"
@@ -89,21 +91,21 @@ const TokenSearch = ({
 
       <dialog id="token_search_sell" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Token:</h3>
+          <h3 className="text-lg font-bold">{languageModel.Token}:</h3>
 
           <form method="dialog" className="flex flex-col space-y-2">
             {displayDialog()}
           </form>
 
           <form method="dialog">
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+            <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">
               ✕
             </button>
           </form>
         </div>
 
         <form method="dialog" className="modal-backdrop">
-          <button>close</button>
+          <button>{languageModel.Close}</button>
         </form>
       </dialog>
     </div>

@@ -6,6 +6,7 @@ import {
   TradePoolExp,
 } from "../../utils/calculate";
 import { ethers } from "ethers";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Input721Sell = ({
   formikData,
@@ -15,6 +16,7 @@ const Input721Sell = ({
   setIsExceeded,
   setIsBanSelect,
 }) => {
+  const{languageModel} = useLanguage();
   const update721SellToPairs = (tokenId, pairs) => {
     let protocolFee = 10000000000000000; // 0.5%  get from smartcontract
     let dec = 1e18;
@@ -167,7 +169,7 @@ const Input721Sell = ({
   const initialSquares = formikData.userCollection.tokenIds721;
 
   if (!initialSquares.length) {
-    return <div>{`you don't have this nft`}</div>;
+    return <div>{languageModel.YouDontHaveThisNFT}</div>;
   }
 
   return (
@@ -201,7 +203,7 @@ const Input721Sell = ({
           }}
         >
           {formikData.selectIds.includes(square) && (
-            <img className="w-6 absolute" src="/yes.svg" alt="" />
+            <img className="absolute w-6" src="/yes.svg" alt="" />
           )}
           <img className="w-20" src={formikData.collection.img} alt="" />
           <div>#{square}</div>

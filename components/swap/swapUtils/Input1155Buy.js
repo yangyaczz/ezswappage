@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { SellPoolLiner, TradePoolLiner, SellPoolExp, TradePoolExp, } from "../../utils/calculate";
 import { ethers } from 'ethers';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 function Input1155Buy({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded }) {
 
     const [value, setValue] = useState(0);
     const tId = formikData.collection.tokenId1155
     const [max, setMax] = useState(0);
-
+    const {languageModel } = useLanguage();
     useEffect(() => {
         let totalNftCount1155 = formikData.filterPairs.reduce((sum, item) => sum + item.nftCount1155, 0);
         setMax(totalNftCount1155)
@@ -154,7 +155,7 @@ function Input1155Buy({ formikData, setSelectIds, setTupleEncode, setTotalGet, s
 
     return (
         <div className='flex items-center p-5 space-x-4'>
-            <div>you want to buy nft amount :</div>
+            <div>{languageModel.YouwanttobuyNftAmount}:</div>
             <div className='form-control'>
                 <div className="input-group">
                     <button
@@ -167,7 +168,7 @@ function Input1155Buy({ formikData, setSelectIds, setTupleEncode, setTotalGet, s
                         type="text"
                         value={value}
                         onChange={handleChange}
-                        className="input input-bordered w-20 text-center"
+                        className="w-20 text-center input input-bordered"
                     />
                     <button
                         onClick={handleIncrement}

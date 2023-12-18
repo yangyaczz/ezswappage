@@ -14,6 +14,7 @@ import {
 } from "../utils/calculate";
 import PoolTab from "./PoolTab";
 import { MaxFiveDecimal,MaxThreeDecimal } from "../utils/roundoff";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const CollectionContainer = ({ collection }) => {
   //prettier-ignore
@@ -190,7 +191,7 @@ const CollectionContainer = ({ collection }) => {
 
     */
 
-    <div className="w-11/12 max-w-[1240px] border-[1px] border-solid border-zinc-100 rounded-md grid gap-x-3 p-3 xl:p-6 grid-cols-2-1 lg:grid-cols-7-3 grid-rows-[3fr,2fr]">
+    <div className="w-11/12 max-w-[1240px] border-[1px] border-solid border-zinc-100 rounded-md grid gap-x-3 gap-y-8 md:gap-y-4 p-3 xl:p-6 grid-cols-7-2  grid-rows-[2fr,1fr] sm:grid-rows-[1fr,auto]">
       <CollectionHeader
         address={address}
         name={name}

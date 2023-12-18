@@ -240,7 +240,7 @@
             {
                 "type": "ERC721",
                 "address": "0xd2ffD7e6644EC7266Ffb50582784EA3D4686026d",
-                "name": "Game Raider - EZswap EOS EVM",
+                "name": "Game Raider",
                 "tokenId1155": "",
                 "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg"
             },

@@ -76,7 +76,8 @@ const NFTSearch = ({
                     body: JSON.stringify(params),
                 });
                 const data = await response.json();
-                let num1155 = data?.data?.erc1155Balances[0].valueExact;
+
+                let num1155 = data?.data?.erc1155Balances[0]?.valueExact;
 
                 setUserCollection({
                     tokenAmount1155: num1155,
@@ -227,7 +228,7 @@ const NFTSearch = ({
         args: [owner],
         watch: false,
         onSuccess(data) {
-            const num = data.map(item => parseInt(item._hex, 16))
+            const num = data.map(item => Number(item))
             setUserCollection({
                 tokenIds721: num
             })

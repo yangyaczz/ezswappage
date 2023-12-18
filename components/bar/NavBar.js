@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import PopupBlurBackground from "../collection/PopupBlurBackground";
 import { useLanguage } from "@/contexts/LanguageContext";
+import ERC721EnumABI from "../../pages/data/ABI/ERC721Enum.json";
+import {queryUserAllNFT} from "../../pages/api/ipfs";
 
 const NavBar = () => {
   const [addressInfo, setAddressInfo] = useState({});
@@ -56,6 +58,17 @@ const NavBar = () => {
       if (data.success) {
         let userScore = data.data;
         setAddressInfo(userScore);
+      }
+      // 查询是否有pass卡
+      const params2 = {
+        owner: owner?.toLowerCase(),
+        mode:"pro"
+      };
+      const result = await queryUserAllNFT(owner, '0x670d854C7Da9E7Fa55c1958A1AeB368B48496020')
+      if (result.ownedNfts.length > 0){
+        setUserHavePoineerCount(result.ownedNfts.length)
+      }else {
+        setUserHavePoineerCount(0)
       }
     };
     fetchData();
@@ -224,13 +237,12 @@ const NavBar = () => {
                 styles.rainbowBar
               }
             >
-              <div
-                tabIndex="0"
-                role="button"
-                className={styles.airdropColorBtn + " " + styles.headerScore}
-              >
-                {addressInfo.score} PTS{" "}
-                <span>{userHavePoineerCount > 0 ? "1.25x" : ""}</span>
+              <div className="flex items-end">
+                <div tabIndex="0" role="button" className={styles.airdropColorBtn + " " + styles.headerScore}>
+                  {addressInfo.score} PTS{" "}
+                </div>
+                {userHavePoineerCount > 0 && <span className="text-[0.5rem] ml-1 mb-1"> 1.25x</span>}
+                {userHavePoineerCount > 0 && <img className="mb-1.5 ml-0.5" src="/top.png" alt="" />}
               </div>
               <ul
                 tabIndex="0"

@@ -26,3 +26,12 @@ export function queryIpfs (parameter, ipfsUrl) {
     params: parameter
   })
 }
+
+
+// 查询元数据
+export function queryUserAllNFT (owner, contractAddress) {
+  return service({
+    url: "https://eth-mainnet.g.alchemy.com/nft/v3/eeb2JnW2JdlOkqPH6NZVhVpRSXKaSW8D/getNFTsForOwner?owner="+owner+"&contractAddresses[]="+contractAddress+"&withMetadata=false&pageSize=100'",
+    method: 'get'
+  })
+}

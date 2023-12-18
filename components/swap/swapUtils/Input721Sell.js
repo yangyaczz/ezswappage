@@ -110,6 +110,8 @@ const Input721Sell = ({
       }
     });
 
+    totalGet = Number(totalGet.toFixed(10));
+
     setTupleEncode(tupleEncode);
     setTotalGet(totalGet);
     ///////////////////////////////////////////////////////////////

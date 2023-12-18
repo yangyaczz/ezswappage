@@ -93,6 +93,8 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
             }
         })
 
+        totalGet = Number(totalGet.toFixed(10));
+
         setTupleEncode(tupleEncode)
         setTotalGet(totalGet)
         console.log(totalGet)

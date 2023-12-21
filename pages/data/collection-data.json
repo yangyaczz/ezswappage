@@ -238,5 +238,29 @@
     "tokenId1155": "6",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/BLACK.gif",
     "network": "eosmain"
+  },
+  {
+    "name": "Holdem Tier 3",
+    "address": "0x7F63835f91E1B7f7812849b09Ec62E5f28623965",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/tier3.webp",
+    "network": "manta"
+  },
+  {
+    "name": "Holdem Tier 4",
+    "address": "0xe197f35b7ca3804Cf502Ae1b26013e658fD71423",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/tier4.webp",
+    "network": "manta"
+  },
+  {
+    "name": "Holdem Tier 5",
+    "address": "0x38DbACbA205eA6BE0DCD5B2Be18629eDEa7A88a9",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/tier5.webp",
+    "network": "manta"
   }
 ]

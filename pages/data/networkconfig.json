@@ -296,7 +296,7 @@
     },
     "1": {
         "networkName": "ethmain",
-        "hex": "0x1",
+        "hex": "0x01",
         "router": "0xb1d1aBE25073bf3EbA0AFd5381CDa0B2Bd61c8C0",
         "factory": "0x2A95E4FDF5F12B9E9AC627fEcbF70420D3202db1",
         "linear": "0x20c318aa7c2ec1190f20d41eb6c6f3ec9f5955fe",

@@ -59,6 +59,7 @@ const CollectionList = () => {
 function arrangeCollectionsByTradingPair() {
     setIsLoading(() => true);
 
+
     let colByPair = [];
     const fetchPromises = collections
       .filter((collection) => collection.network === chainConfig.networkName)
@@ -100,6 +101,7 @@ function arrangeCollectionsByTradingPair() {
               tradingCurrencyName: null,
               currencyImage: null,
               chainId: chainConfig?.hex,
+              order:collection.order
             });
           }
         })
@@ -108,8 +110,7 @@ function arrangeCollectionsByTradingPair() {
     // Wait for all promises to resolve
     Promise.all(fetchPromises)
       .then(() => {
-        colByPair.sort((a,b)=>a.name.localeCompare(b.name));
-        console.log(colByPair)
+        colByPair.sort((a,b)=>a.order - b.order);
         setCollectionsByTradingPair(colByPair);
         setIsLoading(() => false);
       })

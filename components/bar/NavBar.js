@@ -43,6 +43,7 @@ const NavBar = () => {
     const fetchData = async () => {
       const params = {
         address: owner?.toLowerCase(),
+        mode:"pro"
       };
       const response = await fetch("/api/queryAddressScore", {
         method: "POST",

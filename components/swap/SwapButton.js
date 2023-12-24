@@ -62,9 +62,7 @@ const SwapButton = ({swapType,formikData, owner,addSwapSuccessCount}) => {
             owner,
             (Date.parse(new Date()) / 1000 + 60 * 3600)
         ],
-        overrides: {
-            value: formikData.totalGet ? ethers.utils.parseEther(formikData.totalGet.toString()) : 0,
-        },
+        value: formikData.totalGet ? ethers.utils.parseEther(formikData.totalGet.toString()) : 0,
         onSettled(data, error) {
             console.log(data, error)
             console.log(formikData.tupleEncode)

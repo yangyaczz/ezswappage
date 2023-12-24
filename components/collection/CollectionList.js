@@ -89,6 +89,7 @@ function arrangeCollectionsByTradingPair() {
                   currencyAddress
                 ] || { label: "(UNKNOWN)", src: "/unknown.png" },
                 chainId: chainConfig?.hex,
+                order:collection.order
               });
             }
           } else {

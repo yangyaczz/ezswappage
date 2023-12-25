@@ -295,5 +295,50 @@
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/tier5.webp",
     "network": "manta",
     "order":33
+  },
+  {
+    "name": "Holdem Tier 0.5",
+    "address": "0xF5d88abeE12c20745f1C2E255CffC16725F96E50",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkheos/tier05.jpg",
+    "network": "eosmain",
+    "order":1
+  },
+  {
+    "name": "Holdem Tier 2",
+    "address": "0x04e90bc87E31D67dECC33aAAfc9158DbdDcF2dF2",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkheos/tier2.jpg",
+    "network": "eosmain",
+    "order":3
+  },
+  {
+    "name": "Holdem Tier 3",
+    "address": "0xa60928929c2f17fBAEB121E3a3085585E6CF332e",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkheos/Holdem3.webp",
+    "network": "eosmain",
+    "order":4
+  },
+  {
+    "name": "Holdem Tier 4",
+    "address": "0x439551ED0FAcC9516b3f9317BE911208d16bC7AB",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkheos/Holdem4.webp",
+    "network": "eosmain",
+    "order":5
+  },
+  {
+    "name": "Holdem Tier 5",
+    "address": "0x0b317387cF6Eeb9258dE77B1f0E35f8450cC3902",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkheos/iter5.jpg",
+    "network": "eosmain",
+    "order":6
   }
 ]

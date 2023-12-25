@@ -32,8 +32,8 @@ const CollectionHeader = ({
       /> */}
       <img src={img} alt={name} className="w-[65px] h-[65px] sm:w-[75px] sm:h-[75px] md:w-[90px] md:h-[90px] "/>
       <div className="flex flex-col items-start justify-start gap-y-4">
-        <header className="flex flex-wrap items-baseline justify-start w-full max-w-lg gap-0 leading-4">
-          <p className="mx-1 font-bold text-md md:text-lg lg:text-2xl whitespace-nowrap">
+        <header className="flex flex-wrap items-baseline justify-start max-w-lg min-w-full gap-0 leading-4">
+          <p className="flex items-baseline mx-1 font-bold text-md md:text-lg lg:text-2xl whitespace-nowrap">
               {name}
               {type==="ERC1155" && <span className="text-base"> token {tokenId1155}</span>}
               {currencyImage && (
@@ -50,7 +50,7 @@ const CollectionHeader = ({
               {languageModel.Vol}: {totalVolume} {tradingCurrencyName}
           </p>
 
-          <div className="flex items-center justify-start mx-1 md:mx-0 md:justify-end grow gap-x-2 ">
+          <div className="flex items-center justify-start mx-1 md:mx-0 grow gap-x-2 ">
             <div
               className="flex items-center gap-x-2  bg-[rgba(82,82,91,0.8)] opacity-80 px-3 py-[0.1rem] rounded-md cursor-pointer hover:bg-[rgba(63,63,70,0.8)] hover:text-white tooltip tooltip-top"
               data-tip={languageModel.copyAddress}

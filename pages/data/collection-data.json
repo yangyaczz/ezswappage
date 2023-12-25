@@ -6,7 +6,7 @@
     "tokenId1155": "",
     "img": "https://asmatch-resources.s3-accelerate.amazonaws.com/nft/zkpl.jpeg",
     "network": "manta",
-    "order":1
+    "order":4
   },
   {
     "name": "Pacific Game Changer",
@@ -15,7 +15,7 @@
     "tokenId1155": "1",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/nft1.png",
     "network": "manta",
-    "order":2
+    "order":6
   },
   {
     "name": "Block World Test",
@@ -150,10 +150,10 @@
     "tokenId1155": "",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.jpg",
     "network": "manta",
-    "order":17
+    "order":1
   },
   {
-    "name": "Stellar Gambits",
+    "name": "Holdem Tier 2",
     "address": "0xeeaaa26bcc421851497584ea44a329a2c1eb567c",
     "type": "ERC721",
     "tokenId1155": "",
@@ -168,7 +168,7 @@
     "tokenId1155": "",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/zkHoldem_NFT_mini.jpeg",
     "network": "manta",
-    "order":19
+    "order":3
   },
   {
     "name": "Ezswap EOS Testnet test",
@@ -207,13 +207,13 @@
     "order":23
   },
   {
-    "name": "Game Raider - EZswap EOS EVM",
+    "name": "Game Raider",
     "address": "0xd2ffD7e6644EC7266Ffb50582784EA3D4686026d",
     "type": "ERC721",
     "tokenId1155": "",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg",
     "network": "eosmain",
-    "order":24
+    "order":50
   },
   {
     "name": "VALKYRIE",
@@ -222,7 +222,7 @@
     "tokenId1155": "1",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/VALKYRIE.gif",
     "network": "eosmain",
-    "order":25
+    "order":24
   },
   {
     "name": "ABBOT",
@@ -268,5 +268,32 @@
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/BLACK.gif",
     "network": "eosmain",
     "order":30
+  },
+  {
+    "name": "Holdem Tier 3",
+    "address": "0x7F63835f91E1B7f7812849b09Ec62E5f28623965",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/tier3.webp",
+    "network": "manta",
+    "order":2
+  },
+  {
+    "name": "Holdem Tier 4",
+    "address": "0xe197f35b7ca3804Cf502Ae1b26013e658fD71423",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/tier4.webp",
+    "network": "manta",
+    "order":32
+  },
+  {
+    "name": "Holdem Tier 5",
+    "address": "0x38DbACbA205eA6BE0DCD5B2Be18629eDEa7A88a9",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/tier5.webp",
+    "network": "manta",
+    "order":33
   }
 ]

@@ -146,7 +146,7 @@ const NFTSearch = ({
                     let ids721 = data?.data?.erc721Tokens.map((id) =>
                         Number(id.identifier)
                     );
-                    ids721.sort(function (a, b) {
+                    ids721?.sort(function (a, b) {
                         return a - b;
                     });
 

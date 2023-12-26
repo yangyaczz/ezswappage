@@ -355,7 +355,7 @@
     "name": "ezarbtest1155-1",
     "address": "0x16964ca0F3aA5AF0c9Df8C0e1F9Ea46721FcB462",
     "type": "ERC1155",
-    "tokenId1155": "2",
+    "tokenId1155": "1",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png",
     "network": "arbmain",
     "order":2
@@ -364,7 +364,7 @@
     "name": "ezarbtest1155-1",
     "address": "0x16964ca0F3aA5AF0c9Df8C0e1F9Ea46721FcB462",
     "type": "ERC1155",
-    "tokenId1155": "3",
+    "tokenId1155": "2",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png",
     "network": "arbmain",
     "order":3

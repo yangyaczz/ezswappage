@@ -10,7 +10,7 @@ import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import PopupBlurBackground from "../collection/PopupBlurBackground";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ERC721EnumABI from "../../pages/data/ABI/ERC721Enum.json";
-import {queryUserAllNFT} from "../../pages/api/ipfs";
+import { queryUserAllNFT } from "../../pages/api/ipfs";
 
 const NavBar = () => {
   const [addressInfo, setAddressInfo] = useState({});
@@ -45,7 +45,7 @@ const NavBar = () => {
     const fetchData = async () => {
       const params = {
         address: owner?.toLowerCase(),
-        mode:"pro"
+        mode: "pro",
       };
       const response = await fetch("/api/queryAddressScore", {
         method: "POST",
@@ -62,16 +62,19 @@ const NavBar = () => {
       // 查询是否有pass卡
       const params2 = {
         owner: owner?.toLowerCase(),
-        mode:"pro"
+        mode: "pro",
       };
-      const result = await queryUserAllNFT(owner, '0x670d854C7Da9E7Fa55c1958A1AeB368B48496020')
-      if (result.ownedNfts.length > 0){
-        setUserHavePoineerCount(result.ownedNfts.length)
-      }else {
-        setUserHavePoineerCount(0)
+      const result = await queryUserAllNFT(
+        owner,
+        "0x670d854C7Da9E7Fa55c1958A1AeB368B48496020"
+      );
+      if (result.ownedNfts.length > 0) {
+        setUserHavePoineerCount(result.ownedNfts.length);
+      } else {
+        setUserHavePoineerCount(0);
       }
     };
-    fetchData();
+    if (owner) fetchData();
   }, [owner]);
 
   useEffect(() => {
@@ -186,7 +189,7 @@ const NavBar = () => {
             <img src="/logo.svg" />
           </Link>
         </div>
-        <div className={styles.headerLeft}>
+        <div className={`${styles.headerLeft} ${chosenLanguage ==='jp' ? "text-sm" : "text-base"}`}>
           {/*<a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad}>Search</a>*/}
           <Link
             className={
@@ -220,7 +223,8 @@ const NavBar = () => {
           addressInfo.sendTwitter !== 1 ? (
             <a
               className={styles.launchpad + " " + styles.airdropBtn}
-              href={airdropJumpUrl} target="_self"
+              href={airdropJumpUrl}
+              target="_self"
             >
               {languageModel.Airdrop}
             </a>
@@ -237,11 +241,19 @@ const NavBar = () => {
               }
             >
               <div className="flex items-end">
-                <div tabIndex="0" role="button" className={styles.airdropColorBtn + " " + styles.headerScore}>
+                <div
+                  tabIndex="0"
+                  role="button"
+                  className={styles.airdropColorBtn + " " + styles.headerScore}
+                >
                   {addressInfo.score} PTS{" "}
                 </div>
-                {userHavePoineerCount > 0 && <span className="text-[0.5rem] ml-1 mb-1"> 1.25x</span>}
-                {userHavePoineerCount > 0 && <img className="mb-1.5 ml-0.5" src="/top.png" alt="" />}
+                {userHavePoineerCount > 0 && (
+                  <span className="text-[0.5rem] ml-1 mb-1"> 1.25x</span>
+                )}
+                {userHavePoineerCount > 0 && (
+                  <img className="mb-1.5 ml-0.5" src="/top.png" alt="" />
+                )}
               </div>
               <ul
                 tabIndex="0"
@@ -276,43 +288,41 @@ const NavBar = () => {
         <div className={styles.headerRight}>
           {/*<div className={styles.headerBtn + " " + styles.rightBtn}>My NFT</div>*/}
           <Link
-            className={styles.headerBtn + " " + styles.rightBtn}
+            className={`${styles.headerBtn} + " " + ${styles.rightBtn}  ${chosenLanguage ==='jp' ? "text-sm" : "text-base"}`}
             href="/mypool"
           >
             {languageModel.myPool}
           </Link>
           <div
             id="languageSelection"
-            className="relative"
+            className={`relative `}
             onMouseEnter={() => setShowLanguages(true)}
+            onMouseLeave={() => setShowLanguages(false)}
           >
             <FontAwesomeIcon
               icon={faGlobe}
               size="xl"
               className="cursor-pointer"
             />
-            <div
-              className={`absolute min-w-[120px] max-h-[230px] bg-white rounded-md -translate-x-2/4 translate-y-4 py-2 flex flex-col justify-start items-start gap-1 ${
-                showLanguages ? "" : "hidden"
-              }`}
-              onMouseEnter={() => setShowLanguages(true)}
-              onMouseLeave={() => setShowLanguages(false)}
-            >
-              {Object.keys(lanMap).map((lan) => (
-                <button
-                  key={lan}
-                  className="w-full h-8 capitalize text-slate-950 hover:bg-gray-200"
-                  onClick={() => handleLanguageSelection(lan)}
+            <div className={`absolute min-w-[120px] max-h-[230px] -translate-x-[40%] -translate-y-10 ${ showLanguages ? "" : "hidden"}`}>
+              <div id="empty_space" className="h-[60px]"></div>
+              <div className={` bg-white rounded-md py-2 flex flex-col justify-start items-start gap-1 `}>
+                {Object.keys(lanMap).map((lan) => (
+                  <button
+                    key={lan}
+                    className="w-full h-8 capitalize text-slate-950 hover:bg-gray-200"
+                    onClick={() => handleLanguageSelection(lan)}
+                  >
+                    {lanMap[lan].name}
+                  </button>
+                ))}
+                {/* <button
+                  className="w-full h-8 text-red-700 capitalize border-t-2 hover:bg-gray-200 drop-shadow-md"
+                  onClick={() => setShowLanguages(false)}
                 >
-                  {lanMap[lan].name}
-                </button>
-              ))}
-              <button
-              className="w-full h-8 capitalize border-t-2 text-slate-950 hover:bg-gray-200 drop-shadow-md"
-              onClick={()=>setShowLanguages(false)}
-              >
-                {languageModel.Close}
-              </button>
+                  {languageModel.Close}
+                </button> */}
+              </div>
             </div>
           </div>
           <ConnectButton />

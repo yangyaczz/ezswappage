@@ -14,6 +14,7 @@ import {
   rainbowWallet,
   walletConnectWallet,
   coinbaseWallet,
+  tokenPocketWallet
 } from "@rainbow-me/rainbowkit/wallets";
 import NavBar from "@/components/bar/NavBar";
 import { CollectionProvider } from "@/contexts/CollectionContext";
@@ -162,8 +163,7 @@ const connectors = connectorsForWallets([
       injectedWallet({ projectId, chains }),
       metaMaskWallet({ projectId, chains }),
       bitgetWallet({ projectId, chains }),
-      coinbaseWallet({ projectId, chains }),
-      rainbowWallet({ projectId, chains }),
+      tokenPocketWallet({projectId,chains}),
       walletConnectWallet({ projectId, chains }),
     ],
   },

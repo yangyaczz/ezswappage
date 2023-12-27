@@ -367,35 +367,35 @@
                 "address": "0x670d854C7Da9E7Fa55c1958A1AeB368B48496020",
                 "name": "EZSwapPioneer",
                 "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg"
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/ezpoineer.png"
             },
             {
                 "type": "ERC721",
                 "address": "0xd6f6A071506821a92d3C02759e3920A213BC5DfB",
                 "name": "Gusto",
                 "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg"
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/Gusto.png"
             },
             {
                 "type": "ERC721",
                 "address": "0xaf854D6A783B0237C57B53dCbAE5733A43168D03",
                 "name": "Freedom",
                 "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg"
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/Gusto.png"
             },
             {
                 "type": "ERC721",
                 "address": "0x01A23C30F1044Cbc8CdA0F6356DEBd94C575B6ED",
                 "name": "Liberty",
                 "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg"
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/Gusto.png"
             },
             {
                 "type": "ERC721",
                 "address": "0xd9b5149749420737EdfF665FF1FF64A8d345579d",
                 "name": "Independence",
                 "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg"
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/Gusto.png"
             }
         ],
         "recommendERC20": [

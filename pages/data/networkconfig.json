@@ -350,5 +350,99 @@
                 "name": "EOS"
             }
         ]
+    },
+    "1": {
+        "networkName": "ethmain",
+        "hex": "0x01",
+        "router": "0xb1d1aBE25073bf3EbA0AFd5381CDa0B2Bd61c8C0",
+        "factory": "0x2A95E4FDF5F12B9E9AC627fEcbF70420D3202db1",
+        "linear": "0x20c318aa7c2ec1190f20d41eb6c6f3ec9f5955fe",
+        "exponential": "0x4f65da64c4b1cad8f58fdf06a55bca73e6a840ec",
+        "ERC20": "",
+        "ERC721": "",
+        "ERC1155": "",
+        "recommendNFT": [
+            {
+                "type": "ERC721",
+                "address": "0x670d854C7Da9E7Fa55c1958A1AeB368B48496020",
+                "name": "EZSwapPioneer",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg"
+            },
+            {
+                "type": "ERC721",
+                "address": "0xd6f6A071506821a92d3C02759e3920A213BC5DfB",
+                "name": "Gusto",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg"
+            },
+            {
+                "type": "ERC721",
+                "address": "0xaf854D6A783B0237C57B53dCbAE5733A43168D03",
+                "name": "Freedom",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg"
+            },
+            {
+                "type": "ERC721",
+                "address": "0x01A23C30F1044Cbc8CdA0F6356DEBd94C575B6ED",
+                "name": "Liberty",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg"
+            },
+            {
+                "type": "ERC721",
+                "address": "0xd9b5149749420737EdfF665FF1FF64A8d345579d",
+                "name": "Independence",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg"
+            }
+        ],
+        "recommendERC20": [
+            {
+                "address": "ETH",
+                "name": "ETH"
+            }
+        ]
+    },
+    "42161": {
+        "networkName": "arbmain",
+        "hex": "0xa4b1",
+        "router": "0x2A95E4FDF5F12B9E9AC627fEcbF70420D3202db1",
+        "factory": "0x3d51749Cb2Db7355392100BAc202216BE7071E66",
+        "linear": "0x9Be2Dc731bFf38B0a5D893c7a5ECE8e170c67b86",
+        "exponential": "0x20C318AA7c2eC1190F20D41EB6C6F3Ec9f5955fe",
+        "ERC20": "",
+        "ERC721": "",
+        "ERC1155": "",
+        "recommendNFT": [
+            {
+                "type": "ERC721",
+                "address": "0x6fDb7db34F11ecC4aAa316fE9F4Ff5213b71d6E7",
+                "name": "ezarbtest721",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+            },
+            {
+                "type": "ERC1155",
+                "address": "0x16964ca0F3aA5AF0c9Df8C0e1F9Ea46721FcB462",
+                "name": "ezarbtest1155-1",
+                "tokenId1155": "1",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+            },
+            {
+                "type": "ERC1155",
+                "address": "0x16964ca0F3aA5AF0c9Df8C0e1F9Ea46721FcB462",
+                "name": "ezarbtest1155-2",
+                "tokenId1155": "2",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+            }
+        ],
+        "recommendERC20": [
+            {
+                "address": "ETH",
+                "name": "ETH"
+            }
+        ]
     }
 }

@@ -13,8 +13,7 @@ import {
   TradePoolLiner,
 } from "../utils/calculate";
 import PoolTab from "./PoolTab";
-import { MaxFiveDecimal,MaxThreeDecimal } from "../utils/roundoff";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { MaxFiveDecimal, MaxThreeDecimal } from "../utils/roundoff";
 
 const CollectionContainer = ({ collection }) => {
   //prettier-ignore
@@ -37,12 +36,12 @@ const CollectionContainer = ({ collection }) => {
         bestUserSellPrice = 0,
         nftCount = 0,
         TVL = 0,
-        volume=0;
+        volume = 0;
 
       for (let pool of pools) {
         /*
           only need pools that deal with ETH right now. other pools are test data.
-          if token != null but some address, means it's some alt coin address
+          if token is not null but contains other address, means it's some altcoin address
           if token is null, means its ETH
         */
         //prettier-ignore
@@ -61,7 +60,7 @@ const CollectionContainer = ({ collection }) => {
         delta /= EIGHTEEN_ZEROS;
         fee /= EIGHTEEN_ZEROS;
         protocolFee /= EIGHTEEN_ZEROS;
-        ethVolume /=EIGHTEEN_ZEROS;
+        ethVolume /= EIGHTEEN_ZEROS;
 
         //ethBalance and tokenBalance could be 'null', so need to convert to '0'
         ethBalance = ethBalance !== null ? ethBalance / EIGHTEEN_ZEROS : 0;
@@ -76,35 +75,40 @@ const CollectionContainer = ({ collection }) => {
           pfee: protocolFee,
         };
 
-
-         //filter out invalid nftIds
+        //filter out invalid nftIds
         let filteredNFTIds = nftIds.filter((id) => {
-          return !id;
+          return id;
         });
         nftCount += filteredNFTIds.length; //accumulate number of nfts in all the pools, update 'nftAmount' later on
-        volume+=ethVolume;
+        volume += ethVolume;
 
         //prettier-ignore
         let userBuyPrice = 0, userSellPrice = 0;
 
         //calculate best prices (floor price & top bid) from all three pools (buy, sell, trade)
-        if (type === "sell" && nftIds.length > 0)
+        //if the price is valid
+        //logic:
+        // - sell pool: the number of NFTs cannot be 0,
+        // - buy pool: the amount of tokenBalance is enough to purchase NFT from user
+        // - trade pool: either one of the above condition is present
+        if (type === "sell" && filteredNFTIds.length > 0){
           userBuyPrice = sellPoolFloorPrices(params);
-        else if (type === "buy" && nftIds.length > 0) {
+        }
+        else if (type === "buy" && tokenBalance > 0) {
           userSellPrice = buyPoolTopBid(params);
-          TVL += tokenBalance; //accumulate the total ETH / Token balances in buy / trade pools
-        } else if (type === "trade" && nftIds.length > 0) {
-          userBuyPrice = tradePoolFloorPrices(params);
-          userSellPrice = tradePoolTopBid(params);
-          TVL += tokenBalance; //accumulate the total ETH / Token balances in buy / trade pools
+          TVL += tokenBalance; //accumulate the total ETH / Token balances in buy pools
+        } else if (type === "trade"){
+          if(filteredNFTIds.length > 0) userBuyPrice = tradePoolFloorPrices(params);
+          if(tokenBalance > 0) userSellPrice = tradePoolTopBid(params);
+          TVL += tokenBalance; //accumulate the total ETH / Token balances in trade pools
         }
 
-        //in every loop, compare the current price with the best prices, and replace if needed
+        //in every loop, compare the current price with the best prices and replace,
+        //now check the validity
         //-----------
-        //floor price
-        bestUserBuyPrice =
-          bestUserBuyPrice === 0 || bestUserBuyPrice > userBuyPrice
-            ? userBuyPrice
+        //floor price, the number of NFTs in the pool cannot be empty
+        bestUserBuyPrice = filteredNFTIds.length > 0 
+            ? bestUserBuyPrice === 0 || bestUserBuyPrice > userBuyPrice ? userBuyPrice : bestUserBuyPrice
             : bestUserBuyPrice;
 
         //top bid
@@ -117,14 +121,13 @@ const CollectionContainer = ({ collection }) => {
       }
 
       //just to format the prices to  2 decimals. But no decimal if equals to 0.
-
       //prettier-ignore
       bestUserBuyPrice = bestUserBuyPrice.toFixed(MaxFiveDecimal(bestUserBuyPrice));
       //prettier-ignore
       bestUserSellPrice = bestUserSellPrice.toFixed(MaxFiveDecimal(bestUserSellPrice));
       //prettier-ignore
       TVL = TVL.toFixed(MaxFiveDecimal(TVL));
-      volume = volume.toFixed(MaxThreeDecimal(volume));
+      volume = volume.toFixed(MaxFiveDecimal(volume));
 
       setFloorPrice(bestUserBuyPrice);
       setTopBid(bestUserSellPrice);

@@ -24,8 +24,8 @@ const NFTSearch = ({
     setSwapMode,
 }) => {
     const [searchQuery, setSearchQuery] = useState("");
-    const apiSell = ['mantatest', 'manta']
-    const {languageModel} = useLanguage();
+    const apiSell = ['mantatest', 'manta', 'ethmain', 'arbmain']
+    const { languageModel } = useLanguage();
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value.toLowerCase());
     };
@@ -50,13 +50,15 @@ const NFTSearch = ({
         const fetchSellNFT = async () => {
             // if sell, get user collection detail
             if (formikData.collection.type === "ERC1155" && swapType === "sell") {
-                let nftAddress = formikData.collection.address;
-                let tid = "0x" + formikData.collection.tokenId1155.toString(16);
-                let parseStr = (nftAddress + "/" + tid + "/" + owner).toLowerCase();
 
-                const networkType = formikData.golbalParams.networkName;
-                const params = {
-                    query: `
+                if (formikData.golbalParams.networkName === 'mantatest' || formikData.golbalParams.networkName === 'manta') {
+                    let nftAddress = formikData.collection.address;
+                    let tid = "0x" + formikData.collection.tokenId1155.toString(16);
+                    let parseStr = (nftAddress + "/" + tid + "/" + owner).toLowerCase();
+
+                    const networkType = formikData.golbalParams.networkName;
+                    const params = {
+                        query: `
                     {
                         erc1155Balances(
                           where: {id: "${parseStr}"}
@@ -65,59 +67,124 @@ const NFTSearch = ({
                         }
                     }
                     `,
-                    urlKey: networkType,
-                };
+                        urlKey: networkType,
+                    };
 
-                const response = await fetch("/api/queryMantaNFT", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(params),
-                });
-                const data = await response.json();
+                    const response = await fetch("/api/queryMantaNFT", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(params),
+                    });
+                    const data = await response.json();
+                    let num1155 = data?.data?.erc1155Balances[0]?.valueExact;
 
-                let num1155 = data?.data?.erc1155Balances[0]?.valueExact;
+                    setUserCollection({
+                        tokenAmount1155: num1155,
+                    });
+                } else {
+                    let frontText = ''
+                    if (formikData.golbalParams.networkName === 'ethmain') {
+                        frontText = 'eth-mainnet'
+                    } else if (formikData.golbalParams.networkName === 'arbmain') {
+                        frontText = 'arb-mainnet'
+                    }
 
-                setUserCollection({
-                    tokenAmount1155: num1155,
-                });
+                    const params = {
+                        url: `https://${frontText}.g.alchemy.com/nft/v3/dFyzJjfLmVHlfhHyKkiSEP86fHcuFOJj/getNFTsForOwner`,
+                        owner: owner,
+                        contractAddress: formikData.collection.address,
+                        withMetadata: false,
+                        pageSize: 100
+                    };
+
+                    const response = await fetch("/api/queryNFTByAlchemy", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(params),
+                    });
+
+                    let data = await response.json();
+
+                    let tokenIdToCheck = formikData.collection.tokenId1155;
+                    let matchingNft = data.ownedNfts.find(nft => nft.tokenId === tokenIdToCheck);
+
+                    setUserCollection({
+                        tokenAmount1155: matchingNft ? matchingNft.balance : 0,
+                    });
+                }
             } else if (
-                formikData.collection.type === "ERC721" &&
-                swapType === "sell"
+                formikData.collection.type === "ERC721" && swapType === "sell"
             ) {
-                let nftAddress = formikData.collection.address;
-                const networkType = formikData.golbalParams.networkName;
-                const params = {
-                    query: `
+
+                if (formikData.golbalParams.networkName === 'mantatest' || formikData.golbalParams.networkName === 'manta') {
+                    let nftAddress = formikData.collection.address;
+                    const networkType = formikData.golbalParams.networkName;
+                    const params = {
+                        query: `
                     {
                         erc721Tokens(where: { owner: "${owner.toLowerCase()}", contract: "${nftAddress.toLowerCase()}" }) {
                           identifier
                         }
                     }
                     `,
-                    urlKey: networkType,
-                };
+                        urlKey: networkType,
+                    };
 
-                const response = await fetch("/api/queryMantaNFT", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(params),
-                });
-                const data = await response.json();
+                    const response = await fetch("/api/queryMantaNFT", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(params),
+                    });
+                    const data = await response.json();
 
-                let ids721 = data?.data?.erc721Tokens.map((id) =>
-                    Number(id.identifier)
-                );
-                ids721.sort(function (a, b) {
-                    return a - b;
-                });
+                    let ids721 = data?.data?.erc721Tokens.map((id) =>
+                        Number(id.identifier)
+                    );
+                    ids721?.sort(function (a, b) {
+                        return a - b;
+                    });
 
-                setUserCollection({
-                    tokenIds721: ids721,
-                });
+                    setUserCollection({
+                        tokenIds721: ids721,
+                    });
+                } else {
+                    let frontText = ''
+                    if (formikData.golbalParams.networkName === 'ethmain') {
+                        frontText = 'eth-mainnet'
+                    } else if (formikData.golbalParams.networkName === 'arbmain') {
+                        frontText = 'arb-mainnet'
+                    }
+
+                    const params = {
+                        url: `https://${frontText}.g.alchemy.com/nft/v3/dFyzJjfLmVHlfhHyKkiSEP86fHcuFOJj/getNFTsForOwner`,
+                        owner: owner,
+                        contractAddress: formikData.collection.address,
+                        withMetadata: false,
+                        pageSize: 100
+                    };
+
+                    const response = await fetch("/api/queryNFTByAlchemy", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(params),
+                    });
+
+                    let data = await response.json();
+
+                    const tokenIds = data.ownedNfts.map(nft => nft.tokenId);
+                    
+                    setUserCollection({
+                        tokenIds721: tokenIds,
+                    });
+                }
             }
         };
         if (formikData.collection.name !== "" && apiSell.includes(formikData.golbalParams.networkName)) {
@@ -242,7 +309,7 @@ const NFTSearch = ({
         args: [owner, formikData.collection.tokenId1155],
         watch: false,
         onSuccess(data) {
-            const num = parseInt(data, 16)
+            const num = Number(data)
             setUserCollection({
                 tokenAmount1155: num
             })
@@ -287,7 +354,7 @@ const NFTSearch = ({
             </button>
 
             <dialog id="nft_search_sell" className="modal">
-                <div className={"modal-box"+" "+styles.modalSize}>
+                <div className={"modal-box" + " " + styles.modalSize}>
                     {/*    <h3 className="text-lg font-bold">Search Collection:</h3>*/}
                     {/*    <div className='input-group'>*/}
                     {/*        <span>*/}

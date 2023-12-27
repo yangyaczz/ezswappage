@@ -35,7 +35,7 @@ const CollectionHeader = ({
         <header className="flex flex-wrap items-baseline justify-start max-w-lg min-w-full gap-0 leading-4">
           <p className="flex items-baseline mx-1 font-bold text-md md:text-lg lg:text-2xl whitespace-nowrap">
               {name}
-              {type==="ERC1155" && <span className="text-base"> token {tokenId1155}</span>}
+              {/*{type==="ERC1155" && <span className="text-base"> token {tokenId1155}</span>}*/}
               {currencyImage && (
                 <Image
                   src={currencyImage.src}

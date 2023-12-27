@@ -14,6 +14,7 @@ import {
   rainbowWallet,
   walletConnectWallet,
   coinbaseWallet,
+  tokenPocketWallet
 } from "@rainbow-me/rainbowkit/wallets";
 import NavBar from "@/components/bar/NavBar";
 import { CollectionProvider } from "@/contexts/CollectionContext";
@@ -21,6 +22,7 @@ import { StrictMode } from "react";
 import nextConfig from "../next.config.js";
 import { Wallet } from "ethers";
 import { LanguageProvider } from "@/contexts/LanguageContext.js";
+import { mainnet, arbitrum, polygon } from "wagmi/chains";
 require("dotenv").config();
 
 const mantatest = {
@@ -147,8 +149,8 @@ const eosevmmain = {
 //----------------------------------------------------------------------
 const { chains, publicClient } = configureChains(
   nextConfig.publicRuntimeConfig.env.API === "prod"
-    ? [mantamain, eosevmmain]
-    : [mantatest, mantamain, eosevmtest, eosevmmain],
+    ? [mainnet, arbitrum, mantamain, eosevmmain]
+    : [mainnet, arbitrum, mantatest, mantamain, eosevmtest, eosevmmain],
   [publicProvider()]
 );
 
@@ -161,8 +163,7 @@ const connectors = connectorsForWallets([
       injectedWallet({ projectId, chains }),
       metaMaskWallet({ projectId, chains }),
       bitgetWallet({ projectId, chains }),
-      coinbaseWallet({ projectId, chains }),
-      rainbowWallet({ projectId, chains }),
+      tokenPocketWallet({projectId,chains}),
       walletConnectWallet({ projectId, chains }),
     ],
   },

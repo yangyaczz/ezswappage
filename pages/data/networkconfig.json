@@ -260,7 +260,7 @@
         "recommendNFT": [
             {
                 "type": "ERC721",
-                "address": "0xF5d88abeE12c20745f1C2E255CffC16725F96E50",
+                "address": "0xF7CADf2Ca041657516d8e13e5c75ABEbB49D919d",
                 "name": "Holdem Tier 0.5",
                 "tokenId1155": "",
                 "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkheos/tier05.jpg"

@@ -248,12 +248,14 @@ const NavBar = () => {
                 >
                   {addressInfo.score} PTS{" "}
                 </div>
+                <div className="flex items-end">
                 {userHavePoineerCount > 0 && (
-                  <span className="text-[0.5rem] ml-1 mb-1"> 1.25x</span>
+                  <span className="text-[0.5rem] ml-1"> 1.25x</span>
                 )}
                 {userHavePoineerCount > 0 && (
-                  <img className="mb-1.5 ml-0.5" src="/top.png" alt="" />
+                  <img className="h-2 mb-2 ml-0.3" src="/top.png" alt="" />
                 )}
+                </div>
               </div>
               <ul
                 tabIndex="0"

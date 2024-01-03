@@ -17,15 +17,18 @@ const NFTs = [
 const initialState = {
   popupOpen: false,
   popupWindow: null,
-  collectionName: "",
   NFTList: [],
+  // popupOpen: true,
+  // popupWindow: "",
+  // NFTList:NFTs,
+  collectionName: "",
   selectedNFTs: [],
 };
 
 function reducer(state, action) {
   switch (action.type) {
     case "collection/loading":
-      return { ...state };
+      return { ...state};
     case "collection/openPopup":
       return {
         ...state,

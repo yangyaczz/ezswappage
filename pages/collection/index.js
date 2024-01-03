@@ -17,7 +17,7 @@ const Collection = () => {
   return (
     <div className="relative flex flex-col items-center self-stretch justify-start w-full bg-black gap-x-6 justify-self-stretch">
       <header className="flex flex-col items-center justify-around h-32">
-        <h1 className="text-xl sm:text-3xl lg:text-4xl">
+        <h1 className="text-xl sm:text-3xl lg:text-4xl uppercase">
           {languageModel.AddLiquidityToEarn}
         </h1>
       </header>

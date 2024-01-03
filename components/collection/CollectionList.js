@@ -54,6 +54,10 @@ const CollectionList = () => {
     if (chain && chain.id in networkConfig)
       chainConfig = networkConfig[chain.id];
 
+    // 给个默认值显示eos,不然会显示no data
+    if (chainConfig === undefined || chainConfig.networkName === undefined) {
+      chainConfig = networkConfig[17777]
+    }
     arrangeCollectionsByTradingPair();
 
 function arrangeCollectionsByTradingPair() {

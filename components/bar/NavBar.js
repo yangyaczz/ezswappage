@@ -250,7 +250,7 @@ const NavBar = () => {
                 </div>
                 <div className="flex items-end">
                 {userHavePoineerCount > 0 && (
-                  <span className="text-[0.5rem] ml-1"> 1.25x</span>
+                  <span className="text-[0.5rem] ml-1 mt-1"> 1.25x</span>
                 )}
                 {userHavePoineerCount > 0 && (
                   <img className="h-2 mb-2 ml-0.3" src="/top.png" alt="" />
@@ -274,11 +274,11 @@ const NavBar = () => {
                     }
                     onClick={() => handleClick(1)}
                   >
-                    <a>Get Today’s Free PTS</a>
+                    <a className={styles.airdropText}>Get Today’s Free PTS</a>
                   </li>
                 </div>
                 <li className={styles.liStyle} onClick={() => handleClick(2)}>
-                  <a>Copy Invite Link</a>
+                  <a className={styles.airdropText}>Copy Invite Link</a>
                 </li>
               </ul>
             </div>

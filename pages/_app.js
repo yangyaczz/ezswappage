@@ -30,6 +30,7 @@ const mantatest = {
   name: "Manta Testnet",
   network: "Manta Testnet",
   iconBackground: "#008000",
+  iconUrl:"/manta.jpg",
   nativeCurrency: {
     decimals: 18,
     name: "ETH",
@@ -57,6 +58,7 @@ const mantamain = {
   name: "Manta Pacific",
   network: "Manta Pacific",
   iconBackground: "#008000",
+  iconUrl:"/manta.jpg",
   nativeCurrency: {
     decimals: 18,
     name: "ETH",
@@ -84,6 +86,7 @@ const eosevmtest = {
   name: "EOS EVM Testnet",
   network: "EOS EVM Testnet",
   iconBackground: "#008000",
+  iconUrl:"/eos_chain.jpg",
   nativeCurrency: {
     decimals: 18,
     name: "EOS",
@@ -107,6 +110,7 @@ const eosevmmain = {
   name: "EOS EVM",
   network: "EOS EVM",
   iconBackground: "#008000",
+  iconUrl:"/eos_chain.jpg",
   nativeCurrency: {
     decimals: 18,
     name: "EOS",
@@ -124,6 +128,8 @@ const eosevmmain = {
   },
   testnet: false,
 };
+
+
 //  [mantatest, mantamain, eosevmtest, eosevmmain],
 
 //old wagmi and rainbow kit versions
@@ -153,6 +159,13 @@ const { chains, publicClient } = configureChains(
     : [mainnet, arbitrum, mantatest, mantamain, eosevmtest, eosevmmain],
   [publicProvider()]
 );
+
+// const { chains, publicClient } = configureChains(
+//   nextConfig.publicRuntimeConfig.env.API === "prod"
+//     ? [mainnet, arbitrum, manta, mantaTestnet]
+//     : [mainnet, arbitrum, manta, mantaTestnet, eos, eosTestnet],
+//   [publicProvider()]
+// );
 
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_ID;
 

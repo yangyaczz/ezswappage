@@ -164,7 +164,7 @@ const Swap = () => {
           />
         </div>
 
-        <div className="w-full max-w-5xl card bg-base-100">
+        <div className="w-11/12 max-w-5xl card bg-base-100">
           <div className="card-body">
             <div className={styles.cardStyle}>
               <div className="space-y-2 min-w-2/5">

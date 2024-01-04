@@ -1,16 +1,23 @@
 import { REDIRECT_URL } from "@/config/constant";
-import Router from "next/router"
+import Router from "next/router";
 
-const PoolTab = ({ contractAddress,tokenId }) => {
+const PoolTab = ({ contractAddress, tokenId }) => {
   function handleClick() {
     // const url = `${REDIRECT_URL}#/wallet/list/${contractAddress}`;
-      sessionStorage.setItem("collectionContractAddress", contractAddress);
-      sessionStorage.setItem("collectionTokenId", tokenId);
-      Router.push({pathname: '/collectionpool', query: {contractAddress: contractAddress,tokenId:tokenId}});
+    sessionStorage.setItem("collectionContractAddress", contractAddress);
+    sessionStorage.setItem("collectionTokenId", tokenId);
+    Router.push({
+      pathname: "/collectionpool",
+      query: { contractAddress: contractAddress, tokenId: tokenId },
+    });
     // window.open(url, `newTab_${Date.now()}`);
   }
   return (
-    <div className="grid grid-cols-2 place-items-center">
+    <div className="grid items-center grid-cols-1 justify-items-end">
+      {/* 
+      
+      //originally right arrow
+
       <div
         className="col-span-1 col-start-2 cursor-pointer"
         style={{
@@ -27,7 +34,13 @@ const PoolTab = ({ contractAddress,tokenId }) => {
           e.target.style.borderLeft = "20px solid #fff";
         }}
         onClick={handleClick}
-      ></div>
+      ></div> */}
+      <div
+        className="underline cursor-pointer"
+        onClick={handleClick}
+      >
+        EXISTING POOL
+      </div>
     </div>
   );
 };

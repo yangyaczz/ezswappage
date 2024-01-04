@@ -1,39 +1,40 @@
+import { useCollection } from "@/contexts/CollectionContext";
 import { useState } from "react";
 
 const ConstantLadderSelection = ({ styleGrid, popupType }) => {
-  const [bidType, setBidType] = useState("CONSTANT");
-  const [ladderType, setLadderType] = useState("PERCENT");
+
+  const {constant_ladder,percent_linear, setConstant_Ladder, setPercent_Linear, ladderValue, setLadderValue} = useCollection();
   const handleRadioChange = (e) => {
-    setLadderType(e.target.value);
+    setPercent_Linear(e.target.value);
   };
   return (
     <div className={`${styleGrid} col-span-full w-full`}>
       <p>Set to:</p>
-      <div className="flex justify-start items-start gap-x-2 md:gap-x-6 h-full">
+      <div className="flex items-start justify-start h-full gap-x-2 md:gap-x-6">
         <button
           className={`btn ezBtn ezBtnPrimaryOutline w-[110px] md:btn-md 
-          ${bidType === "CONSTANT" ? "glass" : ""} 
+          ${constant_ladder === "CONSTANT" ? "glass" : ""} 
           `}
-          onClick={() => setBidType("CONSTANT")}
+          onClick={() => setConstant_Ladder("CONSTANT")}
         >
           Constant
         </button>
         <button
           className={`btn ezBtn ezBtnPrimaryOutline w-[110px] md:btn-md 
-          ${bidType === "LADDER" ? "glass" : ""}
+          ${constant_ladder === "LADDER" ? "glass" : ""}
           `}
-          onClick={() => setBidType("LADDER")}
+          onClick={() => setConstant_Ladder("LADDER")}
         >
           Ladder
         </button>
       </div>
-      {bidType === "LADDER" && (
+      {constant_ladder === "LADDER" && (
         <div
           className={`flex justify-start items-center ${
             popupType === "deposit" ? "col-start-1" : "col-start-2"
           } md:col-start-2 gap-x-2 flex-wrap`}
         >
-          <div className="flex justify-start items-center">
+          <div className="flex items-center justify-start">
             <div class="form-control">
               <label class="label cursor-pointer">
                 <input
@@ -41,7 +42,7 @@ const ConstantLadderSelection = ({ styleGrid, popupType }) => {
                   name="ladder-radio"
                   class="radio checked:bg-red-500"
                   value="PERCENT"
-                  checked={ladderType === "PERCENT"}
+                  checked={percent_linear === "PERCENT"}
                   onChange={handleRadioChange}
                 />
                 <span class="label-text">Decrease by percent</span>
@@ -54,7 +55,7 @@ const ConstantLadderSelection = ({ styleGrid, popupType }) => {
                   name="ladder-radio"
                   class="radio checked:bg-red-500"
                   value="LINEAR"
-                  checked={ladderType === "LINEAR"}
+                  checked={percent_linear === "LINEAR"}
                   onChange={handleRadioChange}
                 />
                 <span class="label-text">Decrease by linear</span>
@@ -65,9 +66,11 @@ const ConstantLadderSelection = ({ styleGrid, popupType }) => {
             <input
               type="number"
               min={0}
-              className="input input-bordered w-36 max-w-xs inline "
+              className="inline max-w-xs input input-bordered w-36 "
+              value={ladderValue}
+              onChange={(e)=>setLadderValue(e.target.value)}
             />
-            {ladderType === "PERCENT" ? (
+            {percent_linear === "PERCENT" ? (
               <span>%</span>
             ) : (
               <span className="text-base">ETH</span>

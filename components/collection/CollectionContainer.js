@@ -194,7 +194,7 @@ const CollectionContainer = ({ collection }) => {
 
     */
 
-    <div className="w-11/12 max-w-[1240px] border-[1px] border-solid border-zinc-100 rounded-md grid gap-x-3 gap-y-8 md:gap-y-4 p-3 xl:p-6 grid-cols-7-2  grid-rows-[2fr,1fr] sm:grid-rows-[1fr,auto]">
+    <div className="w-11/12 max-w-[1240px] border-[1px] border-solid border-zinc-100 rounded-md grid min-h-[220px] gap-x-3 gap-y-8 md:gap-y-4 p-3 xl:p-6 grid-cols-7-2 grid-rows-[1fr,auto]">
       <CollectionHeader
         address={address}
         name={name}
@@ -219,6 +219,8 @@ const CollectionContainer = ({ collection }) => {
         chainId={chainId}
         type={type}
         tokenId1155={tokenId1155}
+        floorPrice={floorPrice}
+        topBid={topBid}
       />
       <AddLiquidityButton
         collectionName={name}

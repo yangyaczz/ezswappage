@@ -6,11 +6,21 @@ $searching-height: 640px;
 .liStyle{
   font-family: 'Montserrat-bold';
 }
+
+@media (max-width:640px) {
+  .wrapNewHeader{
+    height:80px;
+  }
+}
+@media (min-width:640px) {
+  .wrapNewHeader{
+    height:$header-height
+  }
+}
 .wrapNewHeader {
   transition: all 0.5s;
-  height: $header-height;
   color: $primaryColor;
-  max-width: 100%;
+  // max-width: 100%;
   // position: fixed;
   left: 0;
   top: 0;
@@ -144,7 +154,7 @@ $searching-height: 640px;
 
   .headerBox {
     height: $header-height;
-    display: flex;
+    // display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
@@ -221,4 +231,9 @@ $searching-height: 640px;
   .airdropText{
     font-family: 'Montserrat', sans-serif;
   }
+}
+
+
+.hamburgerMenuItem{
+
 }

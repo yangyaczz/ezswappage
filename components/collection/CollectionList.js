@@ -83,7 +83,7 @@ function arrangeCollectionsByTradingPair() {
             )) {
               colByPair.push({
                 ...collection,
-                id: `${collection.address}-${currencyAddress}`,
+                id: `${collection.address}-${currencyAddress}-${collection.tokenId1155}`,
                 pools: pools,
                 tradingCurrencyAddr: currencyAddress,
                 tradingCurrencyName:
@@ -100,7 +100,7 @@ function arrangeCollectionsByTradingPair() {
             //no pools found for this collection, still show collections but just only static data (default values to 0) and not filtered
             colByPair.push({
               ...collection,
-              id: `${collection.address}`,
+              id: `${collection.address}-${collection.tokenId1155}`,
               pools: [],
               tradingCurrencyAddr: null,
               tradingCurrencyName: null,

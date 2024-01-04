@@ -16,8 +16,8 @@ const Collection = () => {
   const {languageModel} = useLanguage();
   return (
     <div className="relative flex flex-col items-center self-stretch justify-start w-full bg-black gap-x-6 justify-self-stretch">
-      <header className="flex flex-col items-center justify-around h-32">
-        <h1 className="text-xl sm:text-3xl lg:text-4xl uppercase">
+      <header className="flex flex-col items-center justify-around h-24 sm:h-32">
+        <h1 className="text-base sm:text-3xl lg:text-4xl">
           {languageModel.AddLiquidityToEarn}
         </h1>
       </header>

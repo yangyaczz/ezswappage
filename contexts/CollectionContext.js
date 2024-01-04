@@ -5,41 +5,58 @@ const CollectionContext = createContext();
 const popupWindows = ["DEPOSIT", "PLACEBIDS", "ADD_LIQUIDITY", "BUY", "SELL"];
 
 const NFTs = [
-  { tokenId: 1123, imgUrl: "/bayc.jpg", bidPrice: "99" },
-  { tokenId: 1143, imgUrl: "/bayc.jpg", bidPrice: "89" },
-  { tokenId: 1126, imgUrl: "/bayc.jpg", bidPrice: "42" },
-  { tokenId: 1823, imgUrl: "/bayc.jpg", bidPrice: "47" },
-  { tokenId: 1833, imgUrl: "/bayc.jpg", bidPrice: "47" },
-  { tokenId: 1863, imgUrl: "/bayc.jpg", bidPrice: "47" },
-  { tokenId: 1213, imgUrl: "/bayc.jpg", bidPrice: "47" },
+  { tokenId: 1123, imgUrl: "/bayc.jpg", price: 1 },
+  { tokenId: 1143, imgUrl: "/bayc.jpg", price: 0 },
+  { tokenId: 1126, imgUrl: "/bayc.jpg", price: 0 },
+  { tokenId: 1823, imgUrl: "/bayc.jpg", price: 0 },
+  { tokenId: 1833, imgUrl: "/bayc.jpg", price: 0 },
+  { tokenId: 1863, imgUrl: "/bayc.jpg", price: 0 },
+  { tokenId: 1213, imgUrl: "/bayc.jpg", price: 0 },
 ];
+
+const NFTS=[]
 
 const initialState = {
   popupOpen: false,
   popupWindow: null,
+  constant_ladder: "CONSTANT",
+  percent_linear: "PERCENT",
+  ladderValue:0,
   NFTList: [],
-  // popupOpen: true,
-  // popupWindow: "",
-  // NFTList:NFTs,
   collectionName: "",
+  floorPrice: 0,
+  topBid: 0,
   selectedNFTs: [],
 };
 
 function reducer(state, action) {
   switch (action.type) {
     case "collection/loading":
-      return { ...state};
+      return { ...state };
     case "collection/openPopup":
       return {
         ...state,
         popupOpen: true,
         popupWindow: action.payload.popupWindow,
-        collectionName: action.payload.collectionName,
         NFTList: action.payload.NFTList,
+        collectionName: action.payload.collectionName,
+        floorPrice: action.payload.floorPrice,
+        topBid: action.payload.topBid,
         selectedNFTs: [],
+        constant_ladder:"CONSTANT",
+        percent_linear:"PERCENT",
+        ladderValue:0
       };
+    case "collection/setConstant_Ladder":
+      return { ...state, constant_ladder: action.payload };
+    case "collection/setPercent_Linear":
+      return { ...state, percent_linear: action.payload };
+      case "collection/setLadderValue":
+        return {...state, ladderValue:action.payload}
     case "collection/selectNFTs":
       return { ...state, selectedNFTs: action.payload };
+      case "collection/setNFTList":
+        return {...state,NFTList:action.payload}
     case "collection/closePopup":
       return { ...state, popupOpen: false, NFTList: [], selectedNFTs: [] };
     default:
@@ -49,35 +66,79 @@ function reducer(state, action) {
 
 function CollectionProvider({ children }) {
   const [
-    { popupOpen, popupWindow, collectionName, NFTList, selectedNFTs },
+    {
+      popupOpen,
+      popupWindow,
+      collectionName,
+      NFTList,
+      floorPrice,
+      topBid,
+      selectedNFTs,
+      constant_ladder,
+      percent_linear,
+      ladderValue
+    },
     dispatch,
   ] = useReducer(reducer, initialState);
 
-  async function openPopup(popupWindow, collectionName) {
+  async function openPopup(popupWindow, col) {
     //sort NFTList in ascending order
     const nfts = NFTs.slice().sort((a, b) => a.tokenId - b.tokenId);
-
     if (popupWindows.includes(popupWindow.toUpperCase()))
       dispatch({
         type: "collection/openPopup",
-        payload: { popupWindow, collectionName, NFTList: nfts },
+        payload: {
+          popupWindow,
+          collectionName: col.collectionName,
+          floorPrice: col.floorPrice,
+          topBid: col.topBid,
+          NFTList: nfts,
+        },
       });
   }
 
-  async function closePopup() {
-    dispatch({ type: "collection/closePopup" });
+  async function setConstant_Ladder(constant_ladder) {
+    dispatch({
+      type: "collection/setConstant_Ladder",
+      payload:constant_ladder
+    });
   }
 
-  async function selectNFTs(tokenId) {
-    selectedNFTs.includes(tokenId)
-      ? dispatch({
-          type: "collection/selectNFTs",
-          payload: selectedNFTs.filter((nftId) => nftId !== tokenId),
+  async function setPercent_Linear(percent_linear) {
+    dispatch({
+      type: "collection/setPercent_Linear",
+      payload:percent_linear
+    });
+  }
+
+  async function setLadderValue(value){
+    dispatch({
+      type:"collection/setLadderValue",
+      payload:parseFloat(value)
+    })
+  }
+  
+    async function selectNFTs(tokenId) {
+      selectedNFTs.includes(tokenId)
+        ? dispatch({
+            type: "collection/selectNFTs",
+            payload: selectedNFTs.filter((nftId) => nftId !== tokenId),
+          })
+        : dispatch({
+            type: "collection/selectNFTs",
+            payload: [...selectedNFTs, tokenId],
+          });
+    }
+
+    async function setNFTList(NFTs){
+        dispatch({
+          type:"collection/setNFTList",
+          payload:NFTs
         })
-      : dispatch({
-          type: "collection/selectNFTs",
-          payload: [...selectedNFTs, tokenId],
-        });
+    }
+  
+  async function closePopup() {
+    dispatch({ type: "collection/closePopup" });
   }
 
   //increase or decrease NFTs checkbox when the radio bar in being dragged
@@ -113,10 +174,19 @@ function CollectionProvider({ children }) {
         popupWindow,
         collectionName,
         NFTList,
+        floorPrice,
+        topBid,
         selectedNFTs,
+        constant_ladder,
+        percent_linear,
+        ladderValue,
+        setConstant_Ladder,
+        setPercent_Linear,
+        setLadderValue,
         openPopup,
         closePopup,
         selectNFTs,
+        setNFTList,
         changeRangeValue,
       }}
     >

@@ -85,5 +85,5 @@ export default {
   Points: '積分',
   Close: '關閉',
   PoolDontHaveNFT: '此池中沒有此NFT',
-
+  ExistingPool:"現有池子"
 }

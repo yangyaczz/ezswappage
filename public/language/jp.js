@@ -85,5 +85,5 @@ export default {
   Points: 'ポイント',
   Close: '閉じる',
   PoolDontHaveNFT: 'このプールにはこのNFTがありません',
-
+  ExistingPool:"既存のプール"
 }

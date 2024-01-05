@@ -122,13 +122,13 @@ const ButtonGroup = ({
       </button> */}
 
       <button
-        className="btn ezBtn ezBtnPrimary btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11"
+        className="btn ezBtn ezBtnPrimary btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11 !bg-[#00D5DA]"
         onClick={handlePlaceBidClick}
       >
         {languageModel.PlaceBid}
       </button>
       <button
-        className="btn ezBtn ezBtnPrimary btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11"
+        className="btn ezBtn ezBtnPrimary btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11 !bg-[#00D5DA]"
         onClick={handleDepositClick}
       >
         {languageModel.ListNFT}

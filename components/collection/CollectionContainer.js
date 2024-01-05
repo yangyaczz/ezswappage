@@ -194,9 +194,9 @@ const CollectionContainer = ({ collection }) => {
 
     */
 
-    <div className="w-11/12 max-w-[1240px] border-[1px] border-solid border-zinc-100 rounded-md grid min-h-[220px] gap-x-3 gap-y-8 md:gap-y-4 p-3 xl:p-6 grid-cols-7-2 grid-rows-[1fr,auto]">
+    <div className="w-11/12 max-w-[1240px] border-[1px] border-solid border-zinc-100 rounded-md grid min-h-[200px] sm:min-h-[210px] md:min-h-[200px] gap-x-3 gap-y-8 md:gap-y-4 p-3 xl:p-6 grid-cols-[4fr,2fr] sm:grid-cols-[6fr,2fr] grid-rows-[1fr,auto]">
       <CollectionHeader
-        address={address}
+        contractAddress={address}
         name={name}
         type={type}
         tokenId1155={tokenId1155}
@@ -211,7 +211,7 @@ const CollectionContainer = ({ collection }) => {
         currencyImage={currencyImage}
       />
       {/* <Rewards COLLECTION_PIC_SIZE={COLLECTION_PIC_SIZE} network={network} /> */}
-      <PoolTab contractAddress={address} tokenId={tokenId1155} />
+      <PoolTab contractAddress={address} tokenId={tokenId1155} totalVolume={totalVolume} currencyImage={currencyImage} tradingCurrencyName={tradingCurrencyName}/>
       <ButtonGroup
         collectionName={name}
         contractAddress={address}

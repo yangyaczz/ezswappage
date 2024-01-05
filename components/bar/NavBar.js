@@ -6,7 +6,7 @@ import { useAccount, useContractRead } from "wagmi";
 import nextConfig from "../../next.config.js";
 import EZSwapPioneer from "../../pages/data/ABI/EZSwapPioneer.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGlobe } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faGlobe, faXmark } from "@fortawesome/free-solid-svg-icons";
 import PopupBlurBackground from "../collection/PopupBlurBackground";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ERC721EnumABI from "../../pages/data/ABI/ERC721Enum.json";
@@ -194,9 +194,9 @@ const NavBar = () => {
           setToggleHamburger((ham) => !ham);
           setHamburgerShowLanguage(false);
         }}
-        className="text-white focus:outline-none lg:hidden"
+        className="text-white duration-300 ease-in focus:outline-none lg:hidden"
       >
-        <svg
+        {/* <svg
           className="w-6 h-6"
           fill="none"
           stroke="currentColor"
@@ -204,12 +204,17 @@ const NavBar = () => {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
             d="M4 6h16M4 12h16m-7 6h7"
           ></path>
-        </svg>
+        </svg> */}
+        {toggleHamburger ? (
+          <FontAwesomeIcon icon={faXmark} size="xl" />
+        ) : (
+          <FontAwesomeIcon icon={faBars} size="xl" />
+        )}
       </button>
 
       {/* HamburgerButton Dropdown */}
@@ -219,7 +224,7 @@ const NavBar = () => {
         } flex-col absolute w-full top-[80px] left-0 bg-black justify-start items-end gap-3 min-h-[60vh] px-6`}
       >
         <Link
-          className="w-full p-2 text-xl font-bold text-right hover:bg-zinc-800"
+          className="w-full p-2 text-xl font-bold text-right border-b-2 hover:bg-zinc-800"
           href="/swap"
           onClick={() => {
             setToggleHamburger(false);
@@ -229,7 +234,7 @@ const NavBar = () => {
           {languageModel.swap}
         </Link>
         <Link
-          className="w-full p-2 text-xl font-bold text-right hover:bg-zinc-800"
+          className="w-full p-2 text-xl font-bold text-right border-b-2 hover:bg-zinc-800"
           href="/collection"
           onClick={() => {
             setToggleHamburger(false);
@@ -239,7 +244,7 @@ const NavBar = () => {
           {languageModel.pool}
         </Link>
         <a
-          className="w-full p-2 text-xl font-bold text-right hover:bg-zinc-800"
+          className="w-full p-2 text-xl font-bold text-right border-b-2 hover:bg-zinc-800"
           href={launchpadJumpUrl}
           target="_blank"
           onClick={() => {
@@ -250,7 +255,7 @@ const NavBar = () => {
           {languageModel.mint}
         </a>
         <Link
-          className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800`}
+          className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}
           href="/mypool"
           onClick={() => {
             setToggleHamburger(false);
@@ -260,7 +265,7 @@ const NavBar = () => {
           {languageModel.myPool}
         </Link>
         <div
-          className={`w-full p-2 text-xl font-bold text-right ${
+          className={`w-full p-2 text-xl font-bold text-right  border-b-2 ${
             hamburgerShowLanguage ? "" : "hover:bg-zinc-800"
           } self-end`}
         >
@@ -275,7 +280,7 @@ const NavBar = () => {
             />
           </a>
           {hamburgerShowLanguage && (
-            <ul className="flex flex-col items-end justify-center mt-2">
+            <ul className="flex flex-col items-end justify-center mt-2 border-b-2">
               {Object.keys(lanMap).map((lan) => (
                 <button
                   key={lan}
@@ -289,14 +294,13 @@ const NavBar = () => {
           )}
         </div>
         <a
-          className={`${styles.launchpad} ${styles.airdropBtn} self-end my-3`}
+          className={`${styles.launchpad} ${styles.airdropBtn} self-end my-3 `}
           href={airdropJumpUrl}
           target="_self"
         >
           {languageModel.Airdrop}
         </a>
         <ConnectButton />
-
       </div>
     </div>
   );

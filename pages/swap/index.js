@@ -145,7 +145,7 @@ const Swap = () => {
 
         <div className="mb-10 join">
           <input
-            className="join-item btn bg-[#0E1729] hover:bg-[#0E1729]"
+            className="join-item btn text-[#000000] border-[#00D5DA] bg-[#00D5DA] hover:bg-[#00D5DA]"
             type="radio"
             name="options"
             value="buy"
@@ -154,7 +154,7 @@ const Swap = () => {
             onChange={handleInputSwapTypeChange}
           />
           <input
-            className="join-item btn bg-[#0E1729] hover:bg-[#0E1729]"
+            className="join-item btn text-[#000000] border-[#00D5DA] bg-[#00D5DA] hover:bg-[#00D5DA]"
             type="radio"
             name="options"
             value="sell"

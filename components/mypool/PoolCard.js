@@ -538,7 +538,7 @@ const PoolCard = ({ item,formikData, owner }) => {
                 </span>
             </div>
             <div className="mb-4">
-                <span className="text-lg font-medium">{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName} - {item.NFTName}</span>
+                <span className="text-white	text-lg font-medium">{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName} - {item.NFTName}</span>
             </div>
             <div className="min-[800px]:flex min-[800px]:justify-between p-4 rounded-lg bg-base-200 ">
                 <div className='flex min-[800px]:flex-col max-[799px]:items-center'>

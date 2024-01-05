@@ -78,6 +78,10 @@ const ButtonGroup = ({
   }
 
   function handlePlaceBidClick() {
+    if (chain === undefined) {
+      showErrorAlert('please connect wallet');
+      return
+    }
     if (chain.id !== parseInt(chainId, 16)) {
       showErrorAlert("Please switch to right chain");
       return;
@@ -93,6 +97,10 @@ const ButtonGroup = ({
   }
 
   function handleDepositClick() {
+    if (chain === undefined) {
+      showErrorAlert('please connect wallet');
+      return
+    }
     if (chain.id !== parseInt(chainId, 16)) {
       showErrorAlert("Please switch to right chain");
       return;

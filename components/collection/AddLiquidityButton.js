@@ -46,6 +46,10 @@ const AddLiquidityButton = ({
 
   function handleAddLiquidityClick() {
       console.log('chainaaa', chain, parseInt(chainId, 16));
+      if (chain === undefined) {
+          showErrorAlert('please connect wallet');
+          return
+      }
       if (chain.id !== parseInt(chainId, 16)){
           showErrorAlert('Please switch to right chain');
           return

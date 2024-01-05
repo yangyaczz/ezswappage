@@ -23,8 +23,8 @@ const PoolTab = ({
   }
   return (
     <div className="grid items-center grid-cols-1 grid-rows-[auto,1fr] justify-items-end">
-      {/* 
-      
+      {/*
+
       //originally right arrow
 
       <div
@@ -71,8 +71,8 @@ const PoolTab = ({
             )}`}</label>
           </div>
         </div>
-        
-      <div className="text-xs underline cursor-pointer sm:col-span-2 sm:col-start-1 justify-self-end sm:text-base whitespace-nowrap" onClick={handleClick}>
+
+      <div className="text-white text-xs underline cursor-pointer sm:col-span-2 sm:col-start-1 justify-self-end sm:text-base whitespace-nowrap" onClick={handleClick}>
         {languageModel.ExistingPool.toUpperCase()}
       </div>
     </div>

@@ -35,7 +35,7 @@ const CollectionHeader = ({
       />
       <div className="flex flex-col items-start justify-start gap-y-4">
         <header className="flex flex-col flex-wrap items-baseline justify-start max-w-lg min-w-full leading-4 gap-x-4 sm:flex-row">
-          <p className="flex items-baseline text-xl font-bold lg:text-2xl whitespace-nowrap">
+          <p className="flex items-baseline text-xl font-bold lg:text-2xl whitespace-nowrap text-white">
             {name}
             {/*{type==="ERC1155" && <span className="text-base"> token {tokenId1155}</span>}*/}
             {currencyImage && (
@@ -48,13 +48,13 @@ const CollectionHeader = ({
               />
             )}
           </p>
-          <p className="text-sm align-baseline xl:text-base whitespace-nowrap ">
+          <p className="text-white text-sm align-baseline xl:text-base whitespace-nowrap ">
           {languageModel.Vol.toUpperCase()}: {totalVolume} {tradingCurrencyName}
         </p>
           {/* <p className="text-sm lg:text-base">Estimated APR: 20%</p> */}
         </header>
 
-        <div className="grid self-stretch grid-cols-1 gap-2 place-items-start sm:grid-cols-2 sm:grid-rows-2 md:gap-4 lg:grid-cols-[3fr,2fr,3fr,3fr] lg:grid-rows-1 gap-x-4 whitespace-nowrap">
+        <div className="text-white grid self-stretch grid-cols-1 gap-2 place-items-start sm:grid-cols-2 sm:grid-rows-2 md:gap-4 lg:grid-cols-[3fr,2fr,3fr,3fr] lg:grid-rows-1 gap-x-4 whitespace-nowrap">
           <p className="text-sm xl:text-base">
             {languageModel.FloorPrice}:{" "}
             <span>

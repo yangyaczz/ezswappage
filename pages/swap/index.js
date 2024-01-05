@@ -143,9 +143,10 @@ const Swap = () => {
         <span>Your purchase has been confirmed!</span>
       </div> */}
 
+        {/*className="join-item btn text-[#000000] border-[#00D5DA] bg-[#00D5DA] hover:bg-[#00D5DA]"*/}
         <div className="mb-10 join">
           <input
-            className="join-item btn text-[#000000] border-[#00D5DA] bg-[#00D5DA] hover:bg-[#00D5DA]"
+            className="join-item btn bg-[#0E1729] hover:bg-[#0E1729] checked:!bg-[#00D5DA]"
             type="radio"
             name="options"
             value="buy"
@@ -154,7 +155,7 @@ const Swap = () => {
             onChange={handleInputSwapTypeChange}
           />
           <input
-            className="join-item btn text-[#000000] border-[#00D5DA] bg-[#00D5DA] hover:bg-[#00D5DA]"
+            className="join-item btn bg-[#0E1729] hover:bg-[#0E1729] checked:!bg-[#00D5DA]"
             type="radio"
             name="options"
             value="sell"

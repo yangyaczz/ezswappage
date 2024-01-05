@@ -85,5 +85,5 @@ export default {
   Points: '포인트',
   Close: '닫기',
   PoolDontHaveNFT: '이 풀에는 이 NFT가 없습니다',
-
+  ExistingPool:"기존 풀"
 }

@@ -85,5 +85,6 @@ export default {
   YouGet:"You get",
   Points:"Pts",
   Close:"close",
-  PoolDontHaveNFT:"Pool don't have this NFT"
+  PoolDontHaveNFT:"Pool don't have this NFT",
+  ExistingPool:"Existing Pool"
 }

@@ -85,4 +85,5 @@ export default {
   Points: 'Puan',
   Close: 'kapat',
   PoolDontHaveNFT: 'Bu havuzda bu NFT yok',
+  ExistingPool:"Mevcut Havuz"
 }

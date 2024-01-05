@@ -1,7 +1,18 @@
 import { REDIRECT_URL } from "@/config/constant";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { faCopy } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Router from "next/router";
-
-const PoolTab = ({ contractAddress, tokenId }) => {
+import { useRef } from "react";
+import addressIcon from "../../pages/data/address_icon.json";
+const PoolTab = ({
+  contractAddress,
+  tokenId,
+  tradingCurrencyName,
+  totalVolume,
+}) => {
+  const { languageModel } = useLanguage();
+  const tooltipRef = useRef("");
   function handleClick() {
     // const url = `${REDIRECT_URL}#/wallet/list/${contractAddress}`;
     sessionStorage.setItem("collectionContractAddress", contractAddress);
@@ -13,7 +24,7 @@ const PoolTab = ({ contractAddress, tokenId }) => {
     // window.open(url, `newTab_${Date.now()}`);
   }
   return (
-    <div className="grid items-center grid-cols-1 justify-items-end">
+    <div className="grid items-center grid-cols-1 sm:grid-cols-2 grid-rows-[1fr,1fr,8fr] sm:grid-rows-[1fr,3fr] justify-items-end">
       {/* 
       
       //originally right arrow
@@ -35,11 +46,39 @@ const PoolTab = ({ contractAddress, tokenId }) => {
         }}
         onClick={handleClick}
       ></div> */}
-      <div
-        className="underline cursor-pointer"
-        onClick={handleClick}
-      >
-        EXISTING POOL
+        <p className="mx-1 text-xs align-baseline sm:justify-self-start">
+          {languageModel.Vol.toUpperCase()}: {totalVolume} {tradingCurrencyName}
+        </p>
+
+        <div className="flex items-center justify-start gap-x-2">
+          <div
+            className="flex items-center gap-x-2  bg-[rgba(82,82,91,0.8)] opacity-80 px-3 sm:px-1 lg:px-3 py-[0.1rem] rounded-md cursor-pointer hover:bg-[rgba(63,63,70,0.8)] hover:text-white tooltip tooltip-top"
+            data-tip={languageModel.copyAddress}
+            ref={tooltipRef}
+            onMouseEnter={() => {
+              console.log(tooltipRef)
+              tooltipRef.current.setAttribute(
+                "data-tip",
+                languageModel.copyAddress
+              );
+            }}
+            onClick={() => {
+              navigator.clipboard.writeText(contractAddress);
+              tooltipRef.current.setAttribute("data-tip", languageModel.Copied);
+            }}
+          >
+            <FontAwesomeIcon icon={faCopy} size="xs" />
+            <label className="self-end min-[500px]:text-xs text-[9px] align-baseline cursor-pointer text-end">{`${contractAddress.substring(
+              0,
+              5
+            )}......${contractAddress.substring(
+              contractAddress.length - 4
+            )}`}</label>
+          </div>
+        </div>
+        
+      <div className="text-xs underline cursor-pointer sm:col-span-2 sm:col-start-1 justify-self-end sm:text-base" onClick={handleClick}>
+        {languageModel.ExistingPool.toUpperCase()}
       </div>
     </div>
   );

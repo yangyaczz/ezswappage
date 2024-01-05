@@ -8,8 +8,6 @@ import addressIcon from "../../pages/data/address_icon.json";
 const PoolTab = ({
   contractAddress,
   tokenId,
-  tradingCurrencyName,
-  totalVolume,
 }) => {
   const { languageModel } = useLanguage();
   const tooltipRef = useRef("");
@@ -24,7 +22,7 @@ const PoolTab = ({
     // window.open(url, `newTab_${Date.now()}`);
   }
   return (
-    <div className="grid items-center grid-cols-1 sm:grid-cols-2 grid-rows-[1fr,1fr,8fr] sm:grid-rows-[1fr,3fr] justify-items-end">
+    <div className="grid items-center grid-cols-1 grid-rows-[auto,1fr] justify-items-end">
       {/* 
       
       //originally right arrow
@@ -46,9 +44,6 @@ const PoolTab = ({
         }}
         onClick={handleClick}
       ></div> */}
-        <p className="mx-1 text-xs align-baseline sm:justify-self-start">
-          {languageModel.Vol.toUpperCase()}: {totalVolume} {tradingCurrencyName}
-        </p>
 
         <div className="flex items-center justify-start gap-x-2">
           <div
@@ -77,7 +72,7 @@ const PoolTab = ({
           </div>
         </div>
         
-      <div className="text-xs underline cursor-pointer sm:col-span-2 sm:col-start-1 justify-self-end sm:text-base" onClick={handleClick}>
+      <div className="text-xs underline cursor-pointer sm:col-span-2 sm:col-start-1 justify-self-end sm:text-base whitespace-nowrap" onClick={handleClick}>
         {languageModel.ExistingPool.toUpperCase()}
       </div>
     </div>

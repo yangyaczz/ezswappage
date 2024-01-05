@@ -211,7 +211,7 @@ const CollectionContainer = ({ collection }) => {
         currencyImage={currencyImage}
       />
       {/* <Rewards COLLECTION_PIC_SIZE={COLLECTION_PIC_SIZE} network={network} /> */}
-      <PoolTab contractAddress={address} tokenId={tokenId1155} totalVolume={totalVolume} currencyImage={currencyImage} tradingCurrencyName={tradingCurrencyName}/>
+      <PoolTab contractAddress={address} tokenId={tokenId1155} currencyImage={currencyImage}/>
       <ButtonGroup
         collectionName={name}
         contractAddress={address}

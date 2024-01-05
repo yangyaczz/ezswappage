@@ -168,7 +168,7 @@ const Swap = () => {
           <div className="card-body">
             <div className={styles.cardStyle}>
               <div className="space-y-2 min-w-2/5">
-                <span className="text-sm font-bold">NFT</span>
+                <span className="text-sm font-bold text-white">NFT</span>
                 <NFTSearch
                   swapType={swapType}
                   formikData={formik.values}
@@ -241,7 +241,7 @@ const Swap = () => {
 
             <div className={`${styles.cardStyle}`}>
               <div className="mb-4 space-y-2 min-w-2/5">
-                <div className="text-sm font-bold">{languageModel.Token}</div>
+                <div className="text-sm font-bold text-white">{languageModel.Token}</div>
                 <TokenSearch
                   swapType={swapType}
                   formikData={formik.values}

@@ -70,7 +70,7 @@ const TokenSearch = ({
         className={"btn justify-between w-[240px] md:w-[300px]" + " " + styles.buttonDisabled}
         onClick={() => document.getElementById("token_search_sell").showModal()}
       >
-        <div className="flex items-center justify-start space-x-2">
+        <div className="flex items-center text-sm justify-start space-x-2">
           <div>
             {formikData.tokenName === 'ETH' && addressSymbol[formikData.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : formikData.tokenName ? formikData.tokenName : languageModel.SelectToken}
           </div>

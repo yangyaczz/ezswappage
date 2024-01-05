@@ -401,11 +401,11 @@ const NavBar = () => {
                     }
                     onClick={() => handleClick(1)}
                   >
-                    <a>Get Today’s Free PTS</a>
+                    <a className={styles.airdropText}>Get Today’s Free PTS</a>
                   </li>
                 </div>
                 <li className={styles.liStyle} onClick={() => handleClick(2)}>
-                  <a>Copy Invite Link</a>
+                  <a className={styles.airdropText}>Copy Invite Link</a>
                 </li>
               </ul>
             </div>

@@ -167,6 +167,7 @@ const { chains, publicClient } = configureChains(
 //   [publicProvider()]
 // );
 
+console.log(process.env.NEXT_PUBLIC_WALLETCONNECT_ID)
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_ID;
 
 const connectors = connectorsForWallets([
@@ -193,7 +194,7 @@ export default function App({ Component, pageProps }) {
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider chains={chains}>
         <LanguageProvider>
-          <div className="grid grid-rows-[126px,auto] auto-cols-auto h-full">
+          <div className="grid h-full grid-rows-[80px,auto] sm:grid-rows-[126px,auto] auto-cols-auto">
             <NavBar></NavBar>
             <CollectionProvider>
               <Component {...pageProps} />

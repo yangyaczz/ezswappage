@@ -114,7 +114,7 @@ const InputAmount = ({
         className={"btn justify-between w-[240px] md:w-[300px]" + " " + styles.buttonDisabled}
         onClick={() => document.getElementById("input_sell").showModal()}
       >
-        <div className="flex items-center justify-start space-x-2">
+        <div className="flex text-sm items-center justify-start space-x-2">
           {displayFrame()}
           <svg
             width="12"

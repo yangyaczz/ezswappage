@@ -12,6 +12,8 @@ const ButtonGroup = ({
   chainId,
   type,
   tokenId1155,
+  floorPrice,
+  topBid,
 }) => {
   const { openPopup } = useCollection();
   const { languageModel } = useLanguage();
@@ -58,20 +60,35 @@ const ButtonGroup = ({
     };
   }, [showAlert]);
 
+  let colInfo = {
+    collectionName: null,
+    floorPrice: null,
+    topBid: null,
+    NFTs: [],
+  };
+
   function handleBuyClick() {
-    // openPopup("BUY", collectionName);
+    colInfo = { ...colInfo, collectionName, floorPrice:floorPrice, topBid };
+    openPopup("BUY", colInfo);
   }
 
   function handleSellClick() {
-    // openPopup("SELL", collectionName);
+    colInfo = { ...colInfo, collectionName, floorPrice:floorPrice, topBid };
+    openPopup("SELL", colInfo);
   }
 
   function handlePlaceBidClick() {
+    if (chain === undefined) {
+      showErrorAlert('please connect wallet');
+      return
+    }
     if (chain.id !== parseInt(chainId, 16)) {
       showErrorAlert("Please switch to right chain");
       return;
     }
-    // openPopup("PLACEBIDS", collectionName);
+
+    // colInfo = { ...colInfo, collectionName, floorPrice:floorPrice, topBid };
+    // openPopup("PLACEBIDS", colInfo);
 
     let url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&collectionType=${collectionType}&chainId=${chainId}&poolType=0`;
     url = type === "ERC1155" ? url + `&tokenId=${tokenId1155}` : url;
@@ -80,11 +97,17 @@ const ButtonGroup = ({
   }
 
   function handleDepositClick() {
+    if (chain === undefined) {
+      showErrorAlert('please connect wallet');
+      return
+    }
     if (chain.id !== parseInt(chainId, 16)) {
       showErrorAlert("Please switch to right chain");
       return;
     }
-    // openPopup("DEPOSIT", collectionName);
+
+    // colInfo = { ...colInfo, collectionName, floorPrice:floorPrice, topBid };
+    // openPopup("DEPOSIT", colInfo);
 
     let url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&collectionType=${collectionType}&chainId=${chainId}&poolType=1`;
     url = type === "ERC1155" ? url + `&tokenId=${tokenId1155}` : url;
@@ -105,14 +128,15 @@ const ButtonGroup = ({
       >
         {languageModel.QuickSell}
       </button> */}
+
       <button
-        className="btn ezBtn ezBtnPrimary btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11"
+        className="btn ezBtn ezBtnPrimary btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11 !bg-[#00D5DA]"
         onClick={handlePlaceBidClick}
       >
         {languageModel.PlaceBid}
       </button>
       <button
-        className="btn ezBtn ezBtnPrimary btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11"
+        className="btn ezBtn ezBtnPrimary btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11 !bg-[#00D5DA]"
         onClick={handleDepositClick}
       >
         {languageModel.ListNFT}

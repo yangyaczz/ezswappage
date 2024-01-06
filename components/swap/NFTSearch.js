@@ -180,7 +180,7 @@ const NFTSearch = ({
                     let data = await response.json();
 
                     const tokenIds = data.ownedNfts.map(nft => nft.tokenId);
-                    
+
                     setUserCollection({
                         tokenIds721: tokenIds,
                     });
@@ -336,7 +336,7 @@ const NFTSearch = ({
     return (
         <div className="form-control ">
             <button
-                className="justify-start mb-2 text-xs text-white btn md:w-[300px] w-[240px]"
+                className="justify-start mb-2 text-sm text-white btn md:w-[300px] w-[240px]"
                 onClick={() => document.getElementById("nft_search_sell").showModal()}
             >
                 {formikData.collection.name

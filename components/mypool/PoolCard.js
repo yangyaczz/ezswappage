@@ -530,42 +530,46 @@ const PoolCard = ({ item,formikData, owner }) => {
 
     return (
         <div className="flex flex-col p-6 mb-4 rounded-lg shadow-md bg-base-100">
-            <div className="flex flex-row justify-between mb-4">
-                <span className="p-1 text-sm text-white border border-gray-300 rounded-md bg-base-200">{item.id}</span>
-                <span className="text-sm text-white">{languageModel.Balance}: {parseFloat(item.tokenBalance)}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName} {languageModel.And} {item.tokenType==='ERC721'?item.nftCount:item.nftCount1155} NFT</span>
+            <div className="flex flex-row justify-between mb-4 max-[799px]:items-center">
+                <span className="p-1 text-sm text-white border border-gray-300 rounded-md bg-base-200">{`${item.id.substring(0, 5)}...${item.id.substring(item.id.length - 4)}`}</span>
+                <span className="text-sm text-white">
+                    {languageModel.Balance}:
+                    {parseFloat(item.tokenBalance)}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName} {languageModel.And} {item.tokenType==='ERC721'?item.nftCount:item.nftCount1155} NFT
+                </span>
             </div>
             <div className="mb-4">
-                <span className="text-lg font-medium">{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName} - {item.NFTName}</span>
+                <span className="text-white	text-lg font-medium">{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName} - {item.NFTName}</span>
             </div>
-            <div className="flex justify-between p-4 rounded-lg bg-base-200 ">
-                <div className='flex flex-col'>
-                    <span className="text-white ">{languageModel.CurrentPrice}</span>
+            <div className="min-[800px]:flex min-[800px]:justify-between p-4 rounded-lg bg-base-200 ">
+                <div className='flex min-[800px]:flex-col max-[799px]:items-center'>
+                    <span className="text-white max-[799px]:mr-4">{languageModel.CurrentPrice}</span>
                     <span className="mt-1 text-gray-500 ">{item.currentPrice === undefined? 0 :parseFloat(item.currentPrice.toFixed(5))}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName}</span>
                 </div>
-                <div className='flex flex-col'>
-                    <span className="text-white ">{languageModel.BondingCurve}</span>
+                <div className='flex min-[800px]:flex-col max-[799px]:items-center'>
+                    <span className="text-white max-[799px]:mr-4">{languageModel.BondingCurve}</span>
                     <button className="mt-1 normal-case btn btn-outline btn-success btn-xs">{languageModel[item.BondingCurveName]}</button>
 
                     {/*<span className="text-gray-500 "></span>*/}
                 </div>
-                <div className='flex flex-col'>
-                    <span className="text-white ">{languageModel.PoolType}</span>
+                <div className='flex min-[800px]:flex-col max-[799px]:items-center'>
+                    <span className="text-white max-[799px]:mr-4">{languageModel.PoolType}</span>
                     <span className="mt-1 text-gray-500 capitalize ">{languageModel[item.poolTypeName.charAt(0).toUpperCase()+item.poolTypeName.slice(1)]}</span>
                 </div>
-                <div className='flex flex-col'>
-                    <span className="text-white">{languageModel.Delta}</span>
+                <div className='flex min-[800px]:flex-col max-[799px]:items-center'>
+                    <span className="text-white max-[799px]:mr-4">{languageModel.Delta}</span>
                     <span className="mt-1 text-gray-500">{item.BondingCurveName === 'Exponential' ? item.deltaText : parseFloat(item.deltaText) + " "+ (item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName) }</span>
                 </div>
-                <div className='flex flex-col'>
-                    <span className="text-white">{languageModel.Volume}</span>
+                <div className='flex min-[800px]:flex-col max-[799px]:items-center'>
+                    <span className="text-white max-[799px]:mr-4">{languageModel.Volume}</span>
                     <span className="mt-1 text-gray-500">{parseFloat(Number(ethers.utils.formatEther(item.ethVolume.toString())).toFixed(5)) + " " +(item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName)}</span>
                 </div>
 
             </div>
 
-            <div className='flex justify-end space-x-3'>
+            <div className='flex min-[800px]:justify-end max-[799px]:flex-col space-x-3'>
+                <div className="flex justify-between">
                 {/*deposit nft*/}
-                <button className='w-1/6 mt-3 normal-case btn' onClick={() => {openNFTDialog(item,'deposit');}}>
+                <button className='max-[800px]:w-2/5 mt-3 mr-4 normal-case btn' onClick={() => {openNFTDialog(item,'deposit');}}>
                     {loadingNFT && actionStatus==='deposit'?<span className="loading loading-spinner loading-sm"></span>:<span>{languageModel.DepositNFT}</span>}
                 </button>
                 <dialog id={`deposit_nft_${item.id}`} className="modal">
@@ -624,7 +628,7 @@ const PoolCard = ({ item,formikData, owner }) => {
                 </dialog>
                 {/*deposit nft*/}
                 {/*withdraw nft*/}
-                <button className='w-1/6 mt-3 normal-case btn' onClick={() => {openNFTDialog(item,'withdraw');}}>
+                <button className='max-[800px]:w-3/6 mt-3 normal-case btn' onClick={() => {openNFTDialog(item,'withdraw');}}>
                     {loadingNFT && actionStatus==='withdraw'?<span className="loading loading-spinner loading-sm"></span>:<span>{languageModel.WithdrawNFT}</span>}
                 </button>
                 <dialog id={`withdraw_nft_${item.id}`} className="modal">
@@ -678,75 +682,77 @@ const PoolCard = ({ item,formikData, owner }) => {
                     </form>
                 </dialog>
                 {/*withdraw nft*/}
+                </div>
 
+<div className="flex justify-between !ml-0 min-[800px]:!ml-4" >
+                    <button className='max-[800px]:w-2/5 mt-3 mr-4 ml-100 normal-case btn' onClick={() => document.getElementById(`deposit_token_${item.id}`).showModal()}>
+                        {languageModel.DepositToken}
+                    </button>
 
-                <button className='w-1/6 mt-3 normal-case btn' onClick={() => document.getElementById(`deposit_token_${item.id}`).showModal()}>
-                    {languageModel.DepositToken}
-                </button>
+                    <dialog id={`deposit_token_${item.id}`} className="modal">
+                        <div className="modal-box">
+                            <h3 className="mb-4 text-lg font-bold">{languageModel.DepositToken}:</h3>
 
-                <dialog id={`deposit_token_${item.id}`} className="modal">
-                    <div className="modal-box">
-                        <h3 className="mb-4 text-lg font-bold">{languageModel.DepositToken}:</h3>
+                            <div className="flex items-center space-x-4">
+                                <input
+                                    type="text"
+                                    className="p-2 border rounded-md"
+                                    placeholder={languageModel.EnterAmount}
+                                    value={depositInputValue}
+                                    onChange={handleDepositInputChange}
+                                />
+                                <button className="normal-case btn" onClick={() => depositETH?.()}>{depositOrWithdrawETHingLoading||depositETHIsLoading?<span className="loading loading-spinner loading-sm"></span>:languageModel.Deposit}</button>
+                            </div>
+                            <div className='text-red-600'>
+                                {depositError}
+                            </div>
 
-                        <div className="flex items-center space-x-4">
-                            <input
-                                type="text"
-                                className="p-2 border rounded-md"
-                                placeholder={languageModel.EnterAmount}
-                                value={depositInputValue}
-                                onChange={handleDepositInputChange}
-                            />
-                            <button className="normal-case btn" onClick={() => depositETH?.()}>{depositOrWithdrawETHingLoading||depositETHIsLoading?<span className="loading loading-spinner loading-sm"></span>:languageModel.Deposit}</button>
+                            <form method="dialog">
+                                <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</button>
+                            </form>
                         </div>
-                        <div className='text-red-600'>
-                            {depositError}
-                        </div>
 
-                        <form method="dialog">
-                            <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</button>
+                        <form method="dialog" className="modal-backdrop">
+                            <button>{languageModel.Close}</button>
                         </form>
-                    </div>
-
-                    <form method="dialog" className="modal-backdrop">
-                        <button>{languageModel.Close}</button>
-                    </form>
-                </dialog>
+                    </dialog>
 
 
-                {/* /////////////////////////////////////////// */}
+                    {/* /////////////////////////////////////////// */}
 
 
-                <button className='w-1/6 mt-3 normal-case btn' onClick={() => document.getElementById(`withdraw_token_${item.id}`).showModal()}>
-                    {languageModel.WithdrawToken}
-                </button>
+                    <button className='max-[800px]:w-3/6 mt-3 normal-case btn' onClick={() => document.getElementById(`withdraw_token_${item.id}`).showModal()}>
+                        {languageModel.WithdrawToken}
+                    </button>
 
-                <dialog id={`withdraw_token_${item.id}`} className="modal">
-                    <div className="modal-box">
-                        <h3 className="text-lg font-bold">{languageModel.WithdrawToken}:</h3>
+                    <dialog id={`withdraw_token_${item.id}`} className="modal">
+                        <div className="modal-box">
+                            <h3 className="text-lg font-bold">{languageModel.WithdrawToken}:</h3>
 
-                        <div className="flex items-center space-x-4">
-                            <input
-                                type="text"
-                                className="p-2 border rounded-md"
-                                placeholder={languageModel.EnterAmount}
-                                value={withdrawInputValue}
-                                onChange={handleWithdrawInputChange}
-                            />
-                            <button className="normal-case btn" onClick={() => withdrawETH?.()}>{withdrawETHingLoading||withdrawETHLoading?<span className="loading loading-spinner loading-sm"></span>:languageModel.Withdraw}</button>
+                            <div className="flex items-center space-x-4">
+                                <input
+                                    type="text"
+                                    className="p-2 border rounded-md"
+                                    placeholder={languageModel.EnterAmount}
+                                    value={withdrawInputValue}
+                                    onChange={handleWithdrawInputChange}
+                                />
+                                <button className="normal-case btn" onClick={() => withdrawETH?.()}>{withdrawETHingLoading||withdrawETHLoading?<span className="loading loading-spinner loading-sm"></span>:languageModel.Withdraw}</button>
+                            </div>
+                            <div className='text-red-600'>
+                                {withdrawError}
+                            </div>
+
+                            <form method="dialog">
+                                <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</button>
+                            </form>
                         </div>
-                        <div className='text-red-600'>
-                            {withdrawError}
-                        </div>
 
-                        <form method="dialog">
-                            <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</button>
+                        <form method="dialog" className="modal-backdrop">
+                            <button>{languageModel.Close}</button>
                         </form>
-                    </div>
-
-                    <form method="dialog" className="modal-backdrop">
-                        <button>{languageModel.Close}</button>
-                    </form>
-                </dialog>
+                    </dialog>
+</div>
                 {showAlert && <div className={styles.alertPosition}>
                     <div className={'alert'+" "+ alertText.className+ " "+styles.alertPadding}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 stroke-current shrink-0" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>

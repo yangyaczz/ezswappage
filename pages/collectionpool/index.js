@@ -205,7 +205,7 @@ const MyPool = () => {
   // }
   return (
     <div className="flex flex-col items-center bg-base-200">
-      <div className="w-2/3 mt-6">
+      <div className="min-[800px]:w-2/3 max-[799px]:w-5/6 mt-6">
       <div className="flex justify-center">
         <button onClick={() => router.push('/collection')} class="btn btn-active" className="bg-[#2ED1D8] text-white rounded-md px-4 py-1 mb-8 mt-4 text-lg">+ {languageModel.CreateNewPool}</button>
       </div>

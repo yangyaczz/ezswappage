@@ -4,17 +4,27 @@ $higher-header-height: 380px;
 $searching-height: 640px;
 
 .liStyle{
-  font-family: 'Montserrat-bold';
+  font-family: 'Montserrat-Variable', sans-serif;
+}
+
+@media (max-width:640px) {
+  .wrapNewHeader{
+    height:80px;
+  }
+}
+@media (min-width:640px) {
+  .wrapNewHeader{
+    height:$header-height
+  }
 }
 .wrapNewHeader {
   transition: all 0.5s;
-  height: $header-height;
   color: $primaryColor;
-  max-width: 100%;
+  // max-width: 100%;
   // position: fixed;
   left: 0;
   top: 0;
-  z-index: 999;
+  z-index: 40;
   background: rgba(0, 0, 0, 255);
   //background: rgba(0, 0, 0, 0.4);
   .header-line {
@@ -144,7 +154,7 @@ $searching-height: 640px;
 
   .headerBox {
     height: $header-height;
-    display: flex;
+    // display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
@@ -181,7 +191,7 @@ $searching-height: 640px;
 
   }
   .airdropColorBtn{
-    font-family: 'Montserrat-bold';
+    font-family: 'Montserrat-Variable', sans-serif;
     background-color:transparent;
     border-radius: 40px;
     //margin-top: 5px;
@@ -198,7 +208,7 @@ $searching-height: 640px;
     -webkit-background-clip: text;
     color: transparent;
     background-image: linear-gradient(180deg, #1400FF 0%, #B500F4 47.92%, #E3CF18 85.99%, #F70000 100%);
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat-Variable', sans-serif;
   }
   .alertPosition{
     position: fixed;
@@ -219,6 +229,11 @@ $searching-height: 640px;
     }
   }
   .airdropText{
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat-Variable', sans-serif;
   }
+}
+
+
+.hamburgerMenuItem{
+
 }

@@ -143,9 +143,10 @@ const Swap = () => {
         <span>Your purchase has been confirmed!</span>
       </div> */}
 
+        {/*className="join-item btn text-[#000000] border-[#00D5DA] bg-[#00D5DA] hover:bg-[#00D5DA]"*/}
         <div className="mb-10 join">
           <input
-            className="join-item btn bg-[#0E1729] hover:bg-[#0E1729]"
+            className="join-item btn bg-[#0E1729] hover:bg-[#0E1729] checked:!bg-[#00D5DA]"
             type="radio"
             name="options"
             value="buy"
@@ -154,7 +155,7 @@ const Swap = () => {
             onChange={handleInputSwapTypeChange}
           />
           <input
-            className="join-item btn bg-[#0E1729] hover:bg-[#0E1729]"
+            className="join-item btn bg-[#0E1729] hover:bg-[#0E1729] checked:!bg-[#00D5DA]"
             type="radio"
             name="options"
             value="sell"
@@ -164,11 +165,11 @@ const Swap = () => {
           />
         </div>
 
-        <div className="w-full max-w-5xl card bg-base-100">
+        <div className="w-11/12 max-w-5xl card bg-base-100">
           <div className="card-body">
             <div className={styles.cardStyle}>
               <div className="space-y-2 min-w-2/5">
-                <span className="text-sm font-bold">NFT</span>
+                <span className="text-sm font-bold text-white">NFT</span>
                 <NFTSearch
                   swapType={swapType}
                   formikData={formik.values}
@@ -241,7 +242,7 @@ const Swap = () => {
 
             <div className={`${styles.cardStyle}`}>
               <div className="mb-4 space-y-2 min-w-2/5">
-                <div className="text-sm font-bold">{languageModel.Token}</div>
+                <div className="text-sm font-bold text-white">{languageModel.Token}</div>
                 <TokenSearch
                   swapType={swapType}
                   formikData={formik.values}

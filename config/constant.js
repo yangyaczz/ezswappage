@@ -1,14 +1,15 @@
 import nextConfig from "../next.config.js";
 
+// todo 没问题要还原
 export const BASE_URL = {
-  dev: "https://testapi.ezswap.io/",
-  test: "https://testapi.ezswap.io/",
+  dev: "https://api.ezswap.io/",
+  test: "https://api.ezswap.io/",
   prod: "https://api.ezswap.io/",
 }[nextConfig.publicRuntimeConfig.env.API];
 
 export const REDIRECT_URL = {
-  dev: "https://test.ezswap.io/",
-  test: "https://test.ezswap.io/",
+  dev: "https://ezswap.io/",
+  test: "https://ezswap.io/",
   prod: "https://ezswap.io/",
 }[nextConfig.publicRuntimeConfig.env.API];
 

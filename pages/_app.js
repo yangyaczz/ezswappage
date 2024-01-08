@@ -154,7 +154,7 @@ const eosevmmain = {
 //latest wagmi and rainbow kit versions
 //----------------------------------------------------------------------
 const { chains, publicClient } = configureChains(
-  nextConfig.publicRuntimeConfig.env.API === "prod"
+  nextConfig.publicRuntimeConfig.env.API === "dev2"
     ? [mainnet, arbitrum, mantamain, eosevmmain]
     : [mainnet, arbitrum, mantatest, mantamain, eosevmtest, eosevmmain],
   [publicProvider()]

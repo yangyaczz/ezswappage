@@ -81,7 +81,7 @@ const NavBar = () => {
   }, [owner]);
 
   useEffect(() => {
-    const isProd = nextConfig.publicRuntimeConfig.env.API === "prod";
+    const isProd = nextConfig.publicRuntimeConfig.env.API === "dev2";
     if (isProd) {
       setAirdropJumpUrl("https://ezswap.io/#/event/airdropOverview");
       setLaunchpadJump("https://ezswap.io/#/launchpadList");
@@ -164,7 +164,7 @@ const NavBar = () => {
         my_modal_2.showModal();
       }
     } else if (item === 2) {
-      const isProd = nextConfig.publicRuntimeConfig.env.API === "prod";
+      const isProd = nextConfig.publicRuntimeConfig.env.API === "dev2";
       if (isProd) {
         navigator.clipboard.writeText(
           "https://ezswap.io/#/event/airdropOverview?inviteAddress=" +

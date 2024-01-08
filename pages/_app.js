@@ -153,11 +153,10 @@ const eosevmmain = {
 
 //latest wagmi and rainbow kit versions
 //----------------------------------------------------------------------
-// todo 没问题要还原
 const { chains, publicClient } = configureChains(
   nextConfig.publicRuntimeConfig.env.API === "prod"
     ? [mainnet, arbitrum, mantamain, eosevmmain]
-    : [mainnet, arbitrum, mantamain, eosevmmain],
+    : [mainnet, arbitrum, mantatest, mantamain, eosevmtest, eosevmmain],
   [publicProvider()]
 );
 

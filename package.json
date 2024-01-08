@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NEXT_PUBLIC_APP_ENV=dev next dev",
-    "build": "cross-env NEXT_PUBLIC_APP_ENV=dev next build",
+    "build": "cross-env NEXT_PUBLIC_APP_ENV=prod next build",
     "buildForTest": "cross-env NEXT_PUBLIC_APP_ENV=dev next build",
     "start": "cross-env NEXT_PUBLIC_APP_ENV=dev next start",
     "lint": "cross-env NEXT_PUBLIC_APP_ENV=test next lint"

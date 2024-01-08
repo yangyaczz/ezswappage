@@ -87,14 +87,9 @@ const NavBar = () => {
       setLaunchpadJump("https://ezswap.io/#/launchpadList");
       setMainPageJumpUrl("https://ezswap.io");
     } else {
-      // todo 没问题要还原
-      // setAirdropJumpUrl("https://test.ezswap.io/#/event/airdropOverview");
-      // setLaunchpadJump("https://test.ezswap.io/#/launchpadList");
-      // setMainPageJumpUrl("https://test.ezswap.io");
-
-      setAirdropJumpUrl("https://ezswap.io/#/event/airdropOverview");
-      setLaunchpadJump("https://ezswap.io/#/launchpadList");
-      setMainPageJumpUrl("https://ezswap.io");
+      setAirdropJumpUrl("https://test.ezswap.io/#/event/airdropOverview");
+      setLaunchpadJump("https://test.ezswap.io/#/launchpadList");
+      setMainPageJumpUrl("https://test.ezswap.io");
     }
   });
 
@@ -176,14 +171,8 @@ const NavBar = () => {
             owner?.toLowerCase()
         );
       } else {
-        //todo 没问题要还原
-        // navigator.clipboard.writeText(
-        //   "https://test.ezswap.io/#/event/airdropOverview?inviteAddress=" +
-        //     owner?.toLowerCase()
-        // );
-
         navigator.clipboard.writeText(
-            "https://ezswap.io/#/event/airdropOverview?inviteAddress=" +
+          "https://test.ezswap.io/#/event/airdropOverview?inviteAddress=" +
             owner?.toLowerCase()
         );
       }

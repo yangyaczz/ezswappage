@@ -168,7 +168,8 @@ const { chains, publicClient } = configureChains(
 // );
 
 console.log(process.env.NEXT_PUBLIC_WALLETCONNECT_ID)
-const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_ID;
+// const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_ID;
+const projectId = '5a003a01c2453d55c2475817334d9993';
 
 const connectors = connectorsForWallets([
   {

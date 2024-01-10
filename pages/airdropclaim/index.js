@@ -84,7 +84,7 @@ const AirdropClaim = () => {
     <div className={"w-full text-[#00D5DA] " + styles.divBackground}>
       <div className="grid w-5/6 h-full grid-cols-1 grid-rows-[2fr,3fr,9fr] sm:grid-rows-[2fr,3fr,15fr] m-auto">
         <button className="self-center border-solid border-[1px] border-[#00D5DA] w-28 sm:w-40 h-8 rounded font-thin py-1">
-          <FontAwesomeIcon icon={faAnglesLeft} />
+          <FontAwesomeIcon icon={faAnglesLeft} />&nbsp;
           {languageModel.Back}
         </button>
         <section
@@ -148,7 +148,7 @@ const AirdropClaim = () => {
 
           {claimStatus === cStatus.ELIGIBLE && (
             <button
-              className={`text-black text-lg w-32 rounded-3xl font-bold px-2 py-1`}
+              className={`text-black bg-[#00D5DA] text-lg w-32 rounded-3xl font-bold px-2 py-1`}
               onClick={handleClaimClick}
             >
               {languageModel.Claim}

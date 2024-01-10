@@ -231,22 +231,22 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount }) => {
       text = languageModel.SelectACollection;
       return (
         <div>
-          <div>{text}</div>
+          <div className={"btn " + styles.buttonStyle}>{text}</div>
         </div>
       );
     }
     if (!formikData.selectIds.length > 0) {
       text = languageModel.SelectAnNFT;
-      return <div>{text}</div>;
+      return <div className={"btn " + styles.buttonStyle}>{text}</div>;
     }
     if (formikData.isExceeded) {
-      return <div>{languageModel.InsufficientBalance}</div>;
+      return <div className={"btn " + styles.buttonStyle}>{languageModel.InsufficientBalance}</div>;
     }
 
     if (swapType === "sell" && !nftApproval) {
       text = "Approve";
       return (
-        <button onClick={() => doApprove()}>
+        <button className={"btn " + styles.buttonStyle} onClick={() => doApprove()}>
           {approveLoading || waitApproveLoading ? (
             <span class="loading loading-spinner loading-sm"></span>
           ) : (
@@ -266,15 +266,13 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount }) => {
       //     </>
       // )
       return (
-        <div>
-          <button onClick={() => swapNFTToToken()}>
+          <button className={"btn " + styles.buttonStyle} onClick={() => swapNFTToToken()}>
             {isLoading || waitTrxLoading ? (
               <span class="loading loading-spinner loading-sm"></span>
             ) : (
               text
             )}
           </button>
-        </div>
       );
     } else if (swapType === "buy") {
       // text = 'swappp'
@@ -286,15 +284,13 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount }) => {
       //     </>
       // )
       return (
-        <div>
-          <button onClick={() => swapETHToNFT()}>
+          <button className={"btn " + styles.buttonStyle} onClick={() => swapETHToNFT()}>
             {swapETHToNFTIsLoading || waitTrxLoading ? (
               <span class="loading loading-spinner loading-sm"></span>
             ) : (
               text
             )}
           </button>
-        </div>
       );
     } else {
       return null;
@@ -310,7 +306,7 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount }) => {
 
   return (
     <div className="flex justify-center">
-      <div className={"btn" + " " + "mx-6" + " " + styles.swapButton}>
+      <div className={" " + "mx-6" + " " + styles.swapButton + " "}>
         {buttonText()}
       </div>
       {showAlert && (

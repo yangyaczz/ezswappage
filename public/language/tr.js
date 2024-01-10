@@ -87,7 +87,6 @@ export default {
   Close: "kapat",
   PoolDontHaveNFT: "Bu havuzda bu NFT yok",
   ExistingPool: "Mevcut Havuz",
-
   YouAreEligibleFor: "Hak kazandınız",
   ClaimingEndsIn: "Ödül Talebi Sona Erer",
   Claim: "Talep etmek",
@@ -95,8 +94,10 @@ export default {
   Hours: "Saat",
   Minutes: "Dakika",
   Seconds: "Saniye",
-
   YouHaveClaimed: "Talep ettiniz",
   SorryYouAreNotEligible: "Üzgünüz, uygun değilsiniz",
   SorryAirdropEnded: "Üzgünüz, airdrop sona erdi",
+
+  ConnectWalletCheckEligibility:
+    "Eligibilitenizi kontrol etmek için cüzdanınızı bağlayın",
 };

@@ -87,7 +87,6 @@ export default {
   Close: "閉じる",
   PoolDontHaveNFT: "このプールにはこのNFTがありません",
   ExistingPool: "既存のプール",
-
   YouAreEligibleFor: "あなたは対象です",
   ClaimingEndsIn: "請求の締め切り",
   Claim: "請求する",
@@ -95,8 +94,10 @@ export default {
   Hours: "時間",
   Minutes: "分",
   Seconds: "秒",
-
   YouHaveClaimed: "あなたは請求しました",
   SorryYouAreNotEligible: "申し訳ありませんが、対象外です",
   SorryAirdropEnded: "申し訳ありませんが、エアドロップは終了しました",
+
+  ConnectWalletCheckEligibility:
+    "資格を確認するにはウォレットを接続してください",
 };

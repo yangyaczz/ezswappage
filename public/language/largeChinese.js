@@ -93,8 +93,9 @@ export default {
   Hours: "小時",
   Minutes: "分鐘",
   Seconds: "秒",
-
   YouHaveClaimed: "你已領取",
   SorryYouAreNotEligible: "很抱歉，您不符合資格",
   SorryAirdropEnded: "很抱歉，空投活動已結束",
+
+  ConnectWalletCheckEligibility: "連接錢包以檢查您的資格",
 };

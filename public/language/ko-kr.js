@@ -94,8 +94,9 @@ export default {
   Hours: "시간",
   Minutes: "분",
   Seconds: "초",
-
   YouHaveClaimed: "당신이 청구했습니다",
   SorryYouAreNotEligible: "죄송합니다. 자격이 없습니다",
   SorryAirdropEnded: "죄송합니다. 에어드랍이 종료되었습니다",
+
+  ConnectWalletCheckEligibility: "자격을 확인하려면 지갑을 연결하세요",
 };

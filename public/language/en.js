@@ -87,7 +87,6 @@ export default {
   Close:"close",
   PoolDontHaveNFT:"Pool don't have this NFT",
   ExistingPool:"Existing Pool",
-  
   YouAreEligibleFor:"You are eligible for",
   ClaimingEndsIn:"Claiming Ends In",
   Claim:"Claim",
@@ -95,9 +94,9 @@ export default {
   Hours:"Hours",
   Minutes:"Minutes",
   Seconds:"Seconds",
-
   YouHaveClaimed:"You have claimed",
   SorryYouAreNotEligible:"Sorry, You are not eligible",
   SorryAirdropEnded:"Sorry, airdrop has ended",
 
+  ConnectWalletCheckEligibility:"Connect wallet to check your eligibility"
 }

@@ -2,6 +2,7 @@ import React, { use, useEffect, useState } from "react";
 import TimerBox from "./TimerBox";
 import { useLanguage } from "@/contexts/LanguageContext";
 import calculateTimeLeft from "../utils/calculateTimeLeft";
+
 const Countdown = ({ setClaimStatus, cStatus, claimEndTime }) => {
   const { languageModel } = useLanguage();
   const [timeLeft, setTimeLeft] = useState(null);

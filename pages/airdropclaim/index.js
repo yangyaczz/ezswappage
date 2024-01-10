@@ -12,14 +12,21 @@ const AirdropClaim = () => {
     INELIGIBLE: "INELIGIBLE",
     CLAIMED: "CLAIMED",
     ENDED: "ENDED",
+    WALLET_DISCONNECTED: "WALLET_DISCONNECTED",
   };
 
-  const dummyTime = new Date(2024, 1, 20, 14, 34, 0, 0);
-  const dummyTimeStamp = dummyTime.getTime() / 1000;
-  console.log(dummyTimeStamp)
-  
-  const [claimStatus, setClaimStatus] = useState(null); //ELIGIBLE, INELIGIBLE, CLAIMED, ENDED
-  const [claimEndTime, setClaimEndTime] = useState(null);
+  // const dummyTime = new Date(2024, 0, 10, 10, 56, 0, 0);
+  // const dummyTimeStamp = dummyTime.getTime() / 1000;
+  // console.log(dummyTimeStamp)
+  // let claimEndTimestamp = 1704855360;
+
+  let claimEndTimestamp = 1708410840;
+  let claimEndTime = new Date(claimEndTimestamp * 1000); //convert to miliseconds
+  let timeLeft = calculateTimeLeft(claimEndTime);
+
+  const [claimStatus, setClaimStatus] = useState(
+    timeLeft.expire ? cStatus.ENDED : null
+  ); //ELIGIBLE, INELIGIBLE, CLAIMED, ENDED
   const [userScore, setUserScore] = useState(0);
   const { languageModel } = useLanguage();
   const { address: owner } = useAccount();
@@ -38,9 +45,8 @@ const AirdropClaim = () => {
           },
           body: JSON.stringify(params),
         });
-
         const result = await response.json();
-        const data = result.data
+        const data = result.data;
         return data;
       }
 
@@ -50,28 +56,24 @@ const AirdropClaim = () => {
         //1. CLAIM
         //2. ENDED
         //3. ELIGIBLE / INELIGIBLE
-        let claimEndTimestamp = data.claimEndTime;
-        let claimEndTime = new Date(claimEndTimestamp * 1000); //convert to miliseconds
-        console.log(claimEndTime)
-        setClaimEndTime(() => claimEndTime);
-  
-        let timeLeft = calculateTimeLeft(claimEndTime);
-        if (timeLeft.expire) setClaimStatus(cStatus.ENDED); //AIRDROP ENDED
-        else if (data.tokenAmount) { // ELIGIBLE TO CLAIM
-          setClaimStatus(cStatus.ELIGIBLE);
-          setUserScore(data.tokenAmount);
-        } else if (!data.tokenAmount) { // INELIGIBLE TO CLAIM
-          setClaimStatus(cStatus.INELIGIBLE);
-          setUserScore(0);
-        }
+        if (claimStatus !== cStatus.ENDED && claimStatus !== cStatus.CLAIMED)
+          if (data.tokenAmount) {
+            // ELIGIBLE TO CLAIM
+            setClaimStatus(cStatus.ELIGIBLE);
+            setUserScore(data.tokenAmount);
+          } else if (!data.tokenAmount) {
+            // INELIGIBLE TO CLAIM
+            setClaimStatus(cStatus.INELIGIBLE);
+            setUserScore(0);
+          }
       }
 
       const data = await loadScore();
-      if(data)
-        changeStatus(data);
+      if (data) changeStatus(data);
     };
 
-    setup();
+    if (owner) setup();
+    else setClaimStatus(cStatus.WALLET_DISCONNECTED);
   }, [owner]);
 
   function handleClaimClick() {
@@ -105,7 +107,7 @@ const AirdropClaim = () => {
           id="claiming-section"
           className="flex flex-col items-center justify-start text-5xl font-black gap-y-11 "
         >
-          {claimStatus === "ELIGIBLE" && (
+          {claimStatus === cStatus.ELIGIBLE && (
             <>
               <h1 className="text-2xl mt-14 sm:text-5xl">
                 {languageModel.YouAreEligibleFor}:
@@ -116,7 +118,7 @@ const AirdropClaim = () => {
               </h1>
             </>
           )}
-          {claimStatus === "CLAIMED" && (
+          {claimStatus === cStatus.CLAIMED && (
             <>
               <h1 className="mt-20 text-2xl sm:text-5xl">
                 {languageModel.YouHaveClaimed}
@@ -127,14 +129,20 @@ const AirdropClaim = () => {
               </h1>
             </>
           )}
-          {claimStatus === "INELIGIBLE" && (
+          {claimStatus === cStatus.INELIGIBLE && (
             <h1 className="mt-48 text-2xl sm:text-5xl">
               {languageModel.SorryYouAreNotEligible}
             </h1>
           )}
-          {claimStatus === "ENDED" && (
+          {claimStatus === cStatus.ENDED && (
             <h1 className="mt-48 text-2xl sm:text-5xl">
               {languageModel.SorryAirdropEnded}
+            </h1>
+          )}
+
+          {claimStatus === cStatus.WALLET_DISCONNECTED && (
+            <h1 className="mt-48 text-base sm:text-2xl md:text-4xl">
+              {languageModel.ConnectWalletCheckEligibility}
             </h1>
           )}
 

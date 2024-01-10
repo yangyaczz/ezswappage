@@ -1,5 +1,5 @@
 export default function calculateTimeLeft(claimEndTime) {
-    const nowTime = new Date(new Date() + 60000);
+    const nowTime = new Date();
     let diffTime = claimEndTime - nowTime;
     if (diffTime <= 0) {
       return {

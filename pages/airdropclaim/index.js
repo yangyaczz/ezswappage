@@ -4,15 +4,77 @@ import React, { useState, useEffect } from "react";
 import styles from "./index.module.scss";
 import Countdown from "@/components/airdropclaim/Countdown";
 import { useLanguage } from "@/contexts/LanguageContext";
-
+import { useAccount, useContractRead } from "wagmi";
+import calculateTimeLeft from "@/components/utils/calculateTimeLeft";
 const AirdropClaim = () => {
-  const [claimAvailable, setClaimAvailable] = useState(true);
-  const [claimStatus, setClaimStatus] = useState("ELIGIBLE"); //ELIGIBLE, INELIGIBLE, CLAIMED, ENDED
+  const cStatus = {
+    ELIGIBLE: "ELIGIBLE",
+    INELIGIBLE: "INELIGIBLE",
+    CLAIMED: "CLAIMED",
+    ENDED: "ENDED",
+  };
+
+  const dummyTime = new Date(2024, 1, 20, 14, 34, 0, 0);
+  const dummyTimeStamp = dummyTime.getTime() / 1000;
+  console.log(dummyTimeStamp)
+  
+  const [claimStatus, setClaimStatus] = useState(null); //ELIGIBLE, INELIGIBLE, CLAIMED, ENDED
+  const [claimEndTime, setClaimEndTime] = useState(null);
+  const [userScore, setUserScore] = useState(0);
   const { languageModel } = useLanguage();
+  const { address: owner } = useAccount();
+
+  useEffect(() => {
+    const setup = async () => {
+      const params = {
+        address: owner?.toLowerCase(),
+        mode: "pro",
+      };
+      async function loadScore() {
+        const response = await fetch("/api/queryAddressScore", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(params),
+        });
+
+        const result = await response.json();
+        const data = result.data
+        return data;
+      }
+
+      //change the status of claiming, to show different texts. Such as: "Airdrop ended", "You are eligible" etc.
+      function changeStatus(data) {
+        //claimStatus priority:
+        //1. CLAIM
+        //2. ENDED
+        //3. ELIGIBLE / INELIGIBLE
+        let claimEndTimestamp = data.claimEndTime;
+        let claimEndTime = new Date(claimEndTimestamp * 1000); //convert to miliseconds
+        console.log(claimEndTime)
+        setClaimEndTime(() => claimEndTime);
+  
+        let timeLeft = calculateTimeLeft(claimEndTime);
+        if (timeLeft.expire) setClaimStatus(cStatus.ENDED); //AIRDROP ENDED
+        else if (data.tokenAmount) { // ELIGIBLE TO CLAIM
+          setClaimStatus(cStatus.ELIGIBLE);
+          setUserScore(data.tokenAmount);
+        } else if (!data.tokenAmount) { // INELIGIBLE TO CLAIM
+          setClaimStatus(cStatus.INELIGIBLE);
+          setUserScore(0);
+        }
+      }
+
+      const data = await loadScore();
+      if(data)
+        changeStatus(data);
+    };
+
+    setup();
+  }, [owner]);
 
   function handleClaimClick() {
-    if (!claimAvailable) return;
-
     //logic here
   }
 
@@ -33,7 +95,11 @@ const AirdropClaim = () => {
               EZswap {languageModel.Airdrop}
             </p>
           </div>
-          <Countdown setClaimAvailable={setClaimAvailable} />
+          <Countdown
+            setClaimStatus={setClaimStatus}
+            cStatus={cStatus}
+            claimEndTime={claimEndTime}
+          />
         </section>
         <section
           id="claiming-section"
@@ -45,7 +111,7 @@ const AirdropClaim = () => {
                 {languageModel.YouAreEligibleFor}:
               </h1>
               <h1>
-                <span className="text-white ">999&nbsp;</span>
+                <span className="text-white ">{userScore}&nbsp;</span>
                 $EZ
               </h1>
             </>
@@ -56,7 +122,7 @@ const AirdropClaim = () => {
                 {languageModel.YouHaveClaimed}
               </h1>
               <h1>
-                <span className="text-white ">999&nbsp;</span>
+                <span className="text-white ">{userScore}&nbsp;</span>
                 $EZ
               </h1>
             </>
@@ -72,15 +138,14 @@ const AirdropClaim = () => {
             </h1>
           )}
 
-          <button
-            className={`text-black text-lg w-32 rounded-3xl font-bold px-2 py-1 ${
-              claimStatus === "ELIGIBLE" ? "block" : "hidden"
-            } ${claimAvailable ? "bg-[#00D5DA]" : "bg-gray-500"}`}
-            disabled={!claimAvailable}
-            onClick={handleClaimClick}
-          >
-            {languageModel.Claim}
-          </button>
+          {claimStatus === cStatus.ELIGIBLE && (
+            <button
+              className={`text-black text-lg w-32 rounded-3xl font-bold px-2 py-1`}
+              onClick={handleClaimClick}
+            >
+              {languageModel.Claim}
+            </button>
+          )}
         </section>
       </div>
     </div>

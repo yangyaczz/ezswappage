@@ -385,5 +385,14 @@
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/Gusto.png",
     "network": "ethmain",
     "order":8
+  },
+  {
+    "name": "echo",
+    "address": "0xC10A988680355BdFfE0B998Cd12098264C3957Bd",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkheos/iter5.jpg",
+    "network": "eosmain",
+    "order":6
   }
 ]

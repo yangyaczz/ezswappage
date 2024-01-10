@@ -35,30 +35,30 @@ const ConstantLadderSelection = ({ styleGrid, popupType }) => {
           } md:col-start-2 gap-x-2 flex-wrap`}
         >
           <div className="flex items-center justify-start">
-            <div class="form-control">
-              <label class="label cursor-pointer">
+            <div className="form-control">
+              <label className="cursor-pointer label">
                 <input
                   type="radio"
                   name="ladder-radio"
-                  class="radio checked:bg-red-500"
+                  className="radio checked:bg-red-500"
                   value="PERCENT"
                   checked={percent_linear === "PERCENT"}
                   onChange={handleRadioChange}
                 />
-                <span class="label-text">Decrease by percent</span>
+                <span className="label-text">Decrease by percent</span>
               </label>
             </div>
-            <div class="form-control">
-              <label class="label cursor-pointer">
+            <div className="form-control">
+              <label className="cursor-pointer label">
                 <input
                   type="radio"
                   name="ladder-radio"
-                  class="radio checked:bg-red-500"
+                  className="radio checked:bg-red-500"
                   value="LINEAR"
                   checked={percent_linear === "LINEAR"}
                   onChange={handleRadioChange}
                 />
-                <span class="label-text">Decrease by linear</span>
+                <span className="label-text">Decrease by linear</span>
               </label>
             </div>
           </div>

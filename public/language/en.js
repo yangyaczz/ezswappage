@@ -97,6 +97,11 @@ export default {
   YouHaveClaimed:"You have claimed",
   SorryYouAreNotEligible:"Sorry, You are not eligible",
   SorryAirdropEnded:"Sorry, airdrop has ended",
+  ConnectWalletCheckEligibility:"Connect wallet to check your eligibility",
+  ErrorCheckingEligibility:"Error checking eligibility",
+  ErrorClaimingToken:"Error claiming token",
+  ClaimIsSuccessful:"Claim is successful",
+  ClaimNotAvailable:"Claim not available",
+  UserSignatureNotFound:"User signature not found"
 
-  ConnectWalletCheckEligibility:"Connect wallet to check your eligibility"
 }

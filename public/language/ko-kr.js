@@ -97,6 +97,10 @@ export default {
   YouHaveClaimed: "당신이 청구했습니다",
   SorryYouAreNotEligible: "죄송합니다. 자격이 없습니다",
   SorryAirdropEnded: "죄송합니다. 에어드랍이 종료되었습니다",
-
   ConnectWalletCheckEligibility: "자격을 확인하려면 지갑을 연결하세요",
+  ErrorCheckingEligibility: "자격 확인 중 오류 발생",
+  ErrorClaimingToken: "토큰 청구 중 오류 발생",
+  ClaimIsSuccessful: "청구가 성공적으로 완료되었습니다",
+  ClaimNotAvailable: "청구할 수 없습니다",
+  UserSignatureNotFound: "사용자 서명을 찾을 수 없습니다",
 };

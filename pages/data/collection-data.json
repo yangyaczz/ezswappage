@@ -213,7 +213,7 @@
     "tokenId1155": "",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg",
     "network": "eosmain",
-    "order":50
+    "order":2
   },
   {
     "name": "VALKYRIE",
@@ -393,6 +393,6 @@
     "tokenId1155": "",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/echo_img.png",
     "network": "eosmain",
-    "order":5
+    "order":1
   }
 ]

@@ -367,7 +367,7 @@ const PoolCard = ({ item,formikData, owner }) => {
                 console.log('formikData', formikData)
                 if (item.collection === "0xc10a988680355bdffe0b998cd12098264c3957bd") {
                     const params = {
-                        address: actionStatus === 'deposit' ? owner : item.id,
+                        address: action === 'deposit' ? owner : item.id,
                     };
                     const response = await fetch("/api/queryECHOUserHaveToken", {
                         method: "POST",

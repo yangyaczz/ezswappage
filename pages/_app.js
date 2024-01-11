@@ -22,7 +22,7 @@ import { StrictMode } from "react";
 import nextConfig from "../next.config.js";
 import { Wallet } from "ethers";
 import { LanguageProvider } from "@/contexts/LanguageContext.js";
-import { mainnet, arbitrum, polygon } from "wagmi/chains";
+import { mainnet, arbitrum, polygon,goerli } from "wagmi/chains";
 require("dotenv").config();
 
 const mantatest = {
@@ -156,7 +156,7 @@ const eosevmmain = {
 const { chains, publicClient } = configureChains(
   nextConfig.publicRuntimeConfig.env.API === "dev2"
     ? [mainnet, arbitrum, mantamain, eosevmmain]
-    : [mainnet, arbitrum, mantatest, mantamain, eosevmtest, eosevmmain],
+    : [mainnet, arbitrum, mantatest, mantamain, eosevmtest, eosevmmain,goerli],
   [publicProvider()]
 );
 

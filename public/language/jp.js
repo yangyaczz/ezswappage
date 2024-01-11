@@ -97,7 +97,11 @@ export default {
   YouHaveClaimed: "あなたは請求しました",
   SorryYouAreNotEligible: "申し訳ありませんが、対象外です",
   SorryAirdropEnded: "申し訳ありませんが、エアドロップは終了しました",
-
   ConnectWalletCheckEligibility:
     "資格を確認するにはウォレットを接続してください",
+  ErrorCheckingEligibility: "資格の確認中にエラーが発生しました",
+  ErrorClaimingToken: "トークンの請求中にエラーが発生しました",
+  ClaimIsSuccessful: "請求が成功しました",
+  ClaimNotAvailable: "請求できません",
+  UserSignatureNotFound: "ユーザーの署名が見つかりません",
 };

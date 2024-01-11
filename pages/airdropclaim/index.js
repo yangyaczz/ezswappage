@@ -1,11 +1,21 @@
 import { faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import styles from "./index.module.scss";
 import Countdown from "@/components/airdropclaim/Countdown";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useAccount, useContractRead } from "wagmi";
+import ezswapTokenABI from "../data/ABI/EZswap.json";
+import {
+  useAccount,
+  useContractRead,
+  useContractWrite,
+  useSendTransaction,
+} from "wagmi";
 import calculateTimeLeft from "@/components/utils/calculateTimeLeft";
+import useAlert from "@/components/alert/useAlert";
+import Alert from "@/components/alert/Alert";
+import BackButton from "@/components/airdropclaim/BackButton";
+
 const AirdropClaim = () => {
   const cStatus = {
     ELIGIBLE: "ELIGIBLE",
@@ -27,9 +37,47 @@ const AirdropClaim = () => {
   const [claimStatus, setClaimStatus] = useState(
     timeLeft.expire ? cStatus.ENDED : null
   ); //ELIGIBLE, INELIGIBLE, CLAIMED, ENDED
-  const [userScore, setUserScore] = useState(0);
+  const [tokenToClaim, setTokenToClaim] = useState(0);
+  const [userSignature, setUserSignature] = useState(null);
   const { languageModel } = useLanguage();
+  const { setAlertMsg, showAlert, alertText } = useAlert();
   const { address: owner } = useAccount();
+
+  //georli address:
+  //0x875d16675264fd2Ba19784B542deD0eFA90b27f7
+  const ezTokenAddr = "0x875d16675264fd2ba19784b542ded0efa90b27f7";
+  const userAddr = "0xF630d93650C933c34ec4Ca51901b0397069C4dCd";
+  const signa =
+    "0x534b9561b5086658b13721d7ae796d5d4d1cadfbc950c502537a7e6faf114c9254c80aba99fc8f1b1e2b8a595d07fab68da22ca22240bb2a69b2ef88af3737ae1c";
+  const claimAmount = 10;
+
+  const { data: userHasClaimed } = useContractRead({
+    address: ezTokenAddr,
+    abi: ezswapTokenABI.abi,
+    functionName: "claimed",
+    args: [owner?.toLowerCase()],
+    onError(err) {
+      if (owner) setAlertMsg(languageModel.ErrorCheckingEligibility, "alert-error");
+    },
+  });
+
+  const {
+    data,
+    write: claimEZToken,
+    isLoading: claimLoading,
+  } = useContractWrite({
+    address: ezTokenAddr,
+    abi: ezswapTokenABI.abi,
+    functionName: "claim",
+    args: [owner?.toLowerCase, tokenToClaim, userSignature],
+    onSuccess(data) {
+      setClaimStatus(cStatus.CLAIMED);
+      setAlertMsg(languageModel.ClaimIsSuccessful, "alert-success");
+    },
+    onError(err) {
+      setAlertMsg(languageModel.ErrorClaimingToken, "alert-error");
+    },
+  });
 
   useEffect(() => {
     const setup = async () => {
@@ -52,19 +100,27 @@ const AirdropClaim = () => {
 
       //change the status of claiming, to show different texts. Such as: "Airdrop ended", "You are eligible" etc.
       function changeStatus(data) {
+        //first verify if the token has already been claimed
+        // if(data.tokenAmount > 0 && claimStatus !== cStatus.ENDED)
+
         //claimStatus priority:
-        //1. CLAIM
-        //2. ENDED
+        //1. CLAIMED
+        //2. ENDED (this status is being set in the 'Countdown' component)
         //3. ELIGIBLE / INELIGIBLE
-        if (claimStatus !== cStatus.ENDED && claimStatus !== cStatus.CLAIMED)
-          if (data.tokenAmount) {
+        if (userHasClaimed) {
+          setClaimStatus(cStatus.CLAIMED);
+          setTokenToClaim(data.tokenAmount);
+        } else if (claimStatus !== cStatus.ENDED)
+          if (data.tokenAmount && data.signature) {
             // ELIGIBLE TO CLAIM
             setClaimStatus(cStatus.ELIGIBLE);
-            setUserScore(data.tokenAmount);
+            setTokenToClaim(data.tokenAmount);
+            setUserSignature(data.signature);
           } else if (!data.tokenAmount) {
             // INELIGIBLE TO CLAIM
             setClaimStatus(cStatus.INELIGIBLE);
-            setUserScore(0);
+            setTokenToClaim(0);
+            setUserSignature(data.signature);
           }
       }
 
@@ -74,19 +130,24 @@ const AirdropClaim = () => {
 
     if (owner) setup();
     else setClaimStatus(cStatus.WALLET_DISCONNECTED);
-  }, [owner]);
+  }, [owner, userHasClaimed]);
 
   function handleClaimClick() {
-    //logic here
+    //make sure user is eligible to claim,
+    if (claimStatus !== cStatus.ELIGIBLE) {
+      setAlertMsg(languageModel.ClaimNotAvailable, "alert-error");
+      return;
+    }
+    //make sure owner's address and signature is present before making contract interaction
+    if (!userSignature || !owner)
+      setAlertMsg(languageModel.UserSignatureNotFound, "alert-error");
+    else claimEZToken();
   }
 
   return (
     <div className={"w-full text-[#00D5DA] " + styles.divBackground}>
       <div className="grid w-5/6 h-full grid-cols-1 grid-rows-[2fr,3fr,9fr] sm:grid-rows-[2fr,3fr,15fr] m-auto">
-        <button className="self-center border-solid border-[1px] border-[#00D5DA] w-28 sm:w-40 h-8 rounded font-thin py-1">
-          <FontAwesomeIcon icon={faAnglesLeft} />&nbsp;
-          {languageModel.Back}
-        </button>
+        <BackButton />
         <section
           id="header"
           className="flex items-center justify-center sm:justify-between  border-b-[1px] border-[#00D5DA] flex-wrap md:flex-nowrap"
@@ -113,7 +174,7 @@ const AirdropClaim = () => {
                 {languageModel.YouAreEligibleFor}:
               </h1>
               <h1>
-                <span className="text-white ">{userScore}&nbsp;</span>
+                <span className="text-white ">{tokenToClaim}&nbsp;</span>
                 $EZ
               </h1>
             </>
@@ -124,7 +185,7 @@ const AirdropClaim = () => {
                 {languageModel.YouHaveClaimed}
               </h1>
               <h1>
-                <span className="text-white ">{userScore}&nbsp;</span>
+                <span className="text-white ">{tokenToClaim}&nbsp;</span>
                 $EZ
               </h1>
             </>
@@ -151,11 +212,16 @@ const AirdropClaim = () => {
               className={`text-black bg-[#00D5DA] text-lg w-32 rounded-3xl font-bold px-2 py-1`}
               onClick={handleClaimClick}
             >
-              {languageModel.Claim}
+              {claimLoading ? (
+                <span className="loading loading-spinner loading-sm"></span>
+              ) : (
+                languageModel.Claim
+              )}
             </button>
           )}
         </section>
       </div>
+      {showAlert && <Alert alertText={alertText} />}
     </div>
   );
 };

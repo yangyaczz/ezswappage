@@ -97,7 +97,11 @@ export default {
   YouHaveClaimed: "Talep ettiniz",
   SorryYouAreNotEligible: "Üzgünüz, uygun değilsiniz",
   SorryAirdropEnded: "Üzgünüz, airdrop sona erdi",
-
   ConnectWalletCheckEligibility:
     "Eligibilitenizi kontrol etmek için cüzdanınızı bağlayın",
+  ErrorCheckingEligibility: "Eligibility kontrolünde hata",
+  ErrorClaimingToken: "Token talebinde hata",
+  ClaimIsSuccessful: "Talep başarılı",
+  ClaimNotAvailable: "Talep mümkün değil",
+  UserSignatureNotFound: "Kullanıcı imzası bulunamadı",
 };

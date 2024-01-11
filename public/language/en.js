@@ -102,6 +102,6 @@ export default {
   ErrorClaimingToken:"Error claiming token",
   ClaimIsSuccessful:"Claim is successful",
   ClaimNotAvailable:"Claim not available",
-  UserSignatureNotFound:"User signature not found"
-
+  UserSignatureNotFound:"User signature not found",
+  SwitchToMainnet:"Please switch to mainnet"
 }

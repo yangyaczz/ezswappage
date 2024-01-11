@@ -104,4 +104,5 @@ export default {
   ClaimIsSuccessful: "請求が成功しました",
   ClaimNotAvailable: "請求できません",
   UserSignatureNotFound: "ユーザーの署名が見つかりません",
+  SwitchToMainnet: "メインネットに切り替えてください",
 };

@@ -5,9 +5,10 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded }) {
 
-    const [value, setValue] = useState(1);
+    const [value, setValue] = useState(0);
     const tId = formikData.collection.tokenId1155
-    const max = formikData.userCollection.tokenAmount1155
+    const max = formikData.userCollection.tokenAmount1155 === undefined ? 0 : formikData.userCollection.tokenAmount1155
+    console.log(tId, max)
     const {languageModel} = useLanguage()
     const update1155SellToPairs = (tokenId, pairs) => {
         let protocolFee = 10000000000000000   // 0.5%  get from smartcontract
@@ -69,7 +70,9 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
 
 
     const toggleSelected = (id, length) => {
-
+        if (Number.isNaN(length)) {
+            return
+        }
         let newSids = new Array(length).fill(id)
         setSelectIds(newSids)
 
@@ -124,6 +127,7 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
 
 
     const handleIncrement = () => {
+        // 不能超过用户的自己NFT的数量
         setValue(prev => Math.min(prev + 1, max))
     };
 
@@ -139,7 +143,7 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
 
 
     //////////////////////////////////////////////////////////////////////////////
-    if (formikData.userCollection.tokenAmount1155 === 0) {
+    if (formikData.userCollection.tokenAmount1155 === undefined || formikData.userCollection.tokenAmount1155 === 0) {
         return <div>{languageModel.YouDontHaveThisNFT}</div>
     }
 

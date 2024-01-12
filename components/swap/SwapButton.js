@@ -170,6 +170,8 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount }) => {
         showErrorAlert("caller is not token owner or approved");
       } else if (swapError.message.indexOf("insufficient funds") > -1) {
         showErrorAlert("insufficient funds");
+      }  else if (swapError.message.indexOf("insufficient balance for transfer") > -1) {
+        showErrorAlert("insufficient balance for transfer");
       } else {
         showErrorAlert("swap error");
       }

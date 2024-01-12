@@ -55,7 +55,7 @@ export default {
 
   Item:'Item',
   Amount:"Amount",
-  YouwanttobuyNftAmount:'You want to buy nft amount',
+  YouwanttobuyNftAmount:'Buy nft amount',
   InsufficientBalance:"Insufficient Balance",
   SelectACollection: 'Select A Collection',
   SelectAnNFT: 'Select an NFT',

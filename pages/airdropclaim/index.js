@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import styles from "./index.module.scss";
 import Countdown from "@/components/airdropclaim/Countdown";
 import { useLanguage } from "@/contexts/LanguageContext";
-import ezswapTokenABI from "../data/ABI/EZswap.json";
+import RouterABI from "../../pages/data/ABI/Router.json";
+import ezswapTokenABI from "../../pages/data/ABI/EZSwapToken.json";
 import {
   useAccount,
   useContractRead,

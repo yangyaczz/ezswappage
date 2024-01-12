@@ -120,7 +120,31 @@ const NFTSearch = ({
                 formikData.collection.type === "ERC721" && swapType === "sell"
             ) {
 
-                if (formikData.golbalParams.networkName === 'mantatest' || formikData.golbalParams.networkName === 'manta') {
+                if (formikData.collection.name === "ECHO") {
+                    const params = {
+                        address: owner,
+                    };
+                    const response = await fetch("/api/queryECHOUserHaveToken", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(params),
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        let ids721 = data?.data.map((item) => item.tokenId)
+                        ids721?.sort(function (a, b) {
+                            return a - b;
+                        });
+                        setUserCollection({
+                            tokenIds721: ids721,
+                        });
+                    }
+
+                } else if (formikData.golbalParams.networkName === 'mantatest' || formikData.golbalParams.networkName === 'manta') {
                     let nftAddress = formikData.collection.address;
                     const networkType = formikData.golbalParams.networkName;
                     const params = {
@@ -187,7 +211,7 @@ const NFTSearch = ({
                 }
             }
         };
-        if (formikData.collection.name !== "" && apiSell.includes(formikData.golbalParams.networkName)) {
+        if ((formikData.collection.name !== "" && apiSell.includes(formikData.golbalParams.networkName)) || (formikData.collection.name === "ECHO")) {
             fetchSellNFT();
         }
     }, [formikData.collection.name]);

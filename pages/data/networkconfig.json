@@ -171,6 +171,13 @@
         "recommendNFT": [
             {
                 "type": "ERC1155",
+                "address": "0x7013cFEc3F6cEFe96A184e7f35E32ea00cefd734",
+                "name": "echo1155_test",
+                "tokenId1155": "0",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/echo_img.png"
+            },
+            {
+                "type": "ERC1155",
                 "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
                 "name": "Block World Test:1",
                 "tokenId1155": "1",

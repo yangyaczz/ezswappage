@@ -34,10 +34,10 @@ const AirdropClaim = () => {
 
   const claimStartTimestamp = 1705074960;
   const claimStartTime = new Date(claimStartTimestamp * 1000); //convert to miliseconds
-  // const claimStartTime=new Date(2024, 0, 13, 0, 0, 50, 0);;
+  // const claimStartTime=new Date(2024, 0, 13, 12, 0, 50, 0);;
   const claimEndTimestamp = 1708410840;
   const claimEndTime = new Date(claimEndTimestamp * 1000); //convert to miliseconds
-  // const claimEndTime = new Date(2024, 0, 13, 0, 1, 50, 0);
+  // const claimEndTime = new Date(2024, 0, 16, 0, 1, 50, 0);
   let timeBeforeStart = calculateTimeLeft(claimStartTime);
   let timeBeforeEnd = calculateTimeLeft(claimEndTime);
 

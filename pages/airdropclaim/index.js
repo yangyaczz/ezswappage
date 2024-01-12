@@ -4,6 +4,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import styles from "./index.module.scss";
 import Countdown from "@/components/airdropclaim/Countdown";
 import { useLanguage } from "@/contexts/LanguageContext";
+import RouterABI from "../../pages/data/ABI/Router.json";
 import ezswapTokenABI from "../../pages/data/ABI/EZswap.json";
 import {
   useAccount,

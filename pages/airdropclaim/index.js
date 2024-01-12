@@ -4,7 +4,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import styles from "./index.module.scss";
 import Countdown from "@/components/airdropclaim/Countdown";
 import { useLanguage } from "@/contexts/LanguageContext";
-import ezswapTokenABI from "../data/ABI/EZswap.json";
+import ezswapTokenABI from "../../pages/data/ABI/EZswap.json";
 import {
   useAccount,
   useContractRead,
@@ -66,7 +66,7 @@ const AirdropClaim = () => {
         switchNetwork?.(deployChainId);
       }else if (owner)
           setAlertMsg(languageModel.ErrorCheckingEligibility, "alert-error");
-      
+
     },
   });
 

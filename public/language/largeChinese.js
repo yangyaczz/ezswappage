@@ -102,4 +102,5 @@ export default {
   ClaimIsSuccessful: "領取成功",
   ClaimNotAvailable: "無法領取",
   UserSignatureNotFound: "找不到使用者簽名",
+  SwitchToMainnet: "請切換到主網",
 };

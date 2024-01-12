@@ -104,4 +104,5 @@ export default {
   ClaimIsSuccessful: "Talep başarılı",
   ClaimNotAvailable: "Talep mümkün değil",
   UserSignatureNotFound: "Kullanıcı imzası bulunamadı",
+  SwitchToMainnet: "Lütfen ana ağa geçin",
 };

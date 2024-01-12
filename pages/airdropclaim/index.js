@@ -9,8 +9,10 @@ import {
   useAccount,
   useContractRead,
   useContractWrite,
-  useSendTransaction,
+  useNetwork,
+  useSwitchNetwork,
 } from "wagmi";
+import { getChains } from "@wagmi/core";
 import calculateTimeLeft from "@/components/utils/calculateTimeLeft";
 import useAlert from "@/components/alert/useAlert";
 import Alert from "@/components/alert/Alert";
@@ -42,7 +44,8 @@ const AirdropClaim = () => {
   const { languageModel } = useLanguage();
   const { setAlertMsg, showAlert, alertText } = useAlert();
   const { address: owner } = useAccount();
-
+  const { chain } = useNetwork();
+  const { switchNetwork } = useSwitchNetwork();
   //georli address:
   //0x875d16675264fd2Ba19784B542deD0eFA90b27f7
   const ezTokenAddr = "0x875d16675264fd2ba19784b542ded0efa90b27f7";
@@ -50,6 +53,7 @@ const AirdropClaim = () => {
   const signa =
     "0x534b9561b5086658b13721d7ae796d5d4d1cadfbc950c502537a7e6faf114c9254c80aba99fc8f1b1e2b8a595d07fab68da22ca22240bb2a69b2ef88af3737ae1c";
   const claimAmount = 10;
+  const deployChainId=5
 
   const { data: userHasClaimed } = useContractRead({
     address: ezTokenAddr,
@@ -57,7 +61,12 @@ const AirdropClaim = () => {
     functionName: "claimed",
     args: [owner?.toLowerCase()],
     onError(err) {
-      if (owner) setAlertMsg(languageModel.ErrorCheckingEligibility, "alert-error");
+      if (chain && chain.id !== deployChainId) {
+        setAlertMsg(languageModel.SwitchToMainnet, "alert-error");
+        switchNetwork?.(deployChainId);
+      }else if (owner)
+          setAlertMsg(languageModel.ErrorCheckingEligibility, "alert-error");
+      
     },
   });
 
@@ -69,7 +78,7 @@ const AirdropClaim = () => {
     address: ezTokenAddr,
     abi: ezswapTokenABI.abi,
     functionName: "claim",
-    args: [owner?.toLowerCase, tokenToClaim, userSignature],
+    args: [owner?.toLowerCase(), tokenToClaim, userSignature],
     onSuccess(data) {
       setClaimStatus(cStatus.CLAIMED);
       setAlertMsg(languageModel.ClaimIsSuccessful, "alert-success");
@@ -79,10 +88,17 @@ const AirdropClaim = () => {
     },
   });
 
+  useEffect(()=>{
+    if (chain && chain?.id !== deployChainId) {
+      setAlertMsg(languageModel.SwitchToMainnet, "alert-error");
+      switchNetwork?.(deployChainId);
+    }
+  },[chain?.id])
+
   useEffect(() => {
     const setup = async () => {
       const params = {
-        address: owner?.toLowerCase(),
+        address: owner,
         mode: "pro",
       };
       async function loadScore() {
@@ -134,6 +150,12 @@ const AirdropClaim = () => {
 
   function handleClaimClick() {
     //make sure user is eligible to claim,
+    if (chain && chain.id !== deployChainId) {
+      setAlertMsg(languageModel.SwitchToMainnet, "alert-error");
+      switchNetwork?.(deployChainId);
+      return;
+    }
+
     if (claimStatus !== cStatus.ELIGIBLE) {
       setAlertMsg(languageModel.ClaimNotAvailable, "alert-error");
       return;

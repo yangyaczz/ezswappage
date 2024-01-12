@@ -173,7 +173,7 @@ const AirdropClaim = () => {
       return;
     }
 
-    if (claimStatus !== cStatus.ELIGIBLE) {
+    if (claimStatus !== cStatus.ELIGIBLE && timeStatus!==tStatus.ONGOING) {
       setAlertMsg(languageModel.ClaimNotAvailable, "alert-error");
       return;
     }

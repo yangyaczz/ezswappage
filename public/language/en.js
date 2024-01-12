@@ -103,5 +103,8 @@ export default {
   ClaimIsSuccessful:"Claim is successful",
   ClaimNotAvailable:"Claim not available",
   UserSignatureNotFound:"User signature not found",
-  SwitchToMainnet:"Please switch to mainnet"
+  SwitchToMainnet:"Please switch to mainnet",
+
+  AirdropClaimingStartSoon:"Claiming starts very soon!",
+  ClaimingStartsIn:"Claiming Starts In"
 }

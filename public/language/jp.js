@@ -105,4 +105,6 @@ export default {
   ClaimNotAvailable: "請求できません",
   UserSignatureNotFound: "ユーザーの署名が見つかりません",
   SwitchToMainnet: "メインネットに切り替えてください",
+  AirdropClaimingStartSoon: "すぐに請求が始まります！",
+  ClaimingStartsIn: "請求開始まで",
 };

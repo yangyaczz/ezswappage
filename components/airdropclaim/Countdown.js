@@ -3,27 +3,38 @@ import TimerBox from "./TimerBox";
 import { useLanguage } from "@/contexts/LanguageContext";
 import calculateTimeLeft from "../utils/calculateTimeLeft";
 
-const Countdown = ({ setClaimStatus, cStatus, claimEndTime }) => {
+const Countdown = ({ claimEndTime,claimStartTime,timeStatus,tStatus,setTimeStatus}) => {
   const { languageModel } = useLanguage();
   const [timeLeft, setTimeLeft] = useState(null);
 
   useEffect(() => {
     const countdownInterval = setInterval(() => {
-      let timeLeft = calculateTimeLeft(claimEndTime);
-      setTimeLeft(timeLeft);
-      if (timeLeft.expire) {
+
+
+      if(timeStatus === tStatus.BEFORE_START){
+        let timeBeforeStart = calculateTimeLeft(claimStartTime);
+        setTimeLeft(timeBeforeStart)
+        if(timeBeforeStart.expire) setTimeStatus(tStatus.ONGOING);
+      }
+      else if(timeStatus===tStatus.ONGOING){
+        let timeBeforeEnd = calculateTimeLeft(claimEndTime)
+        setTimeLeft(timeBeforeEnd)
+        if(timeBeforeEnd.expire) setTimeStatus(tStatus.ENDED);
+      }
+      else if(timeStatus === tStatus.ENDED){
+        let timeBeforeEnd = calculateTimeLeft(claimEndTime)
+        setTimeLeft(timeBeforeEnd)
         clearInterval(countdownInterval);
-        setClaimStatus(cStatus.ENDED);
       }
     }, 1000);
 
     return () => clearInterval(countdownInterval);
-  }, [claimEndTime, cStatus.ENDED, setClaimStatus]);
+  }, [timeStatus]);
 
   return (
     <div id="countdown" className="flex items-center justify-center text-2xl">
       <label className="hidden text-xs whitespace-nowrap md:block md:text-lg lg:text-2xl xl:text-3xl">
-        {languageModel.ClaimingEndsIn}:
+        {timeStatus === tStatus.BEFORE_START ? languageModel.ClaimingStartsIn : languageModel.ClaimingEndsIn}:
       </label>
       {timeLeft && (
         <>

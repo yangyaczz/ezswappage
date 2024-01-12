@@ -1,6 +1,4 @@
-import { faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./index.module.scss";
 import Countdown from "@/components/airdropclaim/Countdown";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -11,8 +9,8 @@ import {
   useContractWrite,
   useNetwork,
   useSwitchNetwork,
+  useWaitForTransaction,
 } from "wagmi";
-import { getChains } from "@wagmi/core";
 import calculateTimeLeft from "@/components/utils/calculateTimeLeft";
 import useAlert from "@/components/alert/useAlert";
 import Alert from "@/components/alert/Alert";
@@ -24,21 +22,33 @@ const AirdropClaim = () => {
     INELIGIBLE: "INELIGIBLE",
     CLAIMED: "CLAIMED",
     ENDED: "ENDED",
+    BEFORE_START: "BEFORE_START",
     WALLET_DISCONNECTED: "WALLET_DISCONNECTED",
   };
 
-  // const dummyTime = new Date(2024, 0, 10, 10, 56, 0, 0);
-  // const dummyTimeStamp = dummyTime.getTime() / 1000;
-  // console.log(dummyTimeStamp)
-  // let claimEndTimestamp = 1704855360;
+  const tStatus = {
+    ENDED: "ENDED",
+    ONGOING: "ONGOING",
+    BEFORE_START: "BEFORE_START",
+  };
 
-  let claimEndTimestamp = 1708410840;
-  let claimEndTime = new Date(claimEndTimestamp * 1000); //convert to miliseconds
-  let timeLeft = calculateTimeLeft(claimEndTime);
+  const claimStartTimestamp = 1705074960;
+  const claimStartTime = new Date(claimStartTimestamp * 1000); //convert to miliseconds
+  // const claimStartTime=new Date(2024, 0, 13, 0, 0, 50, 0);;
+  const claimEndTimestamp = 1708410840;
+  const claimEndTime = new Date(claimEndTimestamp * 1000); //convert to miliseconds
+  // const claimEndTime = new Date(2024, 0, 13, 0, 1, 50, 0);
+  let timeBeforeStart = calculateTimeLeft(claimStartTime);
+  let timeBeforeEnd = calculateTimeLeft(claimEndTime);
 
-  const [claimStatus, setClaimStatus] = useState(
-    timeLeft.expire ? cStatus.ENDED : null
-  ); //ELIGIBLE, INELIGIBLE, CLAIMED, ENDED
+  const [claimStatus, setClaimStatus] = useState(null); //ELIGIBLE, INELIGIBLE, CLAIMED, ENDED
+  const [timeStatus, setTimeStatus] = useState(
+    timeBeforeStart.expire
+      ? timeBeforeEnd.expire
+        ? tStatus.ENDED
+        : tStatus.ONGOING
+      : tStatus.BEFORE_START
+  );
   const [tokenToClaim, setTokenToClaim] = useState(0);
   const [userSignature, setUserSignature] = useState(null);
   const { languageModel } = useLanguage();
@@ -49,11 +59,12 @@ const AirdropClaim = () => {
   //georli address:
   //0x875d16675264fd2Ba19784B542deD0eFA90b27f7
   const ezTokenAddr = "0x875d16675264fd2ba19784b542ded0efa90b27f7";
-  const userAddr = "0xF630d93650C933c34ec4Ca51901b0397069C4dCd";
+  const userAddr = "0xc62D516B87080ac280Cf63666d3620bB98B53B9b";
   const signa =
-    "0x534b9561b5086658b13721d7ae796d5d4d1cadfbc950c502537a7e6faf114c9254c80aba99fc8f1b1e2b8a595d07fab68da22ca22240bb2a69b2ef88af3737ae1c";
-  const claimAmount = 10;
-  const deployChainId=5
+    "0x60e5d599a489a089590dc0c47dda9fef4bd0a400d13d57122edf25a847151f1c32753fc7b3ae9a60fee6abd821e84b37e6a181026948a9eb55e687ea15f04b631b";
+  const claimAmount = 27;
+  const deployChainId = 5;
+  const EIGHTEEN_ZEROS = 1e18;
 
   const { data: userHasClaimed } = useContractRead({
     address: ezTokenAddr,
@@ -64,36 +75,42 @@ const AirdropClaim = () => {
       if (chain && chain.id !== deployChainId) {
         setAlertMsg(languageModel.SwitchToMainnet, "alert-error");
         switchNetwork?.(deployChainId);
-      }else if (owner)
-          setAlertMsg(languageModel.ErrorCheckingEligibility, "alert-error");
-      
+      } else if (owner) setAlertMsg(err.shortMessage, "alert-error");
     },
   });
 
   const {
-    data,
+    data: claimTokenData,
     write: claimEZToken,
     isLoading: claimLoading,
   } = useContractWrite({
     address: ezTokenAddr,
     abi: ezswapTokenABI.abi,
     functionName: "claim",
-    args: [owner?.toLowerCase(), tokenToClaim, userSignature],
+    args: [owner?.toLowerCase(), tokenToClaim * EIGHTEEN_ZEROS, userSignature],
+    onError(err) {
+      setAlertMsg(err.shortMessage, "alert-error");
+    },
+  });
+  
+  const { isLoading: waitClaimLoading } = useWaitForTransaction({
+    hash: claimTokenData?.hash,
+    confirmations: 1,
     onSuccess(data) {
       setClaimStatus(cStatus.CLAIMED);
       setAlertMsg(languageModel.ClaimIsSuccessful, "alert-success");
     },
     onError(err) {
-      setAlertMsg(languageModel.ErrorClaimingToken, "alert-error");
+      setAlertMsg(err.shortMessage, "alert-error");
     },
   });
 
-  useEffect(()=>{
+  useEffect(() => {
     if (chain && chain?.id !== deployChainId) {
       setAlertMsg(languageModel.SwitchToMainnet, "alert-error");
       switchNetwork?.(deployChainId);
     }
-  },[chain?.id])
+  }, [chain?.id]);
 
   useEffect(() => {
     const setup = async () => {
@@ -144,7 +161,7 @@ const AirdropClaim = () => {
       if (data) changeStatus(data);
     };
 
-    if (owner) setup();
+    if (owner && timeStatus!==tStatus.BEFORE_START) setup();
     else setClaimStatus(cStatus.WALLET_DISCONNECTED);
   }, [owner, userHasClaimed]);
 
@@ -181,65 +198,75 @@ const AirdropClaim = () => {
             </p>
           </div>
           <Countdown
-            setClaimStatus={setClaimStatus}
-            cStatus={cStatus}
             claimEndTime={claimEndTime}
+            claimStartTime={claimStartTime}
+            timeStatus={timeStatus}
+            tStatus={tStatus}
+            setTimeStatus={setTimeStatus}
           />
         </section>
         <section
           id="claiming-section"
           className="flex flex-col items-center justify-start text-5xl font-black gap-y-11 "
         >
-          {claimStatus === cStatus.ELIGIBLE && (
-            <>
-              <h1 className="text-2xl mt-14 sm:text-5xl">
-                {languageModel.YouAreEligibleFor}:
-              </h1>
-              <h1>
-                <span className="text-white ">{tokenToClaim}&nbsp;</span>
-                $EZ
-              </h1>
-            </>
-          )}
-          {claimStatus === cStatus.CLAIMED && (
-            <>
-              <h1 className="mt-20 text-2xl sm:text-5xl">
-                {languageModel.YouHaveClaimed}
-              </h1>
-              <h1>
-                <span className="text-white ">{tokenToClaim}&nbsp;</span>
-                $EZ
-              </h1>
-            </>
-          )}
-          {claimStatus === cStatus.INELIGIBLE && (
+          {timeStatus === tStatus.BEFORE_START && (
             <h1 className="mt-48 text-2xl sm:text-5xl">
-              {languageModel.SorryYouAreNotEligible}
+              {languageModel.AirdropClaimingStartSoon}
             </h1>
           )}
-          {claimStatus === cStatus.ENDED && (
+          {timeStatus === tStatus.ENDED && (
             <h1 className="mt-48 text-2xl sm:text-5xl">
               {languageModel.SorryAirdropEnded}
             </h1>
           )}
 
-          {claimStatus === cStatus.WALLET_DISCONNECTED && (
-            <h1 className="mt-48 text-base sm:text-2xl md:text-4xl">
-              {languageModel.ConnectWalletCheckEligibility}
-            </h1>
-          )}
 
-          {claimStatus === cStatus.ELIGIBLE && (
-            <button
-              className={`text-black bg-[#00D5DA] text-lg w-32 rounded-3xl font-bold px-2 py-1`}
-              onClick={handleClaimClick}
-            >
-              {claimLoading ? (
-                <span className="loading loading-spinner loading-sm"></span>
-              ) : (
-                languageModel.Claim
+          
+          {timeStatus === tStatus.ONGOING && (
+            <>
+              {claimStatus === cStatus.WALLET_DISCONNECTED && (
+                <h1 className="mt-48 text-base sm:text-2xl md:text-4xl">
+                  {languageModel.ConnectWalletCheckEligibility}
+                </h1>
               )}
-            </button>
+              {claimStatus === cStatus.CLAIMED && (
+                <>
+                  <h1 className="mt-20 text-2xl sm:text-5xl">
+                    {languageModel.YouHaveClaimed}
+                  </h1>
+                  <h1>
+                    <span className="text-white ">{tokenToClaim}&nbsp;</span>
+                    $EZ
+                  </h1>
+                </>
+              )}
+              {claimStatus === cStatus.INELIGIBLE && (
+                <h1 className="mt-48 text-2xl sm:text-5xl">
+                  {languageModel.SorryYouAreNotEligible}
+                </h1>
+              )}
+              {claimStatus === cStatus.ELIGIBLE && (
+                <>
+                  <h1 className="text-2xl mt-14 sm:text-5xl">
+                    {languageModel.YouAreEligibleFor}:
+                  </h1>
+                  <h1>
+                    <span className="text-white ">{tokenToClaim}&nbsp;</span>
+                    $EZ
+                  </h1>
+                  <button
+                    className={`text-black bg-[#00D5DA] text-lg w-32 rounded-3xl font-bold px-2 py-1`}
+                    onClick={handleClaimClick}
+                  >
+                    {claimLoading || waitClaimLoading ? (
+                      <span className="loading loading-spinner loading-sm"></span>
+                    ) : (
+                      languageModel.Claim
+                    )}
+                  </button>
+                </>
+              )}
+            </>
           )}
         </section>
       </div>

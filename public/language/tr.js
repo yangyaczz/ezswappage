@@ -105,4 +105,6 @@ export default {
   ClaimNotAvailable: "Talep mümkün değil",
   UserSignatureNotFound: "Kullanıcı imzası bulunamadı",
   SwitchToMainnet: "Lütfen ana ağa geçin",
+  AirdropClaimingStartSoon: "Talep etme çok yakında başlıyor!",
+  ClaimingStartsIn: "Talep Başlıyor",
 };

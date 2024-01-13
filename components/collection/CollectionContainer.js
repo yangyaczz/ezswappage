@@ -45,7 +45,7 @@ const CollectionContainer = ({ collection }) => {
           if token is null, means its ETH
         */
         //prettier-ignore
-        let { type,bondingCurve, spotPrice, delta, fee, protocolFee, nftIds, ethVolume, ethBalance, tokenBalance} = pool;
+        let { type,bondingCurve, spotPrice, delta, fee, protocolFee, nftIds, ethVolume, ethBalance, tokenBalance, is1155, nftCount1155} = pool;
 
         //----------------------------------------------------
         protocolFee = PROTOCOL_FEE; // 0.5%  get from smartcontract
@@ -79,7 +79,7 @@ const CollectionContainer = ({ collection }) => {
         let filteredNFTIds = nftIds.filter((id) => {
           return id;
         });
-        nftCount += filteredNFTIds.length; //accumulate number of nfts in all the pools, update 'nftAmount' later on
+        nftCount += is1155 ? nftCount1155 : filteredNFTIds.length; //accumulate number of nfts in all the pools, update 'nftAmount' later on
         volume += ethVolume;
 
         //prettier-ignore
@@ -91,15 +91,15 @@ const CollectionContainer = ({ collection }) => {
         // - sell pool: the number of NFTs cannot be 0,
         // - buy pool: the amount of tokenBalance is enough to purchase NFT from user
         // - trade pool: either one of the above condition is present
-        if (type === "sell" && filteredNFTIds.length > 0){
+        if (type === "sell" && (filteredNFTIds.length > 0 || (is1155 && nftCount1155 > 0 ))) {
           userBuyPrice = sellPoolFloorPrices(params);
-        }
-        else if (type === "buy" && tokenBalance > 0) {
+        } else if (type === "buy" && tokenBalance > 0) {
           userSellPrice = buyPoolTopBid(params);
           TVL += tokenBalance; //accumulate the total ETH / Token balances in buy pools
-        } else if (type === "trade"){
-          if(filteredNFTIds.length > 0) userBuyPrice = tradePoolFloorPrices(params);
-          if(tokenBalance > 0) userSellPrice = tradePoolTopBid(params);
+        } else if (type === "trade") {
+          if (filteredNFTIds.length > 0 || (is1155 && nftCount1155 > 0 ))
+            userBuyPrice = tradePoolFloorPrices(params);
+          if (tokenBalance > 0) userSellPrice = tradePoolTopBid(params);
           TVL += tokenBalance; //accumulate the total ETH / Token balances in trade pools
         }
 
@@ -107,8 +107,11 @@ const CollectionContainer = ({ collection }) => {
         //now check the validity
         //-----------
         //floor price, the number of NFTs in the pool cannot be empty
-        bestUserBuyPrice = filteredNFTIds.length > 0 
-            ? bestUserBuyPrice === 0 || bestUserBuyPrice > userBuyPrice ? userBuyPrice : bestUserBuyPrice
+        bestUserBuyPrice =
+        filteredNFTIds.length > 0 || (is1155 && nftCount1155 > 0 )
+            ? bestUserBuyPrice === 0 || bestUserBuyPrice > userBuyPrice
+              ? userBuyPrice
+              : bestUserBuyPrice
             : bestUserBuyPrice;
 
         //top bid
@@ -211,7 +214,11 @@ const CollectionContainer = ({ collection }) => {
         currencyImage={currencyImage}
       />
       {/* <Rewards COLLECTION_PIC_SIZE={COLLECTION_PIC_SIZE} network={network} /> */}
-      <PoolTab contractAddress={address} tokenId={tokenId1155} currencyImage={currencyImage}/>
+      <PoolTab
+        contractAddress={address}
+        tokenId={tokenId1155}
+        currencyImage={currencyImage}
+      />
       <ButtonGroup
         collectionName={name}
         contractAddress={address}

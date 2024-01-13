@@ -119,7 +119,7 @@ const NFTSearch = ({
                 formikData.collection.type === "ERC721" && swapType === "sell"
             ) {
 
-                if (formikData.collection.name === "ECHO") {
+                if (formikData.collection.name === "echo") {
                     const params = {
                         address: owner,
                     };
@@ -210,7 +210,7 @@ const NFTSearch = ({
                 }
             }
         };
-        if ((formikData.collection.name !== "" && apiSell.includes(formikData.golbalParams.networkName)) || (formikData.collection.name === "ECHO")) {
+        if ((formikData.collection.name !== "" && apiSell.includes(formikData.golbalParams.networkName)) || (formikData.collection.name === "echo")) {
             fetchSellNFT();
         }
     }, [formikData.collection.name]);

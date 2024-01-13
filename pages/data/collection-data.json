@@ -9,7 +9,7 @@
     "order": 1
   },
   {
-    "name": "ECHO",
+    "name": "echo",
     "address": "0x31753b319f03a7ca0264A1469dA0149982ed7564",
     "type": "ERC1155",
     "tokenId1155": "0",

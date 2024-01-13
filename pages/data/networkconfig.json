@@ -266,10 +266,10 @@
         "ERC1155": "",
         "recommendNFT": [
             {
-                "type": "ERC721",
-                "address": "0xC10A988680355BdFfE0B998Cd12098264C3957Bd",
+                "type": "ERC1155",
+                "address": "0x31753b319f03a7ca0264A1469dA0149982ed7564",
                 "name": "ECHO",
-                "tokenId1155": "",
+                "tokenId1155": "0",
                 "img": "https://ezonline.s3.us-west-2.amazonaws.com/echo_img.png"
             },
             {

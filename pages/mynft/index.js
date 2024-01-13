@@ -41,7 +41,7 @@ const MyNft = () => {
   //   }
   // }, [chain]);
   const { data: tokenAmount1155,refetch: balanceOfRefetch } = useContractRead({
-    address: '0x7013cFEc3F6cEFe96A184e7f35E32ea00cefd734',
+    address: '0x31753b319f03a7ca0264A1469dA0149982ed7564',
     abi: ERC1155ABI,
     functionName: 'balanceOf',
     args: [owner, 0],

@@ -176,7 +176,7 @@ const MyNft = () => {
           return <div key={item.contract.name+item.valueExact} className="card w-48 bg-base-100 shadow-xl mr-5 mb-5">
           <figure><img src={item.img} /></figure>
           <div className="card-body">
-            <h2 className="card-title">{item.contract.name} #{item.valueExact}</h2>
+            <h2 className="card-title">{item.contract.name} #{item.token.identifier} * {item.valueExact}</h2>
           </div>
         </div>
         })}

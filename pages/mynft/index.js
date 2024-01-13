@@ -182,7 +182,7 @@ const MyNft = () => {
         })}
         {numCount>0 &&
           <div className="card w-48 bg-base-100 shadow-xl">
-            <figure><img src="https://ezonline.s3.us-west-2.amazonaws.com/echo_img.png"/></figure>
+            <figure><img src="https://ezonline.s3.us-west-2.amazonaws.com/echo_img2.png"/></figure>
             <div className="card-body">
               <h2 className="card-title">#0 * {numCount}</h2>
             </div>

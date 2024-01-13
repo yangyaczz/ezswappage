@@ -104,4 +104,6 @@ export default {
   ClaimNotAvailable: "청구할 수 없습니다",
   UserSignatureNotFound: "사용자 서명을 찾을 수 없습니다",
   SwitchToMainnet: "메인넷으로 전환하세요",
+  AirdropClaimingStartSoon: "청구가 곧 시작됩니다!",
+  ClaimingStartsIn: "청구 시작까지",
 };

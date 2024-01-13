@@ -33,12 +33,13 @@ const AirdropClaim = () => {
     BEFORE_START: "BEFORE_START",
   };
 
+
   const claimStartTimestamp = 1705074960;
   const claimStartTime = new Date(claimStartTimestamp * 1000); //convert to miliseconds
-  // const claimStartTime=new Date(2024, 0, 13, 12, 0, 50, 0);;
+  // const claimStartTime=new Date(2024, 0, 13, 11, 22, 0, 0);;
   const claimEndTimestamp = 1708410840;
   const claimEndTime = new Date(claimEndTimestamp * 1000); //convert to miliseconds
-  // const claimEndTime = new Date(2024, 0, 16, 0, 1, 50, 0);
+  // const claimEndTime = new Date(2024, 0, 14, 12, 34, 30, 0);
   let timeBeforeStart = calculateTimeLeft(claimStartTime);
   let timeBeforeEnd = calculateTimeLeft(claimEndTime);
 
@@ -60,10 +61,10 @@ const AirdropClaim = () => {
   //georli address:
   //0x875d16675264fd2Ba19784B542deD0eFA90b27f7
   const ezTokenAddr = "0x875d16675264fd2ba19784b542ded0efa90b27f7";
-  const userAddr = "0xc62D516B87080ac280Cf63666d3620bB98B53B9b";
+  const userAddr = "0x21C8e614CD5c37765411066D2ec09912020c846F";
   const signa =
-    "0x60e5d599a489a089590dc0c47dda9fef4bd0a400d13d57122edf25a847151f1c32753fc7b3ae9a60fee6abd821e84b37e6a181026948a9eb55e687ea15f04b631b";
-  const claimAmount = 27;
+    "0xb975dbbf98a2f2b5861195e0ff811062e7d999a4c76536072c737fc29e86139e0db51bace7eeeb66fe5ff15f6b34012b8e0c1d7fa2d9e06b56f22723cb1889eb1c";
+  const claimAmount = 5e20;
   const deployChainId = 5;
   const EIGHTEEN_ZEROS = 1e18;
 
@@ -71,7 +72,7 @@ const AirdropClaim = () => {
     address: ezTokenAddr,
     abi: ezswapTokenABI.abi,
     functionName: "claimed",
-    args: [owner?.toLowerCase()],
+    args: [owner],
     onError(err) {
       if (chain && chain.id !== deployChainId) {
         setAlertMsg(languageModel.SwitchToMainnet, "alert-error");
@@ -88,7 +89,7 @@ const AirdropClaim = () => {
     address: ezTokenAddr,
     abi: ezswapTokenABI.abi,
     functionName: "claim",
-    args: [owner?.toLowerCase(), tokenToClaim * EIGHTEEN_ZEROS, userSignature],
+    args: [owner, tokenToClaim * EIGHTEEN_ZEROS, userSignature],
     onError(err) {
       setAlertMsg(err.shortMessage, "alert-error");
     },
@@ -105,7 +106,6 @@ const AirdropClaim = () => {
       setAlertMsg(err.shortMessage, "alert-error");
     },
   });
-
   useEffect(() => {
     if (chain && chain?.id !== deployChainId) {
       setAlertMsg(languageModel.SwitchToMainnet, "alert-error");
@@ -128,8 +128,11 @@ const AirdropClaim = () => {
           body: JSON.stringify(params),
         });
         const result = await response.json();
-        const data = result.data;
-        return data;
+        if(result.success){
+          const data = result.data;
+          return data;
+        }
+        return null
       }
 
       //change the status of claiming, to show different texts. Such as: "Airdrop ended", "You are eligible" etc.
@@ -162,9 +165,11 @@ const AirdropClaim = () => {
       if (data) changeStatus(data);
     };
 
-    if (owner && timeStatus!==tStatus.BEFORE_START) setup();
-    else setClaimStatus(cStatus.WALLET_DISCONNECTED);
-  }, [owner, userHasClaimed]);
+    if (timeStatus!==tStatus.BEFORE_START){
+      if(!owner) setClaimStatus(cStatus.WALLET_DISCONNECTED);
+      else setup();
+    } 
+  }, [owner, timeStatus, userHasClaimed]);
 
   function handleClaimClick() {
     //make sure user is eligible to claim,
@@ -179,7 +184,7 @@ const AirdropClaim = () => {
       return;
     }
     //make sure owner's address and signature is present before making contract interaction
-    if (!userSignature || !owner)
+    if(!userSignature || !owner)
       setAlertMsg(languageModel.UserSignatureNotFound, "alert-error");
     else claimEZToken();
   }

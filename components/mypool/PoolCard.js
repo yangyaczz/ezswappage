@@ -365,7 +365,7 @@ const PoolCard = ({ item,formikData, owner }) => {
             console.log('item', item)
             if (item.tokenType === 'ERC721') {
                 console.log('formikData', formikData)
-                if (item.collection === "0xc10a988680355bdffe0b998cd12098264c3957bd") {
+                if (item.collection === "0x31753b319f03a7ca0264A1469dA0149982ed7564") {
                     const params = {
                         address: action === 'deposit' ? owner : item.id,
                     };

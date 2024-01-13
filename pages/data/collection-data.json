@@ -404,13 +404,4 @@
     "network": "ethmain",
     "order": 8
   },
-  {
-    "name": "echo",
-    "address": "0xC10A988680355BdFfE0B998Cd12098264C3957Bd",
-    "type": "ERC721",
-    "tokenId1155": "",
-    "img": "https://ezonline.s3.us-west-2.amazonaws.com/echo_img.png",
-    "network": "eosmain",
-    "order": 1
-  }
 ]

@@ -280,15 +280,15 @@ const NavBar = () => {
           )}
         </div>
         {/* Claim Button For Mobile */}
-        <Link
+        {/* <Link
           className={`${styles.launchpad} ${styles.airdropBtn} ${styles.claimAirdropBG} self-end my-3 `}
           href="/airdropclaim"
           target="_self"
           onClick={()=>setToggleHamburger(false)}
         >
           {languageModel.Airdrop}
-        </Link>
-        {/* 
+        </Link> */}
+        
         {addressInfo.dcUserId === undefined ||
         addressInfo.dcUserId === null ||
         addressInfo.dcUserId === "" ||
@@ -352,7 +352,7 @@ const NavBar = () => {
               </li>
             </ul>
           </div>
-        )} */}
+        )}
         <ConnectButton />
       </div>
     </div>
@@ -400,7 +400,7 @@ const NavBar = () => {
           {/*airdrop 上线后打开*/}
 
           {/* Claim Button for web */}
-          <Link
+          {/* <Link
             className={
               styles.launchpad +
               " " +
@@ -412,9 +412,9 @@ const NavBar = () => {
             target="_self"
           >
             {languageModel.Airdrop}
-          </Link>
+          </Link> */}
 
-          {/* {addressInfo.dcUserId === undefined ||
+          {addressInfo.dcUserId === undefined ||
           addressInfo.dcUserId === null ||
           addressInfo.dcUserId === "" ||
           addressInfo.sendTwitter !== 1 ? (
@@ -485,7 +485,7 @@ const NavBar = () => {
                 </li>
               </ul>
             </div>
-          )} */}
+          )}
           {/*airdrop 上线后打开*/}
 
           {/*<a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href='https://ezswap.readme.io/reference/overview'target="_blank">API</a>*/}

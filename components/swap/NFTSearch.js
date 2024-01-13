@@ -69,7 +69,6 @@ const NFTSearch = ({
                     `,
                         urlKey: networkType,
                     };
-
                     const response = await fetch("/api/queryMantaNFT", {
                         method: "POST",
                         headers: {
@@ -157,7 +156,7 @@ const NFTSearch = ({
                     `,
                         urlKey: networkType,
                     };
-
+                    console.log('paramsparamsparams', params)
                     const response = await fetch("/api/queryMantaNFT", {
                         method: "POST",
                         headers: {

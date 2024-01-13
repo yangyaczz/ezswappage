@@ -4,6 +4,7 @@ import Countdown from "@/components/airdropclaim/Countdown";
 import { useLanguage } from "@/contexts/LanguageContext";
 import RouterABI from "../../pages/data/ABI/Router.json";
 import ezswapTokenABI from "../../pages/data/ABI/EZSwapToken.json";
+import { ethers } from "ethers";
 import {
   useAccount,
   useContractRead,
@@ -89,12 +90,12 @@ const AirdropClaim = () => {
     address: ezTokenAddr,
     abi: ezswapTokenABI.abi,
     functionName: "claim",
-    args: [owner, tokenToClaim * EIGHTEEN_ZEROS, userSignature],
+    args: [owner, ethers.utils.parseEther(tokenToClaim.toString()).toString(), userSignature],
     onError(err) {
       setAlertMsg(err.shortMessage, "alert-error");
     },
   });
-  
+
   const { isLoading: waitClaimLoading } = useWaitForTransaction({
     hash: claimTokenData?.hash,
     confirmations: 1,
@@ -168,7 +169,7 @@ const AirdropClaim = () => {
     if (timeStatus!==tStatus.BEFORE_START){
       if(!owner) setClaimStatus(cStatus.WALLET_DISCONNECTED);
       else setup();
-    } 
+    }
   }, [owner, timeStatus, userHasClaimed]);
 
   function handleClaimClick() {
@@ -227,7 +228,7 @@ const AirdropClaim = () => {
           )}
 
 
-          
+
           {timeStatus === tStatus.ONGOING && (
             <>
               {claimStatus === cStatus.WALLET_DISCONNECTED && (

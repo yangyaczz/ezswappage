@@ -83,8 +83,8 @@ const MyNft = () => {
           body: JSON.stringify(params),
         });
         const data1155 = await response.json();
-        console.log('response1155', data1155.data.erc1155Balances)
-        for (const erc1155data of data1155.data.erc1155Balances) {
+        console.log('response1155', data1155?.data?.erc1155Balances)
+        for (const erc1155data of data1155?.data?.erc1155Balances) {
             const collectionList = networkConfig[chain.id].recommendNFT
             for (const collection of collectionList) {
               if (collection.address.toLowerCase() === erc1155data.contract.id.toLowerCase()) {
@@ -163,9 +163,9 @@ const MyNft = () => {
   // }
   return (
     <div className="bg-base-200">
-      <div className="flex justify-center flex-wrap">
+      <div key="1" className="flex justify-center flex-wrap">
         {chain !== undefined && chain.id !== undefined && (chain.id === 169 || chain.id === 3441005) && data721List.map(function (item) {
-          return <div className="card w-48 bg-base-100 shadow-xl mr-5 mb-5">
+          return <div key={item.contract.id+item.identifier} className="card w-48 bg-base-100 shadow-xl mr-5 mb-5">
           <figure><img src={item.img} /></figure>
           <div className="card-body">
             <h2 className="card-title">{item.contract.name} #{item.identifier}</h2>
@@ -173,7 +173,7 @@ const MyNft = () => {
         </div>
         })}
         {chain !== undefined && chain.id !== undefined && (chain.id === 169 || chain.id === 3441005) && data1155List.map(function (item) {
-          return <div className="card w-48 bg-base-100 shadow-xl mr-5 mb-5">
+          return <div key={item.contract.name+item.valueExact} className="card w-48 bg-base-100 shadow-xl mr-5 mb-5">
           <figure><img src={item.img} /></figure>
           <div className="card-body">
             <h2 className="card-title">{item.contract.name} #{item.valueExact}</h2>

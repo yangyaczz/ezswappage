@@ -109,7 +109,7 @@ const NFTSearch = ({
                     let data = await response.json();
 
                     let tokenIdToCheck = formikData.collection.tokenId1155;
-                    let matchingNft = data.ownedNfts.find(nft => nft.tokenId === tokenIdToCheck);
+                    let matchingNft = data?.ownedNfts?.find(nft => nft.tokenId === tokenIdToCheck);
 
                     setUserCollection({
                         tokenAmount1155: matchingNft ? matchingNft.balance : 0,

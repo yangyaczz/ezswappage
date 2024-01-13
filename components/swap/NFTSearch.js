@@ -69,7 +69,6 @@ const NFTSearch = ({
                     `,
                         urlKey: networkType,
                     };
-
                     const response = await fetch("/api/queryMantaNFT", {
                         method: "POST",
                         headers: {
@@ -110,7 +109,7 @@ const NFTSearch = ({
                     let data = await response.json();
 
                     let tokenIdToCheck = formikData.collection.tokenId1155;
-                    let matchingNft = data.ownedNfts.find(nft => nft.tokenId === tokenIdToCheck);
+                    let matchingNft = data?.ownedNfts?.find(nft => nft.tokenId === tokenIdToCheck);
 
                     setUserCollection({
                         tokenAmount1155: matchingNft ? matchingNft.balance : 0,
@@ -120,7 +119,31 @@ const NFTSearch = ({
                 formikData.collection.type === "ERC721" && swapType === "sell"
             ) {
 
-                if (formikData.golbalParams.networkName === 'mantatest' || formikData.golbalParams.networkName === 'manta') {
+                if (formikData.collection.name === "echo_old") {
+                    const params = {
+                        address: owner,
+                    };
+                    const response = await fetch("/api/queryECHOUserHaveToken", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(params),
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        let ids721 = data?.data.map((item) => item.tokenId)
+                        ids721?.sort(function (a, b) {
+                            return a - b;
+                        });
+                        setUserCollection({
+                            tokenIds721: ids721,
+                        });
+                    }
+
+                } else if (formikData.golbalParams.networkName === 'mantatest' || formikData.golbalParams.networkName === 'manta') {
                     let nftAddress = formikData.collection.address;
                     const networkType = formikData.golbalParams.networkName;
                     const params = {
@@ -133,7 +156,7 @@ const NFTSearch = ({
                     `,
                         urlKey: networkType,
                     };
-
+                    console.log('paramsparamsparams', params)
                     const response = await fetch("/api/queryMantaNFT", {
                         method: "POST",
                         headers: {
@@ -187,7 +210,7 @@ const NFTSearch = ({
                 }
             }
         };
-        if (formikData.collection.name !== "" && apiSell.includes(formikData.golbalParams.networkName)) {
+        if ((formikData.collection.name !== "" && apiSell.includes(formikData.golbalParams.networkName)) || (formikData.collection.name === "echo_old")) {
             fetchSellNFT();
         }
     }, [formikData.collection.name]);

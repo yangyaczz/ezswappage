@@ -18,8 +18,8 @@ const NavBar = () => {
   const [sendGetScore, setSendGetScore] = useState(0);
   const [userHavePoineerCount, setUserHavePoineerCount] = useState(0);
   const [airdropJumpUrl, setAirdropJumpUrl] = useState("");
-  const [mainPageJumpUrl, setMainPageJumpUrl] = useState("");
   const [launchpadJumpUrl, setLaunchpadJump] = useState("");
+  const [mainPageJumpUrl, setMainPageJumpUrl] = useState("");
   const { address: owner } = useAccount();
   const [showLanguages, setShowLanguages] = useState(false);
   const [enteredDropdown, setEnteredDropdown] = useState(false);
@@ -196,20 +196,6 @@ const NavBar = () => {
         }}
         className="text-white duration-300 ease-in focus:outline-none lg:hidden"
       >
-        {/* <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M4 6h16M4 12h16m-7 6h7"
-          ></path>
-        </svg> */}
         {toggleHamburger ? (
           <FontAwesomeIcon icon={faXmark} size="xl" />
         ) : (
@@ -293,13 +279,80 @@ const NavBar = () => {
             </ul>
           )}
         </div>
-        <a
-          className={`${styles.launchpad} ${styles.airdropBtn} self-end my-3 `}
-          href={airdropJumpUrl}
+        {/* Claim Button For Mobile */}
+        {/* <Link
+          className={`${styles.launchpad} ${styles.airdropBtn} ${styles.claimAirdropBG} self-end my-3 `}
+          href="/airdropclaim"
           target="_self"
+          onClick={()=>setToggleHamburger(false)}
         >
           {languageModel.Airdrop}
-        </a>
+        </Link> */}
+        
+        {addressInfo.dcUserId === undefined ||
+        addressInfo.dcUserId === null ||
+        addressInfo.dcUserId === "" ||
+        addressInfo.sendTwitter !== 1 ? (
+          <a
+            className={`${styles.launchpad} ${styles.airdropBtn} ${styles.airdropBG} self-end my-3 `}
+            href={airdropJumpUrl}
+            target="_self"
+          >
+            {languageModel.Airdrop}
+          </a>
+        ) : (
+          <div
+            className={
+              "dropdown dropdown-hover" +
+              " " +
+              styles.launchpad +
+              " " +
+              styles.airdropColorBtn +
+              " " +
+              styles.rainbowBar
+            }
+          >
+            <div className="flex items-end">
+              <div
+                tabIndex="0"
+                role="button"
+                className={styles.airdropColorBtn + " " + styles.headerScore}
+              >
+                {addressInfo.score} PTS{" "}
+              </div>
+              <div className="flex items-end">
+                {userHavePoineerCount > 0 && (
+                  <span className="text-[0.5rem] ml-1"> 1.25x</span>
+                )}
+                {userHavePoineerCount > 0 && (
+                  <img className="h-2 mb-2 ml-0.3" src="/top.png" alt="" />
+                )}
+              </div>
+            </div>
+            <ul
+              tabIndex="0"
+              className={
+                "dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+              }
+            >
+              <div
+                className={addressInfo.todayPunch === 1 ? styles.cantPunch : ""}
+              >
+                <li
+                  className={
+                    addressInfo.todayPunch === 1 ? styles.cantPunch : ""
+                  }
+                  onClick={() => handleClick(1)}
+                >
+                  <a className={styles.airdropText}>Get Today’s Free PTS</a>
+                </li>
+              </div>
+              <li className={styles.liStyle} onClick={() => handleClick(2)}>
+                <a className={styles.airdropText}>Copy Invite Link</a>
+              </li>
+            </ul>
+          </div>
+        )}
         <ConnectButton />
       </div>
     </div>
@@ -343,13 +396,36 @@ const NavBar = () => {
           >
             {languageModel.mint}
           </a>
+
           {/*airdrop 上线后打开*/}
+
+          {/* Claim Button for web */}
+          {/* <Link
+            className={
+              styles.launchpad +
+              " " +
+              styles.airdropBtn +
+              " " +
+              styles.claimAirdropBG
+            }
+            href="/airdropclaim"
+            target="_self"
+          >
+            {languageModel.Airdrop}
+          </Link> */}
+
           {addressInfo.dcUserId === undefined ||
           addressInfo.dcUserId === null ||
           addressInfo.dcUserId === "" ||
           addressInfo.sendTwitter !== 1 ? (
             <a
-              className={styles.launchpad + " " + styles.airdropBtn}
+              className={
+                styles.launchpad +
+                " " +
+                styles.airdropBtn +
+                " " +
+                styles.airdropBG
+              }
               href={airdropJumpUrl}
               target="_self"
             >
@@ -411,6 +487,7 @@ const NavBar = () => {
             </div>
           )}
           {/*airdrop 上线后打开*/}
+
           {/*<a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href='https://ezswap.readme.io/reference/overview'target="_blank">API</a>*/}
           {/*<a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad}>Buy/Sell Crypto</a>*/}
         </div>

@@ -55,7 +55,7 @@ export default {
 
   Item:'Item',
   Amount:"Amount",
-  YouwanttobuyNftAmount:'You want to buy nft amount',
+  YouwanttobuyNftAmount:'Buy nft amount',
   InsufficientBalance:"Insufficient Balance",
   SelectACollection: 'Select A Collection',
   SelectAnNFT: 'Select an NFT',
@@ -86,5 +86,25 @@ export default {
   Points:"Pts",
   Close:"close",
   PoolDontHaveNFT:"Pool don't have this NFT",
-  ExistingPool:"Existing Pool"
+  ExistingPool:"Existing Pool",
+  YouAreEligibleFor:"You are eligible for",
+  ClaimingEndsIn:"Claiming Ends In",
+  Claim:"Claim",
+  Days:"Days",
+  Hours:"Hours",
+  Minutes:"Minutes",
+  Seconds:"Seconds",
+  YouHaveClaimed:"You have claimed",
+  SorryYouAreNotEligible:"Sorry, You are not eligible",
+  SorryAirdropEnded:"Sorry, airdrop has ended",
+  ConnectWalletCheckEligibility:"Connect wallet to check your eligibility",
+  ErrorCheckingEligibility:"Error checking eligibility",
+  ErrorClaimingToken:"Error claiming token",
+  ClaimIsSuccessful:"Claim is successful",
+  ClaimNotAvailable:"Claim not available",
+  UserSignatureNotFound:"User signature not found",
+  SwitchToMainnet:"Please switch to mainnet",
+
+  AirdropClaimingStartSoon:"Claiming starts very soon!",
+  ClaimingStartsIn:"Claiming Starts In"
 }

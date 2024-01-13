@@ -362,20 +362,50 @@ const PoolCard = ({ item,formikData, owner }) => {
         setLoadingNFT(true)
         if (networkType === '0x3cc5' ||networkType === '0x4571') {
             // eos链
+            console.log('item', item)
             if (item.tokenType === 'ERC721') {
-                const resultData = await tokensOfOwnerRefetch()
-                setAddressSelectNFT([])
-                let tempList = []
-                if (resultData !== undefined && resultData.data !== undefined){
-                    for (const datum of resultData?.data) {
-                        const obj ={
-                            "identifier":datum.toNumber()
+                console.log('formikData', formikData)
+                if (item.collection === "0x31753b319f03a7ca0264A1469dA0149982ed7564") {
+                    const params = {
+                        address: action === 'deposit' ? owner : item.id,
+                    };
+                    const response = await fetch("/api/queryECHOUserHaveToken", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(params),
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                        setAddressSelectNFT([])
+                        let tempList = []
+                        if (data.data !== undefined){
+                            for (const datum of data?.data) {
+                                const obj ={
+                                    "identifier":datum.tokenId
+                                }
+                                tempList.push(obj)
+                            }
                         }
-                        tempList.push(obj)
+                        setAddressSelectNFT(tempList)
+                        setLoadingNFT(false)
                     }
+                } else {
+                    const resultData = await tokensOfOwnerRefetch()
+                    setAddressSelectNFT([])
+                    let tempList = []
+                    if (resultData !== undefined && resultData.data !== undefined){
+                        for (const datum of resultData?.data) {
+                            const obj ={
+                                "identifier":datum.toNumber()
+                            }
+                            tempList.push(obj)
+                        }
+                    }
+                    setAddressSelectNFT(tempList)
+                    setLoadingNFT(false)
                 }
-                setAddressSelectNFT(tempList)
-                setLoadingNFT(false)
             }else {
                 const num=await balanceOfRefetch()
                 const nftCount = parseInt(num.data, 16)

@@ -156,8 +156,8 @@ function Input1155Buy({ formikData, setSelectIds, setTupleEncode, setTotalGet, s
 
 
     return (
-        <div className='flex items-center p-5 space-x-4'>
-            <div>{languageModel.YouwanttobuyNftAmount}:</div>
+        <div className='flex items-center justify-center p-5 space-x-4'>
+            <div><span className='mr-3'>{languageModel.YouwanttobuyNftAmount}:</span></div>
             <div className='form-control'>
                 <div className="input-group">
                     <button

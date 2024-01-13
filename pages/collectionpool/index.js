@@ -176,7 +176,7 @@ const MyPool = () => {
               deltaText:
                 BondingCurveName === "Linear"
                   ? (item.delta / 1e18).toFixed(2)
-                  : (item.delta / 1e18).toFixed(2).toString() + "%",
+                  : ((item.delta / 1e18 - 1) * 100).toFixed(2).toString() + "%",
             };
           });
 

@@ -171,6 +171,13 @@
         "recommendNFT": [
             {
                 "type": "ERC1155",
+                "address": "0x7013cFEc3F6cEFe96A184e7f35E32ea00cefd734",
+                "name": "echo1155_test",
+                "tokenId1155": "0",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/echo_img.png"
+            },
+            {
+                "type": "ERC1155",
                 "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
                 "name": "Block World Test:1",
                 "tokenId1155": "1",
@@ -259,6 +266,20 @@
         "ERC1155": "",
         "recommendNFT": [
             {
+                "type": "ERC1155",
+                "address": "0x31753b319f03a7ca0264A1469dA0149982ed7564",
+                "name": "echo",
+                "tokenId1155": "0",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/echo_img2.png"
+            },
+            {
+                "type": "ERC721",
+                "address": "0xd2ffD7e6644EC7266Ffb50582784EA3D4686026d",
+                "name": "Game Raider",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg"
+            },
+            {
                 "type": "ERC721",
                 "address": "0xF7CADf2Ca041657516d8e13e5c75ABEbB49D919d",
                 "name": "Holdem Tier 0.5",
@@ -335,13 +356,6 @@
                 "name": "BLACK DRAGON",
                 "tokenId1155": "6",
                 "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/BLACK.gif"
-            },
-            {
-                "type": "ERC721",
-                "address": "0xd2ffD7e6644EC7266Ffb50582784EA3D4686026d",
-                "name": "Game Raider",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg"
             }
         ],
         "recommendERC20": [

@@ -170,7 +170,7 @@ const MyPool = () => {
               ).toFixed(3), // this pool token balance, vaild or not
               tokenName: tokenName,
               NFTName: NFTName,
-              currentPrice: res?.userSellPrice,
+              currentPrice: item.spotPrice / dec,   //res?.userSellPrice
               BondingCurveName: BondingCurveName,
               poolTypeName: poolTypeName,
               deltaText:

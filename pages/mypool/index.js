@@ -163,7 +163,8 @@ const MyPool = () => {
                 (item.ethBalance === null
                   ? item.tokenBalance
                   : item.ethBalance) / 1e18
-              ).toFixed(3), // this pool token balance, vaild or not
+              // ).toFixed(3), // this pool token balance, vaild or not
+              ), // this pool token balance, vaild or not
               tokenName: tokenName,
               NFTName: NFTName,
               currentPrice: item.spotPrice / dec,  //res?.userSellPrice

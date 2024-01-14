@@ -26,6 +26,7 @@ const CollectionContainer = ({ collection }) => {
   const [poolsByTradingPair, setPoolsByTradingPair] = useState({});
   const COLLECTION_PIC_SIZE = 90;
   const EIGHTEEN_ZEROS = 1e18;
+  const SLIPPING_RATE = 1.005;
 
   //useEffect to calculate floor price, nft amount, top bids, offer tvl
   useEffect(() => {
@@ -74,7 +75,8 @@ const CollectionContainer = ({ collection }) => {
           tfee: fee,
           pfee: protocolFee,
           id: pool.id,
-          address
+          address,
+          is1155,
         };
 
         //filter out invalid nftIds
@@ -136,7 +138,7 @@ const CollectionContainer = ({ collection }) => {
 
       //just to format the prices to  2 decimals. But no decimal if equals to 0.
       //prettier-ignore
-      bestUserBuyPrice = bestUserBuyPrice?.toFixed(MaxFiveDecimal(bestUserBuyPrice));
+      bestUserBuyPrice = parseFloat((bestUserBuyPrice*SLIPPING_RATE).toFixed(6)).toFixed(MaxFiveDecimal(bestUserBuyPrice*SLIPPING_RATE));
       //prettier-ignore
       bestUserSellPrice = bestUserSellPrice?.toFixed(MaxFiveDecimal(bestUserSellPrice));
       //prettier-ignore
@@ -175,24 +177,28 @@ const CollectionContainer = ({ collection }) => {
     }
 
     //prettier-ignore
-    function sellPoolFloorPrices({bondingCurve, spotPrice, delta, tfee, pfee,id,address}) {
+    function sellPoolFloorPrices({bondingCurve, spotPrice, delta, tfee, pfee,id,address,is1155}) {
       let data;
       //use linear pool calculation
       //prettier-ignore
       if (bondingCurve === "Linear") data = SellPoolLiner(spotPrice, delta, tfee, pfee);
       //use EXPONENTIAL pool calculation
       else data = SellPoolExp(spotPrice, delta, tfee, pfee);
+
+      if(!is1155) console.log(data)
       return data.userBuyPrice ? data.userBuyPrice : 0;
     }
 
     //prettier-ignore
-    function tradePoolFloorPrices({bondingCurve, spotPrice, delta, tfee, pfee,id,address}) {
+    function tradePoolFloorPrices({bondingCurve, spotPrice, delta, tfee, pfee,id,address,is1155}) {
       let data;
       //use linear pool calculation
       //prettier-ignore
       if (bondingCurve === "Linear") data = TradePoolLiner( spotPrice, delta, tfee, pfee);
       //use exponential pool calculation
       else data = TradePoolExp( spotPrice, delta, tfee, pfee);
+      if(!is1155) console.log(data)
+
       return data.userBuyPrice ? data.userBuyPrice : 0;
     }
   }, [pools]);

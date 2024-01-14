@@ -409,8 +409,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
                 }
             }else {
                 const num=await balanceOfRefetch()
-                console.log('numnumnum', num)
-                const nftCount = parseInt(num.data, 16)
+                const nftCount = parseInt(num.data)
                 setUserHaveNFTs1155(nftCount)
                 setLoadingNFT(false)
             }

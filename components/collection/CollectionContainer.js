@@ -73,6 +73,8 @@ const CollectionContainer = ({ collection }) => {
           delta: parseFloat(delta),
           tfee: fee,
           pfee: protocolFee,
+          id: pool.id,
+          address
         };
 
         //filter out invalid nftIds
@@ -83,7 +85,9 @@ const CollectionContainer = ({ collection }) => {
         volume += ethVolume;
 
         //prettier-ignore
-        let userBuyPrice = 0, userSellPrice = 0;
+        let userBuyPrice=0, currentUintBuyPrice = 0;
+        let userSellPrice = 0,
+          poolBuyPrice = 0;
 
         //calculate best prices (floor price & top bid) from all three pools (buy, sell, trade)
         //if the price is valid
@@ -91,15 +95,19 @@ const CollectionContainer = ({ collection }) => {
         // - sell pool: the number of NFTs cannot be 0,
         // - buy pool: the amount of tokenBalance is enough to purchase NFT from user
         // - trade pool: either one of the above condition is present
-        if (type === "sell" && (filteredNFTIds.length > 0 || (is1155 && nftCount1155 > 0 ))) {
+        if (
+          type === "sell" &&
+          (filteredNFTIds.length > 0 || (is1155 && nftCount1155 > 0))
+        ) {
           userBuyPrice = sellPoolFloorPrices(params);
         } else if (type === "buy" && tokenBalance > 0) {
-          userSellPrice = buyPoolTopBid(params);
+          ({ userSellPrice, poolBuyPrice } = buyPoolTopBid(params));
           TVL += tokenBalance; //accumulate the total ETH / Token balances in buy pools
         } else if (type === "trade") {
-          if (filteredNFTIds.length > 0 || (is1155 && nftCount1155 > 0 ))
+          if (filteredNFTIds.length > 0 || (is1155 && nftCount1155 > 0))
             userBuyPrice = tradePoolFloorPrices(params);
-          if (tokenBalance > 0) userSellPrice = tradePoolTopBid(params);
+          if (tokenBalance > 0)
+            ({ userSellPrice, poolBuyPrice } = tradePoolTopBid(params));
           TVL += tokenBalance; //accumulate the total ETH / Token balances in trade pools
         }
 
@@ -107,8 +115,9 @@ const CollectionContainer = ({ collection }) => {
         //now check the validity
         //-----------
         //floor price, the number of NFTs in the pool cannot be empty
+
         bestUserBuyPrice =
-        filteredNFTIds.length > 0 || (is1155 && nftCount1155 > 0 )
+          filteredNFTIds.length > 0 || (is1155 && nftCount1155 > 0)
             ? bestUserBuyPrice === 0 || bestUserBuyPrice > userBuyPrice
               ? userBuyPrice
               : bestUserBuyPrice
@@ -118,19 +127,21 @@ const CollectionContainer = ({ collection }) => {
         //we need to check if the pool has enough ETH balance (tokenBalance) to purchase the NFT. if not enough balance, then we would skip this pool.
         bestUserSellPrice =
           (bestUserSellPrice === 0 || bestUserSellPrice < userSellPrice) &&
-          tokenBalance >= userSellPrice
+          tokenBalance >= poolBuyPrice
             ? userSellPrice
             : bestUserSellPrice;
+
+        // if(tokenBalance>= userSellPrice && bestUserSellPrice <= userSellPrice && userSellPrice!=0.196039604 && userSellPrice!=0.05936) {bestUserSellPrice=userSellPrice;}
       }
 
       //just to format the prices to  2 decimals. But no decimal if equals to 0.
       //prettier-ignore
-      bestUserBuyPrice = bestUserBuyPrice.toFixed(MaxFiveDecimal(bestUserBuyPrice));
+      bestUserBuyPrice = bestUserBuyPrice?.toFixed(MaxFiveDecimal(bestUserBuyPrice));
       //prettier-ignore
-      bestUserSellPrice = bestUserSellPrice.toFixed(MaxFiveDecimal(bestUserSellPrice));
+      bestUserSellPrice = bestUserSellPrice?.toFixed(MaxFiveDecimal(bestUserSellPrice));
       //prettier-ignore
-      TVL = TVL.toFixed(MaxFiveDecimal(TVL));
-      volume = volume.toFixed(MaxFiveDecimal(volume));
+      TVL = TVL?.toFixed(MaxFiveDecimal(TVL));
+      volume = volume?.toFixed(MaxFiveDecimal(volume));
 
       setFloorPrice(bestUserBuyPrice);
       setTopBid(bestUserSellPrice);
@@ -140,7 +151,7 @@ const CollectionContainer = ({ collection }) => {
     }
 
     // prettier-ignore
-    function buyPoolTopBid({bondingCurve, spotPrice, delta, tfee, pfee}){
+    function buyPoolTopBid({bondingCurve, spotPrice, delta, tfee, pfee,id}){
       let data;
       //use linear pool calculation
       //prettier-ignore
@@ -148,11 +159,11 @@ const CollectionContainer = ({ collection }) => {
       //use EXPONENTIAL pool calculation
       else data = BuyPoolExp(spotPrice, delta, tfee, pfee);
 
-      return data.userSellPrice;
+      return {userSellPrice: data.userSellPrice, poolBuyPrice: data.poolBuyPrice};
     }
 
     //prettier-ignore
-    function tradePoolTopBid({bondingCurve, spotPrice, delta, tfee, pfee}){
+    function tradePoolTopBid({bondingCurve, spotPrice, delta, tfee, pfee,id}){
       let data;
       //use linear pool calculation
       //prettier-ignore
@@ -160,29 +171,29 @@ const CollectionContainer = ({ collection }) => {
       //use EXPONENTIAL pool calculation
       else data = TradePoolExp(spotPrice, delta, tfee, pfee);
 
-      return data.userSellPrice;
+      return {userSellPrice: data.userSellPrice, poolBuyPrice: data.poolBuyPrice};
     }
 
     //prettier-ignore
-    function sellPoolFloorPrices({bondingCurve, spotPrice, delta, tfee, pfee}) {
+    function sellPoolFloorPrices({bondingCurve, spotPrice, delta, tfee, pfee,id,address}) {
       let data;
       //use linear pool calculation
       //prettier-ignore
       if (bondingCurve === "Linear") data = SellPoolLiner(spotPrice, delta, tfee, pfee);
       //use EXPONENTIAL pool calculation
       else data = SellPoolExp(spotPrice, delta, tfee, pfee);
-      return data.userBuyPrice;
+      return data.userBuyPrice ? data.userBuyPrice : 0;
     }
 
     //prettier-ignore
-    function tradePoolFloorPrices({bondingCurve, spotPrice, delta, tfee, pfee}) {
+    function tradePoolFloorPrices({bondingCurve, spotPrice, delta, tfee, pfee,id,address}) {
       let data;
       //use linear pool calculation
       //prettier-ignore
       if (bondingCurve === "Linear") data = TradePoolLiner( spotPrice, delta, tfee, pfee);
       //use exponential pool calculation
       else data = TradePoolExp( spotPrice, delta, tfee, pfee);
-     return data.userBuyPrice;
+      return data.userBuyPrice ? data.userBuyPrice : 0;
     }
   }, [pools]);
 

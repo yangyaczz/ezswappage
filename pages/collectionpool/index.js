@@ -60,7 +60,7 @@ const MyPool = () => {
           mode: formik.values.golbalParams.networkName,
           tokenId:tokenId
         };
-        console.log('router', router.query)
+        // console.log('router', router.query)
         const response = await fetch("/api/queryCollectionPool", {
           method: "POST",
           headers: {
@@ -75,7 +75,6 @@ const MyPool = () => {
           let pairsList = data.data;
 
           formik.setFieldValue("pairs", pairsList);
-
           pairsList = pairsList.map((item) => {
             let tokenName, NFTName, poolTypeName, BondingCurveName;
             if (item.token === null) {

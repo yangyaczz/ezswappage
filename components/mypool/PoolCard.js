@@ -9,7 +9,7 @@ import addressSymbol from "@/pages/data/address_symbol";
 import { useLanguage } from '@/contexts/LanguageContext';
 
 
-const PoolCard = ({ item,formikData, owner }) => {
+const PoolCard = ({ item,formikData, owner, comeFrom }) => {
     const [nftApproval, setNftApproval] = useState(false)
     const [depositInputValue, setDepositInputValue] = useState('');
     const [withdrawInputValue, setWithdrawInputValue] = useState('');
@@ -599,9 +599,9 @@ const PoolCard = ({ item,formikData, owner }) => {
             <div className='flex min-[800px]:justify-end max-[799px]:flex-col space-x-3'>
                 <div className="flex justify-between">
                 {/*deposit nft*/}
-                {/*<button className='max-[800px]:w-2/5 mt-3 mr-4 normal-case btn' onClick={() => {openNFTDialog(item,'deposit');}}>*/}
-                {/*    {loadingNFT && actionStatus==='deposit'?<span className="loading loading-spinner loading-sm"></span>:<span>{languageModel.DepositNFT}</span>}*/}
-                {/*</button>*/}
+                    {comeFrom === 'myPool' && <button className='max-[800px]:w-2/5 mt-3 mr-4 normal-case btn' onClick={() => {openNFTDialog(item,'deposit');}}>
+                    {loadingNFT && actionStatus==='deposit'?<span className="loading loading-spinner loading-sm"></span>:<span>{languageModel.DepositNFT}</span>}
+                </button>}
                 <dialog id={`deposit_nft_${item.id}`} className="modal">
                     <div className="modal-box">
                         <h3 className="text-lg font-bold">{languageModel.DepositNFT}{item.tokenType==='ERC1155' && " ("+userHaveNFTs1155+") "}:</h3>
@@ -658,9 +658,9 @@ const PoolCard = ({ item,formikData, owner }) => {
                 </dialog>
                 {/*deposit nft*/}
                 {/*withdraw nft*/}
-                {/*<button className='max-[800px]:w-3/6 mt-3 normal-case btn' onClick={() => {openNFTDialog(item,'withdraw');}}>*/}
-                {/*    {loadingNFT && actionStatus==='withdraw'?<span className="loading loading-spinner loading-sm"></span>:<span>{languageModel.WithdrawNFT}</span>}*/}
-                {/*</button>*/}
+                    {comeFrom === 'myPool' && <button className='max-[800px]:w-3/6 mt-3 normal-case btn' onClick={() => {openNFTDialog(item,'withdraw');}}>
+                    {loadingNFT && actionStatus==='withdraw'?<span className="loading loading-spinner loading-sm"></span>:<span>{languageModel.WithdrawNFT}</span>}
+                    </button>}
                 <dialog id={`withdraw_nft_${item.id}`} className="modal">
                     <div className="modal-box">
                         <h3 className="text-lg font-bold">{languageModel.WithdrawNFT}:</h3>
@@ -715,9 +715,9 @@ const PoolCard = ({ item,formikData, owner }) => {
                 </div>
 
 <div className="flex justify-between !ml-0 min-[800px]:!ml-4" >
-                    {/*<button className='max-[800px]:w-2/5 mt-3 mr-4 ml-100 normal-case btn' onClick={() => document.getElementById(`deposit_token_${item.id}`).showModal()}>*/}
-                    {/*    {languageModel.DepositToken}*/}
-                    {/*</button>*/}
+    {comeFrom === 'myPool' && <button className='max-[800px]:w-2/5 mt-3 mr-4 ml-100 normal-case btn' onClick={() => document.getElementById(`deposit_token_${item.id}`).showModal()}>
+                        {languageModel.DepositToken}
+                    </button>}
 
                     <dialog id={`deposit_token_${item.id}`} className="modal">
                         <div className="modal-box">
@@ -751,9 +751,9 @@ const PoolCard = ({ item,formikData, owner }) => {
                     {/* /////////////////////////////////////////// */}
 
 
-                    {/*<button className='max-[800px]:w-3/6 mt-3 normal-case btn' onClick={() => document.getElementById(`withdraw_token_${item.id}`).showModal()}>*/}
-                    {/*    {languageModel.WithdrawToken}*/}
-                    {/*</button>*/}
+    {comeFrom === 'myPool' && <button className='max-[800px]:w-3/6 mt-3 normal-case btn' onClick={() => document.getElementById(`withdraw_token_${item.id}`).showModal()}>
+                        {languageModel.WithdrawToken}
+                    </button>}
 
                     <dialog id={`withdraw_token_${item.id}`} className="modal">
                         <div className="modal-box">

@@ -15,7 +15,6 @@ import {
   BuyPoolExp,
   TradePoolExp,
 } from "../../components/utils/calculate";
-import PoolCard from "@/components/mypool/PoolCard";
 import {useRouter} from "next/router";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ERC1155ABI from "../data/ABI/ERC1155.json";

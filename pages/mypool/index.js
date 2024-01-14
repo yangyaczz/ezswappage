@@ -206,7 +206,7 @@ const MyPool = () => {
         <button onClick={() => router.push('/collection')} class="btn btn-active" className="bg-[#2ED1D8] text-white rounded-md px-4 py-1 mb-8 mt-4 text-lg">{languageModel.CreateNewPool} </button>
       </div>
         {formik.values.filterPairs.length===0 ? <div className="flex justify-center ">{languageModel.noData}</div>:formik.values.filterPairs?.map((item) => (
-          <PoolCard key={item.id} item={item} formikData={formik} owner={owner} />
+          <PoolCard key={item.id} item={item} formikData={formik} owner={owner} comeFrom="myPool"/>
         ))}
       </div>
     </div>

@@ -395,10 +395,11 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
                     const resultData = await tokensOfOwnerRefetch()
                     setAddressSelectNFT([])
                     let tempList = []
+                    console.log('resultData', resultData)
                     if (resultData !== undefined && resultData.data !== undefined){
                         for (const datum of resultData?.data) {
                             const obj ={
-                                "identifier":datum.toNumber()
+                                "identifier":parseInt(datum)
                             }
                             tempList.push(obj)
                         }
@@ -408,6 +409,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
                 }
             }else {
                 const num=await balanceOfRefetch()
+                console.log('numnumnum', num)
                 const nftCount = parseInt(num.data, 16)
                 setUserHaveNFTs1155(nftCount)
                 setLoadingNFT(false)
@@ -564,7 +566,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
                 <span className="p-1 text-sm text-white border border-gray-300 rounded-md bg-base-200">{`${item.id.substring(0, 5)}...${item.id.substring(item.id.length - 4)}`}</span>
                 <span className="text-sm text-white">
                     {languageModel.Balance}:
-                    {parseFloat(item.tokenBalance)}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName} {languageModel.And} {item.tokenType==='ERC721'?item.nftCount:item.nftCount1155} NFT
+                    {Math.floor(item.tokenBalance*10000)/10000}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName} {languageModel.And} {item.tokenType==='ERC721'?item.nftCount:item.nftCount1155} NFT
                 </span>
             </div>
             <div className="mb-4">
@@ -751,13 +753,13 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
                     {/* /////////////////////////////////////////// */}
 
 
-    {comeFrom === 'myPool' && <button className='max-[800px]:w-3/6 mt-3 normal-case btn' onClick={() => document.getElementById(`withdraw_token_${item.id}`).showModal()}>
+                    {comeFrom === 'myPool' && <button className='max-[800px]:w-3/6 mt-3 normal-case btn' onClick={() => document.getElementById(`withdraw_token_${item.id}`).showModal()}>
                         {languageModel.WithdrawToken}
                     </button>}
 
                     <dialog id={`withdraw_token_${item.id}`} className="modal">
                         <div className="modal-box">
-                            <h3 className="text-lg font-bold">{languageModel.WithdrawToken}:</h3>
+                            <h3 className="text-lg font-bold">{languageModel.WithdrawToken} (max: {Math.floor(item.tokenBalance*10000)/10000}):</h3>
 
                             <div className="flex items-center space-x-4">
                                 <input

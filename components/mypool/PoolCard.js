@@ -108,10 +108,10 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
         hash: depositETHData?.hash,
         confirmations: 1,
         onSuccess(data) {
-            showSuccessAlert('Deposit ETH Success')
+            showSuccessAlert('Deposit ' + item.tokenName + ' Success')
         },
         onError(err) {
-            showErrorAlert('Deposit ETH Fail');
+            showErrorAlert('Deposit ' + item.tokenName + ' Fail');
             console.log(err)
         }
     })
@@ -119,10 +119,10 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
         hash: withdrawETHData?.hash,
         confirmations: 1,
         onSuccess(data) {
-            showSuccessAlert('Withdraw ETH Success')
+            showSuccessAlert('Withdraw ' + item.tokenName + ' Success')
         },
         onError(err) {
-            showErrorAlert('Withdraw ETH Fail');
+            showErrorAlert('Withdraw ' + item.tokenName + ' Fail');
             console.log(err)
         }
     })

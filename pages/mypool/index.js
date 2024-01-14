@@ -72,7 +72,7 @@ const MyPool = () => {
           pairsList = pairsList.map((item) => {
             let tokenName, NFTName, poolTypeName, BondingCurveName;
             if (item.token === null) {
-              tokenName = "ETH";
+              tokenName = formik.values.golbalParams.hex === '0x4571' || formik.values.golbalParams.hex === '0x3cc5' ? "EOS" : "ETH";
             } else {
               let tokenNameRes =
                 formik.values.golbalParams.recommendERC20?.find(

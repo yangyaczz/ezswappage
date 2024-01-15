@@ -632,7 +632,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
                 </div>
                 <div className='flex min-[800px]:flex-col max-[799px]:items-center'>
                     <span className="text-white max-[799px]:mr-4">{languageModel.Volume}</span>
-                    <span className="mt-1 text-gray-500">{parseFloat(Number(ethers.utils.formatEther(item.ethVolume.toString())).toFixed(5)) + " " +(item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName)}</span>
+                    <span className="mt-1 text-gray-500">{parseFloat(Number(item.ethVolume/1000000000000000000.0).toFixed(5)) + " " +(item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName)}</span>
                 </div>
 
             </div>

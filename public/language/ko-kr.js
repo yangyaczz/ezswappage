@@ -106,4 +106,10 @@ export default {
   SwitchToMainnet: "메인넷으로 전환하세요",
   AirdropClaimingStartSoon: "청구가 곧 시작됩니다!",
   ClaimingStartsIn: "청구 시작까지",
+  allPool: "All Pool",
+  buyPool: "Buy Pool",
+  sellPool: "Sell Pool",
+  tradePool: "Trade Pool",
+  sortByNFT: "Sort By NFT",
+  sortByBalance: "Sort By Balance"
 };

@@ -105,4 +105,10 @@ export default {
   SwitchToMainnet: "請切換到主網",
   AirdropClaimingStartSoon: "領取即將開始！",
   ClaimingStartsIn: "領取開始於",
+  allPool: "所有池子",
+  buyPool: "買池",
+  sellPool: "賣池",
+  tradePool: "交易池",
+  sortByNFT: "NFT數量排序",
+  sortByBalance: "餘額排序"
 };

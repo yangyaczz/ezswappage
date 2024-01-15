@@ -106,5 +106,11 @@ export default {
   SwitchToMainnet:"Please switch to mainnet",
 
   AirdropClaimingStartSoon:"Claiming starts very soon!",
-  ClaimingStartsIn:"Claiming Starts In"
+  ClaimingStartsIn:"Claiming Starts In",
+  allPool: "All Pool",
+  buyPool: "Buy Pool",
+  sellPool: "Sell Pool",
+  tradePool: "Trade Pool",
+  sortByNFT: "Sort By NFT",
+  sortByBalance: "Sort By Balance"
 }

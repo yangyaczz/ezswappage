@@ -178,7 +178,9 @@ const MyPool = () => {
                   : ((item.delta / 1e18 - 1) * 100).toFixed(2).toString() + "%",
             };
           });
-
+          pairsList.sort(function (a, b) {
+            return (b.ethVolume - a.ethVolume);
+          });
           formik.setFieldValue("filterPairs", pairsList);
 
           setIsLoading(false);

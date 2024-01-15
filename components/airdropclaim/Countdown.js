@@ -38,7 +38,7 @@ const Countdown = ({
       id="countdown"
       className="flex flex-col items-center justify-center text-2xl sm:flex-row"
     >
-      <label className="self-start ml-1 text-xs whitespace-nowrap md:text-lg lg:text-2xl xl:text-3xl sm:self-center">
+      <label className="self-start ml-1 text-xs whitespace-nowrap md:text-lg lg:text-2xl xl:text-4xl sm:self-center font-black	">
         {timeStatus === tStatus.BEFORE_START
           ? languageModel.ClaimingStartsIn
           : languageModel.ClaimingEndsIn}
@@ -51,7 +51,7 @@ const Countdown = ({
               <>
                 <TimerBox value={timeLeft.days.toString().substring(0, 1)} />
                 <TimerBox value={timeLeft.days.toString().substring(1, 2)} />
-                <label className="text-xs text-white xl:text-base lg:text-sm">
+                <label className="text-xs xl:text-base lg:text-sm font-bold text-[#00D5DA]">
                   {languageModel.Days}
                 </label>
               </>
@@ -59,12 +59,12 @@ const Countdown = ({
 
             <TimerBox value={timeLeft.hours.toString().substring(0, 1)} />
             <TimerBox value={timeLeft.hours.toString().substring(1, 2)} />
-            <label className="text-xs text-white xl:text-base lg:text-sm">
+            <label className="text-xs xl:text-base lg:text-sm font-bold text-[#00D5DA]">
               {languageModel.Hours}
             </label>
             <TimerBox value={timeLeft.minutes.toString().substring(0, 1)} />
             <TimerBox value={timeLeft.minutes.toString().substring(1, 2)} />
-            <label className="text-xs text-white xl:text-base lg:text-sm">
+            <label className="text-xs xl:text-base lg:text-sm font-bold text-[#00D5DA]">
               {languageModel.Minutes}
             </label>
 

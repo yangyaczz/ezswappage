@@ -217,12 +217,12 @@ const AirdropClaim = () => {
           className="flex flex-col items-center justify-start text-5xl font-black gap-y-11 "
         >
           {timeStatus === tStatus.BEFORE_START && (
-            <h1 className="mt-48 text-2xl sm:text-5xl">
+            <h1 className="mt-48 text-2xl sm:text-4xl">
               {languageModel.AirdropClaimingStartSoon}
             </h1>
           )}
           {timeStatus === tStatus.ENDED && (
-            <h1 className="mt-48 text-2xl sm:text-5xl">
+            <h1 className="mt-48 text-2xl sm:text-4xl">
               {languageModel.SorryAirdropEnded}
             </h1>
           )}
@@ -238,29 +238,29 @@ const AirdropClaim = () => {
               )}
               {claimStatus === cStatus.CLAIMED && (
                 <>
-                  <h1 className="mt-20 text-2xl sm:text-5xl">
+                  <h1 className="mt-20 text-2xl sm:text-4xl">
                     {languageModel.YouHaveClaimed}
                   </h1>
-                  <h1>
+                  <div className="text-2xl sm:text-4xl">
                     <span className="text-white ">{tokenToClaim}&nbsp;</span>
                     $EZ
-                  </h1>
+                  </div>
                 </>
               )}
               {claimStatus === cStatus.INELIGIBLE && (
-                <h1 className="mt-48 text-2xl sm:text-5xl">
+                <h1 className="mt-48 text-2xl sm:text-4xl">
                   {languageModel.SorryYouAreNotEligible}
                 </h1>
               )}
               {claimStatus === cStatus.ELIGIBLE && (
                 <>
-                  <h1 className="text-2xl mt-14 sm:text-5xl">
+                  <h1 className="text-2xl mt-14 sm:text-4xl">
                     {languageModel.YouAreEligibleFor}:
                   </h1>
-                  <h1>
+                  <div className="text-2xl sm:text-4xl">
                     <span className="text-white ">{tokenToClaim}&nbsp;</span>
                     $EZ
-                  </h1>
+                  </div>
                   <div className={"btn " + styles.buttonStyle} onClick={handleClaimClick}>{claimLoading || waitClaimLoading ? (
                       <span className="loading loading-spinner loading-sm"></span>
                   ) : (

@@ -23,6 +23,8 @@ const MyPool = () => {
   const {languageModel} = useLanguage();
   const [isMounted, setIsMounted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [poolType, setPoolType] = useState("all");
+  const [tempPoolList, setTempPoolList] = useState([]);
   const router = useRouter()
 
   const { chain } = useNetwork();
@@ -44,6 +46,25 @@ const MyPool = () => {
       }
     }
   }, [chain]);
+
+  useEffect(() => {
+    console.log('formik 前', formik.values)
+    console.log('formik 前', tempPoolList)
+    // formik.setFieldValue("originFilterPairs", tempPoolList);
+    // console.log('formik 前2', formik.values)
+    // formik.
+    if (poolType !== 'all'){
+      const resultList=tempPoolList.filter(function (item) {
+        return item.poolTypeName === poolType;
+      });
+      console.log('copyTempPoolList' ,resultList)
+      formik.setFieldValue("filterPairs", resultList);
+    } else {
+      formik.setFieldValue("filterPairs", tempPoolList);
+    }
+    console.log('formik 后', formik.values)
+  }, [poolType]);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -176,8 +197,12 @@ const MyPool = () => {
                   : ((item.delta / 1e18 - 1) * 100).toFixed(2).toString() + "%",      // (item.delta / 1e18).toFixed(2).toString()
             };
           });
-
+          pairsList.sort(function (a, b) {
+            return (b.ethVolume - a.ethVolume);
+          });
+          // console.log('pairsList', pairsList)
           formik.setFieldValue("filterPairs", pairsList);
+          setTempPoolList(pairsList)
 
           setIsLoading(false);
         }
@@ -196,150 +221,53 @@ const MyPool = () => {
       </div>
     );
   }
+  const handleRadioChange = (event) => {
+    setPoolType(event.target.value)
+    console.log('event.target.value', event.target.value)
+  };
   //
   // function goCollection(){
   //   router.push("/collection");
   // }
   return (
-    <div className="flex flex-col items-center bg-base-200">
-      <div className="min-[800px]:w-2/3 max-[799px]:w-5/6 mt-6">
-      <div className="flex justify-center">
-        <button onClick={() => router.push('/collection')} class="btn btn-active" className="bg-[#2ED1D8] text-white rounded-md px-4 py-1 mb-8 mt-4 text-lg">{languageModel.CreateNewPool} </button>
+      <div>
+        {/*<div className="fixed left-10 top-60 width-7/12 border-solid border-1 border-white">*/}
+        {/*  <div className="form-control">*/}
+        {/*    <label className="label cursor-pointer justify-start">*/}
+        {/*      <input type="radio" name="radio-10" className="radio checked:bg-red-500" value="all" onChange={handleRadioChange} checked={poolType === "all"}/>*/}
+        {/*      <span className="label-text text-white ml-3">All Pool</span>*/}
+        {/*    </label>*/}
+        {/*  </div><div className="form-control">*/}
+        {/*    <label className="label cursor-pointer justify-start">*/}
+        {/*      <input type="radio" name="radio-10" className="radio checked:bg-red-500" value="buy" onChange={handleRadioChange} checked={poolType === "buy"}/>*/}
+        {/*      <span className="label-text text-white ml-3">Buy Pool</span>*/}
+        {/*    </label>*/}
+        {/*  </div>*/}
+        {/*  <div className="form-control">*/}
+        {/*    <label className="label cursor-pointer justify-start">*/}
+        {/*      <input type="radio" name="radio-10" className="radio checked:bg-blue-500" value="sell" onChange={handleRadioChange} checked={poolType === "sell"}/>*/}
+        {/*      <span className="label-text text-white ml-3">Sell Pool</span>*/}
+        {/*    </label>*/}
+        {/*  </div>*/}
+        {/*  <div className="form-control">*/}
+        {/*    <label className="label cursor-pointer justify-start">*/}
+        {/*      <input type="radio" name="radio-10" className="radio checked:bg-blue-500" value="trade" onChange={handleRadioChange} checked={poolType === "trade"}/>*/}
+        {/*      <span className="label-text text-white ml-3">Trade Pool</span>*/}
+        {/*    </label>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
+      <div className="flex flex-col items-center bg-base-200">
+        <div className="min-[800px]:w-2/3 max-[799px]:w-5/6 mt-6">
+        <div className="flex justify-center">
+          <button onClick={() => router.push('/collection')} class="btn btn-active" className="bg-[#2ED1D8] text-white rounded-md px-4 py-1 mb-8 mt-4 text-lg">{languageModel.CreateNewPool} </button>
+        </div>
+          {formik.values.filterPairs.length===0 ? <div className="flex justify-center ">{languageModel.noData}</div>:formik.values.filterPairs?.map((item) => (
+            <PoolCard key={item.id} item={item} formikData={formik} owner={owner} comeFrom="myPool"/>
+          ))}
+        </div>
       </div>
-        {formik.values.filterPairs.length===0 ? <div className="flex justify-center ">{languageModel.noData}</div>:formik.values.filterPairs?.map((item) => (
-          <PoolCard key={item.id} item={item} formikData={formik} owner={owner} comeFrom="myPool"/>
-        ))}
       </div>
-    </div>
   );
 };
 
 export default MyPool;
-
-// [
-//     {
-//         "id": "0xfeb2f96b80ae7f5ecfab80161b072a2d18f63c33",
-//         "collection": "0xd48aa2a392a1c6253d88728e20d20f0203f8838c",
-//         "owner": "0x21c8e614cd5c37765411066d2ec09912020c846f",
-//         "token": null,
-//         "type": "0",
-//         "assetRecipient": "0x21c8e614cd5c37765411066d2ec09912020c846f",
-//         "bondingCurve": "0xe567f07cd4aec9aedd8a54e4f2a4d24de204eb98",
-//         "delta": "0",
-//         "fee": "0",
-//         "spotPrice": "20000000000000000",
-//         "ethBalance": "160000000000000000",
-//         "tokenBalance": null,
-//         "ethVolume": "40000000000000000",
-//         "createTimestamp": "1697184335",
-//         "updateTimestamp": "1697441853",
-//         "nftCount": "0",
-//         "nftIds": [],
-//         "fromPlatform": 1,
-//         "is1155": true,
-//         "nftId1155": "2",
-//         "collectionName": "",
-//         "tokenType": "ERC1155",
-//         "nftCount1155": 0
-//     },
-//     {
-//         "id": "0xda9d0c5f6d1b7b34349402a19af477d0705d40f7",
-//         "collection": "0xd48aa2a392a1c6253d88728e20d20f0203f8838c",
-//         "owner": "0x21c8e614cd5c37765411066d2ec09912020c846f",
-//         "token": null,
-//         "type": "0",
-//         "assetRecipient": "0x21c8e614cd5c37765411066d2ec09912020c846f",
-//         "bondingCurve": "0xe567f07cd4aec9aedd8a54e4f2a4d24de204eb98",
-//         "delta": "0",
-//         "fee": "0",
-//         "spotPrice": "30000000000000000",
-//         "ethBalance": "300000000000000000",
-//         "tokenBalance": null,
-//         "ethVolume": "0",
-//         "createTimestamp": "1697184365",
-//         "updateTimestamp": "1697184365",
-//         "nftCount": "0",
-//         "nftIds": [],
-//         "fromPlatform": 1,
-//         "is1155": true,
-//         "nftId1155": "3",
-//         "collectionName": "",
-//         "tokenType": "ERC1155",
-//         "nftCount1155": 0
-//     },
-//     {
-//         "id": "0x24231d91afdfebc9388f4bcc770b77b2f8a62e54",
-//         "collection": "0xd48aa2a392a1c6253d88728e20d20f0203f8838c",
-//         "owner": "0x21c8e614cd5c37765411066d2ec09912020c846f",
-//         "token": null,
-//         "type": "0",
-//         "assetRecipient": "0x21c8e614cd5c37765411066d2ec09912020c846f",
-//         "bondingCurve": "0xe567f07cd4aec9aedd8a54e4f2a4d24de204eb98",
-//         "delta": "0",
-//         "fee": "0",
-//         "spotPrice": "40000000000000000",
-//         "ethBalance": "400000000000000000",
-//         "tokenBalance": null,
-//         "ethVolume": "0",
-//         "createTimestamp": "1697184395",
-//         "updateTimestamp": "1697184395",
-//         "nftCount": "0",
-//         "nftIds": [],
-//         "fromPlatform": 1,
-//         "is1155": true,
-//         "nftId1155": "4",
-//         "collectionName": "",
-//         "tokenType": "ERC1155",
-//         "nftCount1155": 0
-//     },
-//     {
-//         "id": "0x5eaf0040a151c7e6b6c4dc3460f9ef063d8a41ff",
-//         "collection": "0xd48aa2a392a1c6253d88728e20d20f0203f8838c",
-//         "owner": "0x21c8e614cd5c37765411066d2ec09912020c846f",
-//         "token": null,
-//         "type": "0",
-//         "assetRecipient": "0x21c8e614cd5c37765411066d2ec09912020c846f",
-//         "bondingCurve": "0xe567f07cd4aec9aedd8a54e4f2a4d24de204eb98",
-//         "delta": "0",
-//         "fee": "0",
-//         "spotPrice": "10000000000000000",
-//         "ethBalance": "70000000000000000",
-//         "tokenBalance": null,
-//         "ethVolume": "30000000000000000",
-//         "createTimestamp": "1697184405",
-//         "updateTimestamp": "1697441693",
-//         "nftCount": "0",
-//         "nftIds": [],
-//         "fromPlatform": 1,
-//         "is1155": true,
-//         "nftId1155": "1",
-//         "collectionName": "",
-//         "tokenType": "ERC1155",
-//         "nftCount1155": 0
-//     },
-//     {
-//         "id": "0x89e55b1ff5c39eb3b7d5889878411a58a107e83d",
-//         "collection": "0x3d3fa1f6de1a8e8f466bf6598b2601a250643464",
-//         "owner": "0x21c8e614cd5c37765411066d2ec09912020c846f",
-//         "token": null,
-//         "type": "0",
-//         "assetRecipient": "0x21c8e614cd5c37765411066d2ec09912020c846f",
-//         "bondingCurve": "0xe567f07cd4aec9aedd8a54e4f2a4d24de204eb98",
-//         "delta": "0",
-//         "fee": "0",
-//         "spotPrice": "10000000000000000",
-//         "ethBalance": "200000000000000000",
-//         "tokenBalance": null,
-//         "ethVolume": "0",
-//         "createTimestamp": "1697593008",
-//         "updateTimestamp": "1697593008",
-//         "nftCount": "0",
-//         "nftIds": [],
-//         "fromPlatform": 1,
-//         "is1155": false,
-//         "nftId1155": "0",
-//         "collectionName": "tsez721First",
-//         "tokenType": "ERC721",
-//         "nftCount1155": 0
-//     }
-// ]

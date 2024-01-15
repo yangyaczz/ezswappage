@@ -463,7 +463,47 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
             }
             setLoadingNFT(false)
         }else {
+            setLoadingNFT(true)
+            let frontText = ''
+            console.log('formikData', formikData.values)
+            if (formikData.values.golbalParams.networkName === 'ethmain') {
+                frontText = 'eth-mainnet'
+            } else if (formikData.values.golbalParams.networkName === 'arbmain') {
+                frontText = 'arb-mainnet'
+            }
+            const params = {
+                url: `https://${frontText}.g.alchemy.com/nft/v3/dFyzJjfLmVHlfhHyKkiSEP86fHcuFOJj/getNFTsForOwner`,
+                owner: action==='deposit'?owner:item.id,
+                contractAddress: item.collection,
+                withMetadata: false,
+                pageSize: 1000
+            };
 
+            const response = await fetch("/api/queryNFTByAlchemy", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(params),
+            });
+
+            let data = await response.json();
+            console.log('datadata', data.ownedNfts)
+            let tokenIdList = []
+            for (const tokenItem of data?.ownedNfts) {
+                var obj = {
+                    identifier: tokenItem.tokenId
+                }
+                console.log('tokenItem', tokenItem, tokenItem.tokenId)
+                tokenIdList.push(obj)
+            }
+            if (item.tokenType==='ERC721'){
+                setAddressSelectNFT(tokenIdList)
+            }else {
+                // console.log('1155 manta count', data)
+                // setUserHaveNFTs1155(data.data.erc1155Balances[0]?.valueExact)
+            }
+            setLoadingNFT(false)
         }
         if (action==='deposit') {
             document.getElementById(`deposit_nft_${item.id}`).showModal()
@@ -665,7 +705,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
                 <dialog id={`withdraw_nft_${item.id}`} className="modal">
                     <div className="modal-box">
                         <h3 className="text-lg font-bold">{languageModel.WithdrawNFT}:</h3>
-                        <div className="flex justify-center">
+                        <div className="flex justify-center flex-wrap">
                         {
                             item.tokenType==='ERC721' ?
                                 addressSelectNFT.length === 0 ? <span className="mb-4">{languageModel.PoolDontHaveNFT}</span>:addressSelectNFT.map((square, index) => (

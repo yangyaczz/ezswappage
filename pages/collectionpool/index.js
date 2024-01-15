@@ -24,7 +24,7 @@ const MyPool = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [poolType, setPoolType] = useState("all");
-  const [sortType, setSortType] = useState("sortByNFT");
+  const [sortType, setSortType] = useState("sortByBalance");
   const [tempPoolList, setTempPoolList] = useState([]);
   const router = useRouter()
 

@@ -261,16 +261,18 @@ const AirdropClaim = () => {
                     <span className="text-white ">{tokenToClaim}&nbsp;</span>
                     $EZ
                   </h1>
-                  <button
-                    className={`text-black bg-[#00D5DA] text-lg w-32 rounded-3xl font-bold px-2 py-1`}
-                    onClick={handleClaimClick}
-                  >
-                    {claimLoading || waitClaimLoading ? (
+                  <div className={"btn " + styles.buttonStyle} onClick={handleClaimClick}>{claimLoading || waitClaimLoading ? (
                       <span className="loading loading-spinner loading-sm"></span>
-                    ) : (
+                  ) : (
                       languageModel.Claim
-                    )}
-                  </button>
+                  )}</div>
+                  {/*<button className={`text-black bg-[#00D5DA] text-lg w-32 rounded-[8px] px-2 py-1`} onClick={handleClaimClick}>*/}
+                  {/*  {claimLoading || waitClaimLoading ? (*/}
+                  {/*    <span className="loading loading-spinner loading-sm"></span>*/}
+                  {/*  ) : (*/}
+                  {/*    languageModel.Claim*/}
+                  {/*  )}*/}
+                  {/*</button>*/}
                 </>
               )}
             </>

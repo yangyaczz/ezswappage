@@ -24,6 +24,7 @@ const MyPool = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [poolType, setPoolType] = useState("all");
+  const [sortType, setSortType] = useState("sortByNFT");
   const [tempPoolList, setTempPoolList] = useState([]);
   const router = useRouter()
 
@@ -48,22 +49,31 @@ const MyPool = () => {
   }, [chain]);
 
   useEffect(() => {
-    console.log('formik 前', formik.values)
-    console.log('formik 前', tempPoolList)
-    // formik.setFieldValue("originFilterPairs", tempPoolList);
-    // console.log('formik 前2', formik.values)
-    // formik.
     if (poolType !== 'all'){
       const resultList=tempPoolList.filter(function (item) {
         return item.poolTypeName === poolType;
       });
-      console.log('copyTempPoolList' ,resultList)
       formik.setFieldValue("filterPairs", resultList);
     } else {
       formik.setFieldValue("filterPairs", tempPoolList);
     }
-    console.log('formik 后', formik.values)
   }, [poolType]);
+
+  useEffect(() => {
+    let tempSortList = formik.values.filterPairs
+    if (sortType === 'sortByNFT'){
+      tempSortList.sort(function (a, b) {
+        return a.tokenType==='ERC1155' ? (b.nftCount1155 - a.nftCount1155): (b.nftCount - a.nftCount);
+      });
+      formik.setFieldValue("filterPairs", tempSortList);
+    } else {
+      tempSortList.sort(function (a, b) {
+        return (b.tokenBalance - a.tokenBalance);
+      });
+      formik.setFieldValue("filterPairs", tempSortList);
+    }
+  }, [sortType]);
+
 
 
   useEffect(() => {
@@ -198,7 +208,7 @@ const MyPool = () => {
             };
           });
           pairsList.sort(function (a, b) {
-            return (b.ethVolume - a.ethVolume);
+            return (b.tokenBalance - a.tokenBalance);
           });
           // console.log('pairsList', pairsList)
           formik.setFieldValue("filterPairs", pairsList);
@@ -225,37 +235,58 @@ const MyPool = () => {
     setPoolType(event.target.value)
     console.log('event.target.value', event.target.value)
   };
+  const handleSortRadioChange = (event) => {
+    setSortType(event.target.value)
+    console.log('event.target.value', event.target.value)
+  };
+
   //
   // function goCollection(){
   //   router.push("/collection");
   // }
   return (
       <div>
-        {/*<div className="fixed left-10 top-60 width-7/12 border-solid border-1 border-white">*/}
-        {/*  <div className="form-control">*/}
-        {/*    <label className="label cursor-pointer justify-start">*/}
-        {/*      <input type="radio" name="radio-10" className="radio checked:bg-red-500" value="all" onChange={handleRadioChange} checked={poolType === "all"}/>*/}
-        {/*      <span className="label-text text-white ml-3">All Pool</span>*/}
-        {/*    </label>*/}
-        {/*  </div><div className="form-control">*/}
-        {/*    <label className="label cursor-pointer justify-start">*/}
-        {/*      <input type="radio" name="radio-10" className="radio checked:bg-red-500" value="buy" onChange={handleRadioChange} checked={poolType === "buy"}/>*/}
-        {/*      <span className="label-text text-white ml-3">Buy Pool</span>*/}
-        {/*    </label>*/}
-        {/*  </div>*/}
-        {/*  <div className="form-control">*/}
-        {/*    <label className="label cursor-pointer justify-start">*/}
-        {/*      <input type="radio" name="radio-10" className="radio checked:bg-blue-500" value="sell" onChange={handleRadioChange} checked={poolType === "sell"}/>*/}
-        {/*      <span className="label-text text-white ml-3">Sell Pool</span>*/}
-        {/*    </label>*/}
-        {/*  </div>*/}
-        {/*  <div className="form-control">*/}
-        {/*    <label className="label cursor-pointer justify-start">*/}
-        {/*      <input type="radio" name="radio-10" className="radio checked:bg-blue-500" value="trade" onChange={handleRadioChange} checked={poolType === "trade"}/>*/}
-        {/*      <span className="label-text text-white ml-3">Trade Pool</span>*/}
-        {/*    </label>*/}
-        {/*  </div>*/}
-        {/*</div>*/}
+        {/*pool type筛选*/}
+        <div className="fixed left-10 top-60 width-7/12 border-solid border border-white rounded-lg p-2 max-[800px]:hidden">
+          <div className="form-control">
+            <label className="label cursor-pointer justify-start">
+              <input type="radio" name="radio-10" className="radio checked:bg-blue-500" value="all" onChange={handleRadioChange} checked={poolType === "all"}/>
+              <span className="label-text text-white ml-3">{languageModel.allPool}</span>
+            </label>
+          </div>
+          <div className="form-control">
+            <label className="label cursor-pointer justify-start">
+              <input type="radio" name="radio-10" className="radio checked:bg-blue-500" value="buy" onChange={handleRadioChange} checked={poolType === "buy"}/>
+              <span className="label-text text-white ml-3">{languageModel.buyPool}</span>
+            </label>
+          </div>
+          <div className="form-control">
+            <label className="label cursor-pointer justify-start">
+              <input type="radio" name="radio-10" className="radio checked:bg-blue-500" value="sell" onChange={handleRadioChange} checked={poolType === "sell"}/>
+              <span className="label-text text-white ml-3">{languageModel.sellPool}</span>
+            </label>
+          </div>
+          <div className="form-control">
+            <label className="label cursor-pointer justify-start">
+              <input type="radio" name="radio-10" className="radio checked:bg-blue-500" value="trade" onChange={handleRadioChange} checked={poolType === "trade"}/>
+              <span className="label-text text-white ml-3">{languageModel.tradePool}</span>
+            </label>
+          </div>
+          <hr/>
+          {/*  排序*/}
+          <div className="form-control">
+            <label className="label cursor-pointer justify-start">
+              <input type="radio" name="sortRadio" className="radio checked:bg-red-500" value="sortByNFT" onChange={handleSortRadioChange} checked={sortType === "sortByNFT"}/>
+              <span className="label-text text-white ml-3">{languageModel.sortByNFT}</span>
+            </label>
+          </div>
+          <div className="form-control">
+            <label className="label cursor-pointer justify-start">
+              <input type="radio" name="sortRadio" className="radio checked:bg-red-500" value="sortByBalance" onChange={handleSortRadioChange} checked={sortType === "sortByBalance"}/>
+              <span className="label-text text-white ml-3">{languageModel.sortByBalance}</span>
+            </label>
+          </div>
+        </div>
       <div className="flex flex-col items-center bg-base-200">
         <div className="min-[800px]:w-2/3 max-[799px]:w-5/6 mt-6">
         <div className="flex justify-center">

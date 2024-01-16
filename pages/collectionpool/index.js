@@ -75,7 +75,6 @@ const MyPool = () => {
 
                 if (data.success) {
                     let pairsList = data.data;
-
                     formik.setFieldValue("pairs", pairsList);
                     pairsList = pairsList.map((item) => {
                         let tokenName, NFTName, poolTypeName, BondingCurveName;
@@ -183,29 +182,6 @@ const MyPool = () => {
                     pairsList.sort(function (a, b) {
                         return (b.tokenBalance - a.tokenBalance);
                     });
-                    // console.log('pairsList', pairsList)
-                    // let needMoveToEndList = []
-                    // for (let i = 0; i < pairsList.length; i++) {
-                    //   const tempPair = pairsList[i]
-                    //   if (tempPair.poolTypeName === 'buy' && tempPair.currentPrice > tempPair.tokenBalance){
-                    //     needMoveToEndList.push(i)
-                    //   } else if (tempPair.poolTypeName === 'sell'){
-                    //     if ((tempPair.tokenType==='ERC721' && tempPair.nftCount === 0) || (tempPair.tokenType==='ERC1155' && tempPair.nftCount1155 === 0)) {
-                    //       needMoveToEndList.push(i)
-                    //     }
-                    //   } else {
-                    //     if (tempPair.currentPrice > tempPair.tokenBalance){
-                    //       if ((tempPair.tokenType==='ERC721' && tempPair.nftCount === 0) || (tempPair.tokenType==='ERC1155' && tempPair.nftCount1155 === 0)) {
-                    //         needMoveToEndList.push(i)
-                    //       }
-                    //     }
-                    //   }
-                    // }
-                    // for (const needMoveToEndIndex of needMoveToEndList) {
-                    //   const tempZeroPair = pairsList.splice(needMoveToEndIndex,1)
-                    //   pairsList.push(tempZeroPair[0])
-                    // }
-                    // console.log('needMoveToEndList', needMoveToEndList)
                     formik.setFieldValue("filterPairs", pairsList);
                     setTempPoolList(pairsList)
                     setIsLoading(false);
@@ -236,10 +212,10 @@ const MyPool = () => {
                 <PoolFilter formik={formik} tempPoolList={tempPoolList}  needFixPosition={true}/>
             </div>
 
-            <div className="flex flex-col items-center bg-base-200">
+            <div className="flex flex-col items-center bg-base-200 min-h-full	">
                 <div className="min-[800px]:w-2/3 max-[799px]:w-5/6 mt-6">
                     <div className="flex justify-center">
-                        <button onClick={() => router.push('/collection')} class="btn btn-active" className="bg-[#2ED1D8] text-white rounded-md px-4 py-1 mb-8 mt-4 text-lg">+ {languageModel.CreateNewPool}</button>
+                        <button onClick={() => router.push('/collection')} class="btn btn-active" className="bg-[#2ED1D8] text-white rounded-md px-4 py-1 mb-8 mt-4 text-lg">{languageModel.CreateNewPool}</button>
                     </div>
                     {formik.values.filterPairs.length === 0 ? <div className="flex justify-center ">{languageModel.noData}</div> : formik.values.filterPairs?.map((item) => (
                         <PoolCard key={item.id} item={item} formikData={formik} owner={owner} comeFrom="collectionPool"/>

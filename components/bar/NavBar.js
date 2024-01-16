@@ -44,41 +44,41 @@ const NavBar = () => {
   //     }
   // })
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const params = {
-        address: owner?.toLowerCase(),
-        mode: "pro",
-      };
-      const response = await fetch("/api/queryAddressScore", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(params),
-      });
-      const data = await response.json();
-      if (data.success) {
-        let userScore = data.data;
-        setAddressInfo(userScore);
-      }
+  // useEffect(() => {
+  //   const fetchData = async () => {
+      // const params = {
+      //   address: owner?.toLowerCase(),
+      //   mode: "pro",
+      // };
+      // const response = await fetch("/api/queryAddressScore", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(params),
+      // });
+      // const data = await response.json();
+      // if (data.success) {
+      //   let userScore = data.data;
+      //   setAddressInfo(userScore);
+      // }
       // 查询是否有pass卡
-      const params2 = {
-        owner: owner?.toLowerCase(),
-        mode: "pro",
-      };
-      const result = await queryUserAllNFT(
-        owner,
-        "0x670d854C7Da9E7Fa55c1958A1AeB368B48496020"
-      );
-      if (result.ownedNfts.length > 0) {
-        setUserHavePoineerCount(result.ownedNfts.length);
-      } else {
-        setUserHavePoineerCount(0);
-      }
-    };
-    if (owner) fetchData();
-  }, [owner]);
+      // const params2 = {
+      //   owner: owner?.toLowerCase(),
+      //   mode: "pro",
+      // };
+      // const result = await queryUserAllNFT(
+      //   owner,
+      //   "0x670d854C7Da9E7Fa55c1958A1AeB368B48496020"
+      // );
+      // if (result.ownedNfts.length > 0) {
+      //   setUserHavePoineerCount(result.ownedNfts.length);
+      // } else {
+      //   setUserHavePoineerCount(0);
+      // }
+    // };
+    // if (owner) fetchData();
+  // }, [owner]);
 
   useEffect(() => {
     const isProd = nextConfig.publicRuntimeConfig.env.API === "dev2";

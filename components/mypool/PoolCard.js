@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import { ethers } from 'ethers';
 
 import {useSendTransaction, useContractWrite, useBalance, useContractRead, useWaitForTransaction} from 'wagmi'
@@ -7,6 +7,8 @@ import ERC721EnumABI from "../../pages/data/ABI/ERC721Enum.json";
 import styles from './index.module.scss'
 import addressSymbol from "@/pages/data/address_symbol";
 import { useLanguage } from '@/contexts/LanguageContext';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCopy} from "@fortawesome/free-solid-svg-icons";
 
 
 const PoolCard = ({ item,formikData, owner, comeFrom }) => {
@@ -22,6 +24,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
     const [userHaveNFTs721, setUserHaveNFTs721] = useState([]);
     const [userHaveNFTs1155, setUserHaveNFTs1155] = useState(0);
     const [loadingNFT, setLoadingNFT] = useState(false);
+    const tooltipRef = useRef("");
 
     const {languageModel} = useLanguage();
 
@@ -600,39 +603,74 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
     // alert
 
     return (
-        <div className="flex flex-col p-6 mb-4 rounded-lg shadow-md bg-base-100">
-            <div className="flex flex-row justify-between mb-4 max-[799px]:items-center">
-                <span className="p-1 text-sm text-white border border-gray-300 rounded-md bg-base-200">{`${item.id.substring(0, 5)}...${item.id.substring(item.id.length - 4)}`}</span>
-                <span className="text-sm text-white">
-                    {languageModel.Balance}:
-                    {Math.floor(item.tokenBalance*10000)/10000}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName} {languageModel.And} {item.tokenType==='ERC721'?item.nftCount:item.nftCount1155} NFT
-                </span>
-            </div>
-            <div className="mb-4">
-                <span className="text-white	text-lg font-medium">{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName} - {item.NFTName}</span>
-            </div>
-            <div className="min-[800px]:flex min-[800px]:justify-between p-4 rounded-lg bg-base-200 ">
-                <div className='flex min-[800px]:flex-col max-[799px]:items-center'>
-                    <span className="text-white max-[799px]:mr-4">{languageModel.CurrentPrice}</span>
-                    <span className="mt-1 text-gray-500 ">{item.currentPrice === undefined? 0 :parseFloat(item.currentPrice.toFixed(5))}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName}</span>
+        <div className="flex flex-col p-6 mb-4 rounded-lg shadow-md border border-solid border-white">
+            <div className="mb-1 flex justify-between">
+                <div className="flex lg:items-center max-[800px]:flex-col">
+                    <span className="text-white	text-xl lg:text-2xl font-bold mr-4">{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName} - {item.NFTName}</span>
+                    <span className="text-white text-sm align-baseline xl:text-base whitespace-nowrap">
+                        {languageModel.Balance}:
+                        {Math.floor(item.tokenBalance*10000)/10000}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName} {languageModel.And} {item.tokenType==='ERC721'?item.nftCount:item.nftCount1155} NFT
+                    </span>
                 </div>
+                <div>
+                    <div className="flex items-center justify-start gap-x-2 max-[800px]:mt-1">
+                        <div
+                            className="flex items-center gap-x-2  bg-[rgba(82,82,91,0.8)] opacity-80 px-3 sm:px-1 lg:px-3 py-[0.1rem] rounded-md cursor-pointer hover:bg-[rgba(63,63,70,0.8)] hover:text-white tooltip tooltip-top"
+                            data-tip={languageModel.copyAddress}
+                            ref={tooltipRef}
+                            onMouseEnter={() => {
+                                console.log(tooltipRef)
+                                tooltipRef.current.setAttribute(
+                                    "data-tip",
+                                    languageModel.copyAddress
+                                );
+                            }}
+                            onClick={() => {
+                                navigator.clipboard.writeText(item.id);
+                                tooltipRef.current.setAttribute("data-tip", languageModel.Copied);
+                            }}
+                        >
+                            <FontAwesomeIcon icon={faCopy} size="xs" />
+                            <label className="self-end min-[500px]:text-xs text-[9px] align-baseline cursor-pointer text-end">{`${item.id.substring(
+                                0,
+                                5
+                            )}......${item.id.substring(
+                                item.id.length - 4
+                            )}`}</label>
+                        </div>
+                    </div>
+                    {/*<span className="p-1 text-sm text-white border border-gray-300 rounded-md bg-base-200">{`${item.id.substring(0, 5)}...${item.id.substring(item.id.length - 4)}`}</span>*/}
+                </div>
+
+                {/*<div className="flex flex-row justify-between mb-4 max-[799px]:items-center">*/}
+                {/*    <span className="text-sm text-white">*/}
+                {/*        {languageModel.Balance}:*/}
+                {/*            {Math.floor(item.tokenBalance*10000)/10000}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName} {languageModel.And} {item.tokenType==='ERC721'?item.nftCount:item.nftCount1155} NFT*/}
+                {/*    </span>*/}
+                {/*</div>*/}
+            </div>
+            <div className="min-[800px]:flex min-[800px]:justify-between py-4 rounded-lg bg-base-200 ">
                 <div className='flex min-[800px]:flex-col max-[799px]:items-center'>
-                    <span className="text-white max-[799px]:mr-4">{languageModel.BondingCurve}</span>
-                    <button className="mt-1 normal-case btn btn-outline btn-success btn-xs">{languageModel[item.BondingCurveName]}</button>
+                    <span className="text-white text-sm align-baseline xl:text-base whitespace-nowrap max-[799px]:mr-4">{languageModel.CurrentPrice}</span>
+                    <span className="lg:mt-1 text-gray-500 ">{item.currentPrice === undefined? 0 :parseFloat(item.currentPrice.toFixed(5))}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName}</span>
+                </div>
+                <div className='flex min-[800px]:flex-col max-[799px]:items-center max-[800px]:mt-1'>
+                    <span className="text-white text-sm align-baseline xl:text-base whitespace-nowrap max-[799px]:mr-4">{languageModel.BondingCurve}</span>
+                    <button className="lg:mt-1 normal-case btn btn-outline btn-success btn-xs">{languageModel[item.BondingCurveName]}</button>
 
                     {/*<span className="text-gray-500 "></span>*/}
                 </div>
-                <div className='flex min-[800px]:flex-col max-[799px]:items-center'>
-                    <span className="text-white max-[799px]:mr-4">{languageModel.PoolType}</span>
-                    <span className="mt-1 text-gray-500 capitalize ">{languageModel[item.poolTypeName.charAt(0).toUpperCase()+item.poolTypeName.slice(1)]}</span>
+                <div className='flex min-[800px]:flex-col max-[799px]:items-center max-[800px]:mt-1'>
+                    <span className="text-white text-sm align-baseline xl:text-base whitespace-nowrap max-[799px]:mr-4">{languageModel.PoolType}</span>
+                    <span className="lg:mt-1 text-gray-500 capitalize ">{languageModel[item.poolTypeName.charAt(0).toUpperCase()+item.poolTypeName.slice(1)]}</span>
                 </div>
-                <div className='flex min-[800px]:flex-col max-[799px]:items-center'>
-                    <span className="text-white max-[799px]:mr-4">{languageModel.Delta}</span>
-                    <span className="mt-1 text-gray-500">{item.BondingCurveName === 'Exponential' ? item.deltaText : parseFloat(item.deltaText) + " "+ (item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName) }</span>
+                <div className='flex min-[800px]:flex-col max-[799px]:items-center max-[800px]:mt-1'>
+                    <span className="text-white text-sm align-baseline xl:text-base whitespace-nowrap max-[799px]:mr-4">{languageModel.Delta}</span>
+                    <span className="lg:mt-1 text-gray-500">{item.BondingCurveName === 'Exponential' ? item.deltaText : parseFloat(item.deltaText) + " "+ (item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName) }</span>
                 </div>
-                <div className='flex min-[800px]:flex-col max-[799px]:items-center'>
-                    <span className="text-white max-[799px]:mr-4">{languageModel.Volume}</span>
-                    <span className="mt-1 text-gray-500">{parseFloat(Number(item.ethVolume/1000000000000000000.0).toFixed(5)) + " " +(item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName)}</span>
+                <div className='flex min-[800px]:flex-col max-[799px]:items-center max-[800px]:mt-1'>
+                    <span className="text-white text-sm align-baseline xl:text-base whitespace-nowrap max-[799px]:mr-4">{languageModel.Volume}</span>
+                    <span className="lg:mt-1 text-gray-500">{parseFloat(Number(item.ethVolume/1000000000000000000.0).toFixed(5)) + " " +(item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName)}</span>
                 </div>
 
             </div>
@@ -640,7 +678,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
             <div className='flex min-[800px]:justify-end max-[799px]:flex-col space-x-3'>
                 <div className="flex justify-between">
                 {/*deposit nft*/}
-                    {comeFrom === 'myPool' && <button className='max-[800px]:w-2/5 mt-3 mr-4 normal-case btn' onClick={() => {openNFTDialog(item,'deposit');}}>
+                    {comeFrom === 'myPool' && <button className='btn ezBtn ezBtnPrimary btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11 !bg-[#00D5DA] mr-3 max-[800px]:w-2/5' onClick={() => {openNFTDialog(item,'deposit');}}>
                     {loadingNFT && actionStatus==='deposit'?<span className="loading loading-spinner loading-sm"></span>:<span>{languageModel.DepositNFT}</span>}
                 </button>}
                 <dialog id={`deposit_nft_${item.id}`} className="modal">
@@ -699,7 +737,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
                 </dialog>
                 {/*deposit nft*/}
                 {/*withdraw nft*/}
-                    {comeFrom === 'myPool' && <button className='max-[800px]:w-3/6 mt-3 normal-case btn' onClick={() => {openNFTDialog(item,'withdraw');}}>
+                    {comeFrom === 'myPool' && <button className='btn ezBtn ezBtnPrimary btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11 !bg-[#00D5DA] max-[800px]:w-2/5 mb-3' onClick={() => {openNFTDialog(item,'withdraw');}}>
                     {loadingNFT && actionStatus==='withdraw'?<span className="loading loading-spinner loading-sm"></span>:<span>{languageModel.WithdrawNFT}</span>}
                     </button>}
                 <dialog id={`withdraw_nft_${item.id}`} className="modal">
@@ -756,7 +794,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
                 </div>
 
 <div className="flex justify-between !ml-0 min-[800px]:!ml-4" >
-    {comeFrom === 'myPool' && <button className='max-[800px]:w-2/5 mt-3 mr-4 ml-100 normal-case btn' onClick={() => document.getElementById(`deposit_token_${item.id}`).showModal()}>
+    {comeFrom === 'myPool' && <button className='btn ezBtn ezBtnPrimary btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11 !bg-[#00D5DA] max-[800px]:w-2/5' onClick={() => document.getElementById(`deposit_token_${item.id}`).showModal()}>
                         {languageModel.DepositToken}
                     </button>}
 
@@ -792,7 +830,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
                     {/* /////////////////////////////////////////// */}
 
 
-                    {comeFrom === 'myPool' && <button className='max-[800px]:w-3/6 mt-3 normal-case btn' onClick={() => document.getElementById(`withdraw_token_${item.id}`).showModal()}>
+                    {comeFrom === 'myPool' && <button className='btn ezBtn ezBtnPrimary btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11 !bg-[#00D5DA] ml-3 max-[800px]:w-2/5' onClick={() => document.getElementById(`withdraw_token_${item.id}`).showModal()}>
                         {languageModel.WithdrawToken}
                     </button>}
 

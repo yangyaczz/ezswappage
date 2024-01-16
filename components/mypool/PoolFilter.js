@@ -15,11 +15,9 @@ const PoolFilter = ({ formik, tempPoolList,needFixPosition }) => {
     const [sortType, setSortType] = useState("sortByBalance");
     const handleRadioChange = (event) => {
         setPoolType(event.target.value)
-        console.log('event.target.value', event.target.value)
     };
     const handleSortRadioChange = (event) => {
         setSortType(event.target.value)
-        console.log('event.target.value', event.target.value)
     };
     useEffect(() => {
         if (poolType !== 'all'){

@@ -35,7 +35,7 @@ const AirdropClaim = () => {
   };
 
 
-  const claimStartTimestamp = 1705492800;
+  const claimStartTimestamp = 1605492800;
   const claimStartTime = new Date(claimStartTimestamp * 1000); //convert to miliseconds
   // const claimStartTime=new Date(2024, 0, 13, 11, 22, 0, 0);;
   const claimEndTimestamp = 1706623200;

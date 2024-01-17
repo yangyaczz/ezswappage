@@ -146,7 +146,7 @@ const Swap = () => {
         {/*className="join-item btn text-[#000000] border-[#00D5DA] bg-[#00D5DA] hover:bg-[#00D5DA]"*/}
         <div className="mb-10 join">
           <input
-            className="join-item btn bg-[#0E1729] hover:bg-[#0E1729] checked:!bg-[#00D5DA]"
+            className="join-item btn bg-black hover:bg-black checked:!bg-[#00D5DA] border border-1 border-white hover:border-white"
             type="radio"
             name="options"
             value="buy"
@@ -155,7 +155,7 @@ const Swap = () => {
             onChange={handleInputSwapTypeChange}
           />
           <input
-            className="join-item btn bg-[#0E1729] hover:bg-[#0E1729] checked:!bg-[#00D5DA]"
+            className="join-item btn bg-black hover:bg-black checked:!bg-[#00D5DA]  border border-1 border-white hover:border-white"
             type="radio"
             name="options"
             value="sell"
@@ -165,7 +165,7 @@ const Swap = () => {
           />
         </div>
 
-        <div className="w-11/12 max-w-5xl card bg-base-100">
+        <div className="w-11/12 max-w-5xl card">
           <div className="card-body">
             <div className={styles.cardStyle}>
               <div className="space-y-2 min-w-2/5">
@@ -225,7 +225,9 @@ const Swap = () => {
               </div>
             </div>
 
+            {/*space-y-2 min-w-2/5 mt-8 mb-8 md:w-[300px] w-[240px]*/}
             <div className="flex justify-center">
+              {/*<hr/>*/}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="36"

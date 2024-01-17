@@ -358,20 +358,10 @@ const NFTSearch = ({
 
     return (
         <div className="form-control ">
-            <button
-                className="justify-start mb-2 text-sm text-white btn md:w-[300px] w-[240px]"
-                onClick={() => document.getElementById("nft_search_sell").showModal()}
-            >
-                {formikData.collection.name
-                    ? formikData.collection.name
-                    : languageModel.selectCollection}
-                <svg
-                    width="12"
-                    height="7"
-                    viewBox="0 0 12 7"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
+            <button className="justify-between mb-2 text-sm text-white btn md:w-[300px] w-[240px] border border-1 border-white hover:border-white"
+                onClick={() => document.getElementById("nft_search_sell").showModal()}>
+                {formikData.collection.name ? formikData.collection.name : languageModel.selectCollection}
+                <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path>
                 </svg>
             </button>

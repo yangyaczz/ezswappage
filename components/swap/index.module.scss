@@ -68,6 +68,7 @@
 }
 
 .buttonDisabled:disabled {
+  border: 1px solid;
   pointer-events: auto!important;
   cursor: not-allowed!important;
   --tw-border-opacity: 0;

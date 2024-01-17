@@ -67,22 +67,22 @@ const TokenSearch = ({
     <div className="form-control">
       <button
         disabled={!formikData.collection.type}
-        className={"btn justify-between w-[240px] md:w-[300px]" + " " + styles.buttonDisabled}
+        className={"btn justify-between w-[240px] md:w-[300px] border border-1 border-white hover:border-white " + " " + styles.buttonDisabled}
         onClick={() => document.getElementById("token_search_sell").showModal()}
       >
         <div className="flex items-center text-sm justify-start space-x-2">
           <div>
             {formikData.tokenName === 'ETH' && addressSymbol[formikData.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : formikData.tokenName ? formikData.tokenName : languageModel.SelectToken}
           </div>
-          <svg
-            width="12"
-            height="7"
-            viewBox="0 0 12 7"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path>
-          </svg>
+          {/*<svg*/}
+          {/*  width="12"*/}
+          {/*  height="7"*/}
+          {/*  viewBox="0 0 12 7"*/}
+          {/*  fill="none"*/}
+          {/*  xmlns="http://www.w3.org/2000/svg"*/}
+          {/*>*/}
+          {/*  <path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path>*/}
+          {/*</svg>*/}
         </div>
         <div className="justify-end">
           {formikData.totalGet ? formikData.totalGet.toFixed(3) : 0}

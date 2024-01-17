@@ -61,6 +61,9 @@ const AirdropClaim = () => {
   const { switchNetwork } = useSwitchNetwork();
   //georli address:
   //0x875d16675264fd2Ba19784B542deD0eFA90b27f7
+  //main address:
+  //0x4bD3ba08a2446B93aB0F08ED1F2F388A22Ea4EEF
+
   const ezTokenAddr = "0x875d16675264fd2ba19784b542ded0efa90b27f7";
   const userAddr = "0x21C8e614CD5c37765411066D2ec09912020c846F";
   const signa =
@@ -163,7 +166,13 @@ const AirdropClaim = () => {
       }
 
       const data = await loadScore();
-      if (data) changeStatus(data);
+      if (data) {
+        changeStatus(data);
+      }else {
+        setClaimStatus(cStatus.INELIGIBLE);
+        setTokenToClaim(0);
+        setUserSignature("");
+      }
     };
 
     if (timeStatus!==tStatus.BEFORE_START){

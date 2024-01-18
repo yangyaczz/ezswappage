@@ -7,6 +7,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const ButtonGroup = ({
   collectionName,
+  img,
   contractAddress,
   collectionType,
   chainId,
@@ -62,6 +63,7 @@ const ButtonGroup = ({
 
   let colInfo = {
     collectionName: null,
+    collectionImageUrl:null,
     floorPrice: null,
     topBid: null,
     NFTs: [],
@@ -87,7 +89,7 @@ const ButtonGroup = ({
       return;
     }
 
-    colInfo = { ...colInfo, collectionName, floorPrice:floorPrice, topBid };
+    colInfo = { ...colInfo, collectionName,collectionImageUrl:img, floorPrice:floorPrice, topBid };
     openPopup("PLACEBIDS", colInfo);
 
     // let url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&collectionType=${collectionType}&chainId=${chainId}&poolType=0`;
@@ -116,7 +118,7 @@ const ButtonGroup = ({
   }
   return (
     <section className="flex items-start justify-start md:items-center gap-x-2 md:gap-x-4 lg:gap-x-8">
-      <button
+      {/* <button
         className="btn ezBtn ezBtnPrimaryOutline  btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11"
         onClick={handleBuyClick}
       >
@@ -127,7 +129,7 @@ const ButtonGroup = ({
         onClick={handleSellClick}
       >
         {languageModel.QuickSell}
-      </button>
+      </button> */}
 
       <button
         className="btn ezBtn ezBtnPrimary btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11 !bg-[#00D5DA]"

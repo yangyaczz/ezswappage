@@ -236,6 +236,7 @@ const CollectionContainer = ({ collection }) => {
       />
       <ButtonGroup
         collectionName={name}
+        img={img}
         contractAddress={address}
         collectionType={type}
         chainId={chainId}

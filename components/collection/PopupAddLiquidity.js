@@ -11,12 +11,9 @@ const PopupAddLiquidity = () => {
   return (
     <div>
       {step === 1 && (
-        <DepositPopup
-          fromAddLiquidityPage={true}
-          handleApproveClick={handleDepositApproveClick}
-        />
+        <DepositPopup handleApproveClick={handleDepositApproveClick} />
       )}
-      {step === 2 && <PlaceBidsPopup fromAddLiquidityPage={true} />}
+      {step === 2 && <PlaceBidsPopup />}
     </div>
   );
 };

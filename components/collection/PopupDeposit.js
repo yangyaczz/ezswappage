@@ -9,9 +9,9 @@ import { useCollection } from "@/contexts/CollectionContext";
 import { MaxFiveDecimal } from "../utils/roundoff";
 import {ladderPercentagePrice, ladderLinearPrice} from "../utils/testCalculation";
 
-const PopupDeposit = ({ fromAddLiquidityPage = false, handleApproveClick }) => {
+const PopupDeposit = ({ handleApproveClick }) => {
   // const [selectedNFTs, setSelectedNFTs] = useState([]); //Take down selected / checked NFTs
-
+  const MAX_SIZE_ALLOWED = 10000;
   const { NFTList, selectedNFTs, collectionName, floorPrice, selectNFTs, constant_ladder, percent_linear, ladderValue, setNFTList } = useCollection();
   const radioRef = useRef(selectedNFTs.length);
   const [listingPrice, setListingPrice] = useState(0)
@@ -51,14 +51,7 @@ const PopupDeposit = ({ fromAddLiquidityPage = false, handleApproveClick }) => {
 
   return (
     <PopupBlurBackground>
-      <div className="w-full h-full grid grid-cols-2 grid-rows-[1fr,6fr] gap-x-4">
-        <CollectionTitle>
-          {fromAddLiquidityPage && "Add Liquidity for "}
-          {collectionName}
-          {fromAddLiquidityPage && (
-            <span className="text-sm underline">Step 1: Add NFTs</span>
-          )}
-        </CollectionTitle>
+      <div className="grid w-full h-full grid-cols-2 gap-x-4">
         <NFTListView handleNFTClicked={handleNFTClicked} />
         <section
           id="NFT_Controller_Section"
@@ -92,18 +85,12 @@ const PopupDeposit = ({ fromAddLiquidityPage = false, handleApproveClick }) => {
           />
           <p className="col-span-2">Average Price: 11ETH</p>
           <p className="col-span-2">Total Price: 11ETH</p>
-          {fromAddLiquidityPage ? (
             <button
               className="btn ezBtn ezBtnPrimaryOutline btn-sm md:btn-md w-[110px]"
               onClick={handleApproveClick}
             >
-              Approve
-            </button>
-          ) : (
-            <button className="btn ezBtn ezBtnPrimaryOutline btn-sm md:btn-md w-[110px] ">
               Confirm
             </button>
-          )}
         </section>
       </div>
     </PopupBlurBackground>

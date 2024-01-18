@@ -6,7 +6,7 @@ const NFTListView = ({ handleNFTClicked }) => {
   return (
     <section
       id="NFTs_View_Section"
-      className="grid grid-cols-1 gap-4 px-2 py-1 overflow-auto md:grid-cols-2 xl:grid-cols-3"
+      className="grid grid-cols-1 gap-4 px-2 py-1 md:grid-cols-2 xl:grid-cols-3"
     >
       {NFTList.map((NFT) => (
         <div

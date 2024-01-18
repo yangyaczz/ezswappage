@@ -56,7 +56,7 @@ const ConstantLadderSelection = ({ popupType, styleClass }) => {
                   checked={percent_linear === "PERCENT"}
                   onChange={handleRadioChange}
                 />
-                <span className="text-xs sm:text-sm label-text text-zinc-200">Change by percent</span>
+                <span className="text-xs md:text-sm label-text text-zinc-200">Change by percent</span>
               </label>
             </div>
             <div>
@@ -69,7 +69,7 @@ const ConstantLadderSelection = ({ popupType, styleClass }) => {
                   checked={percent_linear === "LINEAR"}
                   onChange={handleRadioChange}
                 />
-                <span className="text-xs sm:text-sm label-text text-zinc-200">Change by linear</span>
+                <span className="text-xs md:text-sm label-text text-zinc-200">Change by linear</span>
               </label>
             </div>
           </div>

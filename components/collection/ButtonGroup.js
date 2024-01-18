@@ -63,33 +63,51 @@ const ButtonGroup = ({
 
   let colInfo = {
     collectionName: null,
-    collectionImageUrl:null,
+    collectionImageUrl: null,
     floorPrice: null,
     topBid: null,
     NFTs: [],
   };
 
   function handleBuyClick() {
-    colInfo = { ...colInfo, collectionName, floorPrice:floorPrice, topBid };
+    colInfo = {
+      ...colInfo,
+      collectionName,
+      collectionImageUrl: img,
+      floorPrice: floorPrice,
+      topBid,
+    };
     openPopup("BUY", colInfo);
   }
 
   function handleSellClick() {
-    colInfo = { ...colInfo, collectionName, floorPrice:floorPrice, topBid };
+    colInfo = {
+      ...colInfo,
+      collectionName,
+      collectionImageUrl: img,
+      floorPrice: floorPrice,
+      topBid,
+    };
     openPopup("SELL", colInfo);
   }
 
   function handlePlaceBidClick() {
     if (chain === undefined) {
-      showErrorAlert('please connect wallet');
-      return
+      showErrorAlert("please connect wallet");
+      return;
     }
     if (chain.id !== parseInt(chainId, 16)) {
       showErrorAlert("Please switch to right chain");
       return;
     }
 
-    colInfo = { ...colInfo, collectionName,collectionImageUrl:img, floorPrice:floorPrice, topBid };
+    colInfo = {
+      ...colInfo,
+      collectionName,
+      collectionImageUrl: img,
+      floorPrice: floorPrice,
+      topBid,
+    };
     openPopup("PLACEBIDS", colInfo);
 
     // let url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&collectionType=${collectionType}&chainId=${chainId}&poolType=0`;
@@ -100,15 +118,21 @@ const ButtonGroup = ({
 
   function handleDepositClick() {
     if (chain === undefined) {
-      showErrorAlert('please connect wallet');
-      return
+      showErrorAlert("please connect wallet");
+      return;
     }
     if (chain.id !== parseInt(chainId, 16)) {
       showErrorAlert("Please switch to right chain");
       return;
     }
 
-    colInfo = { ...colInfo, collectionName, floorPrice:floorPrice, topBid };
+    colInfo = {
+      ...colInfo,
+      collectionName,
+      collectionImageUrl: img,
+      floorPrice: floorPrice,
+      topBid,
+    };
     openPopup("DEPOSIT", colInfo);
 
     // let url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&collectionType=${collectionType}&chainId=${chainId}&poolType=1`;

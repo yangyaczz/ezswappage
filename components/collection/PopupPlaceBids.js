@@ -42,13 +42,11 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
     setTotalBid(parseFloat(totalBid).toFixed(MaxFiveDecimal(totalBid)));
   }, [bidPrice, size, constant_ladder, percent_linear, ladderValue]);
 
-  
-
   return (
     <PopupBlurBackground>
       <div className="grid grid-cols-1 grid-rows-[2fr,4fr,2fr,2fr,9fr,1fr,1fr] gap-y-1 justify-items-center content-center items-center w-full h-full text-sm md:text-base lg:text-lg text-white">
         <CollectionTitle>Place bid</CollectionTitle>
-        <PopupHeader collectionName={collectionName} collectionImageUrl={collectionImageUrl} floorPrice={floorPrice} topBid={topBid} handlePriceClick={(price)=>setBidPrice(price)} />
+        <PopupHeader collectionName={collectionName} collectionImageUrl={collectionImageUrl} floorPrice={floorPrice} topBid={topBid} handlePriceClick={(price)=>setBidPrice(price)}  styleClass=" px-4 py-2 border-2 border-white border-solid w-5/6 max-w-[400px]"/>
         <section
           id="place_bid_bidprice"
           className="flex justify-between border-2 border-white border-solid w-5/6 max-w-[400px] items-center px-4 py-2 "

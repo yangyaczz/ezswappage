@@ -414,10 +414,10 @@ const NavBar = () => {
             {languageModel.Airdrop}
           </Link> */}
 
-          {addressInfo.dcUserId === undefined ||
-          addressInfo.dcUserId === null ||
-          addressInfo.dcUserId === "" ||
-          addressInfo.sendTwitter !== 1 ? (
+          {addressInfo?.dcUserId === undefined ||
+          addressInfo?.dcUserId === null ||
+          addressInfo?.dcUserId === "" ||
+          addressInfo?.sendTwitter !== 1 ? (
             <a
               className={
                 styles.launchpad +

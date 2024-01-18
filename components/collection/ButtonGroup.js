@@ -87,13 +87,13 @@ const ButtonGroup = ({
       return;
     }
 
-    // colInfo = { ...colInfo, collectionName, floorPrice:floorPrice, topBid };
-    // openPopup("PLACEBIDS", colInfo);
+    colInfo = { ...colInfo, collectionName, floorPrice:floorPrice, topBid };
+    openPopup("PLACEBIDS", colInfo);
 
-    let url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&collectionType=${collectionType}&chainId=${chainId}&poolType=0`;
-    url = type === "ERC1155" ? url + `&tokenId=${tokenId1155}` : url;
+    // let url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&collectionType=${collectionType}&chainId=${chainId}&poolType=0`;
+    // url = type === "ERC1155" ? url + `&tokenId=${tokenId1155}` : url;
 
-    window.open(url, `newTab_${Date.now()}`);
+    // window.open(url, `newTab_${Date.now()}`);
   }
 
   function handleDepositClick() {
@@ -106,17 +106,17 @@ const ButtonGroup = ({
       return;
     }
 
-    // colInfo = { ...colInfo, collectionName, floorPrice:floorPrice, topBid };
-    // openPopup("DEPOSIT", colInfo);
+    colInfo = { ...colInfo, collectionName, floorPrice:floorPrice, topBid };
+    openPopup("DEPOSIT", colInfo);
 
-    let url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&collectionType=${collectionType}&chainId=${chainId}&poolType=1`;
-    url = type === "ERC1155" ? url + `&tokenId=${tokenId1155}` : url;
+    // let url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&collectionType=${collectionType}&chainId=${chainId}&poolType=1`;
+    // url = type === "ERC1155" ? url + `&tokenId=${tokenId1155}` : url;
 
-    window.open(url, `newTab_${Date.now()}`);
+    // window.open(url, `newTab_${Date.now()}`);
   }
   return (
     <section className="flex items-start justify-start md:items-center gap-x-2 md:gap-x-4 lg:gap-x-8">
-      {/* <button
+      <button
         className="btn ezBtn ezBtnPrimaryOutline  btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11"
         onClick={handleBuyClick}
       >
@@ -127,7 +127,7 @@ const ButtonGroup = ({
         onClick={handleSellClick}
       >
         {languageModel.QuickSell}
-      </button> */}
+      </button>
 
       <button
         className="btn ezBtn ezBtnPrimary btn-xs lg:btn-sm w-16 sm:w-20 md:w-[6.4rem] lg:w-32 h-10 lg:h-11 !bg-[#00D5DA]"

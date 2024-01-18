@@ -185,7 +185,6 @@ const CollectionContainer = ({ collection }) => {
       //use EXPONENTIAL pool calculation
       else data = SellPoolExp(spotPrice, delta, tfee, pfee);
 
-      if(!is1155) console.log(data)
       return data.userBuyPrice ? data.userBuyPrice : 0;
     }
 
@@ -197,7 +196,6 @@ const CollectionContainer = ({ collection }) => {
       if (bondingCurve === "Linear") data = TradePoolLiner( spotPrice, delta, tfee, pfee);
       //use exponential pool calculation
       else data = TradePoolExp( spotPrice, delta, tfee, pfee);
-      if(!is1155) console.log(data)
 
       return data.userBuyPrice ? data.userBuyPrice : 0;
     }

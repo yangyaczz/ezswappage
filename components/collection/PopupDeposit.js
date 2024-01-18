@@ -7,6 +7,7 @@ import NFTsSelectedRange from "./NFTsSelectedRange";
 import CollectionTitle from "./CollectionTitle";
 import { useCollection } from "@/contexts/CollectionContext";
 import { MaxFiveDecimal } from "../utils/roundoff";
+import {ladderPercentagePrice, ladderLinearPrice} from "../utils/testCalculation";
 
 const PopupDeposit = ({ fromAddLiquidityPage = false, handleApproveClick }) => {
   // const [selectedNFTs, setSelectedNFTs] = useState([]); //Take down selected / checked NFTs
@@ -26,23 +27,24 @@ const PopupDeposit = ({ fromAddLiquidityPage = false, handleApproveClick }) => {
   }
 
   function handlePriceChange(e){
-    let listingPrice;
 
-    // if (constant_ladder === "CONSTANT") {
-    //   totalBid = parseFloat(bidPrice * size).toFixed(4);
-    // } else if (constant_ladder === "LADDER") {
-    //   if (percent_linear === "PERCENT") {
-    //     totalBid =
-    //       size <= MAX_SIZE_ALLOWED
-    //         ? ladderPercentagePrice(bidPrice, size, ladderValue)
-    //         : totalBid;
-    //   } else if (percent_linear === "LINEAR") {
-    //     totalBid =
-    //       size <= MAX_SIZE_ALLOWED
-    //         ? ladderLinearPrice(bidPrice, size, ladderValue)
-    //         : totalBid;
-    //   }
-    // }
+    let totalBid=0, priceList=[];
+
+    if (constant_ladder === "CONSTANT") {
+      totalBid = parseFloat(listingPrice * size).toFixed(4);
+    } else if (constant_ladder === "LADDER") {
+      if (percent_linear === "PERCENT") {
+        ({totalBid, priceList} =
+          size <= MAX_SIZE_ALLOWED
+            ? ladderPercentagePrice(listingPrice, size, ladderValue)
+            : totalBid);
+      } else if (percent_linear === "LINEAR") {
+        ({totalBid,priceList} =
+          size <= MAX_SIZE_ALLOWED
+            ? ladderLinearPrice(listingPrice, size, ladderValue)
+            : totalBid);
+      }
+    }
 
     setListingPrice(parseFloat(e.target.value).toFixed(MaxFiveDecimal(e.target.value)))
   }

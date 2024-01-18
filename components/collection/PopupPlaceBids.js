@@ -7,6 +7,7 @@ import CollectionTitle from "./CollectionTitle";
 import { useCollection } from "@/contexts/CollectionContext";
 import { BuyPoolExp, SellPoolExp, TradePoolExp } from "../utils/calculate";
 import { MaxFiveDecimal } from "../utils/roundoff";
+import {ladderPercentagePrice, ladderLinearPrice} from "../utils/testCalculation";
 
 const MAX_SIZE_ALLOWED = 10000;
 
@@ -33,47 +34,22 @@ const PopupPlaceBids = ({
       totalBid = parseFloat(bidPrice * size).toFixed(4);
     } else if (constant_ladder === "LADDER") {
       if (percent_linear === "PERCENT") {
-        totalBid =
+        ({totalBid} =
           size <= MAX_SIZE_ALLOWED
             ? ladderPercentagePrice(bidPrice, size, ladderValue)
-            : totalBid;
+            : {totalBid});
       } else if (percent_linear === "LINEAR") {
-        totalBid =
+        ({totalBid} =
           size <= MAX_SIZE_ALLOWED
             ? ladderLinearPrice(bidPrice, size, ladderValue)
-            : totalBid;
+            : {totalBid});
       }
     }
 
     setTotalBid(parseFloat(totalBid).toFixed(MaxFiveDecimal(totalBid)));
   }, [bidPrice, size, constant_ladder, percent_linear, ladderValue]);
 
-  function ladderPercentagePrice(
-    initialPrice,
-    numberOfItems,
-    percentageDecrease
-  ) {
-    let totalBid = 0;
 
-    for (let i = 0; i < numberOfItems; i++) {
-      //make sure price cannot fall below 0 after decrease in percentage
-      if (initialPrice * Math.pow(1 - percentageDecrease / 100, i) >= 0)
-        totalBid += initialPrice * Math.pow(1 - percentageDecrease / 100, i);
-    }
-
-    return totalBid;
-  }
-  function ladderLinearPrice(initialPrice, numberOfItems, priceDecrease) {
-    let totalBid = 0;
-
-    for (let i = 0; i < numberOfItems; i++) {
-      //make sure price cannot fall below 0 after decrease in linear price
-      if (initialPrice - i * priceDecrease >= 0)
-        totalBid += initialPrice - i * priceDecrease;
-    }
-
-    return totalBid;
-  }
 
   return (
     <PopupBlurBackground>

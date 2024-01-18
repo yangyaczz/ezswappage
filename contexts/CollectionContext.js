@@ -55,6 +55,8 @@ function reducer(state, action) {
         return {...state, ladderValue:action.payload}
     case "collection/selectNFTs":
       return { ...state, selectedNFTs: action.payload };
+      case "collection/setSelectedNFTPrice":
+        return {...state,selectedNFTs:action.payload}
       case "collection/setNFTList":
         return {...state,NFTList:action.payload}
     case "collection/closePopup":
@@ -130,13 +132,17 @@ function CollectionProvider({ children }) {
           });
     }
 
+    async function setSelectedNFTsPrice(priceList){
+
+    }
+
     async function setNFTList(NFTs){
         dispatch({
           type:"collection/setNFTList",
           payload:NFTs
         })
     }
-  
+
   async function closePopup() {
     dispatch({ type: "collection/closePopup" });
   }

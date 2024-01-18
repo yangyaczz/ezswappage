@@ -107,4 +107,10 @@ export default {
   SwitchToMainnet: "Lütfen ana ağa geçin",
   AirdropClaimingStartSoon: "Talep etme çok yakında başlıyor!",
   ClaimingStartsIn: "Talep Başlıyor",
+  allPool: "All Pool",
+  buyPool: "Buy Pool",
+  sellPool: "Sell Pool",
+  tradePool: "Trade Pool",
+  sortByNFT: "Sort By NFT",
+  sortByBalance: "Sort By Balance"
 };

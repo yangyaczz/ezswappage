@@ -44,41 +44,41 @@ const NavBar = () => {
   //     }
   // })
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const params = {
-        address: owner?.toLowerCase(),
-        mode: "pro",
-      };
-      const response = await fetch("/api/queryAddressScore", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(params),
-      });
-      const data = await response.json();
-      if (data.success) {
-        let userScore = data.data;
-        setAddressInfo(userScore);
-      }
+  // useEffect(() => {
+  //   const fetchData = async () => {
+      // const params = {
+      //   address: owner?.toLowerCase(),
+      //   mode: "pro",
+      // };
+      // const response = await fetch("/api/queryAddressScore", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(params),
+      // });
+      // const data = await response.json();
+      // if (data.success) {
+      //   let userScore = data.data;
+      //   setAddressInfo(userScore);
+      // }
       // 查询是否有pass卡
-      const params2 = {
-        owner: owner?.toLowerCase(),
-        mode: "pro",
-      };
-      const result = await queryUserAllNFT(
-        owner,
-        "0x670d854C7Da9E7Fa55c1958A1AeB368B48496020"
-      );
-      if (result.ownedNfts.length > 0) {
-        setUserHavePoineerCount(result.ownedNfts.length);
-      } else {
-        setUserHavePoineerCount(0);
-      }
-    };
-    if (owner) fetchData();
-  }, [owner]);
+      // const params2 = {
+      //   owner: owner?.toLowerCase(),
+      //   mode: "pro",
+      // };
+      // const result = await queryUserAllNFT(
+      //   owner,
+      //   "0x670d854C7Da9E7Fa55c1958A1AeB368B48496020"
+      // );
+      // if (result.ownedNfts.length > 0) {
+      //   setUserHavePoineerCount(result.ownedNfts.length);
+      // } else {
+      //   setUserHavePoineerCount(0);
+      // }
+    // };
+    // if (owner) fetchData();
+  // }, [owner]);
 
   useEffect(() => {
     const isProd = nextConfig.publicRuntimeConfig.env.API === "dev2";
@@ -134,6 +134,11 @@ const NavBar = () => {
       clearTimeout(timer);
     };
   }, [showAlert]);
+
+  const goClaim = async () => {
+    showSuccessAlert("Coming Soon!");
+  }
+
 
   const handleClick = async (item) => {
     if (item === 1) {
@@ -250,109 +255,111 @@ const NavBar = () => {
         >
           {languageModel.myPool}
         </Link>
-        <div
-          className={`w-full p-2 text-xl font-bold text-right  border-b-2 ${
-            hamburgerShowLanguage ? "" : "hover:bg-zinc-800"
-          } self-end`}
-        >
-          <a
-            onClick={() => setHamburgerShowLanguage((showLan) => !showLan)}
-            className="flex justify-end"
-          >
-            <FontAwesomeIcon
-              icon={faGlobe}
-              size="xl"
-              className="cursor-pointer"
-            />
-          </a>
-          {hamburgerShowLanguage && (
-            <ul className="flex flex-col items-end justify-center mt-2 border-b-2">
-              {Object.keys(lanMap).map((lan) => (
-                <button
-                  key={lan}
-                  className={`w-full h-8 capitalize text-zinc-50 text-sm hover:bg-zinc-800`}
-                  onClick={() => handleLanguageSelection(lan)}
-                >
-                  {lanMap[lan].name}
-                </button>
-              ))}
-            </ul>
-          )}
-        </div>
+        {/*<div*/}
+        {/*  className={`w-full p-2 text-xl font-bold text-right  border-b-2 ${*/}
+        {/*    hamburgerShowLanguage ? "" : "hover:bg-zinc-800"*/}
+        {/*  } self-end`}*/}
+        {/*>*/}
+        {/*  <a*/}
+        {/*    onClick={() => setHamburgerShowLanguage((showLan) => !showLan)}*/}
+        {/*    className="flex justify-end"*/}
+        {/*  >*/}
+        {/*    <FontAwesomeIcon*/}
+        {/*      icon={faGlobe}*/}
+        {/*      size="xl"*/}
+        {/*      className="cursor-pointer"*/}
+        {/*    />*/}
+        {/*  </a>*/}
+        {/*  {hamburgerShowLanguage && (*/}
+        {/*    <ul className="flex flex-col items-end justify-center mt-2 border-b-2">*/}
+        {/*      {Object.keys(lanMap).map((lan) => (*/}
+        {/*        <button*/}
+        {/*          key={lan}*/}
+        {/*          className={`w-full h-8 capitalize text-zinc-50 text-sm hover:bg-zinc-800`}*/}
+        {/*          onClick={() => handleLanguageSelection(lan)}*/}
+        {/*        >*/}
+        {/*          {lanMap[lan].name}*/}
+        {/*        </button>*/}
+        {/*      ))}*/}
+        {/*    </ul>*/}
+        {/*  )}*/}
+        {/*</div>*/}
         {/* Claim Button For Mobile */}
-        {/* <Link
+        {/*// href="/airdropclaim"*/}
+        <Link
           className={`${styles.launchpad} ${styles.airdropBtn} ${styles.claimAirdropBG} self-end my-3 `}
+          // target="_self"
           href="/airdropclaim"
-          target="_self"
-          onClick={()=>setToggleHamburger(false)}
+          // onClick={()=>setToggleHamburger(false)}
+          // onClick={() => goClaim()}
         >
           {languageModel.Airdrop}
-        </Link> */}
-        
-        {addressInfo.dcUserId === undefined ||
-        addressInfo.dcUserId === null ||
-        addressInfo.dcUserId === "" ||
-        addressInfo.sendTwitter !== 1 ? (
-          <a
-            className={`${styles.launchpad} ${styles.airdropBtn} ${styles.airdropBG} self-end my-3 `}
-            href={airdropJumpUrl}
-            target="_self"
-          >
-            {languageModel.Airdrop}
-          </a>
-        ) : (
-          <div
-            className={
-              "dropdown dropdown-hover" +
-              " " +
-              styles.launchpad +
-              " " +
-              styles.airdropColorBtn +
-              " " +
-              styles.rainbowBar
-            }
-          >
-            <div className="flex items-end">
-              <div
-                tabIndex="0"
-                role="button"
-                className={styles.airdropColorBtn + " " + styles.headerScore}
-              >
-                {addressInfo.score} PTS{" "}
-              </div>
-              <div className="flex items-end">
-                {userHavePoineerCount > 0 && (
-                  <span className="text-[0.5rem] ml-1"> 1.25x</span>
-                )}
-                {userHavePoineerCount > 0 && (
-                  <img className="h-2 mb-2 ml-0.3" src="/top.png" alt="" />
-                )}
-              </div>
-            </div>
-            <ul
-              tabIndex="0"
-              className={
-                "dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-              }
-            >
-              <div
-                className={addressInfo.todayPunch === 1 ? styles.cantPunch : ""}
-              >
-                <li
-                  className={
-                    addressInfo.todayPunch === 1 ? styles.cantPunch : ""
-                  }
-                  onClick={() => handleClick(1)}
-                >
-                  <a className={styles.airdropText}>Get Today’s Free PTS</a>
-                </li>
-              </div>
-              <li className={styles.liStyle} onClick={() => handleClick(2)}>
-                <a className={styles.airdropText}>Copy Invite Link</a>
-              </li>
-            </ul>
-          </div>
-        )}
+        </Link>
+
+        {/*{addressInfo.dcUserId === undefined ||*/}
+        {/*addressInfo.dcUserId === null ||*/}
+        {/*addressInfo.dcUserId === "" ||*/}
+        {/*addressInfo.sendTwitter !== 1 ? (*/}
+        {/*  <a*/}
+        {/*    className={`${styles.launchpad} ${styles.airdropBtn} ${styles.airdropBG} self-end my-3 `}*/}
+        {/*    href={airdropJumpUrl}*/}
+        {/*    target="_self"*/}
+        {/*  >*/}
+        {/*    {languageModel.Airdrop}*/}
+        {/*  </a>*/}
+        {/*) : (*/}
+        {/*  <div*/}
+        {/*    className={*/}
+        {/*      "dropdown dropdown-hover" +*/}
+        {/*      " " +*/}
+        {/*      styles.launchpad +*/}
+        {/*      " " +*/}
+        {/*      styles.airdropColorBtn +*/}
+        {/*      " " +*/}
+        {/*      styles.rainbowBar*/}
+        {/*    }*/}
+        {/*  >*/}
+        {/*    <div className="flex items-end">*/}
+        {/*      <div*/}
+        {/*        tabIndex="0"*/}
+        {/*        role="button"*/}
+        {/*        className={styles.airdropColorBtn + " " + styles.headerScore}*/}
+        {/*      >*/}
+        {/*        {addressInfo.score} PTS{" "}*/}
+        {/*      </div>*/}
+        {/*      <div className="flex items-end">*/}
+        {/*        {userHavePoineerCount > 0 && (*/}
+        {/*          <span className="text-[0.5rem] ml-1"> 1.25x</span>*/}
+        {/*        )}*/}
+        {/*        {userHavePoineerCount > 0 && (*/}
+        {/*          <img className="h-2 mb-2 ml-0.3" src="/top.png" alt="" />*/}
+        {/*        )}*/}
+        {/*      </div>*/}
+        {/*    </div>*/}
+        {/*    <ul*/}
+        {/*      tabIndex="0"*/}
+        {/*      className={*/}
+        {/*        "dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"*/}
+        {/*      }*/}
+        {/*    >*/}
+        {/*      <div*/}
+        {/*        className={addressInfo.todayPunch === 1 ? styles.cantPunch : ""}*/}
+        {/*      >*/}
+        {/*        <li*/}
+        {/*          className={*/}
+        {/*            addressInfo.todayPunch === 1 ? styles.cantPunch : ""*/}
+        {/*          }*/}
+        {/*          onClick={() => handleClick(1)}*/}
+        {/*        >*/}
+        {/*          <a className={styles.airdropText}>Get Today’s Free PTS</a>*/}
+        {/*        </li>*/}
+        {/*      </div>*/}
+        {/*      <li className={styles.liStyle} onClick={() => handleClick(2)}>*/}
+        {/*        <a className={styles.airdropText}>Copy Invite Link</a>*/}
+        {/*      </li>*/}
+        {/*    </ul>*/}
+        {/*  </div>*/}
+        {/*)}*/}
         <ConnectButton />
       </div>
     </div>
@@ -400,7 +407,7 @@ const NavBar = () => {
           {/*airdrop 上线后打开*/}
 
           {/* Claim Button for web */}
-          {/* <Link
+          { <Link
             className={
               styles.launchpad +
               " " +
@@ -409,83 +416,84 @@ const NavBar = () => {
               styles.claimAirdropBG
             }
             href="/airdropclaim"
-            target="_self"
+            // onClick={() => goClaim()}
+            // target="_self"
           >
             {languageModel.Airdrop}
-          </Link> */}
-
-          {addressInfo?.dcUserId === undefined ||
-          addressInfo?.dcUserId === null ||
-          addressInfo?.dcUserId === "" ||
-          addressInfo?.sendTwitter !== 1 ? (
-            <a
-              className={
-                styles.launchpad +
-                " " +
-                styles.airdropBtn +
-                " " +
-                styles.airdropBG
-              }
-              href={airdropJumpUrl}
-              target="_self"
-            >
-              {languageModel.Airdrop}
-            </a>
-          ) : (
-            <div
-              className={
-                "dropdown dropdown-hover" +
-                " " +
-                styles.launchpad +
-                " " +
-                styles.airdropColorBtn +
-                " " +
-                styles.rainbowBar
-              }
-            >
-              <div className="flex items-end">
-                <div
-                  tabIndex="0"
-                  role="button"
-                  className={styles.airdropColorBtn + " " + styles.headerScore}
-                >
-                  {addressInfo.score} PTS{" "}
-                </div>
-                <div className="flex items-end">
-                  {userHavePoineerCount > 0 && (
-                    <span className="text-[0.5rem] ml-1"> 1.25x</span>
-                  )}
-                  {userHavePoineerCount > 0 && (
-                    <img className="h-2 mb-2 ml-0.3" src="/top.png" alt="" />
-                  )}
-                </div>
-              </div>
-              <ul
-                tabIndex="0"
-                className={
-                  "dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-                }
-              >
-                <div
-                  className={
-                    addressInfo.todayPunch === 1 ? styles.cantPunch : ""
-                  }
-                >
-                  <li
-                    className={
-                      addressInfo.todayPunch === 1 ? styles.cantPunch : ""
-                    }
-                    onClick={() => handleClick(1)}
-                  >
-                    <a className={styles.airdropText}>Get Today’s Free PTS</a>
-                  </li>
-                </div>
-                <li className={styles.liStyle} onClick={() => handleClick(2)}>
-                  <a className={styles.airdropText}>Copy Invite Link</a>
-                </li>
-              </ul>
-            </div>
-          )}
+          </Link> }
+          {/*Airdrop*/}
+          {/*{addressInfo.dcUserId === undefined ||*/}
+          {/*addressInfo.dcUserId === null ||*/}
+          {/*addressInfo.dcUserId === "" ||*/}
+          {/*addressInfo.sendTwitter !== 1 ? (*/}
+          {/*  <a*/}
+          {/*    className={*/}
+          {/*      styles.launchpad +*/}
+          {/*      " " +*/}
+          {/*      styles.airdropBtn +*/}
+          {/*      " " +*/}
+          {/*      styles.airdropBG*/}
+          {/*    }*/}
+          {/*    href={airdropJumpUrl}*/}
+          {/*    target="_self"*/}
+          {/*  >*/}
+          {/*    {languageModel.Airdrop}*/}
+          {/*  </a>*/}
+          {/*) : (*/}
+          {/*  <div*/}
+          {/*    className={*/}
+          {/*      "dropdown dropdown-hover" +*/}
+          {/*      " " +*/}
+          {/*      styles.launchpad +*/}
+          {/*      " " +*/}
+          {/*      styles.airdropColorBtn +*/}
+          {/*      " " +*/}
+          {/*      styles.rainbowBar*/}
+          {/*    }*/}
+          {/*  >*/}
+          {/*    <div className="flex items-end">*/}
+          {/*      <div*/}
+          {/*        tabIndex="0"*/}
+          {/*        role="button"*/}
+          {/*        className={styles.airdropColorBtn + " " + styles.headerScore}*/}
+          {/*      >*/}
+          {/*        {addressInfo.score} PTS{" "}*/}
+          {/*      </div>*/}
+          {/*      <div className="flex items-end">*/}
+          {/*        {userHavePoineerCount > 0 && (*/}
+          {/*          <span className="text-[0.5rem] ml-1"> 1.25x</span>*/}
+          {/*        )}*/}
+          {/*        {userHavePoineerCount > 0 && (*/}
+          {/*          <img className="h-2 mb-2 ml-0.3" src="/top.png" alt="" />*/}
+          {/*        )}*/}
+          {/*      </div>*/}
+          {/*    </div>*/}
+          {/*    <ul*/}
+          {/*      tabIndex="0"*/}
+          {/*      className={*/}
+          {/*        "dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"*/}
+          {/*      }*/}
+          {/*    >*/}
+          {/*      <div*/}
+          {/*        className={*/}
+          {/*          addressInfo.todayPunch === 1 ? styles.cantPunch : ""*/}
+          {/*        }*/}
+          {/*      >*/}
+          {/*        <li*/}
+          {/*          className={*/}
+          {/*            addressInfo.todayPunch === 1 ? styles.cantPunch : ""*/}
+          {/*          }*/}
+          {/*          onClick={() => handleClick(1)}*/}
+          {/*        >*/}
+          {/*          <a className={styles.airdropText}>Get Today’s Free PTS</a>*/}
+          {/*        </li>*/}
+          {/*      </div>*/}
+          {/*      <li className={styles.liStyle} onClick={() => handleClick(2)}>*/}
+          {/*        <a className={styles.airdropText}>Copy Invite Link</a>*/}
+          {/*      </li>*/}
+          {/*    </ul>*/}
+          {/*  </div>*/}
+          {/*)}*/}
           {/*airdrop 上线后打开*/}
 
           {/*<a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href='https://ezswap.readme.io/reference/overview'target="_blank">API</a>*/}

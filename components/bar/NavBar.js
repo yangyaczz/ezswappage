@@ -286,14 +286,15 @@ const NavBar = () => {
         {/*</div>*/}
         {/* Claim Button For Mobile */}
         {/*// href="/airdropclaim"*/}
-        <div
+        <Link
           className={`${styles.launchpad} ${styles.airdropBtn} ${styles.claimAirdropBG} self-end my-3 `}
-          target="_self"
+          // target="_self"
+          href="/airdropclaim"
           // onClick={()=>setToggleHamburger(false)}
-          onClick={() => goClaim()}
+          // onClick={() => goClaim()}
         >
           {languageModel.Airdrop}
-        </div>
+        </Link>
 
         {/*{addressInfo.dcUserId === undefined ||*/}
         {/*addressInfo.dcUserId === null ||*/}
@@ -406,7 +407,7 @@ const NavBar = () => {
           {/*airdrop 上线后打开*/}
 
           {/* Claim Button for web */}
-          { <div
+          { <Link
             className={
               styles.launchpad +
               " " +
@@ -414,12 +415,12 @@ const NavBar = () => {
               " " +
               styles.claimAirdropBG
             }
-            // href="/airdropclaim"
-            onClick={() => goClaim()}
-            target="_self"
+            href="/airdropclaim"
+            // onClick={() => goClaim()}
+            // target="_self"
           >
             {languageModel.Airdrop}
-          </div> }
+          </Link> }
           {/*Airdrop*/}
           {/*{addressInfo.dcUserId === undefined ||*/}
           {/*addressInfo.dcUserId === null ||*/}

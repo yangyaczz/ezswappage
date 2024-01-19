@@ -130,9 +130,10 @@ const InputAmount = ({
       </button>
 
       <dialog id="input_sell" className="modal">
-        <div className="modal-box">
-          <h3 className="mb-6 text-lg font-bold">{languageModel.Item}:</h3>
-
+        <div className="modal-box bg-black border border-1 border-white">
+          <h3 className="mb-6 text-lg font-bold flex justify-center">{languageModel.Item}</h3>
+          <div className="border-t-[0.1px] border-white mb-10">
+          </div>
           {swapType === "buy" ? displayBuyDialog() : displaySellDialog()}
 
           <div>{formikData.isExceeded && languageModel.InsufficientBalance}</div>
@@ -151,7 +152,7 @@ const InputAmount = ({
           {/*</div>*/}
 
           <form method="dialog">
-            <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">
+            <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-5">
               ✕
             </button>
           </form>

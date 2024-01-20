@@ -464,7 +464,7 @@ const NFTSearch = ({
                                         {nft.name === formikData.collection.name && (
                                             <img className="absolute w-6 -left-2 -top-2" src="/yes.svg" alt=""/>
                                         )}
-                                        <img className="min-w-[4rem] lg:min-w-[4rem] max-[800px]:w-[4rem]" src={nft.img} alt="" />
+                                        <img className="min-w-[4rem] lg:min-w-[4rem] max-[800px]:w-[4rem] h-[4rem]" src={nft.img} alt="" />
                                     </div>
                                     <div className="font-bold text-white">{nft.name.length>15?nft.name.substring(0, 15)+'...':nft.name}</div>
                                     <div className="font-bold">Floor Price: {collectionsPrice[nft.address] === undefined ? 0: collectionsPrice[nft.address].bestUserBuyPrice} {addressSymbol[formikData.golbalParams.hex]?.['0x0000000000000000000000000000000000000000'] || "(UNKNOWN)"}</div>

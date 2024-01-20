@@ -1,13 +1,11 @@
+import { useCollection } from "@/contexts/CollectionContext";
+
 const { default: Image } = require("next/image");
 
-const PopupHeader = ({
-  collectionName,
-  collectionImageUrl,
-  floorPrice,
-  topBid,
-  handlePriceClick = null,
-  styleClass=null,
-}) => {
+const PopupHeader = ({ handlePriceClick = () => {}, styleClass = null }) => {
+  const {collectionName, collectionImageUrl, floorPrice, topBid} =
+    useCollection();
+
   return (
     <section
       id="place_bid_header"
@@ -21,7 +19,9 @@ const PopupHeader = ({
         className="place-self-center"
       />
       <section className="grid grid-cols-1 grid-rows-3">
-        <label className="text-xl font-bold leading-3 gap-x-1">{collectionName}</label>
+        <label className="text-xl font-bold truncate align-center gap-x-1">
+          {collectionName}
+        </label>
         <div className="flex items-center justify-between text-sm leading-3 text-zinc-400">
           <p>Floor Price:</p>
           <p

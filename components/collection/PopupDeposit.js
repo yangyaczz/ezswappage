@@ -10,26 +10,25 @@ import { MaxFiveDecimal } from "../utils/roundoff";
 import {
   ladderPercentagePrice,
   ladderLinearPrice,
-} from "../utils/testCalculation";
+  constantPrice,
+} from "../utils/collectionUtils";
 import PopupHeader from "./PopupHeader";
 
-const PopupDeposit = ({ handleApproveClick }) => {
+const PopupDeposit = ({ handleApproveClick = () => {} }) => {
   // const [selectedNFTs, setSelectedNFTs] = useState([]); //Take down selected / checked NFTs
   const MAX_SIZE_ALLOWED = 10000;
   const {
     selectedNFTs,
-    collectionName,
-    collectionImageUrl,
-    floorPrice,
-    topBid,
     selectNFTs,
     constant_ladder,
     percent_linear,
     ladderValue,
-    setNFTList,
+    setNFTListviewPrices,
   } = useCollection();
   const radioRef = useRef(selectedNFTs.length);
   const [listingPrice, setListingPrice] = useState(0);
+  const [avgPrice, setAvgPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   //change the value of radio bar whenever selected nfts changed
   useEffect(() => {
@@ -41,42 +40,70 @@ const PopupDeposit = ({ handleApproveClick }) => {
     selectNFTs(tokenId);
   }
 
-  function handlePriceChange(e) {
-    let totalBid = 0,
-      priceList = [];
+  useEffect(() => {
+    function calculatePrices() {
+      let totalListPrice = 0,
+        avgPrice = 0,
+        priceList = [];
 
-    if (constant_ladder === "CONSTANT") {
-      totalBid = parseFloat(listingPrice * size).toFixed(4);
-    } else if (constant_ladder === "LADDER") {
-      if (percent_linear === "PERCENT") {
-        ({ totalBid, priceList } =
-          size <= MAX_SIZE_ALLOWED
-            ? ladderPercentagePrice(listingPrice, size, ladderValue)
-            : totalBid);
-      } else if (percent_linear === "LINEAR") {
-        ({ totalBid, priceList } =
-          size <= MAX_SIZE_ALLOWED
-            ? ladderLinearPrice(listingPrice, size, ladderValue)
-            : totalBid);
+      if (constant_ladder === "CONSTANT") {
+        ({ totalPrice: totalListPrice, priceList } = constantPrice(
+          listingPrice,
+          selectedNFTs.length
+        ));
+      } else if (constant_ladder === "LADDER") {
+        if (percent_linear === "PERCENT") {
+          ({ totalPrice: totalListPrice, priceList } =
+            selectedNFTs.length <= MAX_SIZE_ALLOWED
+              ? ladderPercentagePrice(
+                  listingPrice,
+                  selectedNFTs.length,
+                  ladderValue
+                )
+              : { totalListPrice, priceList });
+        } else if (percent_linear === "LINEAR") {
+          ({ totalPrice: totalListPrice, priceList } =
+            selectedNFTs.length <= MAX_SIZE_ALLOWED
+              ? ladderLinearPrice(
+                  listingPrice,
+                  selectedNFTs.length,
+                  ladderValue
+                )
+              : { totalListPrice, priceList });
+        }
       }
+      totalListPrice = !totalListPrice ? 0 : totalListPrice;
+      avgPrice = parseFloat(totalListPrice) / selectedNFTs.length;
+      avgPrice = !avgPrice ? 0 : avgPrice;
+      setTotalPrice(
+        parseFloat(totalListPrice).toFixed(MaxFiveDecimal(totalListPrice))
+      );
+      setAvgPrice(parseFloat(avgPrice).toFixed(MaxFiveDecimal(avgPrice)));
+      setNFTListviewPrices(priceList);
     }
 
-    setListingPrice(
-      parseFloat(e.target.value).toFixed(MaxFiveDecimal(e.target.value))
-    );
-  }
+    calculatePrices();
+  }, [
+    listingPrice,
+    selectedNFTs.length,
+    constant_ladder,
+    percent_linear,
+    ladderValue,
+  ]);
 
   return (
     <PopupBlurBackground>
-      <div className="grid items-center content-center w-full h-full grid-cols-2 text-sm text-white gap-x-4 justify-items-center md:text-base lg:text-lg">
-        <NFTListView handleNFTClicked={handleNFTClicked} />
-        {/* <div></div> */}
-        <section id="NFT_Controller_Section" className="grid grid-cols-1 grid-rows-[5fr,2fr,2fr,9fr,2fr,2fr,2fr] gap-y-2 justify-items-center">
+      <div className="grid items-center w-full h-full grid-cols-2 text-sm text-white content-stretch gap-x-4 justify-items-center md:text-base lg:text-lg">
+        <NFTListView
+          handleNFTClicked={handleNFTClicked}
+          styleClass="p-4 border-2 border-white border-solid w-full max-w-[400px] h-full"
+        />
+        <section
+          id="NFT_Controller_Section"
+          className="grid grid-cols-1 grid-rows-[2fr,auto,auto,3fr,auto,auto,auto] gap-y-2 justify-items-center h-full "
+        >
           <PopupHeader
-            collectionName={collectionName}
-            collectionImageUrl={collectionImageUrl}
-            floorPrice={floorPrice}
-            topBid={topBid}
+            handlePriceClick={(price) => setListingPrice(price)}
             styleClass="px-4 py-1 border-2 border-white border-solid w-full max-w-[400px] content-center"
           />
           <NFTsSelectedRange
@@ -87,7 +114,9 @@ const PopupDeposit = ({ handleApproveClick }) => {
             id="list_nft_price"
             className="flex items-center justify-between border-2 border-white border-solid w-full max-w-[400px] px-4 py-1 "
           >
-            <p className="text-sm font-bold sm:text-lg">Listing Price:</p>
+            <p className="text-sm font-bold sm:text-base lg:text-lg ">
+              Listing Price:
+            </p>
             <div className="relative flex items-center justify-center">
               <input
                 type="number"
@@ -95,7 +124,7 @@ const PopupDeposit = ({ handleApproveClick }) => {
                 placeholder="Amount"
                 className="bg-black w-[106px] inline pr-[26px] pl-1 outline-0 border-l-2 border-l-white text-base"
                 value={listingPrice}
-                onChange={handlePriceChange}
+                onChange={(e) => setListingPrice(parseFloat(e.target.value))}
               />
               <Image
                 src="/ETH.png"
@@ -113,7 +142,7 @@ const PopupDeposit = ({ handleApproveClick }) => {
           <div className="flex justify-between px-4 py-1 border-2 border-white border-solid w-full max-w-[400px]">
             <label>Average Price:</label>
             <p>
-              11
+              {avgPrice}
               <Image
                 src="/ETH.png"
                 alt="Ethereum"
@@ -126,7 +155,7 @@ const PopupDeposit = ({ handleApproveClick }) => {
           <div className="flex justify-between px-4 py-1 border-2 border-white border-solid w-full max-w-[400px]">
             <label>Total Price:</label>
             <p>
-              11
+              {totalPrice}
               <Image
                 src="/ETH.png"
                 alt="Ethereum"

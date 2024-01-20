@@ -28,6 +28,7 @@ const initialState = {
   floorPrice: 0,
   topBid: 0,
   selectedNFTs: [],
+  NFTListviewPrices:[],
 };
 
 function reducer(state, action) {
@@ -45,6 +46,7 @@ function reducer(state, action) {
         floorPrice: action.payload.floorPrice,
         topBid: action.payload.topBid,
         selectedNFTs: [],
+        NFTListviewPrices:[],
         constant_ladder:"CONSTANT",
         percent_linear:"PERCENT",
         ladderValue:0
@@ -57,6 +59,8 @@ function reducer(state, action) {
         return {...state, ladderValue:action.payload}
     case "collection/selectNFTs":
       return { ...state, selectedNFTs: action.payload };
+      case "collection/setNFTListviewPrices":
+        return {...state, NFTListviewPrices:action.payload};
       case "collection/setSelectedNFTPrice":
         return {...state,selectedNFTs:action.payload}
       case "collection/setNFTList":
@@ -79,6 +83,7 @@ function CollectionProvider({ children }) {
       floorPrice,
       topBid,
       selectedNFTs,
+      NFTListviewPrices,
       constant_ladder,
       percent_linear,
       ladderValue
@@ -128,7 +133,7 @@ function CollectionProvider({ children }) {
       selectedNFTs.includes(tokenId)
         ? dispatch({
             type: "collection/selectNFTs",
-            payload: selectedNFTs.filter((nftId) => nftId !== tokenId),
+            payload: selectedNFTs.includes(tokenId) ? selectedNFTs.filter((nftId) => nftId !== tokenId) : [...selectedNFTs, tokenId],
           })
         : dispatch({
             type: "collection/selectNFTs",
@@ -136,8 +141,11 @@ function CollectionProvider({ children }) {
           });
     }
 
-    async function setSelectedNFTsPrice(priceList){
-
+    async function setNFTListviewPrices(priceList){
+      dispatch({
+        type:"collection/setNFTListviewPrices",
+        payload:priceList
+      })
     }
 
     async function setNFTList(NFTs){
@@ -188,6 +196,7 @@ function CollectionProvider({ children }) {
         floorPrice,
         topBid,
         selectedNFTs,
+        NFTListviewPrices,
         constant_ladder,
         percent_linear,
         ladderValue,
@@ -197,6 +206,7 @@ function CollectionProvider({ children }) {
         openPopup,
         closePopup,
         selectNFTs,
+        setNFTListviewPrices,
         setNFTList,
         changeRangeValue,
       }}

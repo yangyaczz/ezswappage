@@ -247,11 +247,14 @@ const CollectionContainer = ({ collection }) => {
       />
       <AddLiquidityButton
         collectionName={name}
+        img={img}
         contractAddress={address}
         collectionType={type}
         chainId={chainId}
         type={type}
         tokenId1155={tokenId1155}
+        floorPrice={floorPrice}
+        topBid={topBid}
       />
     </div>
   );

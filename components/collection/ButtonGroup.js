@@ -5,17 +5,7 @@ import styles from "../swap/index.module.scss";
 import { useNetwork } from "wagmi";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const ButtonGroup = ({
-  collectionName,
-  img,
-  contractAddress,
-  collectionType,
-  chainId,
-  type,
-  tokenId1155,
-  floorPrice,
-  topBid,
-}) => {
+const ButtonGroup = ({ collectionName, img, chainId, floorPrice, topBid }) => {
   const { openPopup } = useCollection();
   const { languageModel } = useLanguage();
   const { chain } = useNetwork();

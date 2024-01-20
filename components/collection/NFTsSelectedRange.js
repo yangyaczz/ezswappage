@@ -17,7 +17,7 @@ const NFTsSelectedRange = ({ radioRef, styleClass }) => {
         max={NFTList.length}
         ref={radioRef}
         onChange={handleRangeChange}
-        className="range range-primary"
+        className="range range-primary range-xs"
       />
       <p className="text-lg text-center border-l-2 w-11 sm:text-xl lg:text-2xl border-l-solid">
         {selectedNFTs.length}

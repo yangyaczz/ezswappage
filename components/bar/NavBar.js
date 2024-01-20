@@ -255,6 +255,16 @@ const NavBar = () => {
         >
           {languageModel.myPool}
         </Link>
+        <Link
+            className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}
+            href="/airdropclaim"
+            onClick={() => {
+              setToggleHamburger(false);
+              setHamburgerShowLanguage(false);
+            }}
+        >
+          Airdrop Season 2
+        </Link>
         {/*<div*/}
         {/*  className={`w-full p-2 text-xl font-bold text-right  border-b-2 ${*/}
         {/*    hamburgerShowLanguage ? "" : "hover:bg-zinc-800"*/}
@@ -403,6 +413,13 @@ const NavBar = () => {
           >
             {languageModel.mint}
           </a>
+          <Link
+            className={styles.headerBtn + " " + styles.launchpad}
+            href='/airdropclaim'
+            target="_self"
+          >
+            Airdrop Season 2
+          </Link>
 
           {/*airdrop 上线后打开*/}
 

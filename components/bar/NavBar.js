@@ -255,6 +255,16 @@ const NavBar = () => {
         >
           {languageModel.myPool}
         </Link>
+        <Link
+            className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}
+            href="/airdropclaim"
+            onClick={() => {
+              setToggleHamburger(false);
+              setHamburgerShowLanguage(false);
+            }}
+        >
+          Airdrop Season 2
+        </Link>
         {/*<div*/}
         {/*  className={`w-full p-2 text-xl font-bold text-right  border-b-2 ${*/}
         {/*    hamburgerShowLanguage ? "" : "hover:bg-zinc-800"*/}
@@ -286,15 +296,15 @@ const NavBar = () => {
         {/*</div>*/}
         {/* Claim Button For Mobile */}
         {/*// href="/airdropclaim"*/}
-        <Link
-          className={`${styles.launchpad} ${styles.airdropBtn} ${styles.claimAirdropBG} self-end my-3 `}
-          // target="_self"
-          href="/airdropclaim"
-          // onClick={()=>setToggleHamburger(false)}
-          // onClick={() => goClaim()}
-        >
-          {languageModel.Airdrop}
-        </Link>
+        {/*<Link*/}
+        {/*  className={`${styles.launchpad} ${styles.airdropBtn} ${styles.claimAirdropBG} self-end my-3 `}*/}
+        {/*  // target="_self"*/}
+        {/*  href="/airdropclaim"*/}
+        {/*  // onClick={()=>setToggleHamburger(false)}*/}
+        {/*  // onClick={() => goClaim()}*/}
+        {/*>*/}
+        {/*  {languageModel.Airdrop}*/}
+        {/*</Link>*/}
 
         {/*{addressInfo.dcUserId === undefined ||*/}
         {/*addressInfo.dcUserId === null ||*/}
@@ -403,24 +413,31 @@ const NavBar = () => {
           >
             {languageModel.mint}
           </a>
+          <a
+            className={styles.headerBtn + " " + styles.launchpad}
+            href='/airdropclaim'
+            target="_self"
+          >
+            Airdrop Season 2
+          </a>
 
           {/*airdrop 上线后打开*/}
 
           {/* Claim Button for web */}
-          { <Link
-            className={
-              styles.launchpad +
-              " " +
-              styles.airdropBtn +
-              " " +
-              styles.claimAirdropBG
-            }
-            href="/airdropclaim"
-            // onClick={() => goClaim()}
-            // target="_self"
-          >
-            {languageModel.Airdrop}
-          </Link> }
+          {/*{ <Link*/}
+          {/*  className={*/}
+          {/*    styles.launchpad +*/}
+          {/*    " " +*/}
+          {/*    styles.airdropBtn +*/}
+          {/*    " " +*/}
+          {/*    styles.claimAirdropBG*/}
+          {/*  }*/}
+          {/*  href="/airdropclaim"*/}
+          {/*  // onClick={() => goClaim()}*/}
+          {/*  // target="_self"*/}
+          {/*>*/}
+          {/*  {languageModel.Airdrop}*/}
+          {/*</Link> }*/}
           {/*Airdrop*/}
           {/*{addressInfo.dcUserId === undefined ||*/}
           {/*addressInfo.dcUserId === null ||*/}

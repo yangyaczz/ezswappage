@@ -5,7 +5,7 @@ import styles from "../swap/index.module.scss";
 import { useNetwork } from "wagmi";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const ButtonGroup = ({ collectionName, img, chainId, floorPrice, topBid }) => {
+const ButtonGroup = ({ collectionName, img,currencyImage, chainId, floorPrice, topBid }) => {
   const { openPopup } = useCollection();
   const { languageModel } = useLanguage();
   const { chain } = useNetwork();
@@ -57,6 +57,7 @@ const ButtonGroup = ({ collectionName, img, chainId, floorPrice, topBid }) => {
     floorPrice: null,
     topBid: null,
     NFTs: [],
+    
   };
 
   function handleBuyClick() {
@@ -66,6 +67,7 @@ const ButtonGroup = ({ collectionName, img, chainId, floorPrice, topBid }) => {
       collectionImageUrl: img,
       floorPrice: floorPrice,
       topBid,
+      currencyImage,
     };
     openPopup("BUY", colInfo);
   }
@@ -77,6 +79,7 @@ const ButtonGroup = ({ collectionName, img, chainId, floorPrice, topBid }) => {
       collectionImageUrl: img,
       floorPrice: floorPrice,
       topBid,
+      currencyImage,
     };
     openPopup("SELL", colInfo);
   }
@@ -97,6 +100,7 @@ const ButtonGroup = ({ collectionName, img, chainId, floorPrice, topBid }) => {
       collectionImageUrl: img,
       floorPrice: floorPrice,
       topBid,
+      currencyImage,
     };
     openPopup("PLACEBIDS", colInfo);
 
@@ -122,6 +126,7 @@ const ButtonGroup = ({ collectionName, img, chainId, floorPrice, topBid }) => {
       collectionImageUrl: img,
       floorPrice: floorPrice,
       topBid,
+      currencyImage,
     };
     openPopup("DEPOSIT", colInfo);
 

@@ -24,6 +24,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
     percent_linear,
     ladderValue,
     setNFTListviewPrices,
+    currencyImage,
   } = useCollection();
   const radioRef = useRef(selectedNFTs.length);
   const [listingPrice, setListingPrice] = useState(0);
@@ -127,8 +128,8 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
                 onChange={(e) => setListingPrice(parseFloat(e.target.value))}
               />
               <Image
-                src="/ETH.png"
-                alt="Ethereum"
+                src={currencyImage?.src}
+                alt={currencyImage?.label}
                 width={24}
                 height={24}
                 className="absolute right-0"
@@ -144,8 +145,8 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
             <p>
               {avgPrice}
               <Image
-                src="/ETH.png"
-                alt="Ethereum"
+                src={currencyImage?.src}
+                alt={currencyImage?.label}
                 width={20}
                 height={20}
                 className="inline -translate-y-1"
@@ -157,8 +158,8 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
             <p>
               {totalPrice}
               <Image
-                src="/ETH.png"
-                alt="Ethereum"
+                src={currencyImage?.src}
+                alt={currencyImage?.label}
                 width={20}
                 height={20}
                 className="inline -translate-y-1"

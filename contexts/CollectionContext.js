@@ -25,6 +25,7 @@ const initialState = {
   NFTList: [],
   collectionName: "",
   collectionImageUrl:"",
+  currencyImage:{},
   floorPrice: 0,
   topBid: 0,
   selectedNFTs: [],
@@ -43,6 +44,7 @@ function reducer(state, action) {
         NFTList: action.payload.NFTList,
         collectionName: action.payload.collectionName,
         collectionImageUrl:action.payload.collectionImageUrl,
+        currencyImage:action.payload.currencyImage,
         floorPrice: action.payload.floorPrice,
         topBid: action.payload.topBid,
         selectedNFTs: [],
@@ -79,6 +81,7 @@ function CollectionProvider({ children }) {
       popupWindow,
       collectionName,
       collectionImageUrl,
+      currencyImage,
       NFTList,
       floorPrice,
       topBid,
@@ -95,12 +98,14 @@ function CollectionProvider({ children }) {
     //sort NFTList in ascending order
     const nfts = NFTs.slice().sort((a, b) => a.tokenId - b.tokenId);
     if (popupWindows.includes(popupWindow.toUpperCase()))
+    console.log(col.currencyImage)
       dispatch({
         type: "collection/openPopup",
         payload: {
           popupWindow,
           collectionName: col.collectionName,
           collectionImageUrl:col.collectionImageUrl,
+          currencyImage:col.currencyImage,
           floorPrice: col.floorPrice,
           topBid: col.topBid,
           NFTList: nfts,
@@ -192,6 +197,7 @@ function CollectionProvider({ children }) {
         popupWindow,
         collectionName,
         collectionImageUrl,
+        currencyImage,
         NFTList,
         floorPrice,
         topBid,

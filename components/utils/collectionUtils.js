@@ -23,7 +23,6 @@ export function ladderPercentagePrice(
     //make sure price cannot fall below 0 after decrease in percentage
     let price = initialPrice * Math.pow(1 - percentageDecrease / 100, i);
     price = !price || price < 0 ? 0 : price;
-    console.log(price);
     priceList.push(price.toFixed(MaxFiveDecimal(price)));
     totalPrice += price;
   }
@@ -38,8 +37,7 @@ export function ladderLinearPrice(
   let priceList = [];
   for (let i = 0; i < numberOfItems; i++) {
     //make sure price cannot fall below 0 after decrease in linear price
-    let price = initialPrice - i * priceDecrease >= 0;
-    console.log(price);
+    let price = initialPrice - i * priceDecrease;
 
     price = !price || price < 0 ? 0 : price;
     priceList.push(price.toFixed(MaxFiveDecimal(price)));

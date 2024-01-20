@@ -3,8 +3,13 @@ import { useCollection } from "@/contexts/CollectionContext";
 const { default: Image } = require("next/image");
 
 const PopupHeader = ({ handlePriceClick = () => {}, styleClass = null }) => {
-  const {collectionName, collectionImageUrl, floorPrice, topBid} =
-    useCollection();
+  const {
+    collectionName,
+    collectionImageUrl,
+    currencyImage,
+    floorPrice,
+    topBid,
+  } = useCollection();
 
   return (
     <section
@@ -30,8 +35,8 @@ const PopupHeader = ({ handlePriceClick = () => {}, styleClass = null }) => {
           >
             {floorPrice}
             <Image
-              src="/ETH.png"
-              alt="Ethereum"
+              src={currencyImage?.src}
+              alt={currencyImage?.label}
               width={20}
               height={20}
               className="inline -translate-y-1"
@@ -46,8 +51,8 @@ const PopupHeader = ({ handlePriceClick = () => {}, styleClass = null }) => {
           >
             {topBid}
             <Image
-              src="/ETH.png"
-              alt="Ethereum"
+              src={currencyImage?.src}
+              alt={currencyImage?.label}
               width={20}
               height={20}
               className="inline -translate-y-1"

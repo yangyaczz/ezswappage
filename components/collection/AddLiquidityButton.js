@@ -10,6 +10,7 @@ import useAlert from "@/components/alert/useAlert";
 const AddLiquidityButton = ({
   collectionName,
   img,
+  currencyImage,
   contractAddress,
   collectionType,
   chainId,
@@ -48,6 +49,7 @@ const AddLiquidityButton = ({
       collectionImageUrl: img,
       floorPrice: floorPrice,
       topBid,
+      currencyImage,
     };
     openPopup("ADD_LIQUIDITY", colInfo);
 

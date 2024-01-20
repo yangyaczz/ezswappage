@@ -238,6 +238,7 @@ const CollectionContainer = ({ collection }) => {
         collectionName={name}
         img={img}
         contractAddress={address}
+        currencyImage={currencyImage}
         collectionType={type}
         chainId={chainId}
         type={type}
@@ -249,6 +250,7 @@ const CollectionContainer = ({ collection }) => {
         collectionName={name}
         img={img}
         contractAddress={address}
+        currencyImage={currencyImage}
         collectionType={type}
         chainId={chainId}
         type={type}

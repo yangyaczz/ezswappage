@@ -2,7 +2,7 @@ import { useCollection } from "@/contexts/CollectionContext";
 import Image from "next/image";
 
 const NFTListView = ({ handleNFTClicked, styleClass }) => {
-  const { selectedNFTs, NFTList, NFTListviewPrices } = useCollection();
+  const { selectedNFTs, NFTList, NFTListviewPrices, currencyImage } = useCollection();
   return (
     <section
       id="NFTs_View_Section"
@@ -37,8 +37,8 @@ const NFTListView = ({ handleNFTClicked, styleClass }) => {
               <>
                 {NFTListviewPrices[selectedNFTs.indexOf(NFT.tokenId)]}
                 <Image
-                  src="/ETH.png"
-                  alt="Ethereum"
+                src={currencyImage?.src}
+                alt={currencyImage?.label}
                   width={15}
                   height={15}
                   className="inline"

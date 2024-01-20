@@ -17,7 +17,7 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
   const [size, setSize] = useState(1);
   const [totalBid, setTotalBid] = useState(0);
   const [bidPrice, setBidPrice] = useState(0);
-  const { constant_ladder, percent_linear, ladderValue } = useCollection();
+  const { constant_ladder, percent_linear, currencyImage, ladderValue } = useCollection();
 
   useEffect(() => {
     let totalBid;
@@ -63,8 +63,8 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
               onChange={(e) => setBidPrice(parseFloat(e.target.value))}
             />
             <Image
-              src="/ETH.png"
-              alt="Ethereum"
+                src={currencyImage?.src}
+                alt={currencyImage?.label}
               width={24}
               height={24}
               className="absolute right-0"
@@ -128,8 +128,8 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
           <p>
             {totalBid}
             <Image
-              src="/ETH.png"
-              alt="Ethereum"
+                src={currencyImage?.src}
+                alt={currencyImage?.label}
               width={20}
               height={20}
               className="inline -translate-y-1"

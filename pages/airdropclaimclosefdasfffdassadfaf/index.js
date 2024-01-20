@@ -35,10 +35,10 @@ const AirdropClaim = () => {
   };
 
 
-  const claimStartTimestamp = 1705074960;
+  const claimStartTimestamp = 1705492800;
   const claimStartTime = new Date(claimStartTimestamp * 1000); //convert to miliseconds
   // const claimStartTime=new Date(2024, 0, 13, 11, 22, 0, 0);;
-  const claimEndTimestamp = 1708410840;
+  const claimEndTimestamp = 1706623200;
   const claimEndTime = new Date(claimEndTimestamp * 1000); //convert to miliseconds
   // const claimEndTime = new Date(2024, 0, 14, 12, 34, 30, 0);
   let timeBeforeStart = calculateTimeLeft(claimStartTime);
@@ -61,12 +61,15 @@ const AirdropClaim = () => {
   const { switchNetwork } = useSwitchNetwork();
   //georli address:
   //0x875d16675264fd2Ba19784B542deD0eFA90b27f7
-  const ezTokenAddr = "0x875d16675264fd2ba19784b542ded0efa90b27f7";
+  //main address:
+  //0x4bD3ba08a2446B93aB0F08ED1F2F388A22Ea4EEF
+
+  const ezTokenAddr = "0x4bD3ba08a2446B93aB0F08ED1F2F388A22Ea4EEF";
   const userAddr = "0x21C8e614CD5c37765411066D2ec09912020c846F";
   const signa =
     "0xb975dbbf98a2f2b5861195e0ff811062e7d999a4c76536072c737fc29e86139e0db51bace7eeeb66fe5ff15f6b34012b8e0c1d7fa2d9e06b56f22723cb1889eb1c";
   const claimAmount = 5e20;
-  const deployChainId = 5;
+  const deployChainId = 1;
   const EIGHTEEN_ZEROS = 1e18;
 
   const { data: userHasClaimed } = useContractRead({
@@ -163,7 +166,13 @@ const AirdropClaim = () => {
       }
 
       const data = await loadScore();
-      if (data) changeStatus(data);
+      if (data) {
+        changeStatus(data);
+      }else {
+        setClaimStatus(cStatus.INELIGIBLE);
+        setTokenToClaim(0);
+        setUserSignature("");
+      }
     };
 
     if (timeStatus!==tStatus.BEFORE_START){

@@ -9,7 +9,8 @@ import multiSetFilterPairMode from "./swapUtils/multiSetFilterPairMode";
 import styles from "./index.module.scss";
 import { useLanguage } from "@/contexts/LanguageContext";
 import calculatePoolAllInfo from "../utils/calculatePoolInfo";
-import MaxFiveDecimal from "../utils/roundoff";
+import {MaxFiveDecimal, MaxThreeDecimal} from "../utils/roundoff";
+import addressSymbol from "@/pages/data/address_symbol";
 const NFTSearch = ({
     swapType,
     formikData,
@@ -28,6 +29,7 @@ const NFTSearch = ({
     const [searchQuery, setSearchQuery] = useState("");
     const apiSell = ['mantatest', 'manta', 'ethmain', 'arbmain']
     const { languageModel } = useLanguage();
+    const [collectionsPrice, setCollectionsPrice] = useState([]);
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value.toLowerCase());
     };
@@ -48,18 +50,32 @@ const NFTSearch = ({
     };
 
     useEffect(() => {
-        let colByPair = [];
+        let colByPair = {};
+        console.log('formikData', formikData)
+        // console.log('filteredNFTs', filteredNFTs)
         const fetchPromises = filteredNFTs
             .map((collection) =>
                 queryPoolsOfEachCollection(
                     collection.address,
-                    collection.network,
+                    formikData.golbalParams.networkName,
                     collection.type,
                     collection.tokenId1155
                 ).then((eachCollectionPools) => {
                     //if there are pools found, sort the collections by trading pairs and show dynamic data
                     if (eachCollectionPools?.length > 0) {
-                       console.log('eachCollectionPools', eachCollectionPools)
+                        let {bestUserBuyPrice, bestUserSellPrice, nftCount, TVL, volume} = calculatePoolAllInfo(eachCollectionPools, collection.address)
+                        //just to format the prices to  2 decimals. But no decimal if equals to 0.
+                        //prettier-ignore
+                        bestUserBuyPrice = bestUserBuyPrice?.toFixed(MaxFiveDecimal(bestUserBuyPrice));
+                        //prettier-ignore
+                        bestUserSellPrice = bestUserSellPrice?.toFixed(MaxFiveDecimal(bestUserSellPrice));
+                        var poolsInfo = {
+                            bestUserBuyPrice,
+                            bestUserSellPrice,
+                            contractAddress: collection.address
+                        }
+                        console.log('poolsInfo', poolsInfo)
+                        colByPair[collection.address] =poolsInfo
                     }
                 })
             )
@@ -67,15 +83,15 @@ const NFTSearch = ({
         // Wait for all promises to resolve
         Promise.all(fetchPromises)
             .then(() => {
-                colByPair.sort((a,b)=>a.order - b.order);
-                // setCollectionsByTradingPair(colByPair);
+                // console.log('colByPaircolByPair', colByPair)
+                setCollectionsPrice(colByPair);
                 // setIsLoading(() => false);
             })
             .catch((error) => {
                 console.error("Error fetching collections:", error);
                 // setIsLoading(() => false);
             });
-    }, [filteredNFTs]);
+    }, [formikData.golbalParams.networkName]);
 
     function queryPoolsOfEachCollection(
         address,
@@ -443,20 +459,16 @@ const NFTSearch = ({
                         {filteredNFTs.map((nft, index) => (
                             <button className="border rounded-lg mb-5" key={index} onClick={() => handleNFTClick(nft)}>
                                 {/*<div className={"mr-5" + " " + "mb-5" + " " + styles.buttonCenter}>*/}
-                                <div className={
-                                        " ml-4 mb-3 mt-3 flex justify-start items-center cursor-pointer"
-                                    }>
+                                <div className={"ml-4 mb-3 mt-3 cursor-pointer grid grid-cols-1 gap-2 place-items-start sm:grid-cols-2 sm:grid-rows-2 md:gap-4 lg:grid-cols-[1fr,3fr,3fr,3fr] lg:grid-rows-1 gap-x-4 whitespace-nowrap items-center"}>
                                     <div className="relative">
                                         {nft.name === formikData.collection.name && (
-                                            <img
-                                                className="absolute w-6 -left-2 -top-2"
-                                                src="/yes.svg"
-                                                alt=""
-                                            />
+                                            <img className="absolute w-6 -left-2 -top-2" src="/yes.svg" alt=""/>
                                         )}
-                                        <img className="w-[4rem]" src={nft.img} alt="" />
+                                        <img className="min-w-[4rem] lg:min-w-[4rem] max-[800px]:w-[4rem]" src={nft.img} alt="" />
                                     </div>
-                                    <div className="font-bold ml-5">{nft.name}</div>
+                                    <div className="font-bold text-white">{nft.name.length>15?nft.name.substring(0, 15)+'...':nft.name}</div>
+                                    <div className="font-bold">Floor Price: {collectionsPrice[nft.address] === undefined ? 0: collectionsPrice[nft.address].bestUserBuyPrice} {addressSymbol[formikData.golbalParams.hex]?.['0x0000000000000000000000000000000000000000'] || "(UNKNOWN)"}</div>
+                                    <div className="font-bold">Top Bid: {collectionsPrice[nft.address] === undefined ? 0: collectionsPrice[nft.address].bestUserSellPrice} {addressSymbol[formikData.golbalParams.hex]?.['0x0000000000000000000000000000000000000000'] || "(UNKNOWN)"}</div>
                                 </div>
                             </button>
                         ))}

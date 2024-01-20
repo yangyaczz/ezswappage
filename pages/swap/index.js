@@ -171,7 +171,7 @@ const Swap = () => {
                 <div className="flex flex-col justify-center items-center">
                     <div className={"w-11/12 max-w-5xl mb-10 join flex justify-center "+ styles.selectButton}>
                         <input
-                            className="join-item btn bg-black hover:bg-black checked:!bg-[#00D5DA] border border-1 border-white hover:border-white !w-[48%]"
+                            className="join-item btn bg-black hover:bg-black checked:!bg-[#00D5DA] checked:!border checked:!border-1 checked:!border-white border border-1 border-white hover:border-white !w-[48%]"
                             type="radio"
                             name="options"
                             value="buy"
@@ -180,7 +180,7 @@ const Swap = () => {
                             onChange={handleInputSwapTypeChange}
                         />
                         <input
-                            className="join-item btn bg-black hover:bg-black checked:!bg-[#00D5DA]  border border-1 border-white hover:border-white !w-[48%]"
+                            className="join-item btn bg-black hover:bg-black checked:!bg-[#00D5DA] checked:!border checked:!border-1 checked:!border-white border border-1 border-white hover:border-white !w-[48%]"
                             type="radio"
                             name="options"
                             value="sell"

@@ -55,7 +55,7 @@ const TokenSearch = ({
     return formikData.tokensName.map((tokenName, index) => (
       <button
         key={index}
-        className="justify-start btn"
+        className="justify-start btn border border-1 border-white hover:border-white "
         onClick={() => handleTokenClick(tokenName)}
       >
         {tokenName}
@@ -90,15 +90,16 @@ const TokenSearch = ({
       </button>
 
       <dialog id="token_search_sell" className="modal">
-        <div className="modal-box">
-          <h3 className="text-lg font-bold">{languageModel.Token}:</h3>
-
+        <div className="modal-box bg-black border border-1 border-white">
+          <h3 className="mb-6 text-lg font-bold flex justify-center">{languageModel.Token}</h3>
+          <div className="border-t-[0.1px] border-white mb-10">
+          </div>
           <form method="dialog" className="flex flex-col space-y-2">
             {displayDialog()}
           </form>
 
           <form method="dialog">
-            <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">
+            <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-5">
               ✕
             </button>
           </form>

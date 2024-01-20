@@ -8,6 +8,8 @@ import ERC1155ABI from "../../pages/data/ABI/ERC1155.json";
 import multiSetFilterPairMode from "./swapUtils/multiSetFilterPairMode";
 import styles from "./index.module.scss";
 import { useLanguage } from "@/contexts/LanguageContext";
+import calculatePoolAllInfo from "../utils/calculatePoolInfo";
+import MaxFiveDecimal from "../utils/roundoff";
 const NFTSearch = ({
     swapType,
     formikData,
@@ -45,6 +47,58 @@ const NFTSearch = ({
         }
     };
 
+    useEffect(() => {
+        let colByPair = [];
+        const fetchPromises = filteredNFTs
+            .map((collection) =>
+                queryPoolsOfEachCollection(
+                    collection.address,
+                    collection.network,
+                    collection.type,
+                    collection.tokenId1155
+                ).then((eachCollectionPools) => {
+                    //if there are pools found, sort the collections by trading pairs and show dynamic data
+                    if (eachCollectionPools?.length > 0) {
+                       console.log('eachCollectionPools', eachCollectionPools)
+                    }
+                })
+            )
+
+        // Wait for all promises to resolve
+        Promise.all(fetchPromises)
+            .then(() => {
+                colByPair.sort((a,b)=>a.order - b.order);
+                // setCollectionsByTradingPair(colByPair);
+                // setIsLoading(() => false);
+            })
+            .catch((error) => {
+                console.error("Error fetching collections:", error);
+                // setIsLoading(() => false);
+            });
+    }, [filteredNFTs]);
+
+    function queryPoolsOfEachCollection(
+        address,
+        network,
+        type,
+        tokenId1155
+    ) {
+        let params = {
+            contractAddress: address,
+            network,
+        };
+        if (type === "ERC1155") params = { ...params, tokenId: tokenId1155 };
+
+        return fetch("/api/proxy", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(params),
+        })
+            .then((response) => response.json())
+            .then((data) => data.data);
+    }
 
     useEffect(() => {
         const fetchSellNFT = async () => {
@@ -367,7 +421,7 @@ const NFTSearch = ({
             </button>
 
             <dialog id="nft_search_sell" className="modal">
-                <div className={"modal-box" + " " + styles.modalSize}>
+                <div className={"modal-box bg-black border border-1 border-white " + " " + styles.modalSize}>
                     {/*    <h3 className="text-lg font-bold">Search Collection:</h3>*/}
                     {/*    <div className='input-group'>*/}
                     {/*        <span>*/}
@@ -382,17 +436,16 @@ const NFTSearch = ({
                     {/*        />*/}
                     {/*    </div>*/}
                     {/*    <div className="divider"></div>*/}
-                    <h3 className="mb-6 text-lg font-bold">{languageModel.recommendCollection}:</h3>
-
-                    <form method="dialog" className="flex flex-wrap justify-center">
+                    <h3 className="mb-6 text-lg font-bold flex justify-center ">{languageModel.recommendCollection}:</h3>
+                    <div className="border-t-[0.1px] border-white mb-10">
+                    </div>
+                    <form method="dialog" className="flex flex-col">
                         {filteredNFTs.map((nft, index) => (
-                            <button key={index} onClick={() => handleNFTClick(nft)}>
+                            <button className="border rounded-lg mb-5" key={index} onClick={() => handleNFTClick(nft)}>
                                 {/*<div className={"mr-5" + " " + "mb-5" + " " + styles.buttonCenter}>*/}
-                                <div
-                                    className={
-                                        "mr-5 mb-5 flex flex-col items-center justify-center cursor-pointer"
-                                    }
-                                >
+                                <div className={
+                                        " ml-4 mb-3 mt-3 flex justify-start items-center cursor-pointer"
+                                    }>
                                     <div className="relative">
                                         {nft.name === formikData.collection.name && (
                                             <img
@@ -401,9 +454,9 @@ const NFTSearch = ({
                                                 alt=""
                                             />
                                         )}
-                                        <img className="w-[7rem] mb-2" src={nft.img} alt="" />
+                                        <img className="w-[4rem]" src={nft.img} alt="" />
                                     </div>
-                                    <div>{nft.name}</div>
+                                    <div className="font-bold ml-5">{nft.name}</div>
                                 </div>
                             </button>
                         ))}

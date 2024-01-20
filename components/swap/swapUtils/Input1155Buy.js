@@ -171,7 +171,7 @@ function Input1155Buy({ formikData, setSelectIds, setTupleEncode, setTotalGet, s
                         type="text"
                         value={value}
                         onChange={handleChange}
-                        className={"w-20 text-center input input-bordered " + styles.inputContent}
+                        className={"w-20 text-center input input-bordered bg-black " + styles.inputContent}
                     />
                     <button
                         onClick={handleIncrement}

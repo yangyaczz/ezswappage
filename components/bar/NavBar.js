@@ -413,13 +413,13 @@ const NavBar = () => {
           >
             {languageModel.mint}
           </a>
-          <a
+          <Link
             className={styles.headerBtn + " " + styles.launchpad}
             href='/airdropclaim'
             target="_self"
           >
             Airdrop Season 2
-          </a>
+          </Link>
 
           {/*airdrop 上线后打开*/}
 

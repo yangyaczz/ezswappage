@@ -286,15 +286,15 @@ const NavBar = () => {
         {/*</div>*/}
         {/* Claim Button For Mobile */}
         {/*// href="/airdropclaim"*/}
-        <Link
-          className={`${styles.launchpad} ${styles.airdropBtn} ${styles.claimAirdropBG} self-end my-3 `}
-          // target="_self"
-          href="/airdropclaim"
-          // onClick={()=>setToggleHamburger(false)}
-          // onClick={() => goClaim()}
-        >
-          {languageModel.Airdrop}
-        </Link>
+        {/*<Link*/}
+        {/*  className={`${styles.launchpad} ${styles.airdropBtn} ${styles.claimAirdropBG} self-end my-3 `}*/}
+        {/*  // target="_self"*/}
+        {/*  href="/airdropclaim"*/}
+        {/*  // onClick={()=>setToggleHamburger(false)}*/}
+        {/*  // onClick={() => goClaim()}*/}
+        {/*>*/}
+        {/*  {languageModel.Airdrop}*/}
+        {/*</Link>*/}
 
         {/*{addressInfo.dcUserId === undefined ||*/}
         {/*addressInfo.dcUserId === null ||*/}
@@ -407,20 +407,20 @@ const NavBar = () => {
           {/*airdrop 上线后打开*/}
 
           {/* Claim Button for web */}
-          { <Link
-            className={
-              styles.launchpad +
-              " " +
-              styles.airdropBtn +
-              " " +
-              styles.claimAirdropBG
-            }
-            href="/airdropclaim"
-            // onClick={() => goClaim()}
-            // target="_self"
-          >
-            {languageModel.Airdrop}
-          </Link> }
+          {/*{ <Link*/}
+          {/*  className={*/}
+          {/*    styles.launchpad +*/}
+          {/*    " " +*/}
+          {/*    styles.airdropBtn +*/}
+          {/*    " " +*/}
+          {/*    styles.claimAirdropBG*/}
+          {/*  }*/}
+          {/*  href="/airdropclaim"*/}
+          {/*  // onClick={() => goClaim()}*/}
+          {/*  // target="_self"*/}
+          {/*>*/}
+          {/*  {languageModel.Airdrop}*/}
+          {/*</Link> }*/}
           {/*Airdrop*/}
           {/*{addressInfo.dcUserId === undefined ||*/}
           {/*addressInfo.dcUserId === null ||*/}

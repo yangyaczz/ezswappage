@@ -111,28 +111,29 @@ const InputAmount = ({
     <div className="form-control">
       <button
         disabled={!formikData.collection.type}
-        className={"btn justify-between w-[240px] md:w-[300px]" + " " + styles.buttonDisabled}
+        className={"btn justify-between w-[240px] md:w-[300px] disabled:border disabled:border-1 border border-1 border-white hover:border-white " + " " + styles.buttonDisabled}
         onClick={() => document.getElementById("input_sell").showModal()}
       >
         <div className="flex text-sm items-center justify-start space-x-2">
           {displayFrame()}
-          <svg
-            width="12"
-            height="7"
-            viewBox="0 0 12 7"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path>
-          </svg>
+          {/*<svg*/}
+          {/*  width="12"*/}
+          {/*  height="7"*/}
+          {/*  viewBox="0 0 12 7"*/}
+          {/*  fill="none"*/}
+          {/*  xmlns="http://www.w3.org/2000/svg"*/}
+          {/*>*/}
+          {/*  <path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path>*/}
+          {/*</svg>*/}
         </div>
         <div className="justify-end">{formikData.selectIds.length}</div>
       </button>
 
       <dialog id="input_sell" className="modal">
-        <div className="modal-box">
-          <h3 className="mb-6 text-lg font-bold">{languageModel.Item}:</h3>
-
+        <div className="modal-box bg-black border border-1 border-white">
+          <h3 className="mb-6 text-lg font-bold flex justify-center">{languageModel.Item}</h3>
+          <div className="border-t-[0.1px] border-white mb-10">
+          </div>
           {swapType === "buy" ? displayBuyDialog() : displaySellDialog()}
 
           <div>{formikData.isExceeded && languageModel.InsufficientBalance}</div>
@@ -151,7 +152,7 @@ const InputAmount = ({
           {/*</div>*/}
 
           <form method="dialog">
-            <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">
+            <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-5">
               ✕
             </button>
           </form>

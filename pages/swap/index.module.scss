@@ -1,9 +1,9 @@
 .divBackground{
   background: black;
-  background-image:linear-gradient(rgba(46, 209, 216, 0.2) 1px, transparent 1px),
-  linear-gradient(to right, rgba(46, 209, 216, 0.2) 1px, rgba(46, 209, 216, 0.1)1px);
-  background-size: 18px 18px;
-  z-index:9;
+  //background-image:linear-gradient(rgba(46, 209, 216, 0.2) 1px, transparent 1px),
+  //linear-gradient(to right, rgba(46, 209, 216, 0.2) 1px, rgba(46, 209, 216, 0.1)1px);
+  //background-size: 18px 18px;
+  //z-index:9;
 }
 .containDiv{
   display: flex;
@@ -20,4 +20,194 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.selectButton{
+  padding: var(--padding-card, 2rem);
+}
+
+
+.leftLine1 {
+  position: absolute;
+  display: block;
+  left: 25%;
+  top: 18rem;
+  width: 1px;
+  height: 17.4rem;
+  background: #2ed1d8;
+}
+.leftRightLine1 {
+  position: absolute;
+  display: block;
+  left: 27%;
+  top: 0;
+  width: 1px;
+  height: 16rem;
+  background: #2ed1d8;
+}
+
+.leftRightLine2 {
+  position: absolute;
+  display: block;
+  left: 27%;
+  top: 33rem;
+  width: 1px;
+  height: 16rem;
+  background: #2ed1d8;
+}
+
+.rightLine2 {
+  position: absolute;
+  display: block;
+  right: 0.6rem;
+  top: 0;
+  width: 1px;
+  height: 11rem;
+  background: #2ed1d8;
+}
+.rightBias1 {
+  position: absolute;
+  display: block;
+  right: -0.3rem;
+  top: 10rem;
+  width: 1.1rem;
+  height: 1px;
+  background: #2ed1d8;
+  transform: rotate(45deg);
+}
+.leftDot1 {
+  position: absolute;
+  display: block;
+  left: 26%;
+  top: 33.9rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  background: #2ed1d8;
+  border-radius: 50%;
+}
+.leftTopDot1 {
+  position: absolute;
+  display: block;
+  left: 26%;
+  top: 11.9rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  background: #2ed1d8;
+  border-radius: 50%;
+}
+.leftTopBias1 {
+  position: absolute;
+  display: block;
+  left: 25%;
+  top: 10.9rem;
+  width: 2%;
+  height: 1px;
+  background: #2ed1d8;
+  transform: rotate(-45deg);
+  opacity: 0.6;
+}
+.leftTopBias2 {
+  position: absolute;
+  display: block;
+  left: 25%;
+  top: 12.9rem;
+  width: 2%;
+  height: 1px;
+  background: #2ed1d8;
+  transform: rotate(-45deg);
+}
+.leftBias1 {
+  position: absolute;
+  display: block;
+  left: 25%;
+  top: 32.9rem;
+  width: 2%;
+  height: 1px;
+  background: #2ed1d8;
+  transform: rotate(45deg);
+  opacity: 0.6;
+}
+.leftBias2 {
+  position: absolute;
+  display: block;
+  left: 25%;
+  top: 34.9rem;
+  width: 2%;
+  height: 1px;
+  background: #2ed1d8;
+  transform: rotate(45deg);
+}
+.rightLine3 {
+  position: absolute;
+  display: block;
+  right: 0.6rem;
+  top: 17rem;
+  width: 1px;
+  height: calc(100vh - 21rem);
+  background: #2ed1d8;
+}
+.leftLine2 {
+  position: absolute;
+  display: block;
+  left: 0.5rem;
+  top: 22rem;
+  width: 1px;
+  height: 12rem;
+  background: #2ed1d8;
+}
+.leftText {
+  position: absolute;
+  display: block;
+  left: 0.3rem;
+  top: 16rem;
+  height: 6rem;
+  writing-mode: vertical-lr;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 9px;
+  line-height: 11px;
+  color: #00d5da;
+  text-align: center;
+}
+.rightText {
+  position: absolute;
+  display: block;
+  right: 0;
+  top: 11.6rem;
+  width: 1rem;
+  height: 6rem;
+  writing-mode: vertical-lr;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 9px;
+  line-height: 11px;
+  color: #00d5da;
+}
+.leftBox1  {
+  position: absolute;
+  display: block;
+  left: 1.2rem;
+  top: 0;
+  width: 1.2rem;
+  height: 24rem;
+  background: #2ed1d8;
+  transition: all 0.5s;
+  &::after {
+    content: " ";
+    position: absolute;
+    bottom: -1.2rem;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-right: 1.21rem solid #2ed1d8;
+    border-top: 1.21rem solid transparent;
+    border-bottom: 1.21rem solid transparent;
+  }
+}
+.rightBox1 {
+  left: unset;
+  right: 0;
+  height: 6rem;
 }

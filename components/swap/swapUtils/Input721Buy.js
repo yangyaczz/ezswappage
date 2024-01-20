@@ -148,7 +148,7 @@ const Input721Buy = ({
   }, [formikData.filterPairs]);
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap justify-center">
       {Object.keys(idPriceMap)
         .sort((a, b) => {
           const aSelected = formikData.selectIds.includes(a);
@@ -188,9 +188,9 @@ const Input721Buy = ({
                 <img className="w-6 absolute" src="/yes.svg" alt="" />
               )}
               <img className="w-20" src={formikData.collection.img} alt="" />
-              <div>#{square}</div>
+              <div className="font-bold">#{square}</div>
             </div>
-            <div className="flex items-center content-center mt-1">
+            <div className="flex items-center content-center mt-1 font-bold">
               <span>{idPriceMap[square].toFixed(5)}</span>&nbsp;{addressSymbol[formikData.golbalParams.hex]["0x0000000000000000000000000000000000000000"]}
             </div>
           </div>

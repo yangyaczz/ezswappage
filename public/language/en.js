@@ -53,9 +53,9 @@ export default {
   allSold: 'If all NFTs you deposit into your pool are sold, you will receive',
   Confirm: 'Confirm',
 
-  Item:'Item',
+  Item:'Items',
   Amount:"Amount",
-  YouwanttobuyNftAmount:'Buy nft amount',
+  YouwanttobuyNftAmount:'Buy NFT Amount',
   InsufficientBalance:"Insufficient Balance",
   SelectACollection: 'Select A Collection',
   SelectAnNFT: 'Select an NFT',

@@ -19,26 +19,33 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
   const MAX_SIZE_ALLOWED = 10000;
   const {
     selectedNFTs,
+    selected1155NFTAmount,
+    tokenId1155,
     selectNFTs,
     constant_ladder,
     percent_linear,
     ladderValue,
     setNFTListviewPrices,
     currencyImage,
+    NFTList,
   } = useCollection();
-  const radioRef = useRef(selectedNFTs.length);
+  const radioRef = useRef(
+    tokenId1155 ? selected1155NFTAmount : selectedNFTs.length
+  );
   const [listingPrice, setListingPrice] = useState(0);
   const [avgPrice, setAvgPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
   //change the value of radio bar whenever selected nfts changed
   useEffect(() => {
-    radioRef.current.value = selectedNFTs.length;
-  }, [selectedNFTs]);
+    radioRef.current.value = tokenId1155
+      ? selected1155NFTAmount
+      : selectedNFTs.length;
+  }, [selectedNFTs, selected1155NFTAmount, tokenId1155]);
 
   //put on and take away checkbox when the entire div of a NFT is clicked
-  function handleNFTClicked(tokenId) {
-    selectNFTs(tokenId);
+  function handleNFTClicked(tokenId, _index) {
+    selectNFTs(tokenId, _index);
   }
 
   useEffect(() => {
@@ -47,34 +54,28 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
         avgPrice = 0,
         priceList = [];
 
+      let NFTAmount = tokenId1155 ? selected1155NFTAmount : selectedNFTs.length;
+
       if (constant_ladder === "CONSTANT") {
         ({ totalPrice: totalListPrice, priceList } = constantPrice(
           listingPrice,
-          selectedNFTs.length
+          NFTAmount
         ));
       } else if (constant_ladder === "LADDER") {
         if (percent_linear === "PERCENT") {
           ({ totalPrice: totalListPrice, priceList } =
-            selectedNFTs.length <= MAX_SIZE_ALLOWED
-              ? ladderPercentagePrice(
-                  listingPrice,
-                  selectedNFTs.length,
-                  ladderValue
-                )
+            NFTAmount <= MAX_SIZE_ALLOWED
+              ? ladderPercentagePrice(listingPrice, NFTAmount, ladderValue)
               : { totalListPrice, priceList });
         } else if (percent_linear === "LINEAR") {
           ({ totalPrice: totalListPrice, priceList } =
-            selectedNFTs.length <= MAX_SIZE_ALLOWED
-              ? ladderLinearPrice(
-                  listingPrice,
-                  selectedNFTs.length,
-                  ladderValue
-                )
+            NFTAmount <= MAX_SIZE_ALLOWED
+              ? ladderLinearPrice(listingPrice, NFTAmount, ladderValue)
               : { totalListPrice, priceList });
         }
       }
       totalListPrice = !totalListPrice ? 0 : totalListPrice;
-      avgPrice = parseFloat(totalListPrice) / selectedNFTs.length;
+      avgPrice = parseFloat(totalListPrice) / NFTAmount;
       avgPrice = !avgPrice ? 0 : avgPrice;
       setTotalPrice(
         parseFloat(totalListPrice).toFixed(MaxFiveDecimal(totalListPrice))
@@ -87,6 +88,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
   }, [
     listingPrice,
     selectedNFTs.length,
+    selected1155NFTAmount,
     constant_ladder,
     percent_linear,
     ladderValue,
@@ -167,8 +169,11 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
             </p>
           </div>
           <button
-            className="btn ezBtn ezBtnPrimary btn-sm w-36"
+            className={`btn ezBtn ezBtnPrimary btn-sm w-36  ${
+              NFTList && NFTList.length > 0 ? "" : "!bg-zinc-500"
+            }`}
             onClick={handleApproveClick}
+            disabled={NFTList.length > 0 ? false : true}
           >
             Confirm
           </button>

@@ -1,7 +1,13 @@
 import { useCollection } from "@/contexts/CollectionContext";
 
 const NFTsSelectedRange = ({ radioRef, styleClass }) => {
-  const { selectedNFTs, NFTList, changeRangeValue } = useCollection();
+  const {
+    tokenId1155,
+    selected1155NFTAmount,
+    selectedNFTs,
+    NFTList,
+    changeRangeValue,
+  } = useCollection();
 
   //increase or decrease NFTs checkbox when the radio bar in being dragged
   function handleRangeChange(e) {
@@ -20,7 +26,7 @@ const NFTsSelectedRange = ({ radioRef, styleClass }) => {
         className="range range-primary range-xs"
       />
       <p className="text-lg text-center border-l-2 w-11 sm:text-xl lg:text-2xl border-l-solid">
-        {selectedNFTs.length}
+        {tokenId1155 ? selected1155NFTAmount : selectedNFTs.length}
       </p>
     </div>
   );

@@ -38,7 +38,6 @@ const CollectionContainer = ({ collection }) => {
         nftCount = 0,
         TVL = 0,
         volume = 0;
-
       for (let pool of pools) {
         /*
           only need pools that deal with ETH right now. other pools are test data.

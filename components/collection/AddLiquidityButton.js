@@ -12,12 +12,10 @@ const AddLiquidityButton = ({
   img,
   currencyImage,
   contractAddress,
-  collectionType,
   chainId,
-  type,
   tokenId1155,
   floorPrice,
-  topBid
+  topBid,
 }) => {
   const { openPopup } = useCollection();
   const { languageModel } = useLanguage();
@@ -29,7 +27,9 @@ const AddLiquidityButton = ({
     collectionImageUrl: null,
     floorPrice: null,
     topBid: null,
+    collectionAddr:null,
     NFTs: [],
+    tokenId1155:null
   };
 
   function handleAddLiquidityClick() {
@@ -50,6 +50,8 @@ const AddLiquidityButton = ({
       floorPrice: floorPrice,
       topBid,
       currencyImage,
+      collectionAddr:contractAddress,
+      tokenId1155
     };
     openPopup("ADD_LIQUIDITY", colInfo);
 

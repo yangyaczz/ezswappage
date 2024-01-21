@@ -138,7 +138,7 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
         </section>
         <button
           id="place_bid_confirm_button"
-          className="w-32 ezBtn ezBtnPrimary btn-md"
+          className={`w-32 ezBtn ezBtnPrimary btn-md`}
           onClick={handleApproveClick}
         >
           Confirm Bid

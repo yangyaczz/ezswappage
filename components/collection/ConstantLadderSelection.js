@@ -15,9 +15,9 @@ const ConstantLadderSelection = ({ popupType, styleClass }) => {
   return (
     <div className={`${styleClass}`}>
       <p className="text-sm font-bold sm:text-lg">Set to:</p>
-      <div className="flex items-start justify-start h-full gap-x-2 md:gap-x-6">
+      <div className="flex items-start justify-between h-full gap-x-2">
         <button
-          className={`ezBtn btn-sm w-36
+          className={`ezBtn btn-sm w-1/2 max-w-[160px]
           ${
             constant_ladder === "CONSTANT"
               ? "ezBtnPrimary"
@@ -29,7 +29,7 @@ const ConstantLadderSelection = ({ popupType, styleClass }) => {
           Constant
         </button>
         <button
-          className={`ezBtn btn-sm w-36
+          className={`ezBtn btn-sm w-1/2 max-w-[160px]
           ${
             constant_ladder === "LADDER"
               ? "ezBtnPrimary"

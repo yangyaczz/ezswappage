@@ -21,6 +21,7 @@ html {
   height: 100vh;
   width: 100%;
   font-family: "Montserrat-Variable", sans-serif;
+  background: black !important;
 }
 
 body {

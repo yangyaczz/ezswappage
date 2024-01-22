@@ -64,7 +64,7 @@ function reducer(state, action) {
     case "collection/setNFTList":
       return { ...state, NFTList: action.payload };
     case "collection/closePopup":
-      return { ...state, popupOpen: false, NFTList: [], selectedNFTs: [] };
+      return { ...state, ...initialState };
     default:
       throw new Error("Collection action type not valid");
   }
@@ -182,14 +182,15 @@ function CollectionProvider({ children }) {
 
   //increase or decrease NFTs checkbox when the radio bar in being dragged
   async function changeRangeValue(numOfNFTByRange) {
-
-    if (tokenId1155) {//1155 token logic
+    if (tokenId1155) {
+      //1155 token logic
       if (numOfNFTByRange === selected1155NFTAmount) return;
       dispatch({
         type: "collection/select1155NFTs",
         payload: numOfNFTByRange,
       });
-    } else { //721 token logic
+    } else {
+      //721 token logic
       if (selectedNFTs.length === numOfNFTByRange) return;
       //when the user drags the range bar to increase the number (by 1) of NFTs, we are going to add the first "unchecked" NFTs in NFTList array to the selectedNFTs array
       if (selectedNFTs.length < numOfNFTByRange)

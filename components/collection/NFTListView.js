@@ -113,7 +113,7 @@ const NFTListView = ({ handleNFTClicked, styleClass }) => {
           </div>
         ))
       ) : (
-        <label className="col-span-2 place-self-center">No NFT</label>
+        <label className=" col-span-full place-self-center">No NFT</label>
       )}
     </section>
   );

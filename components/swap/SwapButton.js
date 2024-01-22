@@ -233,22 +233,22 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount }) => {
       text = languageModel.SelectACollection;
       return (
         <div>
-          <div className={"btn " + styles.buttonStyle}>{text}</div>
+          <div className={"btn md:w-[300px] w-[240px] " + styles.buttonStyle}>{text}</div>
         </div>
       );
     }
     if (!formikData.selectIds.length > 0) {
       text = languageModel.SelectAnNFT;
-      return <div className={"btn " + styles.buttonStyle}>{text}</div>;
+      return <div className={"btn md:w-[300px] w-[240px] " + styles.buttonStyle}>{text}</div>;
     }
     if (formikData.isExceeded) {
-      return <div className={"btn " + styles.buttonStyle}>{languageModel.InsufficientBalance}</div>;
+      return <div className={"btn md:w-[300px] w-[240px] " + styles.buttonStyle}>{languageModel.InsufficientBalance}</div>;
     }
 
     if (swapType === "sell" && !nftApproval) {
       text = "Approve";
       return (
-        <button className={"btn " + styles.buttonStyle} onClick={() => doApprove()}>
+        <button className={"btn md:w-[300px] w-[240px] " + styles.buttonStyle} onClick={() => doApprove()}>
           {approveLoading || waitApproveLoading ? (
             <span class="loading loading-spinner loading-sm"></span>
           ) : (
@@ -268,7 +268,7 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount }) => {
       //     </>
       // )
       return (
-          <button className={"btn " + styles.buttonStyle} onClick={() => swapNFTToToken()}>
+          <button className={"btn md:w-[300px] w-[240px] " + styles.buttonStyle} onClick={() => swapNFTToToken()}>
             {isLoading || waitTrxLoading ? (
               <span class="loading loading-spinner loading-sm"></span>
             ) : (
@@ -286,7 +286,7 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount }) => {
       //     </>
       // )
       return (
-          <button className={"btn " + styles.buttonStyle} onClick={() => swapETHToNFT()}>
+          <button className={"btn md:w-[300px] w-[240px] " + styles.buttonStyle} onClick={() => swapETHToNFT()}>
             {swapETHToNFTIsLoading || waitTrxLoading ? (
               <span class="loading loading-spinner loading-sm"></span>
             ) : (

@@ -192,7 +192,7 @@ const NavBar = () => {
   const HamburgerNavBar = () => (
     <div className="relative flex items-center justify-between w-full h-full px-4 py-2 m-auto sm:hidden">
       <Link href={mainPageJumpUrl}>
-        <Image src="/logo.svg" alt="EZswap" width={135} height={38} />
+        <Image src="/1500X500WhiteHalfHorizontal.svg" alt="EZswap" width={135} height={38} />
       </Link>
       <button
         onClick={() => {
@@ -384,7 +384,7 @@ const NavBar = () => {
       <div className={`${styles.headerBox} hidden sm:flex`}>
         <div className={styles.ezLogo}>
           <Link href={mainPageJumpUrl}>
-            <img src="/logo.svg" alt="EZswap" />
+            <img src="/1500X500WhiteHalfHorizontal.svg" alt="EZswap" />
           </Link>
         </div>
 

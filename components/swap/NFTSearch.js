@@ -8,6 +8,9 @@ import ERC1155ABI from "../../pages/data/ABI/ERC1155.json";
 import multiSetFilterPairMode from "./swapUtils/multiSetFilterPairMode";
 import styles from "./index.module.scss";
 import { useLanguage } from "@/contexts/LanguageContext";
+import calculatePoolAllInfo from "../utils/calculatePoolInfo";
+import {MaxFiveDecimal, MaxThreeDecimal} from "../utils/roundoff";
+import addressSymbol from "@/pages/data/address_symbol";
 const NFTSearch = ({
     swapType,
     formikData,
@@ -26,6 +29,7 @@ const NFTSearch = ({
     const [searchQuery, setSearchQuery] = useState("");
     const apiSell = ['mantatest', 'manta', 'ethmain', 'arbmain']
     const { languageModel } = useLanguage();
+    const [collectionsPrice, setCollectionsPrice] = useState([]);
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value.toLowerCase());
     };
@@ -45,6 +49,72 @@ const NFTSearch = ({
         }
     };
 
+    useEffect(() => {
+        let colByPair = {};
+        console.log('formikData', formikData)
+        // console.log('filteredNFTs', filteredNFTs)
+        const fetchPromises = filteredNFTs
+            .map((collection) =>
+                queryPoolsOfEachCollection(
+                    collection.address,
+                    formikData.golbalParams.networkName,
+                    collection.type,
+                    collection.tokenId1155
+                ).then((eachCollectionPools) => {
+                    //if there are pools found, sort the collections by trading pairs and show dynamic data
+                    if (eachCollectionPools?.length > 0) {
+                        let {bestUserBuyPrice, bestUserSellPrice, nftCount, TVL, volume} = calculatePoolAllInfo(eachCollectionPools, collection.address)
+                        //just to format the prices to  2 decimals. But no decimal if equals to 0.
+                        //prettier-ignore
+                        bestUserBuyPrice = bestUserBuyPrice?.toFixed(MaxFiveDecimal(bestUserBuyPrice));
+                        //prettier-ignore
+                        bestUserSellPrice = bestUserSellPrice?.toFixed(MaxFiveDecimal(bestUserSellPrice));
+                        var poolsInfo = {
+                            bestUserBuyPrice,
+                            bestUserSellPrice,
+                            contractAddress: collection.address
+                        }
+                        console.log('poolsInfo', poolsInfo)
+                        colByPair[collection.address] =poolsInfo
+                    }
+                })
+            )
+
+        // Wait for all promises to resolve
+        Promise.all(fetchPromises)
+            .then(() => {
+                // console.log('colByPaircolByPair', colByPair)
+                setCollectionsPrice(colByPair);
+                // setIsLoading(() => false);
+            })
+            .catch((error) => {
+                console.error("Error fetching collections:", error);
+                // setIsLoading(() => false);
+            });
+    }, [formikData.golbalParams.networkName]);
+
+    function queryPoolsOfEachCollection(
+        address,
+        network,
+        type,
+        tokenId1155
+    ) {
+        let params = {
+            contractAddress: address,
+            network,
+        };
+        if (type === "ERC1155") params = { ...params, tokenId: tokenId1155 };
+
+        return fetch("/api/proxy", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(params),
+        })
+            .then((response) => response.json())
+            .then((data) => data.data);
+    }
 
     useEffect(() => {
         const fetchSellNFT = async () => {
@@ -358,26 +428,16 @@ const NFTSearch = ({
 
     return (
         <div className="form-control ">
-            <button
-                className="justify-start mb-2 text-sm text-white btn md:w-[300px] w-[240px]"
-                onClick={() => document.getElementById("nft_search_sell").showModal()}
-            >
-                {formikData.collection.name
-                    ? formikData.collection.name
-                    : languageModel.selectCollection}
-                <svg
-                    width="12"
-                    height="7"
-                    viewBox="0 0 12 7"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
+            <button className="justify-between mb-2 text-sm text-white btn md:w-[300px] w-[240px] border border-1 border-white hover:border-white"
+                onClick={() => document.getElementById("nft_search_sell").showModal()}>
+                {formikData.collection.name ? formikData.collection.name : languageModel.selectCollection}
+                <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0.97168 1L6.20532 6L11.439 1" stroke="#AEAEAE"></path>
                 </svg>
             </button>
 
             <dialog id="nft_search_sell" className="modal">
-                <div className={"modal-box" + " " + styles.modalSize}>
+                <div className={"modal-box bg-black border border-1 border-white " + " " + styles.modalSize}>
                     {/*    <h3 className="text-lg font-bold">Search Collection:</h3>*/}
                     {/*    <div className='input-group'>*/}
                     {/*        <span>*/}
@@ -392,28 +452,23 @@ const NFTSearch = ({
                     {/*        />*/}
                     {/*    </div>*/}
                     {/*    <div className="divider"></div>*/}
-                    <h3 className="mb-6 text-lg font-bold">{languageModel.recommendCollection}:</h3>
-
-                    <form method="dialog" className="flex flex-wrap justify-center">
+                    <h3 className="mb-6 text-lg font-bold flex justify-center ">{languageModel.recommendCollection}:</h3>
+                    <div className="border-t-[0.1px] border-white mb-10">
+                    </div>
+                    <form method="dialog" className="flex flex-col">
                         {filteredNFTs.map((nft, index) => (
-                            <button key={index} onClick={() => handleNFTClick(nft)}>
+                            <button className="border rounded-lg mb-5" key={index} onClick={() => handleNFTClick(nft)}>
                                 {/*<div className={"mr-5" + " " + "mb-5" + " " + styles.buttonCenter}>*/}
-                                <div
-                                    className={
-                                        "mr-5 mb-5 flex flex-col items-center justify-center cursor-pointer"
-                                    }
-                                >
+                                <div className={"ml-4 mb-3 mt-3 cursor-pointer grid grid-cols-1 gap-2 place-items-start sm:grid-cols-2 sm:grid-rows-2 md:gap-4 lg:grid-cols-[1fr,3fr,3fr,3fr] lg:grid-rows-1 gap-x-4 whitespace-nowrap items-center"}>
                                     <div className="relative">
                                         {nft.name === formikData.collection.name && (
-                                            <img
-                                                className="absolute w-6 -left-2 -top-2"
-                                                src="/yes.svg"
-                                                alt=""
-                                            />
+                                            <img className="absolute w-6 -left-2 -top-2" src="/yes.svg" alt=""/>
                                         )}
-                                        <img className="w-[7rem] mb-2" src={nft.img} alt="" />
+                                        <img className="min-w-[4rem] lg:min-w-[4rem] max-[800px]:w-[4rem] h-[4rem]" src={nft.img} alt="" />
                                     </div>
-                                    <div>{nft.name}</div>
+                                    <div className="font-bold text-white">{nft.name.length>15?nft.name.substring(0, 15)+'...':nft.name}</div>
+                                    <div className="font-bold">Floor Price: {collectionsPrice[nft.address] === undefined ? 0: collectionsPrice[nft.address].bestUserBuyPrice} {addressSymbol[formikData.golbalParams.hex]?.['0x0000000000000000000000000000000000000000'] || "(UNKNOWN)"}</div>
+                                    <div className="font-bold">Top Bid: {collectionsPrice[nft.address] === undefined ? 0: collectionsPrice[nft.address].bestUserSellPrice} {addressSymbol[formikData.golbalParams.hex]?.['0x0000000000000000000000000000000000000000'] || "(UNKNOWN)"}</div>
                                 </div>
                             </button>
                         ))}

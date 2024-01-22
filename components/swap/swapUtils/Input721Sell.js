@@ -175,7 +175,7 @@ const Input721Sell = ({
   }
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap justify-center">
       {initialSquares.map((square, index) => (
         <div
           key={index}
@@ -208,7 +208,7 @@ const Input721Sell = ({
             <img className="absolute w-6" src="/yes.svg" alt="" />
           )}
           <img className="w-20" src={formikData.collection.img} alt="" />
-          <div>#{square}</div>
+          <div className="font-bold">#{square}</div>
         </div>
       ))}
     </div>

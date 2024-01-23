@@ -215,7 +215,8 @@ const AirdropClaim = () => {
 
   function showCarousel(slide) {
     console.log('slide', slide)
-      setShowSlide(slide)
+      // setShowSlide(slide)
+      window.open('#'+slide, '_self')
   }
 
 

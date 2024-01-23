@@ -14,7 +14,7 @@ const PopupHeader = ({ handlePriceClick = () => {}, styleClass = null }) => {
   return (
     <section
       id="place_bid_header"
-      className={`grid grid-cols-[1fr,3fr] gap-2 ${styleClass}`}
+      className={`grid grid-cols-[1fr,3fr] gap-2 rounded-md ${styleClass}`}
     >
       <Image
         src={collectionImageUrl}
@@ -27,7 +27,7 @@ const PopupHeader = ({ handlePriceClick = () => {}, styleClass = null }) => {
         <label className="text-xl font-bold truncate align-center gap-x-1">
           {collectionName}
         </label>
-        <div className="flex items-center justify-between text-sm leading-3 text-zinc-400">
+        <div className="flex items-center justify-between text-sm leading-3 text-zinc-400 font-bold">
           <p>Floor Price:</p>
           <p
             onClick={() => handlePriceClick(floorPrice)}
@@ -43,7 +43,7 @@ const PopupHeader = ({ handlePriceClick = () => {}, styleClass = null }) => {
             />
           </p>
         </div>
-        <div className="flex items-center justify-between text-sm leading-3 text-zinc-400">
+        <div className="flex items-center justify-between text-sm leading-3 text-zinc-400 font-bold">
           <p>Top Bid:</p>
           <p
             onClick={() => handlePriceClick(topBid)}

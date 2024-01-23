@@ -51,8 +51,7 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
         />
         <section
           id="place_bid_bidprice"
-          className="flex justify-between border-2 border-white border-solid w-5/6 max-w-[400px] items-center px-4 py-2 "
-        >
+          className="flex justify-between border-2 border-white border-solid w-5/6 max-w-[400px] items-center px-4 py-2  rounded-md">
           <p className="text-sm font-bold sm:text-lg">Bid Price:</p>
           <div className="relative flex items-center justify-center">
             <input
@@ -73,8 +72,7 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
         </section>
         <section
           id="place_bid_size"
-          className="flex justify-between border-2 border-white border-solid w-5/6 max-w-[400px] items-center px-4 py-2"
-        >
+          className="flex justify-between border-2 border-white border-solid w-5/6 max-w-[400px] items-center px-4 py-2  rounded-md">
           <p className="text-sm font-bold sm:text-lg">Size:</p>
           <div className="relative flex">
             <button
@@ -118,7 +116,7 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
         <ConstantLadderSelection
           id="place_bid_constantladder"
           popupType="placebids"
-          styleClass="grid grid-cols-1 grid-rows-auto self-start gap-2 px-4 py-2 border-2 border-white border-solid w-5/6 max-w-[400px]"
+          styleClass="grid grid-cols-1 grid-rows-auto self-start gap-2 px-4 py-2 border-2 border-white border-solid w-5/6 max-w-[400px]  rounded-md"
         />
         <section
           id="place_bid_totalbids"

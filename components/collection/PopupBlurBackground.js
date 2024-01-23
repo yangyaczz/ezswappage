@@ -12,7 +12,7 @@ const PopupBlurBackground = ({ children }) => {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="fixed top-[50%] left-[50%] translate-y-[-41%] translate-x-[-50%] w-11/12 h-4/5 min-h-[480px] max-h-[850px] sm:w-3/4 max-w-[1052px] bg-black border-2 border-double border-zinc-300 flex justify-center items-center px-4 py-4 md:px-8 lg:px-16 lg:py-8 xl:px-20 xl:py-8 overflow-auto"
+        className="fixed top-[50%] left-[50%] translate-y-[-41%] translate-x-[-50%] w-11/12 h-4/5 min-h-[480px] max-h-[850px] sm:w-3/4 max-w-[1052px] bg-black border-2 border-double border-zinc-300 flex justify-center items-center px-4 py-4 md:px-8 lg:px-16 lg:py-8 xl:px-20 xl:py-8 overflow-auto  rounded-md"
       >
         {children}
       </div>

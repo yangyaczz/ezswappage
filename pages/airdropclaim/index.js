@@ -17,6 +17,7 @@ import calculateTimeLeft from "@/components/utils/calculateTimeLeft";
 import useAlert from "@/components/alert/useAlert";
 import Alert from "@/components/alert/Alert";
 import BackButton from "@/components/airdropclaim/BackButton";
+import Router from "next/router";
 
 const AirdropClaim = () => {
   const cStatus = {
@@ -54,6 +55,7 @@ const AirdropClaim = () => {
   );
   const [tokenToClaim, setTokenToClaim] = useState(0);
   const [userSignature, setUserSignature] = useState(null);
+  const [showSlide, setShowSlide] = useState("slide1");
   const { languageModel } = useLanguage();
   const { setAlertMsg, showAlert, alertText } = useAlert();
   const { address: owner } = useAccount();
@@ -199,99 +201,152 @@ const AirdropClaim = () => {
   //   else claimEZToken();
   // }
 
+  function jumpPage(jumpTo) {
+    if (jumpTo === 1){
+      Router.push({
+        pathname: "/swap",
+      });
+    }else{
+      Router.push({
+        pathname: "/collection",
+      });
+    }
+  }
+
+  function showCarousel(slide) {
+    console.log('slide', slide)
+      setShowSlide(slide)
+  }
+
+
+
+
   return (
-    <div className={"w-full text-[#00D5DA] " + styles.divBackground}>
-      <div className="grid w-5/6 h-full grid-cols-1 grid-rows-[2fr,3fr,9fr] sm:grid-rows-[2fr,3fr,15fr] m-auto">
-        <BackButton />
-        <section
-          id="header"
-          className="flex items-center justify-center sm:justify-between  border-b-[1px] border-[#00D5DA] flex-wrap md:flex-nowrap"
-        >
-          <div className="flex flex-row items-center justify-start gap-3">
-            <img src="/ezicon.svg" alt="logo" />
-            <p className="text-4xl font-extrabold lg:whitespace-nowrap md:text-xl lg:text-2xl xl:text-4xl max-[800px]:text-wrap">
-              {/*EZswap {languageModel.Airdrop}*/}
-              EZswap Protocol Airdrop Season 1 Ends
-            </p>
+    <div className={"w-full flex flex-col justify-center items-center" + styles.divBackground}>
+      <div className="flex flex-col justify-center items-center font-bold">
+        <div className="text-4xl text-[#00D5DA] mb-7 max-[800px]:text-3xl max-[800px]:mt-10">EARN $EZSWAP</div>
+        <div className="text-white mb-1 max-[800px]:mr-10 max-[800px]:ml-10">Season 2 of EZswap Protocol Airdrop is LIVE</div>
+        <div className="text-white max-[800px]:mr-10 max-[800px]:ml-10">All Season 1 Airdrop will be kept and can be claimed when Season 2 ends</div>
+
+        <div className="carousel w-full text-white mt-14">
+          <div id="slide1"  style={{display: (showSlide==='slide1') ? "flex " : "none "}} className=" flex justify-center items-center carousel-item relative w-full ">
+              <a href="#slide4" className="btn btn-circle mr-10 text-xl" onClick={() => showCarousel('slide4')}>❮</a>
+              <div className=" flex flex-col items-center justify-center">
+                <div className="mb-2"><img src="/claimswapnft.svg" alt=""/></div>
+                <div className="text-2xl mb-2 max-[800px]:text-xl">Swap NFTs</div>
+                <div className="max-[800px]:text-sm">Tips for earning $EZSWAP:</div>
+                <div className="mt-10 flex flex-col items-center justify-center">
+                  <ul className="flex flex-col justify-start items-start">
+                    <li className="mb-3 flex justify-center items-center max-[800px]:text-xs">
+                      <div className="w-2 h-2 rounded-md bg-white mr-2"></div>
+                      Only use EZswap protocol to swap</li>
+                    <li className="mb-3 flex justify-center items-center max-[800px]:text-xs">
+                      <div className="w-2 h-2 rounded-md bg-white mr-2"></div>
+                      Only recommended collections count</li>
+                    <li className="mb-3 flex justify-center items-center max-[800px]:text-xs">
+                      <div className="w-2 h-2 rounded-md bg-white mr-2"></div>
+                      The more you swap, the more you earn</li>
+                    <li className="mb-10 flex justify-center items-center max-[800px]:text-xs">
+                      <div className="w-2 h-2 rounded-md bg-white mr-2"></div>
+                      All supported chains count</li>
+                  </ul>
+                    <button className={"btn md:w-[300px] w-[240px] max-[800px]:mb-20 " + styles.buttonStyle} onClick={() => jumpPage(1)}>
+                        START SWAP
+                    </button>
+                </div>
+              </div>
+              <a href="#slide2" className="btn btn-circle ml-10 text-xl" onClick={() => showCarousel('slide2')}>❯</a>
           </div>
-          {/*<Countdown*/}
-          {/*  claimEndTime={claimEndTime}*/}
-          {/*  claimStartTime={claimStartTime}*/}
-          {/*  timeStatus={timeStatus}*/}
-          {/*  tStatus={tStatus}*/}
-          {/*  setTimeStatus={setTimeStatus}*/}
-          {/*/>*/}
-        </section>
-        <section
-          id="claiming-section"
-          className="flex flex-col items-center justify-start text-5xl font-black gap-y-11 "
-        >
-          {/*{timeStatus === tStatus.BEFORE_START && (*/}
-          {/*  <h1 className="mt-48 text-2xl sm:text-4xl">*/}
-          {/*    {languageModel.AirdropClaimingStartSoon}*/}
-          {/*  </h1>*/}
-          {/*)}*/}
-          {/*{timeStatus === tStatus.ENDED && (*/}
-          {/*  <h1 className="mt-48 text-2xl sm:text-4xl">*/}
-          {/*    {languageModel.SorryAirdropEnded}*/}
-          {/*  </h1>*/}
-          {/*)}*/}
-          <h1 className="mt-48 text-base sm:text-2xl md:text-4xl">
-            EZswap Protocol Airdrop Season 2 Coming Soon
-                  </h1>
 
-
-          {/*{timeStatus === tStatus.ONGOING && (*/}
-          {/*  <>*/}
-          {/*    {claimStatus === cStatus.WALLET_DISCONNECTED && (*/}
-          {/*      <h1 className="mt-48 text-base sm:text-2xl md:text-4xl">*/}
-          {/*        {languageModel.ConnectWalletCheckEligibility}*/}
-          {/*      </h1>*/}
-          {/*    )}*/}
-          {/*    {claimStatus === cStatus.CLAIMED && (*/}
-          {/*      <>*/}
-          {/*        <h1 className="mt-20 text-2xl sm:text-4xl">*/}
-          {/*          {languageModel.YouHaveClaimed}*/}
-          {/*        </h1>*/}
-          {/*        <div className="text-2xl sm:text-4xl">*/}
-          {/*          <span className="text-white ">{tokenToClaim}&nbsp;</span>*/}
-          {/*          $EZ*/}
-          {/*        </div>*/}
-          {/*      </>*/}
-          {/*    )}*/}
-          {/*    {claimStatus === cStatus.INELIGIBLE && (*/}
-          {/*      <h1 className="mt-48 text-2xl sm:text-4xl">*/}
-          {/*        {languageModel.SorryYouAreNotEligible}*/}
-          {/*      </h1>*/}
-          {/*    )}*/}
-          {/*    {claimStatus === cStatus.ELIGIBLE && (*/}
-          {/*      <>*/}
-          {/*        <h1 className="text-2xl mt-14 sm:text-4xl">*/}
-          {/*          {languageModel.YouAreEligibleFor}:*/}
-          {/*        </h1>*/}
-          {/*        <div className="text-2xl sm:text-4xl">*/}
-          {/*          <span className="text-white ">{tokenToClaim}&nbsp;</span>*/}
-          {/*          $EZ*/}
-          {/*        </div>*/}
-          {/*        <div className={"btn " + styles.buttonStyle} onClick={handleClaimClick}>{claimLoading || waitClaimLoading ? (*/}
-          {/*            <span className="loading loading-spinner loading-sm"></span>*/}
-          {/*        ) : (*/}
-          {/*            languageModel.Claim*/}
-          {/*        )}</div>*/}
-          {/*        /!*<button className={`text-black bg-[#00D5DA] text-lg w-32 rounded-[8px] px-2 py-1`} onClick={handleClaimClick}>*!/*/}
-          {/*        /!*  {claimLoading || waitClaimLoading ? (*!/*/}
-          {/*        /!*    <span className="loading loading-spinner loading-sm"></span>*!/*/}
-          {/*        /!*  ) : (*!/*/}
-          {/*        /!*    languageModel.Claim*!/*/}
-          {/*        /!*  )}*!/*/}
-          {/*        /!*</button>*!/*/}
-          {/*      </>*/}
-          {/*    )}*/}
-          {/*  </>*/}
-          {/*)}*/}
-        </section>
+          {/*第二页*/}
+            <div id="slide2"  style={{display: (showSlide==='slide2') ? "flex " : "none "}} className="flex justify-center items-center carousel-item relative w-full">
+                <a href="#slide1" className="btn btn-circle mr-10 text-xl" onClick={() => showCarousel('slide1')}>❮</a>
+                <div className=" flex flex-col items-center justify-center">
+                    <div className="mb-2"><img src="/claimlist.svg" alt=""/></div>
+                    <div className="text-2xl mb-2 max-[800px]:text-xl">List NFTs</div>
+                    <div className="max-[800px]:text-sm">Tips for earning $EZSWAP:</div>
+                    <div className="mt-10 flex flex-col items-center justify-center">
+                        <ul className="flex flex-col justify-start items-start">
+                            <li className="mb-3 flex justify-center items-center max-[800px]:text-xs">
+                                <div className="w-2 h-2 rounded-md bg-white mr-2"></div>
+                                Only use EZswap protocol to list</li>
+                            <li className="mb-3 flex justify-center items-center max-[800px]:text-xs">
+                                <div className="w-2 h-2 rounded-md bg-white mr-2"></div>
+                                Only recommended collections count</li>
+                            <li className="mb-3 flex justify-center items-center max-[800px]:text-xs">
+                                <div className="w-2 h-2 rounded-md bg-white mr-2"></div>
+                                The more you list, the more you earn</li>
+                            <li className="mb-10 flex justify-center items-center max-[800px]:text-xs">
+                                <div className="w-2 h-2 rounded-md bg-white mr-2"></div>
+                                Listings closer to floor helps</li>
+                        </ul>
+                        <button className={"btn md:w-[300px] w-[240px] max-[800px]:mb-20 " + styles.buttonStyle} onClick={() => jumpPage(2)}>
+                            START LISTING
+                        </button>
+                    </div>
+                </div>
+                <a href="#slide3" className="btn btn-circle ml-10 text-xl" onClick={() => showCarousel('slide3')}>❯</a>
+            </div>
+          {/*/!*第三页*!/*/}
+            <div id="slide3"  style={{display: (showSlide==='slide3') ? "flex " : "none "}} className="flex justify-center items-center carousel-item relative w-full">
+                <a href="#slide2" className="btn btn-circle mr-10 text-xl" onClick={() => showCarousel('slide2')}>❮</a>
+                <div className=" flex flex-col items-center justify-center">
+                    <div className="mb-2"><img src="/claimbids.svg" alt=""/></div>
+                    <div className="text-2xl mb-2 max-[800px]:text-xl">Bids on NFTs</div>
+                    <div className="max-[800px]:text-sm">Tips for earning $EZSWAP:</div>
+                    <div className="mt-10 flex flex-col items-center justify-center">
+                        <ul className="flex flex-col justify-start items-start">
+                            <li className="mb-3 flex justify-center items-center max-[800px]:text-xs">
+                                <div className="w-2 h-2 rounded-md bg-white mr-2"></div>
+                                Only use EZswap protocol to bid</li>
+                            <li className="mb-3 flex justify-center items-center max-[800px]:text-xs">
+                                <div className="w-2 h-2 rounded-md bg-white mr-2"></div>
+                                Only recommended collections count</li>
+                            <li className="mb-3 flex justify-center items-center max-[800px]:text-xs">
+                                <div className="w-2 h-2 rounded-md bg-white mr-2"></div>
+                                The more you bid, the more you earn</li>
+                            <li className="mb-10 flex justify-center items-center max-[800px]:text-xs">
+                                <div className="w-2 h-2 rounded-md bg-white mr-2"></div>
+                                Bidding closer to floor helps</li>
+                        </ul>
+                        <button className={"btn md:w-[300px] w-[240px] max-[800px]:mb-20 " + styles.buttonStyle} onClick={() => jumpPage(2)}>
+                            START BIDDING
+                        </button>
+                    </div>
+                </div>
+                <a href="#slide4" className="btn btn-circle ml-10 text-xl" onClick={() => showCarousel('slide4')}>❯</a>
+            </div>
+          {/*/!*第四页*!/*/}
+            <div id="slide4"  style={{display: (showSlide==='slide4') ? "flex " : "none "}} className="flex justify-center items-center carousel-item relative w-full">
+                <a href="#slide3" className="btn btn-circle mr-10 text-xl" onClick={() => showCarousel('slide3')}>❮</a>
+                <div className=" flex flex-col items-center justify-center">
+                    <div className="mb-2"><img src="/claimliqutity.svg" alt=""/></div>
+                    <div className="text-2xl mb-2 max-[800px]:text-xl">Add Liquidity on NFTs</div>
+                    <div className="max-[800px]:text-sm">Tips for earning $EZSWAP:</div>
+                    <div className="mt-10 flex flex-col items-center justify-center">
+                        <ul className="flex flex-col justify-start items-start">
+                            <li className="mb-3 flex justify-center items-center max-[800px]:text-xs">
+                                <div className="w-2 h-2 rounded-md bg-white mr-2"></div>
+                                Only use EZswap protocol to add liquidity</li>
+                            <li className="mb-3 flex justify-center items-center max-[800px]:text-xs">
+                                <div className="w-2 h-2 rounded-md bg-white mr-2"></div>
+                                Only recommended collections count</li>
+                            <li className="mb-3 flex justify-center items-center max-[800px]:text-xs">
+                                <div className="w-2 h-2 rounded-md bg-white mr-2"></div>
+                                The more you dd, the more you earn</li>
+                            <li className="mb-10 flex justify-center items-center max-[800px]:text-xs">
+                                <div className="w-2 h-2 rounded-md bg-white mr-2"></div>
+                                Trading Volume Matters</li>
+                        </ul>
+                        <button className={"btn md:w-[300px] w-[240px] max-[800px]:mb-20 " + styles.buttonStyle} onClick={() => jumpPage(2)}>
+                            START ADDING
+                        </button>
+                    </div>
+                </div>
+                <a href="#slide1" className="btn btn-circle ml-10 text-xl" onClick={() => showCarousel('slide1')}>❯</a>
+            </div>
+        </div>
       </div>
-      {showAlert && <Alert alertText={alertText} />}
     </div>
   );
 };

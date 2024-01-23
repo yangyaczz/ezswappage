@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SellPoolLiner, TradePoolLiner, SellPoolExp, TradePoolExp, } from "../../utils/calculate";
 import { ethers } from 'ethers';
 import { useLanguage } from '@/contexts/LanguageContext';
+import styles from "./index.module.scss";
 
 function Input1155Buy({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded }) {
 
@@ -156,13 +157,13 @@ function Input1155Buy({ formikData, setSelectIds, setTupleEncode, setTotalGet, s
 
 
     return (
-        <div className='flex items-center justify-center p-5 space-x-4'>
-            <div><span className='mr-3'>{languageModel.YouwanttobuyNftAmount}:</span></div>
+        <div className='flex items-center justify-center space-x-4 justify-between'>
+            <div><span className='mr-3 font-bold'>{languageModel.YouwanttobuyNftAmount}:</span></div>
             <div className='form-control'>
                 <div className="input-group">
                     <button
                         onClick={handleDecrement}
-                        className="btn btn-square"
+                        className="btn btn-square border border-1 border-white hover:border-white"
                     >
                         -
                     </button>
@@ -170,11 +171,11 @@ function Input1155Buy({ formikData, setSelectIds, setTupleEncode, setTotalGet, s
                         type="text"
                         value={value}
                         onChange={handleChange}
-                        className="w-20 text-center input input-bordered"
+                        className={"w-20 text-center input input-bordered bg-black " + styles.inputContent}
                     />
                     <button
                         onClick={handleIncrement}
-                        className="btn btn-square"
+                        className="btn btn-square border border-1 border-white hover:border-white"
                     >
                         +
                     </button>

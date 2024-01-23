@@ -192,7 +192,7 @@ const NavBar = () => {
   const HamburgerNavBar = () => (
     <div className="relative flex items-center justify-between w-full h-full px-4 py-2 m-auto sm:hidden">
       <Link href={mainPageJumpUrl}>
-        <Image src="/logo.svg" alt="EZswap" width={135} height={38} />
+        <Image src="/1500X500WhiteHalfHorizontal.svg" alt="EZswap" width={135} height={38} />
       </Link>
       <button
         onClick={() => {
@@ -255,6 +255,16 @@ const NavBar = () => {
         >
           {languageModel.myPool}
         </Link>
+        <Link
+            className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}
+            href="/airdropclaim"
+            onClick={() => {
+              setToggleHamburger(false);
+              setHamburgerShowLanguage(false);
+            }}
+        >
+          Airdrop Season 2
+        </Link>
         {/*<div*/}
         {/*  className={`w-full p-2 text-xl font-bold text-right  border-b-2 ${*/}
         {/*    hamburgerShowLanguage ? "" : "hover:bg-zinc-800"*/}
@@ -286,15 +296,15 @@ const NavBar = () => {
         {/*</div>*/}
         {/* Claim Button For Mobile */}
         {/*// href="/airdropclaim"*/}
-        <Link
-          className={`${styles.launchpad} ${styles.airdropBtn} ${styles.claimAirdropBG} self-end my-3 `}
-          // target="_self"
-          href="/airdropclaim"
-          // onClick={()=>setToggleHamburger(false)}
-          // onClick={() => goClaim()}
-        >
-          {languageModel.Airdrop}
-        </Link>
+        {/*<Link*/}
+        {/*  className={`${styles.launchpad} ${styles.airdropBtn} ${styles.claimAirdropBG} self-end my-3 `}*/}
+        {/*  // target="_self"*/}
+        {/*  href="/airdropclaim"*/}
+        {/*  // onClick={()=>setToggleHamburger(false)}*/}
+        {/*  // onClick={() => goClaim()}*/}
+        {/*>*/}
+        {/*  {languageModel.Airdrop}*/}
+        {/*</Link>*/}
 
         {/*{addressInfo.dcUserId === undefined ||*/}
         {/*addressInfo.dcUserId === null ||*/}
@@ -374,7 +384,7 @@ const NavBar = () => {
       <div className={`${styles.headerBox} hidden sm:flex`}>
         <div className={styles.ezLogo}>
           <Link href={mainPageJumpUrl}>
-            <img src="/logo.svg" alt="EZswap" />
+            <img src="/1500X500WhiteHalfHorizontal.svg" alt="EZswap" />
           </Link>
         </div>
 
@@ -403,24 +413,31 @@ const NavBar = () => {
           >
             {languageModel.mint}
           </a>
+          <Link
+            className={styles.headerBtn + " " + styles.launchpad}
+            href='/airdropclaim'
+            target="_self"
+          >
+            Airdrop Season 2
+          </Link>
 
           {/*airdrop 上线后打开*/}
 
           {/* Claim Button for web */}
-          { <Link
-            className={
-              styles.launchpad +
-              " " +
-              styles.airdropBtn +
-              " " +
-              styles.claimAirdropBG
-            }
-            href="/airdropclaim"
-            // onClick={() => goClaim()}
-            // target="_self"
-          >
-            {languageModel.Airdrop}
-          </Link> }
+          {/*{ <Link*/}
+          {/*  className={*/}
+          {/*    styles.launchpad +*/}
+          {/*    " " +*/}
+          {/*    styles.airdropBtn +*/}
+          {/*    " " +*/}
+          {/*    styles.claimAirdropBG*/}
+          {/*  }*/}
+          {/*  href="/airdropclaim"*/}
+          {/*  // onClick={() => goClaim()}*/}
+          {/*  // target="_self"*/}
+          {/*>*/}
+          {/*  {languageModel.Airdrop}*/}
+          {/*</Link> }*/}
           {/*Airdrop*/}
           {/*{addressInfo.dcUserId === undefined ||*/}
           {/*addressInfo.dcUserId === null ||*/}

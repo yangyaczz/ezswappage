@@ -18,6 +18,7 @@ import FactoryABI from "../../pages/data/ABI/Factory.json";
 import networkConfig from "../../pages/data/networkconfig.json";
 import {ethers} from "ethers";
 import styles from "../swap/index.module.scss";
+import {isNaN} from "formik";
 
 const PopupPlaceBids = ({ handleApproveClick }) => {
   const MAX_SIZE_ALLOWED = 10000;
@@ -26,7 +27,7 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
   const [totalBid, setTotalBid] = useState(0);
   const [bidPrice, setBidPrice] = useState(0);
   const [createPoolValue, setCreatePoolValue] = useState({});
-  const { constant_ladder, percent_linear, currencyImage, ladderValue, collectionAddr, NFTList,tokenId1155,selectedNFTs } = useCollection();
+  const { constant_ladder, percent_linear, currencyImage, deltaValue, collectionAddr, NFTList,tokenId1155,selectedNFTs } = useCollection();
   const {chain} = useNetwork();
   const {address: owner} = useAccount();
   const alertRef = useRef(null);
@@ -40,34 +41,37 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
     //   if (percent_linear === "PERCENT") {
     //     ({ totalPrice: totalBid } =
     //       size <= MAX_SIZE_ALLOWED
-    //         ? ladderPercentagePrice(Number(bidPrice), size, ladderValue)
+    //         ? ladderPercentagePrice(Number(bidPrice), size, deltaValue)
     //         : { totalBid });
     //   } else if (percent_linear === "LINEAR") {
     //     ({ totalPrice: totalBid } =
     //       size <= MAX_SIZE_ALLOWED
-    //         ? ladderLinearPrice(Number(bidPrice), size, ladderValue)
+    //         ? ladderLinearPrice(Number(bidPrice), size, deltaValue)
     //         : { totalBid });
     //   }
     // }
     //
     // setTotalBid(parseFloat(totalBid).toFixed(MaxFiveDecimal(totalBid)));
     calculateCreatePoolValue()
-    console.log('createPoolValue ',createPoolValue)
       // setTotalBid(parseFloat(totalBid).toFixed(MaxFiveDecimal(totalBid)));
-  }, [bidPrice, size, constant_ladder, percent_linear, ladderValue]);
+  }, [bidPrice, size, constant_ladder, percent_linear, deltaValue]);
 
   function calculateCreatePoolValue(){
-    console.log('ladderValue', ladderValue)
+    let result
     if (constant_ladder === "CONSTANT") {
-      setCreatePoolValue(BuyPoolLiner(Number(bidPrice), 0, 0, 0.01,size, 'create'))
+      result = BuyPoolLiner(Number(bidPrice), 0, 0, 0.01,size, 'create')
+      setCreatePoolValue(result)
     } else if (constant_ladder === "LADDER") {
       if (percent_linear === "PERCENT") {
-        setCreatePoolValue(BuyPoolExp(Number(bidPrice), ladderValue, 0, 0.01, size, 'create'))
+        result = BuyPoolExp(Number(bidPrice), deltaValue, 0, 0.01, size, 'create')
+        setCreatePoolValue(result)
       } else if (percent_linear === "LINEAR") {
-        setMaxSizeAllowed(Math.floor(Number(bidPrice)/ladderValue))
-        setCreatePoolValue(BuyPoolLiner(Number(bidPrice), ladderValue, 0, 0.01, size, 'create'))
+        setMaxSizeAllowed(Math.floor(Number(bidPrice)/deltaValue))
+        result = BuyPoolLiner(Number(bidPrice), deltaValue, 0, 0.01, size, 'create')
+        setCreatePoolValue(result)
       }
     }
+    console.log('起始价格', bidPrice,'deltaValue', deltaValue,'NFTAmount',size ,'计算后的结果', result)
   }
 
   const {
@@ -86,7 +90,7 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
       constant_ladder === "CONSTANT" || percent_linear === "LINEAR" ? networkConfig[chain.id].linear:networkConfig[chain.id].exponential,
       owner,
         0,
-      createPoolValue?.delta === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
+      isNaN(createPoolValue?.delta) || createPoolValue?.delta === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
         0,
       createPoolValue?.spotPrice === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
       []
@@ -110,7 +114,7 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
       constant_ladder === "CONSTANT" || percent_linear === "LINEAR" ? networkConfig[chain.id].linear : networkConfig[chain.id].exponential,
       owner,
       0,
-      createPoolValue?.delta === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
+      isNaN(createPoolValue?.delta) || createPoolValue?.delta === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
       0,
       createPoolValue?.spotPrice === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
       [tokenId1155],
@@ -170,7 +174,7 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
       [tokenId1155],
       size
     ])
-    // console.log('起始价', bidPrice,'指数',ladderValue*0.01+1,'数量',size,collectionAddr,'nft列表,', NFTList,tokenId1155,chain.id, networkConfig[chain.id].factory)
+    // console.log('起始价', bidPrice,'指数',deltaValue*0.01+1,'数量',size,collectionAddr,'nft列表,', NFTList,tokenId1155,chain.id, networkConfig[chain.id].factory)
     calculateCreatePoolValue()
     if (tokenId1155 === null || tokenId1155 ==='') {
       doCreateBuyPool()

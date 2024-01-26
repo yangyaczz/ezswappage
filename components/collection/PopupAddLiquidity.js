@@ -32,7 +32,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
     selectNFTs,
     constant_ladder,
     percent_linear,
-    ladderValue,
+    deltaValue,
     setNFTListviewPrices,
     currencyImage,
     NFTList,
@@ -73,7 +73,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
     selected1155NFTAmount,
     constant_ladder,
     percent_linear,
-    ladderValue,
+    deltaValue,
     size,
     tradeFee
   ]);
@@ -81,33 +81,34 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
   function calculateCreatePoolValue(){
     let NFTAmount = tokenId1155 ? selected1155NFTAmount : selectedNFTs.length;
 
-    // console.log('listingPrice ladderValue',listingPrice, ladderValue, NFTAmount)
+    // console.log('listingPrice deltaValue',listingPrice, deltaValue, NFTAmount)
     let result;
     let bidsresult;
+    const smallTradeFee = tradeFee* 0.0001
     if (constant_ladder === "CONSTANT") {
-      result = TradePoolLiner(Number(listingPrice), 0, tradeFee* 0.01, 0.01,NFTAmount, 'create')
+      result = TradePoolLiner(Number(listingPrice), 0, smallTradeFee , 0.01,NFTAmount, 'create')
       setCreatePoolValue(result)
-      bidsresult = TradePoolLiner(Number(listingPrice), 0, tradeFee* 0.01, 0.01,size, 'create')
+      bidsresult = TradePoolLiner(Number(listingPrice), 0, smallTradeFee, 0.01,size, 'create')
       setCreatePoolBidsValue(bidsresult)
     } else if (constant_ladder === "LADDER") {
       if (percent_linear === "PERCENT") {
-        result=TradePoolExp(Number(listingPrice), ladderValue, tradeFee* 0.01, 0.01, NFTAmount, 'create')
+        result=TradePoolExp(Number(listingPrice), deltaValue, smallTradeFee, 0.01, NFTAmount, 'create')
         setCreatePoolValue(result)
-        bidsresult=TradePoolExp(Number(listingPrice), ladderValue, tradeFee* 0.01, 0.01, size, 'create')
+        bidsresult=TradePoolExp(Number(listingPrice), deltaValue, smallTradeFee, 0.01, size, 'create')
         setCreatePoolValue(result)
         setCreatePoolBidsValue(bidsresult)
       } else if (percent_linear === "LINEAR") {
-        // setMaxSizeAllowed(Math.floor(Number(bidPrice)/ladderValue))
-        result = TradePoolLiner(Number(listingPrice), ladderValue, tradeFee* 0.01, 0.01, NFTAmount, 'create')
+        // setMaxSizeAllowed(Math.floor(Number(bidPrice)/deltaValue))
+        result = TradePoolLiner(Number(listingPrice), deltaValue, smallTradeFee, 0.01, NFTAmount, 'create')
         setCreatePoolValue(result)
-        bidsresult = TradePoolLiner(Number(listingPrice), ladderValue, tradeFee* 0.01, 0.01, size, 'create')
+        bidsresult = TradePoolLiner(Number(listingPrice), deltaValue, smallTradeFee, 0.01, size, 'create')
         setCreatePoolBidsValue(bidsresult)
       }
     }
     let avgPrice = parseFloat(result.poolSellPrice) / NFTAmount;
     avgPrice = !avgPrice ? 0 : avgPrice;
     setAvgPrice(parseFloat(avgPrice).toFixed(MaxFiveDecimal(avgPrice)));
-    console.log('listingPrice', listingPrice,'ladderValue', ladderValue,'NFTAmount',NFTAmount ,'result', result)
+    console.log('起始价格', listingPrice,'deltaValue', deltaValue,'NFTAmount',NFTAmount ,'tradeFee ', smallTradeFee ,'计算后的结果卖', result, '计算后的结果买', bidsresult)
   }
 
 
@@ -117,7 +118,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       constant_ladder === "CONSTANT" || percent_linear === "LINEAR" ? networkConfig[chain.id].linear:networkConfig[chain.id].exponential,
       '0x0000000000000000000000000000000000000000',
       2,
-      createPoolValue?.delta === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
+      createPoolValue?.delta === undefined || isNaN(createPoolValue?.delta) ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
       0,
       createPoolValue?.spotPrice === undefined || isNaN(createPoolValue?.spotPrice) ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
       selectedNFTs
@@ -141,7 +142,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       constant_ladder === "CONSTANT" || percent_linear === "LINEAR" ? networkConfig[chain.id].linear : networkConfig[chain.id].exponential,
       '0x0000000000000000000000000000000000000000',
       2,
-      createPoolValue?.delta === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
+      createPoolValue?.delta === undefined || isNaN(createPoolValue?.delta) ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
       0,
       createPoolValue?.spotPrice === undefined || isNaN(createPoolValue?.spotPrice) ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
       [tokenId1155],
@@ -252,7 +253,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
     confirmations: 1,
     onSuccess(data) {
       alertRef.current.showSuccessAlert("Approve Success");
-      // console.log('起始价', bidPrice,'指数',ladderValue*0.01+1,'数量',size,collectionAddr,'nft列表,', NFTList,tokenId1155,chain.id, networkConfig[chain.id].factory)
+      // console.log('起始价', bidPrice,'指数',deltaValue*0.01+1,'数量',size,collectionAddr,'nft列表,', NFTList,tokenId1155,chain.id, networkConfig[chain.id].factory)
       goCreateSellPool()
     },
     onError(err) {

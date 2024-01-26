@@ -82,7 +82,7 @@ export function SellPoolLiner(
 
   return data;
 }
-
+// tfee 2%的话,要2*0001带入计算库
 export function TradePoolLiner(
   spotPrice,
   delta,

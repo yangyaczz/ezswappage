@@ -20,6 +20,7 @@ import {ethers} from "ethers";
 import {BuyPoolExp, BuyPoolLiner, SellPoolExp, SellPoolLiner} from "../utils/calculate";
 import ERC721EnumABI from "../../pages/data/ABI/ERC721Enum.json";
 import AlertComponent from "./../common/AlertComponent";
+import {isNaN} from "formik";
 
 const PopupDeposit = ({ handleApproveClick = () => {} }) => {
   // const [selectedNFTs, setSelectedNFTs] = useState([]); //Take down selected / checked NFTs
@@ -32,7 +33,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
     selectNFTs,
     constant_ladder,
     percent_linear,
-    ladderValue,
+    deltaValue,
     setNFTListviewPrices,
     currencyImage,
     NFTList,
@@ -49,6 +50,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
   const alertRef = useRef(null);
   const [createPoolValue, setCreatePoolValue] = useState({});
   const [nftApproval, setNftApproval] = useState(false);
+  const [nftApprovalStatus, setNftApprovalStatus] = useState(true);
 
   //change the value of radio bar whenever selected nfts changed
   useEffect(() => {
@@ -79,12 +81,12 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       //   if (percent_linear === "PERCENT") {
       //     ({ totalPrice: totalListPrice, priceList } =
       //       NFTAmount <= MAX_SIZE_ALLOWED
-      //         ? ladderPercentagePrice(listingPrice, NFTAmount, ladderValue)
+      //         ? ladderPercentagePrice(listingPrice, NFTAmount, deltaValue)
       //         : { totalListPrice, priceList });
       //   } else if (percent_linear === "LINEAR") {
       //     ({ totalPrice: totalListPrice, priceList } =
       //       NFTAmount <= MAX_SIZE_ALLOWED
-      //         ? ladderLinearPrice(listingPrice, NFTAmount, ladderValue)
+      //         ? ladderLinearPrice(listingPrice, NFTAmount, deltaValue)
       //         : { totalListPrice, priceList });
       //   }
       // }
@@ -105,24 +107,24 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
     selected1155NFTAmount,
     constant_ladder,
     percent_linear,
-    ladderValue,
+    deltaValue,
   ]);
 
   function calculateCreatePoolValue(){
     let NFTAmount = tokenId1155 ? selected1155NFTAmount : selectedNFTs.length;
 
-    // console.log('listingPrice ladderValue',listingPrice, ladderValue, NFTAmount)
+    // console.log('listingPrice deltaValue',listingPrice, deltaValue, NFTAmount)
     let result;
     if (constant_ladder === "CONSTANT") {
       result = SellPoolLiner(Number(listingPrice), 0, 0, 0.01,NFTAmount, 'create')
       setCreatePoolValue(result)
     } else if (constant_ladder === "LADDER") {
       if (percent_linear === "PERCENT") {
-        result=SellPoolExp(Number(listingPrice), ladderValue, 0, 0.01, NFTAmount, 'create')
+        result=SellPoolExp(Number(listingPrice), deltaValue, 0, 0.01, NFTAmount, 'create')
         setCreatePoolValue(result)
       } else if (percent_linear === "LINEAR") {
-        // setMaxSizeAllowed(Math.floor(Number(bidPrice)/ladderValue))
-        result = SellPoolLiner(Number(listingPrice), ladderValue, 0, 0.01, NFTAmount, 'create')
+        // setMaxSizeAllowed(Math.floor(Number(bidPrice)/deltaValue))
+        result = SellPoolLiner(Number(listingPrice), deltaValue, 0, 0.01, NFTAmount, 'create')
         console.log('SellPoolLiner result', result)
         setCreatePoolValue(result)
       }
@@ -130,7 +132,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
     let avgPrice = parseFloat(result.poolSellPrice) / NFTAmount;
     avgPrice = !avgPrice ? 0 : avgPrice;
     setAvgPrice(parseFloat(avgPrice).toFixed(MaxFiveDecimal(avgPrice)));
-    console.log('listingPrice', listingPrice,'ladderValue', ladderValue,'NFTAmount',NFTAmount ,'result', result)
+    console.log('起始价格', listingPrice,'deltaValue', deltaValue,'NFTAmount',NFTAmount ,'计算后的结果', result)
   }
 
 
@@ -140,7 +142,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       constant_ladder === "CONSTANT" || percent_linear === "LINEAR" ? networkConfig[chain.id].linear:networkConfig[chain.id].exponential,
       owner,
       1,
-      createPoolValue?.delta === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
+      isNaN(createPoolValue?.delta) ||createPoolValue?.delta === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
       0,
       createPoolValue?.spotPrice === undefined || isNaN(createPoolValue?.spotPrice) ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
       selectedNFTs
@@ -163,7 +165,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       constant_ladder === "CONSTANT" || percent_linear === "LINEAR" ? networkConfig[chain.id].linear : networkConfig[chain.id].exponential,
       owner,
       1,
-      createPoolValue?.delta === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
+      isNaN(createPoolValue?.delta) || createPoolValue?.delta === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
       0,
       createPoolValue?.spotPrice === undefined || isNaN(createPoolValue?.spotPrice) ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
       [tokenId1155],
@@ -231,7 +233,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
         constant_ladder === "CONSTANT" || percent_linear === "LINEAR" ? networkConfig[chain.id].linear:networkConfig[chain.id].exponential,
         owner,
         0,
-        createPoolValue?.delta === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
+        isNaN(createPoolValue?.delta) || createPoolValue?.delta === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
         0,
         createPoolValue?.spotPrice === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
         selectedNFTs
@@ -249,8 +251,12 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
     address: collectionAddr,
     abi: ERC721EnumABI,
     functionName: "setApprovalForAll",
-    args: [networkConfig[chain.id].factory, true],
+    args: [networkConfig[chain.id].factory, nftApprovalStatus],
   });
+  function cancelNftApprove(){
+    setNftApprovalStatus(false)
+    approveNFT()
+  }
   const { data: nftApprovalData } = useContractRead({
     address: collectionAddr,
     abi: ERC721EnumABI,
@@ -273,7 +279,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
     confirmations: 1,
     onSuccess(data) {
       alertRef.current.showSuccessAlert("Approve Success");
-      // console.log('起始价', bidPrice,'指数',ladderValue*0.01+1,'数量',size,collectionAddr,'nft列表,', NFTList,tokenId1155,chain.id, networkConfig[chain.id].factory)
+      // console.log('起始价', bidPrice,'指数',deltaValue*0.01+1,'数量',size,collectionAddr,'nft列表,', NFTList,tokenId1155,chain.id, networkConfig[chain.id].factory)
       goCreateSellPool()
     },
     onError(err) {
@@ -363,6 +369,11 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
             disabled={NFTList.length > 0 ? false : true}>
             {waitApproveLoading || waitTrxLoading || createPair1155ETHLoading || isLoading ? <span className="loading loading-spinner loading-sm"></span> : "Confirm"}
           </button>
+          {/*<button*/}
+          {/*  className={`btn ezBtn ezBtnPrimary btn-sm w-36  ${NFTList && NFTList.length > 0 ? "" : "!bg-zinc-500"}`}*/}
+          {/*  onClick={() => cancelNftApprove()}>*/}
+          {/*  {waitApproveLoading || waitTrxLoading || createPair1155ETHLoading || isLoading ? <span className="loading loading-spinner loading-sm"></span> : "Cancel Approve"}*/}
+          {/*</button>*/}
         </section>
       </div>
     </PopupBlurBackground>

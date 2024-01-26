@@ -9,7 +9,7 @@ const initialState = {
   popupWindow: null,
   constant_ladder: "CONSTANT",
   percent_linear: "PERCENT",
-  ladderValue: 0,
+  deltaValue: 0,
   NFTList: [],
   collectionAddr: "",
   collectionName: "",
@@ -45,14 +45,14 @@ function reducer(state, action) {
         NFTListviewPrices: [],
         constant_ladder: "CONSTANT",
         percent_linear: "PERCENT",
-        ladderValue: 0,
+        deltaValue: 0,
       };
     case "collection/setConstant_Ladder":
       return { ...state, constant_ladder: action.payload };
     case "collection/setPercent_Linear":
       return { ...state, percent_linear: action.payload };
-    case "collection/setLadderValue":
-      return { ...state, ladderValue: action.payload };
+    case "collection/setDeltaValue":
+      return { ...state, deltaValue: action.payload };
     case "collection/select721NFTs":
       return { ...state, selectedNFTs: action.payload };
     case "collection/select1155NFTs":
@@ -87,7 +87,7 @@ function CollectionProvider({ children }) {
       NFTListviewPrices,
       constant_ladder,
       percent_linear,
-      ladderValue,
+      deltaValue,
       tokenId1155,
     },
     dispatch,
@@ -125,9 +125,9 @@ function CollectionProvider({ children }) {
     });
   }
 
-  async function setLadderValue(value) {
+  async function setDeltaValue(value) {
     dispatch({
-      type: "collection/setLadderValue",
+      type: "collection/setDeltaValue",
       payload: parseFloat(value),
     });
   }
@@ -234,10 +234,10 @@ function CollectionProvider({ children }) {
         NFTListviewPrices,
         constant_ladder,
         percent_linear,
-        ladderValue,
+        deltaValue,
         setConstant_Ladder,
         setPercent_Linear,
-        setLadderValue,
+        setDeltaValue,
         openPopup,
         closePopup,
         selectNFTs,

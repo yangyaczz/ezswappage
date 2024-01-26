@@ -16,7 +16,7 @@ const PopupHeader = ({ handlePriceClick = () => {}, styleClass = null }) => {
       id="place_bid_header"
       className={`grid grid-cols-[1fr,3fr] gap-2 rounded-md ${styleClass}`}
     >
-      <Image
+      <img
         src={collectionImageUrl}
         alt={collectionName}
         width={70}

@@ -89,7 +89,7 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
       createPoolValue?.delta === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
         0,
       createPoolValue?.spotPrice === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
-      selectedNFTs
+      []
     ]],
     value: createPoolValue === undefined || createPoolValue.poolBuyPrice===undefined || isNaN(createPoolValue.poolBuyPrice) ? 0:ethers.utils.parseEther(createPoolValue?.poolBuyPrice?.toString())
   });
@@ -209,15 +209,10 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
             />
           </div>
         </section>
-        <section
-          id="place_bid_size"
-          className="flex justify-between border border-white border-solid w-5/6 max-w-[400px] items-center px-4 py-2  rounded-md">
+        <section id="place_bid_size" className="flex justify-between border border-white border-solid w-5/6 max-w-[400px] items-center px-4 py-2  rounded-md">
           <p className="text-sm font-bold sm:text-lg">Size:</p>
           <div className="relative flex">
-            <button
-              className="w-6 h-6 font-bold border-r-2 border-r-white"
-              onClick={() => setSize((size) => (size > 1 ? --size : 0))}
-            >
+            <button className="w-6 h-6 font-bold border-r-2 border-r-white" onClick={() => setSize((size) => (size > 1 ? --size : 0))}>
               -
             </button>
             <input type="text" placeholder="0" min={1} max={maxSizeAllowed} className="w-20 h-6 text-center bg-black outline-none shrink" value={size}

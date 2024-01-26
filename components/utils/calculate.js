@@ -241,11 +241,10 @@ export function TradePoolExp(
   n = 1,
   action = "read"
 ) {
+  const q = action === "read" ? delta : (100 + delta) / 100;
   if (action !== "read") {
     spotPrice = spotPrice / (1 + tfee + pfee) / q;
   }
-
-  const q = action === "read" ? delta : (100 + delta) / 100;
   const newSpotPrice = spotPrice * q; //  spotPrice * q   spotPrice / (1 + tfee + pfee)
 
   // user sell nft to pool

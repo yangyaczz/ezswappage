@@ -142,10 +142,9 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       1,
       createPoolValue?.delta === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
       0,
-      createPoolValue?.spotPrice === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
+      createPoolValue?.spotPrice === undefined || isNaN(createPoolValue?.spotPrice) ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
       selectedNFTs
-    ]],
-    value: createPoolValue === undefined || createPoolValue.poolSellPrice===undefined || isNaN(createPoolValue.poolSellPrice) ? 0:ethers.utils.parseEther(createPoolValue?.poolSellPrice?.toString())
+    ]]
   });
 
   const {
@@ -166,11 +165,10 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       1,
       createPoolValue?.delta === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
       0,
-      createPoolValue?.spotPrice === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
+      createPoolValue?.spotPrice === undefined || isNaN(createPoolValue?.spotPrice) ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
       [tokenId1155],
       selected1155NFTAmount
-    ]],
-    value: createPoolValue === undefined || createPoolValue.poolSellPrice===undefined||createPoolValue.poolSellPrice === 0 || isNaN(createPoolValue.poolSellPrice) ?0: ethers.utils.parseEther(createPoolValue?.poolSellPrice?.toString())
+    ]]
   });
 
   useEffect(() => {

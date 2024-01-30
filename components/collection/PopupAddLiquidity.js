@@ -84,7 +84,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
     // console.log('listingPrice deltaValue',listingPrice, deltaValue, NFTAmount)
     let result;
     let bidsresult;
-    const smallTradeFee = tradeFee* 0.0001
+    const smallTradeFee = tradeFee* 0.01
     if (constant_ladder === "CONSTANT") {
       result = TradePoolLiner(Number(listingPrice), 0, smallTradeFee , 0.01,NFTAmount, 'create')
       setCreatePoolValue(result)
@@ -119,7 +119,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       '0x0000000000000000000000000000000000000000',
       2,
       createPoolValue?.delta === undefined || isNaN(createPoolValue?.delta) ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
-      0,
+      tradeFee === undefined || isNaN(tradeFee) ? 0: ethers?.utils?.parseEther((tradeFee * 0.01).toString()).toString(),
       createPoolValue?.spotPrice === undefined || isNaN(createPoolValue?.spotPrice) ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
       selectedNFTs
     ]],
@@ -143,7 +143,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       '0x0000000000000000000000000000000000000000',
       2,
       createPoolValue?.delta === undefined || isNaN(createPoolValue?.delta) ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
-      0,
+      tradeFee === undefined || isNaN(tradeFee) ? 0: ethers?.utils?.parseEther((tradeFee * 0.01).toString()).toString(),
       createPoolValue?.spotPrice === undefined || isNaN(createPoolValue?.spotPrice) ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
       [tokenId1155],
       selected1155NFTAmount

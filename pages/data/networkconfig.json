@@ -430,6 +430,13 @@
         "ERC721": "",
         "ERC1155": "",
         "recommendNFT": [
+            {
+                "type": "ERC1155",
+                "address": "0xd96C7f9d00D6d2C75060D96Bb3CB24FDFB6c8582",
+                "name": "Game Revolution",
+                "tokenId1155": "1",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/arb_launchpad.png"
+            }
         ],
         "recommendERC20": [
             {

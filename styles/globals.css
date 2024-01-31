@@ -47,27 +47,27 @@ body > div > div {
 }
 
 .ezBtnPrimary {
-  background-color: #00a0a0;
+  background-color: #00D5DA;
   color: black;
   border: none;
 }
 
 .ezBtnPrimary:hover {
-  background-color: #00a0a0;
+  background-color: #00D5DA;
   color: black;
   border: none;
 }
 
 .ezBtnPrimaryOutline {
   background-color: transparent;
-  border: #00a0a0 solid 1px;
-  color: #00a0a0;
+  border: #00D5DA solid 1px;
+  color: #00D5DA;
 }
 
 .ezBtnPrimaryOutline:hover {
   background-color: transparent;
-  border: #00a0a0 solid 1px;
-  color: #00a0a0;
+  border: #00D5DA solid 1px;
+  color: #00D5DA;
 }
 
 @media (min-width: 768px) {

@@ -7,13 +7,13 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const ButtonGroup = ({
   collectionName,
+  img,
+  currencyImage,
   contractAddress,
-  collectionType,
   chainId,
-  type,
-  tokenId1155,
   floorPrice,
   topBid,
+  tokenId1155
 }) => {
   const { openPopup } = useCollection();
   const { languageModel } = useLanguage();
@@ -62,57 +62,96 @@ const ButtonGroup = ({
 
   let colInfo = {
     collectionName: null,
+    collectionImageUrl: null,
     floorPrice: null,
     topBid: null,
+    collectionAddr:null,
     NFTs: [],
+    tokenId1155:null
   };
 
   function handleBuyClick() {
-    colInfo = { ...colInfo, collectionName, floorPrice:floorPrice, topBid };
+    colInfo = {
+      ...colInfo,
+      collectionName,
+      collectionImageUrl: img,
+      floorPrice: floorPrice,
+      topBid,
+      currencyImage,
+      collectionAddr: contractAddress,
+      tokenId1155
+    };
     openPopup("BUY", colInfo);
   }
 
   function handleSellClick() {
-    colInfo = { ...colInfo, collectionName, floorPrice:floorPrice, topBid };
+    colInfo = {
+      ...colInfo,
+      collectionName,
+      collectionImageUrl: img,
+      floorPrice: floorPrice,
+      topBid,
+      currencyImage,
+      collectionAddr: contractAddress,
+      tokenId1155
+    };
     openPopup("SELL", colInfo);
   }
 
   function handlePlaceBidClick() {
     if (chain === undefined) {
-      showErrorAlert('please connect wallet');
-      return
+      showErrorAlert("please connect wallet");
+      return;
     }
     if (chain.id !== parseInt(chainId, 16)) {
       showErrorAlert("Please switch to right chain");
       return;
     }
 
-    // colInfo = { ...colInfo, collectionName, floorPrice:floorPrice, topBid };
-    // openPopup("PLACEBIDS", colInfo);
+    colInfo = {
+      ...colInfo,
+      collectionName,
+      collectionImageUrl: img,
+      floorPrice: floorPrice,
+      topBid,
+      currencyImage,
+      collectionAddr: contractAddress,
+      tokenId1155
+    };
+    openPopup("PLACEBIDS", colInfo);
 
-    let url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&collectionType=${collectionType}&chainId=${chainId}&poolType=0`;
-    url = type === "ERC1155" ? url + `&tokenId=${tokenId1155}` : url;
+    // let url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&collectionType=${collectionType}&chainId=${chainId}&poolType=0`;
+    // url = type === "ERC1155" ? url + `&tokenId=${tokenId1155}` : url;
 
-    window.open(url, `newTab_${Date.now()}`);
+    // window.open(url, `newTab_${Date.now()}`);
   }
 
   function handleDepositClick() {
     if (chain === undefined) {
-      showErrorAlert('please connect wallet');
-      return
+      showErrorAlert("please connect wallet");
+      return;
     }
     if (chain.id !== parseInt(chainId, 16)) {
       showErrorAlert("Please switch to right chain");
       return;
     }
 
-    // colInfo = { ...colInfo, collectionName, floorPrice:floorPrice, topBid };
-    // openPopup("DEPOSIT", colInfo);
+    colInfo = {
+      ...colInfo,
+      collectionName,
+      collectionImageUrl: img,
+      floorPrice: floorPrice,
+      topBid,
+      currencyImage,
+      collectionAddr: contractAddress,
+      tokenId1155
+    };
+    openPopup("DEPOSIT", colInfo);
 
-    let url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&collectionType=${collectionType}&chainId=${chainId}&poolType=1`;
-    url = type === "ERC1155" ? url + `&tokenId=${tokenId1155}` : url;
+    // let url = `${REDIRECT_URL}#/pool/create?contractAddress=${contractAddress}&collectionType=${collectionType}&chainId=${chainId}&poolType=1`;
+    // url = type === "ERC1155" ? url + `&tokenId=${tokenId1155}` : url;
 
-    window.open(url, `newTab_${Date.now()}`);
+    // window.open(url, `newTab_${Date.now()}`);
   }
   return (
     <section className="flex items-start justify-start md:items-center gap-x-2 md:gap-x-4 lg:gap-x-8">

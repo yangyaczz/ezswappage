@@ -1,27 +1,53 @@
 import { useCollection } from "@/contexts/CollectionContext";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 
-const ConstantLadderSelection = ({ styleGrid, popupType }) => {
+const ConstantLadderSelection = ({ popupType, styleClass }) => {
+  const {
+    constant_ladder,
+    percent_linear,
+    setConstant_Ladder,
+    setPercent_Linear,
+    deltaValue,
+    setDeltaValue,
+    currencyImage
+  } = useCollection();
 
-  const {constant_ladder,percent_linear, setConstant_Ladder, setPercent_Linear, ladderValue, setLadderValue} = useCollection();
+  // useEffect(() => {
+  //   // console.log('ConstantLadderSelection deltaValue', deltaValue)
+  //   console.log('deltaValue', deltaValue)
+  //   if (percent_linear === 'PERCENT' && (isNaN(deltaValue))) {
+  //     setDeltaValue(0.01);
+  //   }else if (percent_linear === 'LINEAR' && isNaN(deltaValue)){
+  //     setDeltaValue(0);
+  //   }
+  //   console.log('ladderValue后', deltaValue)
+  // });
   const handleRadioChange = (e) => {
     setPercent_Linear(e.target.value);
   };
   return (
-    <div className={`${styleGrid} col-span-full w-full`}>
-      <p>Set to:</p>
-      <div className="flex items-start justify-start h-full gap-x-2 md:gap-x-6">
+    <div className={`${styleClass}`}>
+      <p className="text-sm font-bold sm:text-lg">Set to:</p>
+      <div className="flex items-start justify-between h-full gap-x-2">
         <button
-          className={`btn ezBtn ezBtnPrimaryOutline w-[110px] md:btn-md 
-          ${constant_ladder === "CONSTANT" ? "glass" : ""} 
+          className={`ezBtn btn-sm w-1/2 max-w-[160px]
+          ${
+            constant_ladder === "CONSTANT"
+              ? "ezBtnPrimary"
+              : "ezBtnPrimaryOutline"
+          } 
           `}
           onClick={() => setConstant_Ladder("CONSTANT")}
         >
           Constant
         </button>
         <button
-          className={`btn ezBtn ezBtnPrimaryOutline w-[110px] md:btn-md 
-          ${constant_ladder === "LADDER" ? "glass" : ""}
+          className={`ezBtn btn-sm w-1/2 max-w-[160px]
+          ${
+            constant_ladder === "LADDER"
+              ? "ezBtnPrimary"
+              : "ezBtnPrimaryOutline"
+          }
           `}
           onClick={() => setConstant_Ladder("LADDER")}
         >
@@ -29,51 +55,29 @@ const ConstantLadderSelection = ({ styleGrid, popupType }) => {
         </button>
       </div>
       {constant_ladder === "LADDER" && (
-        <div
-          className={`flex justify-start items-center ${
-            popupType === "deposit" ? "col-start-1" : "col-start-2"
-          } md:col-start-2 gap-x-2 flex-wrap`}
-        >
-          <div className="flex items-center justify-start">
-            <div className="form-control">
-              <label className="cursor-pointer label">
-                <input
-                  type="radio"
-                  name="ladder-radio"
-                  className="radio checked:bg-red-500"
-                  value="PERCENT"
-                  checked={percent_linear === "PERCENT"}
-                  onChange={handleRadioChange}
-                />
-                <span className="label-text">Decrease by percent</span>
+        <div className={`grid grid-cols-[3fr,2fr] justify-items-stretch place-items-center`}>
+          <div id="percent_linear" className="flex flex-col items-start justify-start">
+            <div>
+              <label className="justify-start cursor-pointer label">
+                <input type="radio" name="ladder-radio" className="radio checked:bg-neutral-100" value="PERCENT"
+                  checked={percent_linear === "PERCENT"} onChange={handleRadioChange}/>
+                <span className="text-xs md:text-sm label-text text-zinc-200 ml-2">Change by percent</span>
               </label>
             </div>
-            <div className="form-control">
-              <label className="cursor-pointer label">
-                <input
-                  type="radio"
-                  name="ladder-radio"
-                  className="radio checked:bg-red-500"
-                  value="LINEAR"
-                  checked={percent_linear === "LINEAR"}
-                  onChange={handleRadioChange}
-                />
-                <span className="label-text">Decrease by linear</span>
+            <div>
+              <label className="justify-start cursor-pointer label">
+                <input type="radio" name="ladder-radio" className="radio checked:bg-neutral-100" value="LINEAR"
+                  checked={percent_linear === "LINEAR"} onChange={handleRadioChange}/>
+                <span className="text-xs md:text-sm label-text text-zinc-200 ml-2">Change by linear</span>
               </label>
             </div>
           </div>
-          <div>
-            <input
-              type="number"
-              min={0}
-              className="inline max-w-xs input input-bordered w-36 "
-              value={ladderValue}
-              onChange={(e)=>setLadderValue(e.target.value)}
-            />
+          <div id="ladder_input" className="flex items-center justify-center px-2 py-2 border border-zinc-200 border-solid h-[60px] rounded-md">
+            <input type="number" min={0} className="self-stretch w-20 bg-black outline-none" value={deltaValue} onChange={(e) => setDeltaValue(e.target.value)}/>
             {percent_linear === "PERCENT" ? (
-              <span>%</span>
+              <span className="text-xs">%</span>
             ) : (
-              <span className="text-base">ETH</span>
+              <span className="text-xs">{currencyImage?.label}</span>
             )}
           </div>
         </div>

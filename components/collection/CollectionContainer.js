@@ -25,18 +25,20 @@ const CollectionContainer = ({ collection }) => {
   const [totalVolume, setTotalVolume] = useState(0);
   const [poolsByTradingPair, setPoolsByTradingPair] = useState({});
   const COLLECTION_PIC_SIZE = 90;
-
+  const EIGHTEEN_ZEROS = 1e18;
+  const SLIPPING_RATE = 1.005;
 
   //useEffect to calculate floor price, nft amount, top bids, offer tvl
   useEffect(() => {
     calculateAllPrices();
 
     function calculateAllPrices() {
+
       let {bestUserBuyPrice, bestUserSellPrice, nftCount, TVL, volume} = calculatePoolAllInfo(pools, address)
 
       //just to format the prices to  2 decimals. But no decimal if equals to 0.
       //prettier-ignore
-      bestUserBuyPrice = bestUserBuyPrice?.toFixed(MaxFiveDecimal(bestUserBuyPrice));
+      bestUserBuyPrice = parseFloat((bestUserBuyPrice*SLIPPING_RATE).toFixed(6)).toFixed(MaxFiveDecimal(bestUserBuyPrice*SLIPPING_RATE));
       //prettier-ignore
       bestUserSellPrice = bestUserSellPrice?.toFixed(MaxFiveDecimal(bestUserSellPrice));
       //prettier-ignore
@@ -86,7 +88,9 @@ const CollectionContainer = ({ collection }) => {
       />
       <ButtonGroup
         collectionName={name}
+        img={img}
         contractAddress={address}
+        currencyImage={currencyImage}
         collectionType={type}
         chainId={chainId}
         type={type}
@@ -96,11 +100,15 @@ const CollectionContainer = ({ collection }) => {
       />
       <AddLiquidityButton
         collectionName={name}
+        img={img}
         contractAddress={address}
+        currencyImage={currencyImage}
         collectionType={type}
         chainId={chainId}
         type={type}
         tokenId1155={tokenId1155}
+        floorPrice={floorPrice}
+        topBid={topBid}
       />
     </div>
   );

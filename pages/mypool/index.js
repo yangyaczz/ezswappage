@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
 import networkConfig from "../data/networkconfig.json";
 import {
@@ -7,28 +7,30 @@ import {
     useWaitForTransaction,
     useAccount,
 } from "wagmi";
-import {useFormik} from "formik";
+import { useFormik } from "formik";
 
 import {
     BuyPoolLiner,
+    SellPoolLiner,
     TradePoolLiner,
     BuyPoolExp,
+    SellPoolExp,
     TradePoolExp,
 } from "../../components/utils/calculate";
 import PoolCard from "@/components/mypool/PoolCard";
 import PoolFilter from "@/components/mypool/PoolFilter";
-import {useRouter} from "next/router";
-import {useLanguage} from "@/contexts/LanguageContext";
+import { useRouter } from "next/router";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const MyPool = () => {
-    const {languageModel} = useLanguage();
+    const { languageModel } = useLanguage();
     const [isMounted, setIsMounted] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [tempPoolList, setTempPoolList] = useState([]);
     const router = useRouter()
 
-    const {chain} = useNetwork();
-    const {address: owner} = useAccount();
+    const { chain } = useNetwork();
+    const { address: owner } = useAccount();
 
     const formik = useFormik({
         initialValues: {
@@ -130,6 +132,7 @@ const MyPool = () => {
                         //  calculate currentprice
                         let protocolFee = 1e16; // 1%  get from smartcontract
                         let dec = 1e18;
+                        let fixNum = 5
                         let res;
                         let params = [
                             item.spotPrice / dec,
@@ -139,25 +142,57 @@ const MyPool = () => {
                             1,
                         ];
 
+                        let currentSellPrice;
+                        let currentBuyPrice;
+
                         if (BondingCurveName === "Linear" && poolTypeName === "buy") {
                             res = BuyPoolLiner(...params);
+                            currentSellPrice = res.currentUintSellPrice.toFixed(fixNum)
+                        } else if (
+                            BondingCurveName === "Linear" &&
+                            poolTypeName === "sell"
+                        ) {
+                            res = SellPoolLiner(...params);
+                            currentBuyPrice = res.currentUintBuyPrice.toFixed(fixNum)
                         } else if (
                             BondingCurveName === "Linear" &&
                             poolTypeName === "trade"
                         ) {
                             res = TradePoolLiner(...params);
+                            currentSellPrice = res.currentUintSellPrice.toFixed(fixNum)
+                            currentBuyPrice = res.currentUintBuyPrice.toFixed(fixNum)
                         } else if (
                             BondingCurveName === "Exponential" &&
                             poolTypeName === "buy"
                         ) {
                             res = BuyPoolExp(...params);
+                            currentSellPrice = res.currentUintSellPrice.toFixed(fixNum)
+                        } else if (
+                            BondingCurveName === "Exponential" &&
+                            poolTypeName === "sell"
+                        ) {
+                            res = SellPoolExp(...params);
+                            currentBuyPrice = res.currentUintBuyPrice.toFixed(fixNum)
                         } else if (
                             BondingCurveName === "Exponential" &&
                             poolTypeName === "trade"
                         ) {
                             res = TradePoolExp(...params);
+                            currentSellPrice = res.currentUintSellPrice.toFixed(fixNum)
+                            currentBuyPrice = res.currentUintBuyPrice.toFixed(fixNum)
                         } else {
                             res;
+                        }
+
+                        // delta text
+                        let deltaText;
+
+                        if (BondingCurveName === "Linear") {
+                            deltaText = (item.delta / 1e18).toFixed(2)
+                        } else if (BondingCurveName === "Exponential" && poolTypeName === "buy") {
+                            deltaText = ((1 - 1e18 / item.delta) * 100).toFixed(2).toString() + "%"
+                        } else {
+                            deltaText = ((item.delta / 1e18 - 1) * 100).toFixed(2).toString() + "%"
                         }
 
                         return {
@@ -170,13 +205,12 @@ const MyPool = () => {
                             ), // this pool token balance, vaild or not
                             tokenName: tokenName,
                             NFTName: NFTName,
-                            currentPrice: item.spotPrice / dec,  //res?.userSellPrice
+                            currentPrice: '0000',  //res?.userSellPrice
+                            currentBuyPrice: currentBuyPrice,
+                            currentSellPrice: currentSellPrice,
                             BondingCurveName: BondingCurveName,
                             poolTypeName: poolTypeName,
-                            deltaText:
-                                BondingCurveName === "Linear"
-                                    ? (item.delta / 1e18).toFixed(2)
-                                    : ((item.delta / 1e18 - 1) * 100).toFixed(2).toString() + "%",      // (item.delta / 1e18).toFixed(2).toString()
+                            deltaText: deltaText
                         };
                     });
                     pairsList.sort(function (a, b) {
@@ -212,7 +246,7 @@ const MyPool = () => {
         <div>
             <div className="max-[800px]:hidden">
                 {/*pool type筛选*/}
-                <PoolFilter formik={formik} tempPoolList={tempPoolList} needFixPosition={true}/>
+                <PoolFilter formik={formik} tempPoolList={tempPoolList} needFixPosition={true} />
             </div>
             {/*<div>*/}
             {/*    /!*移动端的筛选*!/*/}
@@ -229,13 +263,13 @@ const MyPool = () => {
                         <button onClick={() => router.push('/collection')} class="btn btn-active" className="bg-[#2ED1D8] text-white rounded-md px-4 py-1 mb-8 mt-4 text-lg">{languageModel.CreateNewPool} </button>
                     </div>
                     {formik.values.filterPairs.length === 0 ? <div className="flex justify-center ">{languageModel.noData}</div> : formik.values.filterPairs?.map((item) => (
-                        <PoolCard key={item.id} item={item} formikData={formik} owner={owner} comeFrom="myPool"/>
+                        <PoolCard key={item.id} item={item} formikData={formik} owner={owner} comeFrom="myPool" />
                     ))}
                 </div>
             </div>
         </div>
-)
-    ;
+    )
+        ;
 };
 
 export default MyPool;

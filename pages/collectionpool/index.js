@@ -11,8 +11,10 @@ import {useFormik} from "formik";
 
 import {
     BuyPoolLiner,
+    SellPoolLiner,
     TradePoolLiner,
     BuyPoolExp,
+    SellPoolExp,
     TradePoolExp,
 } from "../../components/utils/calculate";
 import PoolCard from "@/components/mypool/PoolCard";
@@ -128,9 +130,10 @@ const MyPool = () => {
                             poolTypeName = "???";
                         }
 
-                        //  calculate currentprice
+                        //  calculate currentprice 
                         let protocolFee = 1e16; // 1%  get from smartcontract
                         let dec = 1e18;
+                        let fixNum = 5
                         let res;
                         let params = [
                             item.spotPrice / dec,
@@ -140,23 +143,44 @@ const MyPool = () => {
                             1,
                         ];
 
+                        let currentSellPrice;
+                        let currentBuyPrice;
+
                         if (BondingCurveName === "Linear" && poolTypeName === "buy") {
                             res = BuyPoolLiner(...params);
+                            currentSellPrice = res.currentUintSellPrice.toFixed(fixNum)
                         } else if (
+                            BondingCurveName === "Linear" &&
+                            poolTypeName === "sell"
+                        ) {
+                            res = SellPoolLiner(...params);
+                            currentBuyPrice = res.currentUintBuyPrice.toFixed(fixNum)
+                        }else if (
                             BondingCurveName === "Linear" &&
                             poolTypeName === "trade"
                         ) {
                             res = TradePoolLiner(...params);
+                            currentSellPrice = res.currentUintSellPrice.toFixed(fixNum)
+                            currentBuyPrice = res.currentUintBuyPrice.toFixed(fixNum)
                         } else if (
                             BondingCurveName === "Exponential" &&
                             poolTypeName === "buy"
                         ) {
                             res = BuyPoolExp(...params);
+                            currentSellPrice = res.currentUintSellPrice.toFixed(fixNum)
                         } else if (
+                            BondingCurveName === "Exponential" &&
+                            poolTypeName === "sell"
+                        ) {
+                            res = SellPoolExp(...params);
+                            currentBuyPrice = res.currentUintBuyPrice.toFixed(fixNum)
+                        }else if (
                             BondingCurveName === "Exponential" &&
                             poolTypeName === "trade"
                         ) {
                             res = TradePoolExp(...params);
+                            currentSellPrice = res.currentUintSellPrice.toFixed(fixNum)
+                            currentBuyPrice = res.currentUintBuyPrice.toFixed(fixNum)
                         } else {
                             res;
                         }
@@ -170,7 +194,9 @@ const MyPool = () => {
                             ).toFixed(3), // this pool token balance, vaild or not
                             tokenName: tokenName,
                             NFTName: NFTName,
-                            currentPrice: item.spotPrice / dec,   //res?.userSellPrice
+                            currentPrice: '0000',  //res?.userSellPrice
+                            currentBuyPrice: currentBuyPrice,
+                            currentSellPrice: currentSellPrice,
                             BondingCurveName: BondingCurveName,
                             poolTypeName: poolTypeName,
                             deltaText:

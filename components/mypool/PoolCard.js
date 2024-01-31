@@ -652,7 +652,8 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
             <div className="min-[800px]:flex min-[800px]:justify-between py-4 rounded-lg bg-base-200 ">
                 <div className='flex min-[800px]:flex-col max-[799px]:items-center'>
                     <span className="text-white text-sm align-baseline xl:text-base whitespace-nowrap max-[799px]:mr-4">{languageModel.CurrentPrice}</span>
-                    <span className="lg:mt-1 text-gray-500 ">{item.currentPrice === undefined? 0 :parseFloat(item.currentPrice.toFixed(5))}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName}</span>
+                    <span className="lg:mt-1 text-gray-500 ">{item.currentBuyPrice === undefined? `buy: NULL` :`buy: ${item.currentBuyPrice}`}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName}</span>
+                    <span className="lg:mt-1 text-gray-500 ">{item.currentSellPrice === undefined? `sell: NULL` :`sell: ${item.currentSellPrice}`}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName}</span>
                 </div>
                 <div className='flex min-[800px]:flex-col max-[799px]:items-center max-[800px]:mt-1'>
                     <span className="text-white text-sm align-baseline xl:text-base whitespace-nowrap max-[799px]:mr-4">{languageModel.BondingCurve}</span>

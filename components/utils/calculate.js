@@ -82,7 +82,7 @@ export function SellPoolLiner(
 
   return data;
 }
-
+// tfee 2%的话,要2*0.01带入计算库
 export function TradePoolLiner(
   spotPrice,
   delta,
@@ -152,7 +152,7 @@ function sumDesExp(a1, n, q) {
 function sumIncExp(a1, n, q) {
   return (a1 * (q ** n - 1)) / (q - 1);
 }
-
+// delta 是什么就传什么
 export function BuyPoolExp(
   spotPrice,
   delta,
@@ -198,10 +198,10 @@ export function SellPoolExp(
   n = 1,
   action = "read"
 ) {
+  const q = action === "read" ? delta : (100 + delta) / 100;
   if (action !== "read") {
     spotPrice = spotPrice / (1 + tfee + pfee) / q;
   }
-  const q = action === "read" ? delta : (100 + delta) / 100;
   const newSpotPrice = spotPrice * q; //  spotPrice * q  spotPrice / (1 + tfee + pfee)
 
   // user buy nft from pool
@@ -241,11 +241,10 @@ export function TradePoolExp(
   n = 1,
   action = "read"
 ) {
+  const q = action === "read" ? delta : (100 + delta) / 100;
   if (action !== "read") {
     spotPrice = spotPrice / (1 + tfee + pfee) / q;
   }
-
-  const q = action === "read" ? delta : (100 + delta) / 100; 
   const newSpotPrice = spotPrice * q; //  spotPrice * q   spotPrice / (1 + tfee + pfee)
 
   // user sell nft to pool

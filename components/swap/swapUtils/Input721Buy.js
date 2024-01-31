@@ -185,7 +185,7 @@ const Input721Buy = ({
               }}
             >
               {formikData.selectIds.includes(square) && (
-                <img className="w-6 absolute" src="/yes.svg" alt="" />
+                <img className="absolute w-6" src="/yes.svg" alt="" />
               )}
               <img className="w-20" src={formikData.collection.img} alt="" />
               <div className="font-bold">#{square}</div>

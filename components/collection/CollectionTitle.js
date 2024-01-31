@@ -1,6 +1,6 @@
 const CollectionTitle = ({ children }) => {
   return (
-    <h1 className="text-xl sm:text-2xl lg:text-3xl justify-self-start place-self-center col-span-full w-full flex justify-between items-center flex-wrap">
+    <h1 className="text-xl sm:text-2xl lg:text-3xl w-max font-bold">
       {children}
     </h1>
   );

@@ -104,7 +104,7 @@ function arrangeCollectionsByTradingPair() {
               pools: [],
               tradingCurrencyAddr: null,
               tradingCurrencyName: null,
-              currencyImage: null,
+              currencyImage: addressIcon[chainConfig?.hex]?.['0x0000000000000000000000000000000000000000'] || { label: "(UNKNOWN)", src: "/unknown.png" },
               chainId: chainConfig?.hex,
               order:collection.order
             });

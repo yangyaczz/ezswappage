@@ -123,8 +123,8 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
       isNaN(createPoolValue?.delta) || createPoolValue?.delta === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
       0,
       isNaN(createPoolValue?.spotPrice) || createPoolValue?.spotPrice === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
-      [tokenId1155],
-      size
+      tokenId1155,
+      0
   ]],
     value: createPoolValue === undefined || createPoolValue.poolBuyPrice===undefined||createPoolValue.poolBuyPrice === 0 || isNaN(createPoolValue.poolBuyPrice) ?0: ethers.utils.parseEther(createPoolValue?.poolBuyPrice?.toString()),
     onError(err) {

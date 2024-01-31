@@ -151,7 +151,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       createPoolValue?.delta === undefined || isNaN(createPoolValue?.delta) ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
       tradeFee === undefined || isNaN(tradeFee) ? 0: ethers?.utils?.parseEther((tradeFee * 0.01).toString()).toString(),
       createPoolValue?.spotPrice === undefined || isNaN(createPoolValue?.spotPrice) ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
-      [tokenId1155],
+      tokenId1155,
       selected1155NFTAmount
     ]],
     value: createPoolBidsValue === undefined || createPoolBidsValue.poolBuyPrice===undefined||createPoolBidsValue.poolBuyPrice === 0 || isNaN(createPoolBidsValue.poolBuyPrice) ?0: ethers.utils.parseEther(createPoolBidsValue?.poolBuyPrice?.toString()),
@@ -227,6 +227,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       return;
     }
     calculateCreatePoolValue()
+    setLoadingCreatePool(true)
     if (!nftApproval) {
       approveNFT()
     }else {
@@ -237,7 +238,6 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
 
   function goCreateSellPool(){
     calculateCreatePoolValue()
-    setLoadingCreatePool(true)
     if (tokenId1155 === null || tokenId1155 ==='') {
       // console.log([
       //   collectionAddr,
@@ -263,6 +263,12 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
     abi: ERC721EnumABI,
     functionName: "setApprovalForAll",
     args: [networkConfig[chain.id].factory, true],
+    onError(err) {
+      setLoadingCreatePool(false)
+    },
+    onSettled(data, error) {
+      setLoadingCreatePool(false)
+    }
   });
   const { data: nftApprovalData } = useContractRead({
     address: collectionAddr,

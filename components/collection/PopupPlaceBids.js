@@ -188,7 +188,7 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
       alertRef.current.showErrorAlert("Total Bid must be greater than 0");
       return;
     }
-    if ( percent_linear === "PERCENT" && deltaValue <= 0) {
+    if ( constant_ladder === "LADDER" && percent_linear === "PERCENT" && deltaValue <= 0) {
       alertRef.current.showErrorAlert("delta must be greater than 0");
       return;
     }

@@ -239,7 +239,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       alertRef.current.showErrorAlert('Invalid StartPrice or Delta parameter!')
       return false
     }
-    if ( percent_linear === "PERCENT" && deltaValue <= 0) {
+    if (constant_ladder === "LADDER" && percent_linear === "PERCENT" && deltaValue <= 0) {
       alertRef.current.showErrorAlert("delta must be greater than 0");
       return;
     }
@@ -402,6 +402,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
           {/*  onClick={() => cancelNftApprove()}>*/}
           {/*  {waitApproveLoading || waitTrxLoading || createPair1155ETHLoading || isLoading ? <span className="loading loading-spinner loading-sm"></span> : "Cancel Approve"}*/}
           {/*</button>*/}
+          <div className="min-[799px]:hidden max-[800px]:invisible">a</div>
         </section>
       </div>
     </PopupBlurBackground>

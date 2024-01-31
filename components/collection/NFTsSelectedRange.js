@@ -25,7 +25,7 @@ const NFTsSelectedRange = ({ radioRef, styleClass }) => {
         onChange={handleRangeChange}
         className="range range-primary range-xs"
       />
-      <p className="text-lg text-center border-l-2 w-11 sm:text-xl lg:text-2xl border-l-solid">
+      <p className="text-base text-right border-l-2 w-11 sm:text-base lg:text-base border-l-solid mr-1">
         {tokenId1155 ? selected1155NFTAmount : selectedNFTs.length}
       </p>
     </div>

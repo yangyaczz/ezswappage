@@ -24,8 +24,6 @@ import {isNaN} from "formik";
 
 const PopupDeposit = ({ handleApproveClick = () => {} }) => {
   // const [selectedNFTs, setSelectedNFTs] = useState([]); //Take down selected / checked NFTs
-  const MAX_SIZE_ALLOWED = 10000;
-  const [maxSizeAllowed, setMaxSizeAllowed] = useState(10000);
   const {
     selectedNFTs,
     selected1155NFTAmount,
@@ -42,6 +40,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
   const radioRef = useRef(
     tokenId1155 ? selected1155NFTAmount : selectedNFTs.length
   );
+  const [loadingCreatePool, setLoadingCreatePool] = useState(false);
   const [listingPrice, setListingPrice] = useState(0);
   const [avgPrice, setAvgPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -129,7 +128,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
         setCreatePoolValue(result)
       }
     }
-    let avgPrice = parseFloat(result.poolSellPrice) / NFTAmount;
+    let avgPrice = parseFloat(result.userBuyPrice) / NFTAmount;
     avgPrice = !avgPrice ? 0 : avgPrice;
     setAvgPrice(parseFloat(avgPrice).toFixed(MaxFiveDecimal(avgPrice)));
     console.log('起始价格', listingPrice,'deltaValue', deltaValue,'NFTAmount',NFTAmount ,'计算后的结果', result)
@@ -144,9 +143,15 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       1,
       isNaN(createPoolValue?.delta) ||createPoolValue?.delta === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
       0,
-      createPoolValue?.spotPrice === undefined || isNaN(createPoolValue?.spotPrice) ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
+      isNaN(createPoolValue?.spotPrice) || createPoolValue?.spotPrice === undefined || isNaN(createPoolValue?.spotPrice) ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
       selectedNFTs
-    ]]
+    ]],
+    onError(err) {
+      setLoadingCreatePool(false)
+    },
+    onSettled(data, error) {
+      setLoadingCreatePool(false)
+    }
   });
 
   const {
@@ -170,7 +175,13 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       createPoolValue?.spotPrice === undefined || isNaN(createPoolValue?.spotPrice) ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
       [tokenId1155],
       selected1155NFTAmount
-    ]]
+    ]],
+    onError(err) {
+      setLoadingCreatePool(false)
+    },
+    onSettled(data, error) {
+      setLoadingCreatePool(false)
+    }
   });
 
   useEffect(() => {
@@ -180,6 +191,17 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       } else if (swapError.message.indexOf("insufficient funds") > -1) {
         alertRef.current.showErrorAlert("insufficient funds");
       }  else if (swapError.message.indexOf("insufficient balance for transfer") > -1) {
+        alertRef.current.showErrorAlert("insufficient balance for transfer");
+      } else {
+        alertRef.current.showErrorAlert("Create Pool Error");
+      }
+    }
+    if (createPair1155ETHSwapStatus === "error") {
+      if (createPair1155ETHSwapError.message.indexOf("token owner or approved") > -1) {
+        alertRef.current.showErrorAlert("caller is not token owner or approved");
+      } else if (createPair1155ETHSwapError.message.indexOf("insufficient funds") > -1) {
+        alertRef.current.showErrorAlert("insufficient funds");
+      }  else if (createPair1155ETHSwapError.message.indexOf("insufficient balance for transfer") > -1) {
         alertRef.current.showErrorAlert("insufficient balance for transfer");
       } else {
         alertRef.current.showErrorAlert("Create Pool Error");
@@ -206,16 +228,20 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
   function createSellPool(){
     let NFTAmount = tokenId1155 ? selected1155NFTAmount : selectedNFTs.length;
     if (NFTAmount <= 0) {
-      alertRef.current.showErrorAlert("Size must be greater than 0");
+      alertRef.current.showErrorAlert("The number of NFTs cannot be 0 !");
       return;
     }
-    if (createPoolValue.poolSellPrice <= 0) {
-      alertRef.current.showErrorAlert("Total Bid must be greater than 0");
+    if (createPoolValue.userBuyPrice <= 0 || isNaN(createPoolValue.userBuyPrice)) {
+      alertRef.current.showErrorAlert("Total Price must be greater than 0");
       return;
     }
     if (createPoolValue.spotPrice <= 0) {
       alertRef.current.showErrorAlert('Invalid StartPrice or Delta parameter!')
       return false
+    }
+    if ( percent_linear === "PERCENT" && deltaValue <= 0) {
+      alertRef.current.showErrorAlert("delta must be greater than 0");
+      return;
     }
     calculateCreatePoolValue()
     if (!nftApproval) {
@@ -227,17 +253,19 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
 
 
   function goCreateSellPool(){
+    calculateCreatePoolValue()
+    setLoadingCreatePool(true)
     if (tokenId1155 === null || tokenId1155 ==='') {
-      console.log([
-        collectionAddr,
-        constant_ladder === "CONSTANT" || percent_linear === "LINEAR" ? networkConfig[chain.id].linear:networkConfig[chain.id].exponential,
-        owner,
-        0,
-        isNaN(createPoolValue?.delta) || createPoolValue?.delta === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
-        0,
-        createPoolValue?.spotPrice === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
-        selectedNFTs
-      ])
+      // console.log([
+      //   collectionAddr,
+      //   constant_ladder === "CONSTANT" || percent_linear === "LINEAR" ? networkConfig[chain.id].linear:networkConfig[chain.id].exponential,
+      //   owner,
+      //   0,
+      //   isNaN(createPoolValue?.delta) || createPoolValue?.delta === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.delta?.toString()).toString(),
+      //   0,
+      //   createPoolValue?.spotPrice === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
+      //   selectedNFTs
+      // ])
       doCreateSellPool()
     }else {
       doCreateSellPool1155()
@@ -291,14 +319,14 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
         <AlertComponent ref={alertRef} />
 
     <PopupBlurBackground>
-      <div className="max-[800px]:flex max-[800px]:flex-col grid items-center w-full h-full grid-cols-2 text-sm text-white content-stretch gap-x-4 justify-items-center md:text-base lg:text-lg">
+      <div className="max-[800px]:flex max-[800px]:flex-col grid items-center w-full h-full grid-cols-2 text-sm text-white content-stretch gap-x-4 justify-items-center md:text-base lg:text-lg ">
         <NFTListView
           handleNFTClicked={handleNFTClicked}
           styleClass="p-4 border border-white border-solid w-full max-w-[400px] h-full rounded-md max-[800px]:mb-3"
         />
         <section
           id="NFT_Controller_Section"
-          className="grid grid-cols-1 grid-rows-[2fr,auto,auto,3fr,auto,auto,auto] gap-y-2 justify-items-center min-[800px]:h-full rounded-md"
+          className="max-[800px]:h-4/6 grid grid-cols-1 grid-rows-[2fr,auto,auto,3fr,auto,auto,auto] gap-y-2 justify-items-center min-[800px]:h-full rounded-md max-[800px]:w-full  max-[800px]:pb-10"
         >
           <PopupHeader
             handlePriceClick={(price) => setListingPrice(price)}
@@ -320,15 +348,15 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
                 type="number"
                 min={0}
                 placeholder="Amount"
-                className="bg-black w-[106px] inline pr-[26px] pl-1 outline-0 border-l-2 border-l-white text-base"
+                className="rounded-none	bg-black w-[106px] inline pr-[26px] pl-1 outline-0 border-l-2 border-l-white text-base"
                 value={listingPrice}
                 onChange={(e) => setListingPrice(parseFloat(e.target.value))}
               />
               <Image
                 src={currencyImage?.src}
                 alt={currencyImage?.label}
-                width={24}
-                height={24}
+                width={20}
+                height={20}
                 className="absolute right-0"
               />
             </div>
@@ -353,7 +381,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
           <div className="flex justify-between px-4 py-1 border border-white border-solid w-full max-w-[400px] rounded-md">
             <label>Total Price:</label>
             <p>
-              {parseFloat(createPoolValue.poolSellPrice).toFixed(MaxFiveDecimal(createPoolValue.poolSellPrice))}
+              {isNaN(createPoolValue.userBuyPrice)?0:parseFloat(createPoolValue.userBuyPrice).toFixed(MaxFiveDecimal(createPoolValue.userBuyPrice))}
               <Image
                 src={currencyImage?.src}
                 alt={currencyImage?.label}
@@ -367,7 +395,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
             className={`btn ezBtn ezBtnPrimary btn-sm w-36  ${NFTList && NFTList.length > 0 ? "" : "!bg-zinc-500"}`}
             onClick={() => createSellPool()}
             disabled={NFTList.length > 0 ? false : true}>
-            {waitApproveLoading || waitTrxLoading || createPair1155ETHLoading || isLoading ? <span className="loading loading-spinner loading-sm"></span> : "Confirm"}
+            {loadingCreatePool || waitApproveLoading || waitTrxLoading || createPair1155ETHLoading || isLoading ? <span className="loading loading-spinner loading-sm"></span> : "Confirm"}
           </button>
           {/*<button*/}
           {/*  className={`btn ezBtn ezBtnPrimary btn-sm w-36  ${NFTList && NFTList.length > 0 ? "" : "!bg-zinc-500"}`}*/}

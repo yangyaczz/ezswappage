@@ -72,12 +72,12 @@ const ConstantLadderSelection = ({ popupType, styleClass }) => {
               </label>
             </div>
           </div>
-          <div id="ladder_input" className="flex items-center justify-center w-32 px-2 py-2 border-2 border-zinc-200 border-solid h-[60px] rounded-md">
+          <div id="ladder_input" className="flex items-center justify-center px-2 py-2 border border-zinc-200 border-solid h-[60px] rounded-md">
             <input type="number" min={0} className="self-stretch w-20 bg-black outline-none" value={deltaValue} onChange={(e) => setDeltaValue(e.target.value)}/>
             {percent_linear === "PERCENT" ? (
               <span className="text-xs">%</span>
             ) : (
-              <span className="text-xs">{currencyImage.label}</span>
+              <span className="text-xs">{currencyImage?.label}</span>
             )}
           </div>
         </div>

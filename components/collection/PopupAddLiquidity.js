@@ -23,8 +23,7 @@ import AlertComponent from "./../common/AlertComponent";
 
 const PopupDeposit = ({ handleApproveClick = () => {} }) => {
   // const [selectedNFTs, setSelectedNFTs] = useState([]); //Take down selected / checked NFTs
-  const MAX_SIZE_ALLOWED = 10000;
-  const [maxSizeAllowed, setMaxSizeAllowed] = useState(10000);
+  const [maxSizeAllowed, setMaxSizeAllowed] = useState(1000000);
   const {
     selectedNFTs,
     selected1155NFTAmount,
@@ -41,6 +40,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
   const radioRef = useRef(
     tokenId1155 ? selected1155NFTAmount : selectedNFTs.length
   );
+  const [loadingCreatePool, setLoadingCreatePool] = useState(false);
   const [listingPrice, setListingPrice] = useState(0);
   const [tradeFee, setTradeFee] = useState(0);
   const [avgPrice, setAvgPrice] = useState(0);
@@ -98,14 +98,14 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
         setCreatePoolValue(result)
         setCreatePoolBidsValue(bidsresult)
       } else if (percent_linear === "LINEAR") {
-        // setMaxSizeAllowed(Math.floor(Number(bidPrice)/deltaValue))
+        setMaxSizeAllowed(Math.floor(Number(listingPrice)/deltaValue))
         result = TradePoolLiner(Number(listingPrice), deltaValue, smallTradeFee, 0.01, NFTAmount, 'create')
         setCreatePoolValue(result)
         bidsresult = TradePoolLiner(Number(listingPrice), deltaValue, smallTradeFee, 0.01, size, 'create')
         setCreatePoolBidsValue(bidsresult)
       }
     }
-    let avgPrice = parseFloat(result.poolSellPrice) / NFTAmount;
+    let avgPrice = parseFloat(result.userBuyPrice) / NFTAmount;
     avgPrice = !avgPrice ? 0 : avgPrice;
     setAvgPrice(parseFloat(avgPrice).toFixed(MaxFiveDecimal(avgPrice)));
     console.log('起始价格', listingPrice,'deltaValue', deltaValue,'NFTAmount',NFTAmount ,'tradeFee ', smallTradeFee ,'计算后的结果卖', result, '计算后的结果买', bidsresult)
@@ -123,7 +123,13 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       createPoolValue?.spotPrice === undefined || isNaN(createPoolValue?.spotPrice) ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
       selectedNFTs
     ]],
-    value: createPoolBidsValue === undefined || createPoolBidsValue.poolBuyPrice===undefined||createPoolBidsValue.poolBuyPrice === 0 || isNaN(createPoolBidsValue.poolBuyPrice) ?0: ethers.utils.parseEther(createPoolBidsValue?.poolBuyPrice?.toString())
+    value: createPoolBidsValue === undefined || createPoolBidsValue.poolBuyPrice===undefined||createPoolBidsValue.poolBuyPrice === 0 || isNaN(createPoolBidsValue.poolBuyPrice) ?0: ethers.utils.parseEther(createPoolBidsValue?.poolBuyPrice?.toString()),
+    onError(err) {
+      setLoadingCreatePool(false)
+    },
+    onSettled(data, error) {
+      setLoadingCreatePool(false)
+    }
   });
 
   const {
@@ -148,7 +154,13 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       [tokenId1155],
       selected1155NFTAmount
     ]],
-    value: createPoolBidsValue === undefined || createPoolBidsValue.poolBuyPrice===undefined||createPoolBidsValue.poolBuyPrice === 0 || isNaN(createPoolBidsValue.poolBuyPrice) ?0: ethers.utils.parseEther(createPoolBidsValue?.poolBuyPrice?.toString())
+    value: createPoolBidsValue === undefined || createPoolBidsValue.poolBuyPrice===undefined||createPoolBidsValue.poolBuyPrice === 0 || isNaN(createPoolBidsValue.poolBuyPrice) ?0: ethers.utils.parseEther(createPoolBidsValue?.poolBuyPrice?.toString()),
+    onError(err) {
+      setLoadingCreatePool(false)
+    },
+    onSettled(data, error) {
+      setLoadingCreatePool(false)
+    }
   });
 
   useEffect(() => {
@@ -158,6 +170,17 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       } else if (swapError.message.indexOf("insufficient funds") > -1) {
         alertRef.current.showErrorAlert("insufficient funds");
       }  else if (swapError.message.indexOf("insufficient balance for transfer") > -1) {
+        alertRef.current.showErrorAlert("insufficient balance for transfer");
+      } else {
+        alertRef.current.showErrorAlert("Create Pool Error");
+      }
+    }
+    if (createPair1155ETHSwapStatus === "error") {
+      if (createPair1155ETHSwapError.message.indexOf("token owner or approved") > -1) {
+        alertRef.current.showErrorAlert("caller is not token owner or approved");
+      } else if (createPair1155ETHSwapError.message.indexOf("insufficient funds") > -1) {
+        alertRef.current.showErrorAlert("insufficient funds");
+      }  else if (createPair1155ETHSwapError.message.indexOf("insufficient balance for transfer") > -1) {
         alertRef.current.showErrorAlert("insufficient balance for transfer");
       } else {
         alertRef.current.showErrorAlert("Create Pool Error");
@@ -184,16 +207,24 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
   function createSellPool(){
     let NFTAmount = tokenId1155 ? selected1155NFTAmount : selectedNFTs.length;
     if (NFTAmount <= 0) {
-      alertRef.current.showErrorAlert("Size must be greater than 0");
+      alertRef.current.showErrorAlert("The number of NFTs cannot be 0");
       return;
     }
     if (createPoolValue.poolSellPrice <= 0) {
+      alertRef.current.showErrorAlert("Total Price must be greater than 0");
+      return;
+    }
+    if (createPoolBidsValue.poolBuyPrice <= 0) {
       alertRef.current.showErrorAlert("Total Bid must be greater than 0");
       return;
     }
     if (createPoolValue.spotPrice <= 0) {
       alertRef.current.showErrorAlert('Invalid StartPrice or Delta parameter!')
       return false
+    }
+    if ( percent_linear === "PERCENT" && deltaValue <= 0) {
+      alertRef.current.showErrorAlert("delta must be greater than 0");
+      return;
     }
     calculateCreatePoolValue()
     if (!nftApproval) {
@@ -205,6 +236,8 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
 
 
   function goCreateSellPool(){
+    calculateCreatePoolValue()
+    setLoadingCreatePool(true)
     if (tokenId1155 === null || tokenId1155 ==='') {
       // console.log([
       //   collectionAddr,
@@ -261,45 +294,32 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
     },
   });
   return (
-      <div>
+      <div className="overflow-scroll">
         <AlertComponent ref={alertRef} />
 
     <PopupBlurBackground>
       <div className="max-[800px]:flex max-[800px]:flex-col grid items-center w-full h-full grid-cols-2 text-sm text-white content-stretch gap-x-4 justify-items-center md:text-base lg:text-lg">
-        <NFTListView
-          handleNFTClicked={handleNFTClicked}
-          styleClass="p-4 border border-white border-solid w-full max-w-[400px] h-full rounded-md max-[800px]:mb-3"
-        />
-        <section
-          id="NFT_Controller_Section"
-          className="grid grid-cols-1 grid-rows-[2fr,auto,auto,3fr,auto,auto,auto] gap-y-2 justify-items-center min-[800px]:h-full rounded-md"
-        >
-          <PopupHeader
-            handlePriceClick={(price) => setListingPrice(price)}
-            styleClass="px-4 py-1 border border-white border-solid w-full max-w-[400px] content-center"
-          />
-          <NFTsSelectedRange
-            radioRef={radioRef}
-            styleClass="px-4 py-1 border border-white border-solid w-full max-w-[400px] rounded-md"
-          />
+        <NFTListView handleNFTClicked={handleNFTClicked} styleClass="p-4 border border-white border-solid w-full max-w-[400px] h-full rounded-md max-[800px]:mb-3"/>
+        <section id="NFT_Controller_Section"
+          className="max-[800px]:h-4/6 grid grid-cols-1 grid-rows-[2fr,auto,auto,3fr,auto,auto,auto] gap-y-2 justify-items-center min-[800px]:h-full rounded-md max-[800px]:w-full  max-[800px]:pb-10">
+          <PopupHeader handlePriceClick={(price) => setListingPrice(price)} styleClass="px-4 py-1 border border-white border-solid w-full max-w-[400px] content-center"/>
+          <NFTsSelectedRange radioRef={radioRef} styleClass="px-4 py-1 border border-white border-solid w-full max-w-[400px] rounded-md"/>
           <section id="list_nft_price" className="flex items-center justify-between border border-white border-solid w-full max-w-[400px] px-4 py-1 rounded-md">
-            <p className="text-sm font-bold sm:text-base lg:text-lg ">
-              Listing Price:
-            </p>
+            <p className="text-sm font-bold sm:text-base lg:text-lg ">Listing Price:</p>
             <div className="relative flex items-center justify-center">
               <input
                 type="number"
                 min={0}
                 placeholder="Amount"
-                className="bg-black w-[106px] inline pr-[26px] pl-1 outline-0 border-l-2 border-l-white text-base"
+                className="rounded-none	bg-black w-[106px] inline pr-[26px] pl-1 outline-0 border-l-2 border-l-white text-base"
                 value={listingPrice}
                 onChange={(e) => setListingPrice(parseFloat(e.target.value))}
               />
               <Image
                 src={currencyImage?.src}
                 alt={currencyImage?.label}
-                width={24}
-                height={24}
+                width={20}
+                height={20}
                 className="absolute right-0"
               />
             </div>
@@ -308,19 +328,13 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
             styleClass="grid grid-cols-1 grid-rows-auto self-start gap-2 px-4 py-1 border border-white border-solid w-full max-w-[400px] rounded-md"/>
 
           <section id="trade_fee" className="flex items-center justify-between border border-white border-solid w-full max-w-[400px] px-4 py-1 rounded-md">
-            <p className="text-sm font-bold sm:text-base lg:text-lg ">
-              Trade Fee:
-            </p>
+            <p className="text-sm font-bold sm:text-base lg:text-lg ">Trade Fee:</p>
             <div className="relative flex items-center justify-center">
-              <input
-                  type="number"
-                  min={0}
-                  placeholder="Amount"
-                  className="bg-black w-[106px] inline pr-[26px] pl-1 outline-0 border-l-2 border-l-white text-base"
+              <input type="number" min={0} placeholder="Amount"
+                  className="rounded-none bg-black w-[106px] inline pr-[26px] pl-1 outline-0 border-l-2 border-l-white text-base"
                   value={tradeFee}
-                  onChange={(e) => setTradeFee(parseFloat(e.target.value))}
-              />
-              %
+                  onChange={(e) => setTradeFee(parseFloat(e.target.value))}/>
+              <span className="absolute right-0">%</span>
             </div>
           </section>
 
@@ -344,7 +358,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
                        }
                      }}
               />
-              <button className="w-6 h-6 bg-black border-l-2 border-l-white" onClick={() =>
+              <button className="w-6 h-6 bg-black border-l-2 border-l-white pl-1" onClick={() =>
                   setSize((size) =>
                       size < maxSizeAllowed ? ++size : maxSizeAllowed
                   )
@@ -371,26 +385,26 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
           <div className="flex justify-between px-4 py-1 border border-white border-solid w-full max-w-[400px] rounded-md">
             <label>Total Bids:</label>
             <p>
-              {parseFloat(createPoolBidsValue.poolBuyPrice).toFixed(MaxFiveDecimal(createPoolBidsValue.poolBuyPrice))}
+              {isNaN(createPoolBidsValue.poolBuyPrice) ? 0:parseFloat(createPoolBidsValue.poolBuyPrice).toFixed(MaxFiveDecimal(createPoolBidsValue.poolBuyPrice))}
               <Image
                 src={currencyImage?.src}
                 alt={currencyImage?.label}
                 width={20}
                 height={20}
-                className="inline -translate-y-1"
+                className="inline -translate-y-1 mt-1 ml-1"
               />
             </p>
           </div>
           <div className="flex justify-between px-4 py-1 border border-white border-solid w-full max-w-[400px] rounded-md">
             <label>Total Price:</label>
             <p>
-              {parseFloat(createPoolValue.poolSellPrice).toFixed(MaxFiveDecimal(createPoolValue.poolSellPrice))}
+              {isNaN(createPoolValue.userBuyPrice)?0:parseFloat(createPoolValue.userBuyPrice).toFixed(MaxFiveDecimal(createPoolValue.userBuyPrice))}
               <Image
                   src={currencyImage?.src}
                   alt={currencyImage?.label}
                   width={20}
                   height={20}
-                  className="inline -translate-y-1"
+                  className="inline -translate-y-1 mt-1 ml-1"
               />
             </p>
           </div>
@@ -398,7 +412,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
             className={`btn ezBtn ezBtnPrimary btn-sm w-36  ${NFTList && NFTList.length > 0 ? "" : "!bg-zinc-500"}`}
             onClick={() => createSellPool()}
             disabled={NFTList.length > 0 ? false : true}>
-            {waitApproveLoading || waitTrxLoading || createPair1155ETHLoading || isLoading ? <span className="loading loading-spinner loading-sm"></span> : "Confirm"}
+            {loadingCreatePool || waitApproveLoading || waitTrxLoading || createPair1155ETHLoading || isLoading ? <span className="loading loading-spinner loading-sm"></span> : "Confirm"}
           </button>
         </section>
       </div>

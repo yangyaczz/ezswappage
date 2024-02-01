@@ -68,5 +68,6 @@ const AlertComponent = React.forwardRef((props, ref) => {
       </div>
   );
 });
+AlertComponent.displayName = 'AlertComponent';
 
 export default AlertComponent;

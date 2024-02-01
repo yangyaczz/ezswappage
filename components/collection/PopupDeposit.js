@@ -111,7 +111,6 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
 
   function calculateCreatePoolValue(){
     let NFTAmount = tokenId1155 ? selected1155NFTAmount : selectedNFTs.length;
-
     // console.log('listingPrice deltaValue',listingPrice, deltaValue, NFTAmount)
     let result;
     if (constant_ladder === "CONSTANT") {
@@ -124,7 +123,6 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       } else if (percent_linear === "LINEAR") {
         // setMaxSizeAllowed(Math.floor(Number(bidPrice)/deltaValue))
         result = SellPoolLiner(Number(listingPrice), deltaValue, 0, 0.01, NFTAmount, 'create')
-        console.log('SellPoolLiner result', result)
         setCreatePoolValue(result)
       }
     }

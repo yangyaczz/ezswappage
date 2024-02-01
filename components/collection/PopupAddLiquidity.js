@@ -123,7 +123,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       createPoolValue?.spotPrice === undefined || isNaN(createPoolValue?.spotPrice) ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
       selectedNFTs
     ]],
-    value: createPoolBidsValue === undefined || createPoolBidsValue.poolBuyPrice===undefined||createPoolBidsValue.poolBuyPrice === 0 || isNaN(createPoolBidsValue.poolBuyPrice) ?0: ethers.utils.parseEther(createPoolBidsValue?.poolBuyPrice?.toString()),
+    value: createPoolBidsValue === undefined || createPoolBidsValue.poolBuyPrice===undefined||createPoolBidsValue.poolBuyPrice === 0 || isNaN(createPoolBidsValue.poolBuyPrice) ?0: ethers.utils.parseEther((createPoolBidsValue?.poolBuyPrice*1.001).toString()),
     onError(err) {
       setLoadingCreatePool(false)
     },
@@ -154,7 +154,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       tokenId1155,
       selected1155NFTAmount
     ]],
-    value: createPoolBidsValue === undefined || createPoolBidsValue.poolBuyPrice===undefined||createPoolBidsValue.poolBuyPrice === 0 || isNaN(createPoolBidsValue.poolBuyPrice) ?0: ethers.utils.parseEther(createPoolBidsValue?.poolBuyPrice?.toString()),
+    value: createPoolBidsValue === undefined || createPoolBidsValue.poolBuyPrice===undefined||createPoolBidsValue.poolBuyPrice === 0 || isNaN(createPoolBidsValue.poolBuyPrice) ?0: ethers.utils.parseEther((createPoolBidsValue?.poolBuyPrice*1.001).toString()),
     onError(err) {
       setLoadingCreatePool(false)
     },
@@ -391,7 +391,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
           <div className="flex justify-between px-4 py-1 border border-white border-solid w-full max-w-[400px] rounded-md">
             <label>Total Bids:</label>
             <p>
-              {isNaN(createPoolBidsValue.poolBuyPrice) ? 0:parseFloat(createPoolBidsValue.poolBuyPrice).toFixed(MaxFiveDecimal(createPoolBidsValue.poolBuyPrice))}
+              {isNaN(createPoolBidsValue.poolBuyPrice) ? 0:parseFloat(createPoolBidsValue.poolBuyPrice*1.001).toFixed(MaxFiveDecimal(createPoolBidsValue.poolBuyPrice*1.001))}
               <Image
                 src={currencyImage?.src}
                 alt={currencyImage?.label}

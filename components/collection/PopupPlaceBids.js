@@ -95,7 +95,7 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
       isNaN(createPoolValue?.spotPrice) || createPoolValue?.spotPrice === undefined ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
       []
     ]],
-    value: createPoolValue === undefined || createPoolValue.poolBuyPrice===undefined || isNaN(createPoolValue.poolBuyPrice) ? 0:ethers.utils.parseEther(createPoolValue?.poolBuyPrice?.toString()),
+    value: createPoolValue === undefined || createPoolValue.poolBuyPrice===undefined || isNaN(createPoolValue.poolBuyPrice) ? 0:ethers.utils.parseEther((createPoolValue?.poolBuyPrice*1.001).toString()),
     onError(err) {
       setLoadingCreatePool(false)
     },
@@ -126,7 +126,7 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
       tokenId1155,
       0
   ]],
-    value: createPoolValue === undefined || createPoolValue.poolBuyPrice===undefined||createPoolValue.poolBuyPrice === 0 || isNaN(createPoolValue.poolBuyPrice) ?0: ethers.utils.parseEther(createPoolValue?.poolBuyPrice?.toString()),
+    value: createPoolValue === undefined || createPoolValue.poolBuyPrice===undefined||createPoolValue.poolBuyPrice === 0 || isNaN(createPoolValue.poolBuyPrice) ?0: ethers.utils.parseEther((createPoolValue?.poolBuyPrice*1.001).toString()),
     onError(err) {
       setLoadingCreatePool(false)
     },
@@ -278,7 +278,7 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
         <section id="place_bid_totalbids" className="flex justify-center w-5/6 max-w-[400px] items-center gap-x-1">
           <p className="font-bold">Total Bid:</p>
           <p>
-            {isNaN(createPoolValue.poolBuyPrice) || createPoolValue.poolBuyPrice === undefined?0:createPoolValue.poolBuyPrice}
+            {isNaN(createPoolValue.poolBuyPrice) || createPoolValue.poolBuyPrice === undefined?0:parseFloat(createPoolValue.poolBuyPrice*1.001).toFixed(MaxFiveDecimal(createPoolValue.poolBuyPrice*1.001))}
             <Image src={currencyImage?.src} alt={currencyImage?.label} width={20} height={20} className="inline -translate-y-1"/>
           </p>
         </section>

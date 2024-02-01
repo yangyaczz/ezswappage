@@ -40,7 +40,7 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
                 pair.ifUserAddGetPrice = res.userSellPrice
 
                 // get maxPrice pool
-                if (pair.tokenBalance / dec >= res.poolBuyPrice) {
+                if (pair.tokenBalance / dec * 0.999>= res.poolBuyPrice) {
                     const currentPrice = res.currentUintSellPrice
                     if (currentPrice > maxPrice) {
                         maxPrice = currentPrice

@@ -180,6 +180,52 @@ function CollectionProvider({ children }) {
     dispatch({ type: "collection/closePopup" });
   }
 
+  // //increase or decrease NFTs checkbox when the radio bar in being dragged
+  // async function changeRangeValue(numOfNFTByRange) {
+  //   if (tokenId1155) {
+  //     //1155 token logic
+  //     if (numOfNFTByRange === selected1155NFTAmount) return;
+  //     dispatch({
+  //       type: "collection/select1155NFTs",
+  //       payload: numOfNFTByRange,
+  //     });
+  //   } else {
+  //     //721 token logic
+  //     console.log('numOfNFTByRangenumOfNFTByRange', numOfNFTByRange)
+  //     if (selectedNFTs.length === numOfNFTByRange) return;
+  //     //when the user drags the range bar to increase the number (by 1) of NFTs, we are going to add the first "unchecked" NFTs in NFTList array to the selectedNFTs array
+  //     if (selectedNFTs.length < numOfNFTByRange) {
+  //       // let selectCount = 0
+  //       // let tempOriginSelectCount = 0
+  //       // for (let i = 0; i < NFTList.length; i++) {
+  //       //   if (!selectedNFTs.includes(NFTList[i].tokenId)){
+  //       //     selectedNFTs.push(NFTList[i].tokenId);
+  //       //     selectCount = selectCount+1
+  //       //   }
+  //       //   if (selectCount >= numOfNFTByRange-tempOriginSelectCount) break
+  //       // }
+  //       dispatch({
+  //         type: "collection/select721NFTs",
+  //         payload: [
+  //           ...selectedNFTs,
+  //           NFTList.find((nft) => !selectedNFTs.includes(nft.tokenId)).tokenId,
+  //         ],
+  //       });
+  //     }else if (selectedNFTs.length > numOfNFTByRange) {
+  //       //gets the last selected nft tokenId from the view section
+  //       const lastNFT = NFTList.slice()
+  //         .reverse()
+  //         .find((nftL) => selectedNFTs.includes(nftL.tokenId)).tokenId;
+
+  //       //and remove the last selected nft from the selectedNfts array by its tokenId
+  //       dispatch({
+  //         type: "collection/select721NFTs",
+  //         payload: selectedNFTs.filter((nft) => nft !== lastNFT),
+  //       });
+  //     }
+  //   }
+  // }
+
   //increase or decrease NFTs checkbox when the radio bar in being dragged
   async function changeRangeValue(numOfNFTByRange) {
     if (tokenId1155) {
@@ -191,36 +237,29 @@ function CollectionProvider({ children }) {
       });
     } else {
       //721 token logic
-      console.log('numOfNFTByRangenumOfNFTByRange', numOfNFTByRange)
-      if (selectedNFTs.length === numOfNFTByRange) return;
-      //when the user drags the range bar to increase the number (by 1) of NFTs, we are going to add the first "unchecked" NFTs in NFTList array to the selectedNFTs array
-      if (selectedNFTs.length < numOfNFTByRange) {
-        // let selectCount = 0
-        // let tempOriginSelectCount = 0
-        // for (let i = 0; i < NFTList.length; i++) {
-        //   if (!selectedNFTs.includes(NFTList[i].tokenId)){
-        //     selectedNFTs.push(NFTList[i].tokenId);
-        //     selectCount = selectCount+1
-        //   }
-        //   if (selectCount >= numOfNFTByRange-tempOriginSelectCount) break
-        // }
-        dispatch({
-          type: "collection/select721NFTs",
-          payload: [
-            ...selectedNFTs,
-            NFTList.find((nft) => !selectedNFTs.includes(nft.tokenId)).tokenId,
-          ],
-        });
-      }else if (selectedNFTs.length > numOfNFTByRange) {
-        //gets the last selected nft tokenId from the view section
-        const lastNFT = NFTList.slice()
-          .reverse()
-          .find((nftL) => selectedNFTs.includes(nftL.tokenId)).tokenId;
+      let tokenNumDiff = numOfNFTByRange - selectedNFTs.length;
+      let tempNFTList = [...selectedNFTs];
 
-        //and remove the last selected nft from the selectedNfts array by its tokenId
+      if (tokenNumDiff == 0) return;
+      if (tokenNumDiff > 0) {
+        let addTokenNum=0;
+        for (let i = 0; i < NFTList.length; i++) {
+          if(addTokenNum === tokenNumDiff) break;
+
+          if (!tempNFTList.includes(NFTList[i].tokenId)){
+            tempNFTList.push(NFTList[i].tokenId);
+            addTokenNum++;
+          }
+        }
         dispatch({
           type: "collection/select721NFTs",
-          payload: selectedNFTs.filter((nft) => nft !== lastNFT),
+          payload: tempNFTList,
+        });
+      } else if (tokenNumDiff<0) {
+        //and remove the last few selected nft from the selectedNfts array by its tokenId
+        dispatch({
+          type: "collection/select721NFTs",
+          payload: tempNFTList.slice(0,tokenNumDiff),
         });
       }
     }

@@ -1,5 +1,5 @@
 import { useCollection } from "@/contexts/CollectionContext";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 const NFTsSelectedRange = ({ radioRef, styleClass }) => {
   const {
@@ -22,14 +22,13 @@ const NFTsSelectedRange = ({ radioRef, styleClass }) => {
 
   //increase or decrease NFTs checkbox when the radio bar in being dragged
   function handleRangeChange(e) {
-    //   console.log('e.target.value', e.target.value,NFTList.length)
-    // if (e.target.value > NFTList.length){
-    //   setNumVal(NFTList.length)
-    // }else {
-    //   setNumVal(e.target.value)
-    // }
-    const numOfNFTByRange = parseInt(e.target.value === '' ? 0:e.target.value>NFTList.length?NFTList.length:e.target.value);
-    console.log('numOfNFTByRange', numOfNFTByRange)
+    const numOfNFTByRange = parseInt(
+      e.target.value === ""
+        ? 0
+        : e.target.value > NFTList.length
+        ? NFTList.length
+        : e.target.value
+    );
     changeRangeValue(numOfNFTByRange);
   }
 
@@ -43,16 +42,23 @@ const NFTsSelectedRange = ({ radioRef, styleClass }) => {
         onChange={handleRangeChange}
         className="range range-primary range-xs"
       />
-        {/*<input*/}
-        {/*    type="number"*/}
-        {/*    min={0}*/}
-        {/*    value = {numVal}*/}
-        {/*    onChange={handleRangeChange}*/}
-        {/*    className="border-l-solid text-base text-right border-l-2 w-11 sm:text-base lg:text-base bg-black rounded-none"*/}
-        {/*/>*/}
-      <p className="text-base text-right border-l-2 w-11 sm:text-base lg:text-base border-l-solid mr-1">
-        {tokenId1155 ? selected1155NFTAmount : selectedNFTs.length}
-      </p>
+      {/*<input*/}
+      {/*    type="number"*/}
+      {/*    min={0}*/}
+      {/*    value = {numVal}*/}
+      {/*    onChange={handleRangeChange}*/}
+      {/*    className="text-base text-right bg-black border-l-2 rounded-none border-l-solid w-11 sm:text-base lg:text-base"*/}
+      {/*/>*/}
+      <input
+        type="text"
+        min={0}
+        max={NFTList.length}
+        value={tokenId1155 ? selected1155NFTAmount : selectedNFTs.length}
+        onChange={handleRangeChange}
+        className="mr-1 text-base text-center bg-black border-l-2 outline-none w-11 sm:text-base lg:text-base border-l-solid"
+      >
+        
+      </input>
     </div>
   );
 };

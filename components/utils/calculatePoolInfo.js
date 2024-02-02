@@ -35,7 +35,7 @@ export default function calculatePoolAllInfo(pools, contractAddress){
         //ethBalance and tokenBalance could be 'null', so need to convert to '0'
         ethBalance = ethBalance !== null ? ethBalance / EIGHTEEN_ZEROS : 0;
         //prettier-ignore
-        tokenBalance = tokenBalance !== null ? tokenBalance / EIGHTEEN_ZEROS : 0;
+        tokenBalance = tokenBalance !== null ? tokenBalance / EIGHTEEN_ZEROS * 0.999 : 0;
 
         const params = {
             bondingCurve,

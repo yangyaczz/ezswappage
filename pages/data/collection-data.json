@@ -360,13 +360,22 @@
     "order": 6
   },
   {
+    "name": "Pandora",
+    "address": "0x9E9FbDE7C7a83c43913BddC8779158F1368F0413",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif",
+    "network": "ethmain",
+    "order": 4
+  },
+  {
     "name": "EZSwapPioneer",
     "address": "0x670d854C7Da9E7Fa55c1958A1AeB368B48496020",
     "type": "ERC721",
     "tokenId1155": "",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/ezpoineer.png",
     "network": "ethmain",
-    "order": 4
+    "order": 3
   },
   {
     "name": "Gusto",

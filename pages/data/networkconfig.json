@@ -385,6 +385,13 @@
             },
             {
                 "type": "ERC721",
+                "address": "0x9E9FbDE7C7a83c43913BddC8779158F1368F0413",
+                "name": "Pandora",
+                "tokenId1155": "",
+                "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
+            },
+            {
+                "type": "ERC721",
                 "address": "0xd6f6A071506821a92d3C02759e3920A213BC5DfB",
                 "name": "Gusto",
                 "tokenId1155": "",

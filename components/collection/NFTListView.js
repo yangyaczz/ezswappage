@@ -1,12 +1,14 @@
 import { useCollection } from "@/contexts/CollectionContext";
 import Image from "next/image";
 import { useEffect } from "react";
-import { useAccount, useContractRead } from "wagmi";
+import {useAccount, useContractRead, useNetwork} from "wagmi";
 import ERC721EnumABI from "../../pages/data/ABI/ERC721Enum.json";
 import ERC1155ABI from "../../pages/data/ABI/ERC1155.json";
+import networkConfig from "../../pages/data/networkconfig.json";
 
 const NFTListView = ({ handleNFTClicked, styleClass }) => {
   const { address: owner } = useAccount();
+  const { chain } = useNetwork();
   const {
     selectedNFTs,
     NFTList,
@@ -26,17 +28,17 @@ const NFTListView = ({ handleNFTClicked, styleClass }) => {
     args: [owner],
     watch: false,
     onSuccess(data) {
-      console.log('NFTList', NFTList, collectionImageUrl, data)
+      console.log('NFTList:', NFTList, collectionImageUrl, data)
       const tokenIds721 = data.map((item) => parseInt(item));
       let NFTs = [];
       NFTs = tokenIds721.map((tokenId) => {
         return { tokenId: parseInt(tokenId), imgUrl: collectionImageUrl };
       });
       if (NFTs) setNFTList(NFTs);
-      console.log('NFTs', NFTs)
+      console.log('NFTs:', NFTs)
     },
     onError(err) {
-      console.log(err);
+      console.log("查询失败:", err);
     },
   });
 
@@ -60,6 +62,30 @@ const NFTListView = ({ handleNFTClicked, styleClass }) => {
       console.log(err);
     },
   });
+
+  useEffect(() => {
+    const fetchNFT = async () => {
+      const params = {
+        address: owner.toLowerCase(),
+      };
+      const response = await fetch("/api/queryOwnerNFT", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(params),
+      });
+
+      const data = await response.json();
+      let NFTs = [];
+      NFTs = data?.data?.map((nft) => {
+        return { tokenId: nft.tokenId, imgUrl: collectionImageUrl };
+      });
+      if (NFTs) setNFTList(NFTs);
+      // console.log('data:::::', data.data)
+    }
+    fetchNFT()
+  },[owner])
 
   return (
     <section

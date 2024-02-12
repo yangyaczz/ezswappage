@@ -12,6 +12,13 @@
         "recommendNFT": [
             {
                 "type": "ERC721",
+                "address": "0x6B8a2dBdcfE02bee42b8bD5703eC28eb70d9862D",
+                "name": "M404",
+                "tokenId1155": "",
+                "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
+            },
+            {
+                "type": "ERC721",
                 "address": "0x3D3fa1f6dE1a8e8f466BF6598b2601a250643464",
                 "name": "ts721ec1",
                 "tokenId1155": "",

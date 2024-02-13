@@ -87,7 +87,9 @@ const NFTListView = ({ handleNFTClicked, styleClass }) => {
       // console.log('data:::::', data.data)
     }
     if (networkConfig[chain.id].networkName === 'mantatest' || networkConfig[chain.id].networkName === 'manta') {
-      fetchNFT()
+      if (collectionAddr === '0x6B8a2dBdcfE02bee42b8bD5703eC28eb70d9862D') {
+        fetchNFT()
+      }
     }
   },[owner])
 

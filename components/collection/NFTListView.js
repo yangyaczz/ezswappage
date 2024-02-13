@@ -66,7 +66,9 @@ const NFTListView = ({ handleNFTClicked, styleClass }) => {
   useEffect(() => {
     const fetchNFT = async () => {
       const params = {
-        address: owner.toLowerCase(),
+        ownerAddress: owner.toLowerCase(),
+        contractAddress: collectionAddr.toLowerCase(),
+        mode: networkConfig[chain.id].networkName,
       };
       const response = await fetch("/api/queryOwnerNFT", {
         method: "POST",
@@ -84,7 +86,9 @@ const NFTListView = ({ handleNFTClicked, styleClass }) => {
       if (NFTs) setNFTList(NFTs);
       // console.log('data:::::', data.data)
     }
-    fetchNFT()
+    if (networkConfig[chain.id].networkName === 'mantatest' || networkConfig[chain.id].networkName === 'manta') {
+      fetchNFT()
+    }
   },[owner])
 
   return (

@@ -137,25 +137,29 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
 
   useEffect(() => {
     if (swapStatus === "error") {
-      if (swapError.message.indexOf("token owner or approved") > -1) {
-        alertRef.current.showErrorAlert("caller is not token owner or approved");
-      } else if (swapError.message.indexOf("insufficient funds") > -1) {
-        alertRef.current.showErrorAlert("insufficient funds");
-      }  else if (swapError.message.indexOf("insufficient balance for transfer") > -1) {
-        alertRef.current.showErrorAlert("insufficient balance for transfer");
-      } else {
-        alertRef.current.showErrorAlert("Create Pool Error");
+      if (swapError !== undefined && swapError !== null) {
+        if (swapError.message.indexOf("token owner or approved") > -1) {
+          alertRef.current.showErrorAlert("caller is not token owner or approved");
+        } else if (swapError.message.indexOf("insufficient funds") > -1) {
+          alertRef.current.showErrorAlert("insufficient funds");
+        } else if (swapError.message.indexOf("insufficient balance for transfer") > -1) {
+          alertRef.current.showErrorAlert("insufficient balance for transfer");
+        } else {
+          alertRef.current.showErrorAlert("Create Pool Error");
+        }
       }
     }
     if (createPair1155ETHSwapStatus === "error") {
-      if (createPair1155ETHSwapError.message.indexOf("token owner or approved") > -1) {
-        alertRef.current.showErrorAlert("caller is not token owner or approved");
-      } else if (createPair1155ETHSwapError.message.indexOf("insufficient funds") > -1) {
-        alertRef.current.showErrorAlert("insufficient funds");
-      }  else if (createPair1155ETHSwapError.message.indexOf("insufficient balance for transfer") > -1) {
-        alertRef.current.showErrorAlert("insufficient balance for transfer");
-      } else {
-        alertRef.current.showErrorAlert("Create Pool Error");
+      if (createPair1155ETHSwapError !== undefined && createPair1155ETHSwapError !== null) {
+        if (createPair1155ETHSwapError.message.indexOf("token owner or approved") > -1) {
+          alertRef.current.showErrorAlert("caller is not token owner or approved");
+        } else if (createPair1155ETHSwapError.message.indexOf("insufficient funds") > -1) {
+          alertRef.current.showErrorAlert("insufficient funds");
+        } else if (createPair1155ETHSwapError.message.indexOf("insufficient balance for transfer") > -1) {
+          alertRef.current.showErrorAlert("insufficient balance for transfer");
+        } else {
+          alertRef.current.showErrorAlert("Create Pool Error");
+        }
       }
     }
 

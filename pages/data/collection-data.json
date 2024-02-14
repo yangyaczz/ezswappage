@@ -430,14 +430,5 @@
     "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif",
     "network": "mantatest",
     "order": 3
-  },
-  {
-    "name": "mtest",
-    "address": "0x1e8b0244e755211A126ED24027D18787769eF8B3",
-    "type": "ERC721",
-    "tokenId1155": "",
-    "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif",
-    "network": "manta",
-    "order": 0
   }
 ]

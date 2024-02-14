@@ -85,7 +85,7 @@ const TokenSearch = ({
           {/*</svg>*/}
         </div>
         <div className="justify-end">
-          {formikData.totalGet ? formikData.totalGet.toFixed(3) : 0}
+          {formikData.totalGet ? formikData.totalGet.toFixed(5) : 0}
         </div>
       </button>
 

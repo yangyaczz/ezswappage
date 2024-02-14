@@ -8,6 +8,9 @@ import {
 import { ethers } from "ethers";
 import { useLanguage } from "@/contexts/LanguageContext";
 
+// todo 404要改
+const erc404Name = ['M404', 'mtest']
+
 const Input721Sell = ({
   formikData,
   setSelectIds,
@@ -16,7 +19,7 @@ const Input721Sell = ({
   setIsExceeded,
   setIsBanSelect,
 }) => {
-  const{languageModel} = useLanguage();
+  const { languageModel } = useLanguage();
   const update721SellToPairs = (tokenId, pairs) => {
     let protocolFee = 10000000000000000; // 0.5%  get from smartcontract
     let dec = 1e18;
@@ -143,6 +146,10 @@ const Input721Sell = ({
     } else {
       setIsBanSelect(false);
     }
+
+    if (IdsAmount >= 1 && erc404Name.includes(formikData.collection.name)) {
+      setIsBanSelect(true);
+    }
   };
 
   useEffect(() => {
@@ -175,43 +182,48 @@ const Input721Sell = ({
   }
 
   return (
-    <div className="flex flex-wrap justify-center">
-      {initialSquares.map((square, index) => (
-        <div
-          key={index}
-          data-tip={
-            formikData.isBanSelect && "this collection has no liquidity"
-          }
-          className={`
-                        p-3 mr-2 mb-5 cursor-pointer
-                        ${
-                          formikData.selectIds.includes(square)
-                            ? "bg-[#28B7BC3B]"
-                            : formikData.isBanSelect &&
-                              "!cursor-not-allowed tooltip bg-gray-500 opacity-50"
-                        }
-                    `}
-          onClick={() => {
-            console.log(
-              formikData.selectIds.includes(square),
-              formikData.isBanSelect
-            );
-            if (
-              formikData.selectIds.includes(square) ||
-              !formikData.isBanSelect
-            ) {
-              toggleSelected(square);
+    <div>
+      <div>
+        {(erc404Name.includes(formikData.collection.name) && formikData.isBanSelect) && <div className="flex justify-center pb-6 font-bold">Only one item can be sold per sale</div>}
+      </div>
+      <div className="flex flex-wrap justify-center">
+        {initialSquares.map((square, index) => (
+          <div
+            key={index}
+            data-tip={
+              formikData.isBanSelect && "this collection has no liquidity"
             }
-          }}
-        >
-          {formikData.selectIds.includes(square) && (
-            <img className="absolute w-6" src="/yes.svg" alt="" />
-          )}
-          <img className="w-20" src={formikData.collection.img} alt="" />
-          <div className="font-bold">#{square}</div>
-        </div>
-      ))}
+            className={`
+                        p-3 mr-2 mb-5 cursor-pointer
+                        ${formikData.selectIds.includes(square)
+                ? "bg-[#28B7BC3B]"
+                : formikData.isBanSelect &&
+                "!cursor-not-allowed tooltip bg-gray-500 opacity-50"
+              }
+                    `}
+            onClick={() => {
+              console.log(
+                formikData.selectIds.includes(square),
+                formikData.isBanSelect
+              );
+              if (
+                formikData.selectIds.includes(square) ||
+                !formikData.isBanSelect
+              ) {
+                toggleSelected(square);
+              }
+            }}
+          >
+            {formikData.selectIds.includes(square) && (
+              <img className="absolute w-6" src="/yes.svg" alt="" />
+            )}
+            <img className="w-20" src={formikData.collection.img} alt="" />
+            <div className="font-bold">#{square}</div>
+          </div>
+        ))}
+      </div>
     </div>
+
   );
 };
 

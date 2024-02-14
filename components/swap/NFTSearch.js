@@ -11,6 +11,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import calculatePoolAllInfo from "../utils/calculatePoolInfo";
 import { MaxFiveDecimal, MaxThreeDecimal } from "../utils/roundoff";
 import addressSymbol from "@/pages/data/address_symbol";
+import networkConfig from "../../pages/data/networkconfig.json";
 const NFTSearch = ({
   swapType,
   formikData,
@@ -185,15 +186,38 @@ const NFTSearch = ({
             tokenAmount1155: matchingNft ? matchingNft.balance : 0,
           });
         }
-      } else if (
-        formikData.collection.type === "ERC721" &&
-        swapType === "sell"
-      ) {
+      } else if (formikData.collection.type === "ERC721" && swapType === "sell") {
         if (formikData.collection.name === "echo_old") {
           const params = {
             address: owner,
           };
           const response = await fetch("/api/queryECHOUserHaveToken", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(params),
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            let ids721 = data?.data.map((item) => item.tokenId);
+            ids721?.sort(function (a, b) {
+              return a - b;
+            });
+            setUserCollection({
+              tokenIds721: ids721,
+            });
+          }
+          // todo 404要改
+        } else if (formikData.collection.name === "M404" || formikData.collection.name === "mtest") {
+          const params = {
+            ownerAddress: owner.toLowerCase(),
+            contractAddress: formikData.collection.address.toLowerCase(),
+            mode: formikData.golbalParams.networkName,
+          };
+          const response = await fetch("/api/queryOwnerNFT", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

@@ -68,6 +68,9 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount }) => {
       owner,
       Date.parse(new Date()) / 1000 + 60 * 3600,
     ],
+    onError(err) {
+      showErrorAlert("swap error", err);
+    },
   });
   const {
     waitApproveData,
@@ -106,6 +109,9 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount }) => {
       console.log(data, error);
       console.log(formikData.tupleEncode);
       console.log("totalGet", formikData.totalGet);
+      if (error !== undefined) {
+        alertErrorMsg(error);
+      }
     },
   });
 
@@ -199,17 +205,24 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount }) => {
 
   useEffect(() => {
     if (swapStatus === "error") {
+      alertErrorMsg(swapError);
+    }
+  }, [swapStatus]);
+
+  function alertErrorMsg(swapError) {
+    console.log('swapError', swapError)
+    if (swapError !== undefined && swapError !== null) {
       if (swapError.message.indexOf("token owner or approved") > -1) {
         showErrorAlert("caller is not token owner or approved");
       } else if (swapError.message.indexOf("insufficient funds") > -1) {
         showErrorAlert("insufficient funds");
-      } else if (swapError.message.indexOf("insufficient balance for transfer") > -1) {
+      }  else if (swapError.message.indexOf("insufficient balance for transfer") > -1) {
         showErrorAlert("insufficient balance for transfer");
       } else {
         showErrorAlert("swap error");
       }
     }
-  }, [swapStatus]);
+  }
 
   const svgError = (
     <svg

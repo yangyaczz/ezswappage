@@ -123,7 +123,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       createPoolValue?.spotPrice === undefined || isNaN(createPoolValue?.spotPrice) ? 0 : ethers?.utils?.parseEther(createPoolValue?.spotPrice?.toString()).toString(),
       selectedNFTs
     ]],
-    value: createPoolBidsValue === undefined || createPoolBidsValue.poolBuyPrice===undefined||createPoolBidsValue.poolBuyPrice === 0 || isNaN(createPoolBidsValue.poolBuyPrice) ?0: ethers.utils.parseEther((createPoolBidsValue?.poolBuyPrice*1.001).toString()),
+    value: createPoolBidsValue === undefined || createPoolBidsValue.poolBuyPrice===undefined||createPoolBidsValue.poolBuyPrice === 0 || isNaN(createPoolBidsValue.poolBuyPrice) ?0: ethers.utils.parseEther((Math.floor(createPoolBidsValue?.poolBuyPrice*1.001* 1000000000000000000) / 1000000000000000000).toString()),
     onError(err) {
       setLoadingCreatePool(false)
     },
@@ -154,7 +154,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
       tokenId1155,
       selected1155NFTAmount
     ]],
-    value: createPoolBidsValue === undefined || createPoolBidsValue.poolBuyPrice===undefined||createPoolBidsValue.poolBuyPrice === 0 || isNaN(createPoolBidsValue.poolBuyPrice) ?0: ethers.utils.parseEther((createPoolBidsValue?.poolBuyPrice*1.001).toString()),
+    value: createPoolBidsValue === undefined || createPoolBidsValue.poolBuyPrice===undefined||createPoolBidsValue.poolBuyPrice === 0 || isNaN(createPoolBidsValue.poolBuyPrice) ?0: ethers.utils.parseEther((Math.floor(createPoolBidsValue?.poolBuyPrice*1.001* 1000000000000000000) / 1000000000000000000).toString()),
     onError(err) {
       setLoadingCreatePool(false)
     },
@@ -165,25 +165,29 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
 
   useEffect(() => {
     if (swapStatus === "error") {
-      if (swapError.message.indexOf("token owner or approved") > -1) {
-        alertRef.current.showErrorAlert("caller is not token owner or approved");
-      } else if (swapError.message.indexOf("insufficient funds") > -1) {
-        alertRef.current.showErrorAlert("insufficient funds");
-      }  else if (swapError.message.indexOf("insufficient balance for transfer") > -1) {
-        alertRef.current.showErrorAlert("insufficient balance for transfer");
-      } else {
-        alertRef.current.showErrorAlert("Create Pool Error");
+      if (swapError !== undefined && swapError !== null) {
+        if (swapError.message.indexOf("token owner or approved") > -1) {
+          alertRef.current.showErrorAlert("caller is not token owner or approved");
+        } else if (swapError.message.indexOf("insufficient funds") > -1) {
+          alertRef.current.showErrorAlert("insufficient funds");
+        } else if (swapError.message.indexOf("insufficient balance for transfer") > -1) {
+          alertRef.current.showErrorAlert("insufficient balance for transfer");
+        } else {
+          alertRef.current.showErrorAlert("Create Pool Error");
+        }
       }
     }
     if (createPair1155ETHSwapStatus === "error") {
-      if (createPair1155ETHSwapError.message.indexOf("token owner or approved") > -1) {
-        alertRef.current.showErrorAlert("caller is not token owner or approved");
-      } else if (createPair1155ETHSwapError.message.indexOf("insufficient funds") > -1) {
-        alertRef.current.showErrorAlert("insufficient funds");
-      }  else if (createPair1155ETHSwapError.message.indexOf("insufficient balance for transfer") > -1) {
-        alertRef.current.showErrorAlert("insufficient balance for transfer");
-      } else {
-        alertRef.current.showErrorAlert("Create Pool Error");
+      if (createPair1155ETHSwapError !== undefined && createPair1155ETHSwapError !== null) {
+        if (createPair1155ETHSwapError.message.indexOf("token owner or approved") > -1) {
+          alertRef.current.showErrorAlert("caller is not token owner or approved");
+        } else if (createPair1155ETHSwapError.message.indexOf("insufficient funds") > -1) {
+          alertRef.current.showErrorAlert("insufficient funds");
+        } else if (createPair1155ETHSwapError.message.indexOf("insufficient balance for transfer") > -1) {
+          alertRef.current.showErrorAlert("insufficient balance for transfer");
+        } else {
+          alertRef.current.showErrorAlert("Create Pool Error");
+        }
       }
     }
   }, [createPair1155ETHSwapStatus,swapStatus]);
@@ -237,6 +241,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
 
 
   function goCreateSellPool(){
+    console.log('(Math.floor(createPoolBidsValue?.poolBuyPrice*1.001* 1000000000000000000) / 1000000000000000000).toString()', (Math.floor(createPoolBidsValue?.poolBuyPrice*1.001* 1000000000000000000) / 1000000000000000000).toString())
     calculateCreatePoolValue()
     if (tokenId1155 === null || tokenId1155 ==='') {
       // console.log([

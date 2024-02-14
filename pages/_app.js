@@ -14,7 +14,7 @@ import {
   rainbowWallet,
   walletConnectWallet,
   coinbaseWallet,
-  tokenPocketWallet
+  tokenPocketWallet, okxWallet
 } from "@rainbow-me/rainbowkit/wallets";
 import NavBar from "@/components/bar/NavBar";
 import { CollectionProvider } from "@/contexts/CollectionContext";
@@ -175,6 +175,7 @@ const connectors = connectorsForWallets([
   {
     groupName: "Recommended",
     wallets: [
+      okxWallet({ projectId, chains }),
       injectedWallet({ projectId, chains }),
       metaMaskWallet({ projectId, chains }),
       bitgetWallet({ projectId, chains }),

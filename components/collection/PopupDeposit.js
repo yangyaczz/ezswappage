@@ -193,7 +193,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
         } else if (swapError.message.indexOf("insufficient balance for transfer") > -1) {
           alertRef.current.showErrorAlert("insufficient balance for transfer");
         } else {
-          alertRef.current.showErrorAlert("Create Pool Error");
+          alertRef.current.showErrorAlert("Create Pool Error", swapError);
         }
       }
     }

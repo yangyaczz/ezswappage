@@ -210,7 +210,8 @@ const NFTSearch = ({
               tokenIds721: ids721,
             });
           }
-        } else if (formikData.collection.name === "M404") {
+          // todo 404要改
+        } else if (formikData.collection.name === "M404" || formikData.collection.name === "mtest") {
           const params = {
             ownerAddress: owner.toLowerCase(),
             contractAddress: formikData.collection.address.toLowerCase(),

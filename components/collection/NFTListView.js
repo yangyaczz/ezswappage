@@ -63,6 +63,7 @@ const NFTListView = ({ handleNFTClicked, styleClass }) => {
     },
   });
 
+  // todo 404要改
   useEffect(() => {
     const fetchNFT = async () => {
       const params = {

@@ -105,18 +105,18 @@
                 "img": "https://ezonline.s3.us-west-2.amazonaws.com/marsimage.jpeg"
             },
             {
-                "type": "ERC721",
-                "address": "0xB9dcc0AeD41A30B81D380Acba495533B2F94973f",
-                "name": "AsMatch zkPortrait Pass Lite",
-                "tokenId1155": "",
-                "img": "https://asmatch-resources.s3-accelerate.amazonaws.com/nft/zkpl.jpeg"
-            },
-            {
                 "type": "ERC1155",
                 "address": "0x4F4cD5fF9c3eb5b20A5BC2780127Fb5e9dCa27Db",
                 "name": "Pacific Game Changer",
                 "tokenId1155": "1",
                 "img": "https://ezonline.s3.us-west-2.amazonaws.com/nft1.png"
+            },
+            {
+                "type": "ERC721",
+                "address": "0xB9dcc0AeD41A30B81D380Acba495533B2F94973f",
+                "name": "AsMatch zkPortrait Pass Lite",
+                "tokenId1155": "",
+                "img": "https://asmatch-resources.s3-accelerate.amazonaws.com/nft/zkpl.jpeg"
             },
             {
                 "type": "ERC721",

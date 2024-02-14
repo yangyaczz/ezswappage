@@ -24,7 +24,7 @@
     "tokenId1155": "",
     "img": "https://asmatch-resources.s3-accelerate.amazonaws.com/nft/zkpl.jpeg",
     "network": "manta",
-    "order": 1
+    "order": 2
   },
   {
     "name": "Pacific Game Changer",
@@ -33,7 +33,7 @@
     "tokenId1155": "1",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/nft1.png",
     "network": "manta",
-    "order": 2
+    "order": 1
   },
   {
     "name": "Block World Test",

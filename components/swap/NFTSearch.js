@@ -211,7 +211,7 @@ const NFTSearch = ({
             });
           }
           // todo 404要改
-        } else if (formikData.collection.name === "M404" || formikData.collection.name === "mtest") {
+        } else if (formikData.collection.name === "M404" || formikData.collection.name === "mtest"|| formikData.collection.name === "Mars") {
           const params = {
             ownerAddress: owner.toLowerCase(),
             contractAddress: formikData.collection.address.toLowerCase(),

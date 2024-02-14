@@ -8,7 +8,7 @@ import {
 import { ethers } from "ethers";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const erc404Name = ['M404']
+const erc404Name = ['M404', 'mtest']
 
 const Input721Sell = ({
   formikData,

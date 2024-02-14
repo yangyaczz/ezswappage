@@ -86,10 +86,45 @@ const NFTListView = ({ handleNFTClicked, styleClass }) => {
       if (NFTs) setNFTList(NFTs);
       // console.log('data:::::', data.data)
     }
+    const fetchETHNFT = async () => {
+      let frontText = "";
+      if (networkConfig[chain.id].networkName === "ethmain") {
+        frontText = "eth-mainnet";
+      } else if (networkConfig[chain.id].networkName === "arbmain") {
+        frontText = "arb-mainnet";
+      }
+
+      const params = {
+        url: `https://${frontText}.g.alchemy.com/nft/v3/dFyzJjfLmVHlfhHyKkiSEP86fHcuFOJj/getNFTsForOwner`,
+        owner: owner.toLowerCase(),
+        contractAddress: collectionAddr.toLowerCase(),
+        withMetadata: false,
+        pageSize: 1000,
+      };
+
+      const response = await fetch("/api/queryNFTByAlchemy", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(params),
+      });
+
+      let data = await response.json();
+      let NFTs = [];
+      NFTs = data?.ownedNfts?.map((nft) => {
+        return { tokenId: nft.tokenId, imgUrl: collectionImageUrl };
+      });
+      if (NFTs) setNFTList(NFTs);
+      // console.log('data:::::', data.data)
+    }
+
     if (networkConfig[chain.id].networkName === 'mantatest' || networkConfig[chain.id].networkName === 'manta') {
-      if (collectionAddr === '0x6B8a2dBdcfE02bee42b8bD5703eC28eb70d9862D') {
+      if (collectionAddr === '0x6B8a2dBdcfE02bee42b8bD5703eC28eb70d9862D' || collectionAddr === '0x1e8b0244e755211A126ED24027D18787769eF8B3') {
         fetchNFT()
       }
+    }else if (networkConfig[chain.id].networkName === 'ethmain' || networkConfig[chain.id].networkName === 'arbmain'){
+      fetchETHNFT()
     }
   },[owner])
 

@@ -99,6 +99,13 @@
         "recommendNFT": [
             {
                 "type": "ERC721",
+                "address": "0x1e8b0244e755211A126ED24027D18787769eF8B3",
+                "name": "mtest",
+                "tokenId1155": "",
+                "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
+            },
+            {
+                "type": "ERC721",
                 "address": "0xB9dcc0AeD41A30B81D380Acba495533B2F94973f",
                 "name": "AsMatch zkPortrait Pass Lite",
                 "tokenId1155": "",

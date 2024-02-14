@@ -9,7 +9,7 @@ import { ethers } from "ethers";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 // todo 404要改
-const erc404Name = ['M404', 'mtest']
+const erc404Name = ['M404', 'mtest','Mars']
 
 const Input721Sell = ({
   formikData,

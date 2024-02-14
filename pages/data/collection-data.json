@@ -430,5 +430,14 @@
     "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif",
     "network": "mantatest",
     "order": 3
+  },
+  {
+    "name": "Mars",
+    "address": "0x1008bB9C06Ff83f9d5e744A53893baCE03092eB9",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/marsimage.jpeg",
+    "network": "manta",
+    "order": 0
   }
 ]

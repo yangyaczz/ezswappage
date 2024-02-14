@@ -99,6 +99,13 @@
         "recommendNFT": [
             {
                 "type": "ERC721",
+                "address": "0x1008bB9C06Ff83f9d5e744A53893baCE03092eB9",
+                "name": "Mars",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/marsimage.jpeg"
+            },
+            {
+                "type": "ERC721",
                 "address": "0xB9dcc0AeD41A30B81D380Acba495533B2F94973f",
                 "name": "AsMatch zkPortrait Pass Lite",
                 "tokenId1155": "",

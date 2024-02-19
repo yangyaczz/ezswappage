@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react'
 import { ethers } from 'ethers';
 
-import {useSendTransaction, useContractWrite, useBalance, useContractRead, useWaitForTransaction} from 'wagmi'
+import {useSendTransaction, useContractWrite, useBalance, useContractRead, useWaitForTransaction, useNetwork} from 'wagmi'
 import ERC1155ABI from "../../pages/data/ABI/ERC1155.json";
 import ERC721EnumABI from "../../pages/data/ABI/ERC721Enum.json";
 import styles from './index.module.scss'
@@ -9,6 +9,7 @@ import addressSymbol from "@/pages/data/address_symbol";
 import { useLanguage } from '@/contexts/LanguageContext';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCopy} from "@fortawesome/free-solid-svg-icons";
+import networkConfig from "../../pages/data/networkconfig.json";
 
 
 const PoolCard = ({ item,formikData, owner, comeFrom }) => {
@@ -25,6 +26,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
     const [userHaveNFTs1155, setUserHaveNFTs1155] = useState(0);
     const [loadingNFT, setLoadingNFT] = useState(false);
     const tooltipRef = useRef("");
+    const { chain } = useNetwork();
 
     const {languageModel} = useLanguage();
 
@@ -188,7 +190,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
         functionName: 'depositNFTs',
         args: [item.collection,selectNFTs,item.id],
         onError(err) {
-            showErrorAlert('Deposit Fail');
+            showErrorAlert('Deposit Fail', err);
         }
     })
     const {data, isError, isLoading: depositingLoading} = useWaitForTransaction({
@@ -199,7 +201,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
             document.getElementById(`deposit_nft_${item.id}`).close()
         },
         onError(err) {
-            showErrorAlert('Deposit Fail');
+            showErrorAlert('Deposit Fail', err);
         }
     })
 
@@ -236,7 +238,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
         functionName: 'depositNFTs1155',
         args: [item.collection,[item.nftId1155],item.id,[depositInputValue]],
         onError(err) {
-            showErrorAlert('Deposit Fail');
+            showErrorAlert('Deposit Fail', err);
         }
     })
     const {data2, isError2, isLoading: deposit1155ingLoading} = useWaitForTransaction({
@@ -247,7 +249,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
             document.getElementById(`deposit_nft_${item.id}`).close()
         },
         onError(err) {
-            showErrorAlert('Deposit Fail');
+            showErrorAlert('Deposit Fail', err);
         }
     })
 
@@ -419,52 +421,80 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
         }else if (networkType === '0x34816d' ||networkType === '0xa9'){
             // manta链
             let params
-            if (item.tokenType === 'ERC721') {
-                // 721
-                params = {
-                    query: `
-                            {
-                                erc721Tokens(where: { owner: "${action==='deposit'?owner.toLowerCase():item.id}", contract: "${item.collection}" }) {
-                                  identifier
-                                }
-                            }
-                            `,
-                    urlKey: networkName,
+            if (item.NFTName === 'Mars' || item.NFTName === 'M404'){
+                const params = {
+                    ownerAddress: action === 'deposit' ? owner : item.id,
+                    contractAddress: item.collection.toLowerCase(),
+                    mode: networkConfig[chain.id].networkName,
                 };
+                const response = await fetch("/api/queryOwnerNFT", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(params),
+                });
+                const data = await response.json();
+
+                let tokenIdList = []
+                for (const tokenItem of data?.data) {
+                    var obj = {
+                        identifier: tokenItem.tokenId
+                    }
+                    console.log('tokenItem', tokenItem, tokenItem.tokenId)
+                    tokenIdList.push(obj)
+                }
+                setAddressSelectNFT(tokenIdList)
+                // console.log('tokenIdList', tokenIdList)
             }else {
-                // 1155
-                let nftAddress = item.collection;
-                let tid = "0x" + item.nftId1155.toString(16);
-                let parseStr = (nftAddress + "/" + tid + "/" + (action==='deposit'?owner:item.id)).toLowerCase();
-                params = {
-                    query: `
-                            {
-                                erc1155Balances(
-                                  where: {id: "${parseStr}"}
-                                ) {
-                                  valueExact
+                if (item.tokenType === 'ERC721') {
+                    // 721
+                    params = {
+                        query: `
+                                {
+                                    erc721Tokens(where: { owner: "${action==='deposit'?owner.toLowerCase():item.id}", contract: "${item.collection}" }) {
+                                      identifier
+                                    }
                                 }
-                            }
-                            `,
-                    urlKey: networkName,
-                };
+                                `,
+                        urlKey: networkName,
+                    };
+                }else {
+                    // 1155
+                    let nftAddress = item.collection;
+                    let tid = "0x" + item.nftId1155.toString(16);
+                    let parseStr = (nftAddress + "/" + tid + "/" + (action==='deposit'?owner:item.id)).toLowerCase();
+                    params = {
+                        query: `
+                                {
+                                    erc1155Balances(
+                                      where: {id: "${parseStr}"}
+                                    ) {
+                                      valueExact
+                                    }
+                                }
+                                `,
+                        urlKey: networkName,
+                    };
+                }
+                console.log('params', params)
+                const response = await fetch("/api/queryMantaNFT", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(params),
+                });
+                const data = await response.json();
+                if (item.tokenType==='ERC721'){
+                    console.log('data.data.erc721Tokens', data.data.erc721Tokens)
+                    setAddressSelectNFT(data.data.erc721Tokens)
+                }else {
+                    console.log('1155 manta count', data)
+                    setUserHaveNFTs1155(data.data.erc1155Balances[0]?.valueExact)
+                }
+                setLoadingNFT(false)
             }
-            console.log('params', params)
-            const response = await fetch("/api/queryMantaNFT", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(params),
-            });
-            const data = await response.json();
-            if (item.tokenType==='ERC721'){
-                setAddressSelectNFT(data.data.erc721Tokens)
-            }else {
-                console.log('1155 manta count', data)
-                setUserHaveNFTs1155(data.data.erc1155Balances[0]?.valueExact)
-            }
-            setLoadingNFT(false)
         }else {
             setLoadingNFT(true)
             let frontText = ''

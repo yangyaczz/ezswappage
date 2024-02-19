@@ -199,6 +199,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
         onSuccess(data) {
             showSuccessAlert('Deposit Success')
             document.getElementById(`deposit_nft_${item.id}`).close()
+            setLoadingNFT(false)
         },
         onError(err) {
             showErrorAlert('Deposit Fail', err);
@@ -247,6 +248,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
         onSuccess(data) {
             showSuccessAlert('Deposit Success')
             document.getElementById(`deposit_nft_${item.id}`).close()
+            setLoadingNFT(false)
         },
         onError(err) {
             showErrorAlert('Deposit Fail', err);
@@ -285,6 +287,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
         onSuccess(data) {
             showSuccessAlert('Withdraw Success')
             document.getElementById(`withdraw_nft_${item.id}`).close()
+            setLoadingNFT(false)
         },
         onError(err) {
             console.log('123')
@@ -336,6 +339,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
         onSuccess(data) {
             showSuccessAlert('Withdraw Success')
             document.getElementById(`withdraw_nft_${item.id}`).close()
+            setLoadingNFT(false)
         },
         onError(err) {
             showErrorAlert('Withdraw Fail');
@@ -435,6 +439,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
                     body: JSON.stringify(params),
                 });
                 const data = await response.json();
+                setLoadingNFT(false)
 
                 let tokenIdList = []
                 for (const tokenItem of data?.data) {

@@ -110,5 +110,10 @@ export default {
   sellPool: "賣池",
   tradePool: "交易池",
   sortByNFT: "NFT數量排序",
-  sortByBalance: "餘額排序"
+  sortByBalance: "餘額排序",
+
+  EnterMantaAddressForAirdrop: "輸入您的Manta地址以接收空投",
+  EZTokenAirdropShortly: "EZSWAP代幣將很快直接空投到您在Manta上的地址",
+  YourAddressIsRecorded: "您的地址已記錄",
+  PleaseConnectWallet: "請連接錢包",
 };

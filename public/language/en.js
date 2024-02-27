@@ -112,5 +112,10 @@ export default {
   sellPool: "Sell Pool",
   tradePool: "Trade Pool",
   sortByNFT: "Sort By NFT",
-  sortByBalance: "Sort By Balance"
+  sortByBalance: "Sort By Balance",
+
+  EnterMantaAddressForAirdrop:"Enter your Manta address for receiving airdrop",
+  EZTokenAirdropShortly:"The $EZSWAP token will be directly airdropped to your address on Manta shortly",
+  YourAddressHasBeenRecorded:"Your address has already been recorded",
+  PleaseConnectWallet:"Please Connect Wallet"
 }

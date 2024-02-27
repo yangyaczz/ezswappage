@@ -91,18 +91,25 @@ const AirdropClaim = () => {
           message: variables?.message,
           signature: signMessageData,
         });
-        let params = {
-          message: variables?.message,
-          signature: signMessageData,
-          address: recoveredAddress,
-          claimAddress: targetAddr,
-          nonce,
-        };
-        let result = await updateAddressInfo(params);
 
-        if (result) {
-          setAddrHasSubmitted(true);
-          setClaimAddress(result.claimAddress);
+        if (!error) {
+          let params = {
+            message: variables?.message,
+            signature: signMessageData,
+            address: recoveredAddress,
+            claimAddress: targetAddr,
+            nonce,
+          };
+
+          let result = await updateAddressInfo(params);
+          if (result) {
+            setAddrHasSubmitted(true);
+            setClaimAddress(result.claimAddress);
+          }
+
+        }
+        else{
+          setAlertMsg(error, "alert-error");
         }
         setSignLoading(() => false);
       }
@@ -130,7 +137,7 @@ const AirdropClaim = () => {
           setClaimStatus(cStatus.ELIGIBLE);
           if (data.data.claimAddress) {
             setClaimAddress(data.data.claimAddress);
-            setAddrHasSubmitted(true)
+            setAddrHasSubmitted(true);
           }
         } else {
           setClaimStatus(cStatus.INELIGIBLE);
@@ -168,8 +175,9 @@ const AirdropClaim = () => {
   }
 
   function handleConfirmClick() {
-    if (!owner) return setAlertMsg(languageModel.PleaseConnectWallet, "alert-error");
-    let message = `We are collecting your info for signature.\n\nYour address is: ${targetAddr}\n\nnonce:${nonce}`;
+    if (!owner)
+      return setAlertMsg(languageModel.PleaseConnectWallet, "alert-error");
+    let message = `Welcome to EZswap!\n\nThis signature is to verify that you are submitting an address as your airdrop receiving address.\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nAirdrop to address:\n${targetAddr}\n\nNonce:\n${nonce}`;
     signMessage({ message });
   }
 
@@ -182,9 +190,14 @@ const AirdropClaim = () => {
         {claimStatus === cStatus.ELIGIBLE && (
           <>
             <p className="text-4xl font-extrabold lg:whitespace-nowrap sm:text-7xl max-[800px]:text-wrap">
-            {languageModel.YouAreEligibleFor}:
+              {languageModel.YouAreEligibleFor}:
             </p>
-            <p className={"text-4xl font-extrabold lg:whitespace-nowrap sm:text-7xl max-[800px]:text-wrap " + styles.slideIn}>
+            <p
+              className={
+                "text-4xl font-extrabold lg:whitespace-nowrap sm:text-7xl max-[800px]:text-wrap " +
+                styles.slideIn
+              }
+            >
               <span className={`text-white `}>{tokenToClaim}</span> $EZSWAP
             </p>
             {/*<p className="text-4xl font-extrabold lg:whitespace-nowrap md:text-xl lg:text-2xl xl:text-4xl max-[800px]:text-wrap">*/}
@@ -227,7 +240,6 @@ const AirdropClaim = () => {
               enter="transition-opacity duration-[2000ms]"
               enterFrom="opacity-0"
               enterTo="opacity-100"
-
               className="flex flex-col items-center justify-center w-1/2 text-white transition-all"
             >
               <p>{languageModel.YourAddressIsRecorded}</p>

@@ -106,9 +106,7 @@ const AirdropClaim = () => {
             setAddrHasSubmitted(true);
             setClaimAddress(result.claimAddress);
           }
-
-        }
-        else{
+        } else {
           setAlertMsg(error, "alert-error");
         }
         setSignLoading(() => false);
@@ -148,16 +146,15 @@ const AirdropClaim = () => {
     }
 
     if (owner) queryAddressScore();
+    else setClaimStatus(cStatus.WALLET_DISCONNECTED);
 
     return () => {
       setTokenToClaim(0);
       setClaimStatus(null);
+      setAddrHasSubmitted(false);
+      setClaimAddress(null);
+      setClaimStatus(null);
     };
-  }, [owner]);
-
-  //to update the claim address everytime owner changes wallet
-  useEffect(() => {
-    return () => setAddrHasSubmitted(false);
   }, [owner]);
 
   async function updateAddressInfo(params) {
@@ -250,6 +247,11 @@ const AirdropClaim = () => {
         {claimStatus === cStatus.INELIGIBLE && (
           <p className=" mt-24 sm:mt-28 text-2xl font-extrabold lg:whitespace-nowrap sm:text-7xl max-[800px]:text-wrap">
             {languageModel.SorryYouAreNotEligible}
+          </p>
+        )}
+        {claimStatus === cStatus.WALLET_DISCONNECTED && (
+          <p className=" mt-24 sm:mt-28 text-base font-extrabold lg:whitespace-nowrap sm:text-3xl lg:text-5xl max-[800px]:text-wrap">
+            {languageModel.ConnectWalletCheckEligibility}
           </p>
         )}
       </div>

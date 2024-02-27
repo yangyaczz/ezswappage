@@ -117,6 +117,6 @@ export default {
   EnterMantaAddressForAirdrop: "Airdrop almak için Manta adresinizi girin",
   EZTokenAirdropShortly:
     "Manta'daki adresinize $EZSWAP jetonu yakında doğrudan airdropped olacak",
-  YourAddressHasBeenRecorded: "Adresiniz zaten kaydedildi",
+  YourAddressIsRecorded: "Adresiniz kaydedildi",
   PleaseConnectWallet: "Lütfen Cüzdan Bağlayın",
 };

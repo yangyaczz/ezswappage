@@ -230,7 +230,7 @@ const AirdropClaim = () => {
 
               className="flex flex-col items-center justify-center w-1/2 text-white transition-all"
             >
-              <p>{languageModel.YourAddressHasBeenRecorded}.</p>
+              <p>{languageModel.YourAddressIsRecorded}</p>
               <p className="text-[#00D5DA]">{claimAddress}</p>
             </Transition>
           </>

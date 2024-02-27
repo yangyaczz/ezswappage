@@ -116,6 +116,6 @@ export default {
 
   EnterMantaAddressForAirdrop:"Enter your Manta address for receiving airdrop",
   EZTokenAirdropShortly:"The $EZSWAP token will be directly airdropped to your address on Manta shortly",
-  YourAddressHasBeenRecorded:"Your address has already been recorded",
+  YourAddressIsRecorded:"Your address is recorded",
   PleaseConnectWallet:"Please Connect Wallet"
 }

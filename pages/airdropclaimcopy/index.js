@@ -149,7 +149,6 @@ const AirdropClaim = () => {
             >
               <span className={`text-white `}>{tokenToClaim}</span> $EZSWAP
             </p>
-
             <button
               className="bg-[#00D5DA] text-black py-2 px-3 rounded-xl "
               onClick={handleTweetClick}

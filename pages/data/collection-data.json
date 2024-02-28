@@ -24,7 +24,7 @@
     "tokenId1155": "",
     "img": "https://asmatch-resources.s3-accelerate.amazonaws.com/nft/zkpl.jpeg",
     "network": "manta",
-    "order": 2
+    "order": 9
   },
   {
     "name": "Pacific Game Changer",
@@ -33,7 +33,7 @@
     "tokenId1155": "1",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/nft1.png",
     "network": "manta",
-    "order": 1
+    "order": 3
   },
   {
     "name": "Block World Test",
@@ -168,7 +168,7 @@
     "tokenId1155": "",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.jpg",
     "network": "manta",
-    "order": 3
+    "order": 1
   },
   {
     "name": "Holdem Tier 2",
@@ -177,7 +177,7 @@
     "tokenId1155": "",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t5.jpg",
     "network": "manta",
-    "order": 18
+    "order": 5
   },
   {
     "name": "zkHoldem NFT mini",
@@ -186,7 +186,7 @@
     "tokenId1155": "",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/zkHoldem_NFT_mini.jpeg",
     "network": "manta",
-    "order": 3
+    "order": 2
   },
   {
     "name": "Ezswap EOS Testnet test",
@@ -294,7 +294,7 @@
     "tokenId1155": "",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/tier3.webp",
     "network": "manta",
-    "order": 4
+    "order": 6
   },
   {
     "name": "Holdem Tier 4",
@@ -303,7 +303,7 @@
     "tokenId1155": "",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/tier4.webp",
     "network": "manta",
-    "order": 32
+    "order": 7
   },
   {
     "name": "Holdem Tier 5",
@@ -312,7 +312,7 @@
     "tokenId1155": "",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/tier5.webp",
     "network": "manta",
-    "order": 33
+    "order": 8
   },
   {
     "name": "Holdem Tier 0.5",

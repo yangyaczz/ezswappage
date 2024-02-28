@@ -118,6 +118,11 @@ export default {
     "エアドロップを受け取るためのMantaアドレスを入力してください",
   EZTokenAirdropShortly:
     "Mantaのアドレスに$EZSWAPトークンが直接エアドロップされます",
-    YourAddressIsRecorded: "お使いのアドレスが記録されました",
+  YourAddressIsRecorded: "お使いのアドレスが記録されました",
   PleaseConnectWallet: "ウォレットに接続してください",
+
+  TweetForAirdrop: "エアドロップのためのツイート",
+  PasteYourPost: "ここに投稿のリンクを貼り付けてください",
+  EZTokenAirdropSoon:
+    "まもなくMantaのウォレットに$EZSWAPがエアドロップされます",
 };

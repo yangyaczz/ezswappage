@@ -116,6 +116,10 @@ export default {
   EnterMantaAddressForAirdrop: "에어드랍을 받을 Manta 주소를 입력하세요.",
   EZTokenAirdropShortly:
     "Manta의 주소로 $EZSWAP 토큰이 곧 직접 에어드랍될 예정입니다.",
-    YourAddressIsRecorded: "귀하의 주소가 기록되었습니다.",
+  YourAddressIsRecorded: "귀하의 주소가 기록되었습니다.",
   PleaseConnectWallet: "지갑을 연결해주세요.",
+
+  TweetForAirdrop: "에어드랍을 위한 트윗",
+  PasteYourPost: "여기에 포스트 링크를 붙여넣으세요",
+  EZTokenAirdropSoon: "$EZSWAP이 곧 Manta 지갑으로 에어드랍됩니다.",
 };

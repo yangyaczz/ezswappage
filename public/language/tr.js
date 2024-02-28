@@ -119,4 +119,8 @@ export default {
     "Manta'daki adresinize $EZSWAP jetonu yakında doğrudan airdropped olacak",
   YourAddressIsRecorded: "Adresiniz kaydedildi",
   PleaseConnectWallet: "Lütfen Cüzdan Bağlayın",
+
+  TweetForAirdrop: "Airdrop için Tweet At",
+  PasteYourPost: "Lütfen gönderinizin linkini buraya yapıştırın",
+  EZTokenAirdropSoon: "$EZSWAP yakında Manta cüzdanınıza airdrop edilecek",
 };

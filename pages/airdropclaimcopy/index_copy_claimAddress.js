@@ -68,9 +68,51 @@ const AirdropClaim = () => {
 
   const EIGHTEEN_ZEROS = 1e18;
 
-  const [twitterLink, setTwitterLink] = useState(null);
+  const [targetAddr, setTargetAddr] = useState(""); //the address in user input
+  const [claimAddress, setClaimAddress] = useState(""); //the address retrieve from db to display whenever they login
+  const [addrHasSubmitted, setAddrHasSubmitted] = useState(false); //set this to true if submission is successful
+  const [nonce, setNonce] = useState(null);
   const [tokenToClaim, setTokenToClaim] = useState(0);
   const [signLoading, setSignLoading] = useState(false);
+  const {
+    data: signMessageData,
+    error,
+    isLoading,
+    signMessage,
+    variables,
+  } = useSignMessage();
+
+  //this useEffect triggers when the user clicks the Confirm button, and 'signMessage' is triggered
+  React.useEffect(() => {
+    (async () => {
+      if (variables?.message && signMessageData) {
+        setSignLoading(() => true);
+        const recoveredAddress = await recoverMessageAddress({
+          message: variables?.message,
+          signature: signMessageData,
+        });
+
+        if (!error) {
+          let params = {
+            message: variables?.message,
+            signature: signMessageData,
+            address: recoveredAddress,
+            claimAddress: targetAddr,
+            nonce,
+          };
+
+          let result = await updateAddressInfo(params);
+          if (result) {
+            setAddrHasSubmitted(true);
+            setClaimAddress(result.claimAddress);
+          }
+        } else {
+          setAlertMsg(error, "alert-error");
+        }
+        setSignLoading(() => false);
+      }
+    })();
+  }, [signMessageData, variables?.message]);
 
   useEffect(() => {
     async function queryAddressScore() {
@@ -86,11 +128,15 @@ const AirdropClaim = () => {
         body: JSON.stringify(params),
       });
       const data = await response.json();
-      
       if (data?.data) {
         if (data.data.tokenAmount > 0) {
           setTokenToClaim(data.data.tokenAmount);
+          setNonce(data.data.nonce);
           setClaimStatus(cStatus.ELIGIBLE);
+          if (data.data.claimAddress) {
+            setClaimAddress(data.data.claimAddress);
+            setAddrHasSubmitted(true);
+          }
         } else {
           setClaimStatus(cStatus.INELIGIBLE);
         }
@@ -105,29 +151,31 @@ const AirdropClaim = () => {
     return () => {
       setTokenToClaim(0);
       setClaimStatus(null);
+      setAddrHasSubmitted(false);
+      setClaimAddress(null);
+      setClaimStatus(null);
     };
   }, [owner]);
 
-  function handleTweetClick() {
-    if (owner)
-      window.open(
-        `https://twitter.com/intent/tweet?text=@EZswapProtocol has launched airdrop season 2🪂🪂%0A%0AEZswap will airdrop ${tokenToClaim} $EZSWAP to my address✅✅✅%0A%0AGet ur $EZSWAP here: https://ezswap.io/%23/event/airdropOverview?inviteAddress=${owner}`,
-        "_blank"
-      );
+  async function updateAddressInfo(params) {
+    return fetch("/api/airdropAddressInfo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        return data.data;
+      });
   }
 
   function handleConfirmClick() {
     if (!owner)
       return setAlertMsg(languageModel.PleaseConnectWallet, "alert-error");
-    console.log(twitterLink.substring(0, 13));
-    if (
-      twitterLink.substring(0, 14).toLowerCase() === "https://x.com/" ||
-      twitterLink.substring(0, 20).toLowerCase() === "https://twitter.com/"
-    ) {
-      setAlertMsg("Airdrop recorded", "alert-success");
-    } else {
-      setAlertMsg("Link format not correct", "alert-error");
-    }
+    let message = `Welcome to EZswap!\n\nThis signature is to verify that you are submitting an address as your airdrop receiving address.\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nAirdrop to address:\n${targetAddr}\n\nNonce:\n${nonce}`;
+    signMessage({ message });
   }
 
   return (
@@ -149,23 +197,28 @@ const AirdropClaim = () => {
             >
               <span className={`text-white `}>{tokenToClaim}</span> $EZSWAP
             </p>
+            {/*<p className="text-4xl font-extrabold lg:whitespace-nowrap md:text-xl lg:text-2xl xl:text-4xl max-[800px]:text-wrap">*/}
 
-            <button
-              className="bg-[#00D5DA] text-black py-2 px-3 rounded-xl "
-              onClick={handleTweetClick}
+            {/*</p>*/}
+
+            <p className="flex flex-col items-center justify-center text-white">
+              <span className="text-xs sm:text-sm">
+                {languageModel.EnterMantaAddressForAirdrop}.
+              </span>
+              <span className="text-[0.6rem] sm:text-sm">
+                {languageModel.EZTokenAirdropShortly}.
+              </span>
+            </p>
+
+            <Transition
+              show={!addrHasSubmitted}
+              className="flex w-1/2 h-10 transition-all"
             >
-              {languageModel.TweetForAirdrop}
-            </button>
-
-            <div className="flex flex-row w-2/3 h-10 transition-all sm:w-1/2">
-              <p className="flex items-center pr-3 text-xs text-center text-white sm:text-sm text-nowrap">
-                {languageModel.PasteYourPost}:
-              </p>
               <input
-                className="grow pl-2 text-sm text-white bg-black border-[1px] border-r-0 border-white outline-none rounded-l-xl h-full"
+                className="w-2/3 pl-2 text-sm text-white bg-black border-[1px] border-r-0 border-white outline-none sm:w-5/6 rounded-l-xl h-full"
                 type="text"
-                value={twitterLink}
-                onChange={(e) => setTwitterLink(e.target.value)}
+                value={targetAddr}
+                onChange={(e) => setTargetAddr(e.target.value)}
               />
               <button
                 onClick={handleConfirmClick}
@@ -177,11 +230,18 @@ const AirdropClaim = () => {
                   languageModel.Confirm
                 )}
               </button>
-            </div>
+            </Transition>
 
-            <p className="text-xs text-white sm:text-sm lg:text-base">
-              {languageModel.EZTokenAirdropSoon}
-            </p>
+            <Transition
+              show={addrHasSubmitted}
+              enter="transition-opacity duration-[2000ms]"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              className="flex flex-col items-center justify-center w-1/2 text-white transition-all"
+            >
+              <p>{languageModel.YourAddressIsRecorded}</p>
+              <p className="text-[#00D5DA]">{claimAddress}</p>
+            </Transition>
           </>
         )}
         {claimStatus === cStatus.INELIGIBLE && (

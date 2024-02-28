@@ -68,7 +68,7 @@ const AirdropClaim = () => {
 
   const EIGHTEEN_ZEROS = 1e18;
 
-  const [twitterLink, setTwitterLink] = useState(null);
+  const [twitterLink, setTwitterLink] = useState("");
   const [tokenToClaim, setTokenToClaim] = useState(0);
   const [signLoading, setSignLoading] = useState(false);
   const [twitterSent, setTwitterSent] = useState(false);
@@ -202,7 +202,7 @@ const AirdropClaim = () => {
                 <button
                   disabled={twitterSent}
                   onClick={handleConfirmClick}
-                  className={`w-1/3 text-base sm:text-base sm:w-1/6 rounded-r-xl text-black font-bold border-[1px] border-white h-full max-[800px]:px-2 ${
+                  className={`w-1/3 text-base sm:text-base xl:w-1/5 rounded-r-xl text-black font-bold border-[1px] border-white h-full max-[800px]:px-2 ${
                     twitterSent ? "bg-zinc-400" : "bg-[#00D5DA]"
                   }`}
                 >

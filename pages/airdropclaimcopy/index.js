@@ -86,7 +86,7 @@ const AirdropClaim = () => {
         body: JSON.stringify(params),
       });
       const data = await response.json();
-      
+
       if (data?.data) {
         if (data.data.tokenAmount > 0) {
           setTokenToClaim(data.data.tokenAmount);
@@ -150,35 +150,37 @@ const AirdropClaim = () => {
               <span className={`text-white `}>{tokenToClaim}</span> $EZSWAP
             </p>
             <button
-              className="bg-[#00D5DA] text-black py-2 px-3 rounded-xl "
+              className="bg-[#00D5DA] text-black py-2 px-3 rounded-xl font-bold	"
               onClick={handleTweetClick}
             >
               {languageModel.TweetForAirdrop}
             </button>
 
-            <div className="flex flex-row w-2/3 h-10 transition-all sm:w-1/2">
-              <p className="flex items-center pr-3 text-xs text-center text-white sm:text-sm text-nowrap">
+            <div className="flex flex-row w-2/3 h-10 transition-all sm:w-1/2 justify-center max-[800px]:flex-col max-[800px]:items-center ">
+              <p className="flex items-center min-[799px]:pr-3 text-base text-center text-white sm:text-base text-nowrap font-bold max-[800px]:mb-2">
                 {languageModel.PasteYourPost}:
               </p>
-              <input
-                className="grow pl-2 text-sm text-white bg-black border-[1px] border-r-0 border-white outline-none rounded-l-xl h-full"
-                type="text"
-                value={twitterLink}
-                onChange={(e) => setTwitterLink(e.target.value)}
-              />
-              <button
-                onClick={handleConfirmClick}
-                className="w-1/3 text-xs sm:text-base sm:w-1/6 rounded-r-xl text-black bg-[#00D5DA] font-bold border-[1px] border-white h-full"
-              >
-                {signLoading ? (
-                  <span className="loading loading-spinner loading-sm"></span>
-                ) : (
-                  languageModel.Confirm
-                )}
-              </button>
+              <div className="flex flex-row min-[799px]:w-2/3 h-10 transition-all sm:w-1/2">
+                <input
+                  className="grow pl-2 text-base text-white bg-black border-[1px] border-r-0 border-white outline-none rounded-l-xl max-[800px]:rounded-r-none h-full"
+                  type="text"
+                  value={twitterLink}
+                  onChange={(e) => setTwitterLink(e.target.value)}
+                />
+                <button
+                  onClick={handleConfirmClick}
+                  className="w-1/3 text-base sm:text-base sm:w-1/6 rounded-r-xl text-black bg-[#00D5DA] font-bold border-[1px] border-white h-full max-[800px]:px-2"
+                >
+                  {signLoading ? (
+                    <span className="loading loading-spinner loading-sm"></span>
+                  ) : (
+                    languageModel.Confirm
+                  )}
+                </button>
+              </div>
             </div>
 
-            <p className="text-xs text-white sm:text-sm lg:text-base">
+            <p className="text-base text-white sm:text-base lg:text-base font-bold max-[800px]:mx-14 text-center">
               {languageModel.EZTokenAirdropSoon}
             </p>
           </>

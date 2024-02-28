@@ -179,19 +179,14 @@ function arrangeCollectionsByTradingPair() {
 
   return (
     <div className="grid w-11/12 grid-cols-1 grid-rows-2 gap-3 place-items-center">
-      {isLoading ? (
-        <p className="h-max loading loading-bars loading-lg"></p>
-      ) : (
+      {isLoading ? (<p className="h-max loading loading-bars loading-lg"></p>) : (
         <>
-          {collectionsByTradingPair.length === 0 ? (
-            <p>{languageModel.noData}</p>
-          ) : (
-            collectionsByTradingPair.map((collection) => (
-              <CollectionContainer
-                key={collection.id}
-                collection={collection}
-              />
-            ))
+          {collectionsByTradingPair.length === 0 ? (<p>{languageModel.noData}</p>) : (
+
+              collectionsByTradingPair.map((collection) => (
+                <CollectionContainer key={collection.id} collection={collection}/>
+              ))
+
           )}
         </>
       )}

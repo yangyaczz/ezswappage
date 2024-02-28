@@ -122,4 +122,5 @@ export default {
   TweetForAirdrop: "에어드랍을 위한 트윗",
   PasteYourPost: "여기에 포스트 링크를 붙여넣으세요",
   EZTokenAirdropSoon: "$EZSWAP이 곧 Manta 지갑으로 에어드랍됩니다.",
+  AirdropGranted: "에어드랍이 승인되었습니다",
 };

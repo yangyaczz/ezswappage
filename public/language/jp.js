@@ -125,4 +125,5 @@ export default {
   PasteYourPost: "ここに投稿のリンクを貼り付けてください",
   EZTokenAirdropSoon:
     "まもなくMantaのウォレットに$EZSWAPがエアドロップされます",
+  AirdropGranted: "エアドロップが許可されました",
 };

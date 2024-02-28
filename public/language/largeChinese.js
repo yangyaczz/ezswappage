@@ -120,4 +120,5 @@ export default {
   TweetForAirdrop: "推文以获取空投",
   PasteYourPost: "在此粘贴您的帖子链接",
   EZTokenAirdropSoon: "很快将向您的 Manta 钱包空投 $EZSWAP",
+  AirdropGranted: "空投已授予",
 };

@@ -123,4 +123,5 @@ export default {
   TweetForAirdrop: "Airdrop için Tweet At",
   PasteYourPost: "Lütfen gönderinizin linkini buraya yapıştırın",
   EZTokenAirdropSoon: "$EZSWAP yakında Manta cüzdanınıza airdrop edilecek",
+  AirdropGranted: "Airdrop Onaylandı",
 };

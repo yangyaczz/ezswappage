@@ -68,9 +68,10 @@ const AirdropClaim = () => {
 
   const EIGHTEEN_ZEROS = 1e18;
 
-  const [twitterLink, setTwitterLink] = useState(null);
+  const [twitterLink, setTwitterLink] = useState("");
   const [tokenToClaim, setTokenToClaim] = useState(0);
   const [signLoading, setSignLoading] = useState(false);
+  const [twitterSent, setTwitterSent] = useState(false);
 
   useEffect(() => {
     async function queryAddressScore() {
@@ -91,6 +92,7 @@ const AirdropClaim = () => {
         if (data.data.tokenAmount > 0) {
           setTokenToClaim(data.data.tokenAmount);
           setClaimStatus(cStatus.ELIGIBLE);
+          setTwitterSent(data.data.sendTwitter);
         } else {
           setClaimStatus(cStatus.INELIGIBLE);
         }
@@ -105,6 +107,7 @@ const AirdropClaim = () => {
     return () => {
       setTokenToClaim(0);
       setClaimStatus(null);
+      setTwitterLink("");
     };
   }, [owner]);
 
@@ -116,22 +119,45 @@ const AirdropClaim = () => {
       );
   }
 
-  function handleConfirmClick() {
+  async function handleConfirmClick() {
     if (!owner)
       return setAlertMsg(languageModel.PleaseConnectWallet, "alert-error");
-    console.log(twitterLink.substring(0, 13));
     if (
-      twitterLink.substring(0, 14).toLowerCase() === "https://x.com/" ||
-      twitterLink.substring(0, 20).toLowerCase() === "https://twitter.com/"
+      twitterLink &&
+      (twitterLink.substring(0, 14).toLowerCase() === "https://x.com/" ||
+        twitterLink.substring(0, 20).toLowerCase() === "https://twitter.com/")
     ) {
-      setAlertMsg("Airdrop recorded", "alert-success");
+      let params = {
+        address: owner,
+        sendTwitter: 1,
+      };
+      let result = await updateAddressInfo(params);
+      if (result) {
+        setTwitterSent(true);
+        setTwitterLink("");
+        setAlertMsg("Airdrop recorded", "alert-success");
+      }
     } else {
       setAlertMsg("Link format not correct", "alert-error");
     }
   }
 
+  async function updateAddressInfo(params) {
+    return fetch("/api/airdropAddressInfo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        return data.data;
+      });
+  }
+
   return (
-    <div className="w-full text-[#00D5DA] bg-black">
+    <div className="w-full text-[#00D5DA] bg-black" type="form">
       <div className="flex flex-col items-center justify-start h-full pt-20 gap-11">
         <p className="text-3xl font-extrabold lg:whitespace-nowrap  sm:text-5xl max-[800px]:text-wrap">
           EZswap {languageModel.Airdrop}
@@ -149,17 +175,23 @@ const AirdropClaim = () => {
             >
               <span className={`text-white `}>{tokenToClaim}</span> $EZSWAP
             </p>
-            <button
-              className="bg-[#00D5DA] text-black py-2 px-3 rounded-xl font-bold	"
-              onClick={handleTweetClick}
-            >
-              {languageModel.TweetForAirdrop}
-            </button>
+
+            {twitterSent ? (
+              <p>{languageModel.AirdropGranted}</p>
+            ) : (
+              <button
+                className="bg-[#00D5DA] text-black py-2 px-3 rounded-xl font-bold"
+                onClick={handleTweetClick}
+              >
+                {languageModel.TweetForAirdrop}
+              </button>
+            )}
 
             <div className="flex flex-row w-2/3 h-10 transition-all sm:w-1/2 justify-center max-[800px]:flex-col max-[800px]:items-center ">
               <p className="flex items-center min-[799px]:pr-3 text-base text-center text-white sm:text-base text-nowrap font-bold max-[800px]:mb-2">
                 {languageModel.PasteYourPost}:
               </p>
+
               <div className="flex flex-row min-[799px]:w-2/3 h-10 transition-all sm:w-1/2">
                 <input
                   className="grow pl-2 text-base text-white bg-black border-[1px] border-r-0 border-white outline-none rounded-l-xl max-[800px]:rounded-r-none h-full"
@@ -168,8 +200,11 @@ const AirdropClaim = () => {
                   onChange={(e) => setTwitterLink(e.target.value)}
                 />
                 <button
+                  disabled={twitterSent}
                   onClick={handleConfirmClick}
-                  className="w-1/3 text-base sm:text-base sm:w-1/6 rounded-r-xl text-black bg-[#00D5DA] font-bold border-[1px] border-white h-full max-[800px]:px-2"
+                  className={`w-1/3 text-base sm:text-base xl:w-1/5 rounded-r-xl text-black font-bold border-[1px] border-white h-full max-[800px]:px-2 ${
+                    twitterSent ? "bg-zinc-400" : "bg-[#00D5DA]"
+                  }`}
                 >
                   {signLoading ? (
                     <span className="loading loading-spinner loading-sm"></span>

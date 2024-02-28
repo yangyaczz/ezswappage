@@ -121,5 +121,7 @@ export default {
 
   TweetForAirdrop:"Tweet for Airdrop",
   PasteYourPost:"Paste your post's link here",
-  EZTokenAirdropSoon:"$EZSWAP will be airdropped to your wallet on Manta soon"
+  EZTokenAirdropSoon:"$EZSWAP will be airdropped to your wallet on Manta soon",
+
+  AirdropGranted:"Airdrop Granted"
 }

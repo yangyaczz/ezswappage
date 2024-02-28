@@ -197,18 +197,26 @@ const AirdropClaim = () => {
             >
               <span className={`text-white `}>{tokenToClaim}</span> $EZSWAP
             </p>
+            <button
+                onClick={handleConfirmClick}
+                className="w-1/3 text-xs sm:text-base sm:w-1/6 rounded-r-xl text-black bg-[#00D5DA] font-bold border-[1px] border-white h-full"
+            >
+              {signLoading ? (
+                  <span className="loading loading-spinner loading-sm"></span>
+              ) : "Tweet for Airdrop"}
+            </button>
             {/*<p className="text-4xl font-extrabold lg:whitespace-nowrap md:text-xl lg:text-2xl xl:text-4xl max-[800px]:text-wrap">*/}
 
             {/*</p>*/}
 
-            <p className="flex flex-col items-center justify-center text-white">
-              <span className="text-xs sm:text-sm">
-                {languageModel.EnterMantaAddressForAirdrop}.
-              </span>
-              <span className="text-[0.6rem] sm:text-sm">
-                {languageModel.EZTokenAirdropShortly}.
-              </span>
-            </p>
+            {/*<p className="flex flex-col items-center justify-center text-white">*/}
+            {/*  <span className="text-xs sm:text-sm">*/}
+            {/*    {languageModel.EnterMantaAddressForAirdrop}.*/}
+            {/*  </span>*/}
+            {/*  <span className="text-[0.6rem] sm:text-sm">*/}
+            {/*    {languageModel.EZTokenAirdropShortly}.*/}
+            {/*  </span>*/}
+            {/*</p>*/}
 
             <Transition
               show={!addrHasSubmitted}

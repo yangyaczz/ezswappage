@@ -26,9 +26,9 @@ const Swap = () => {
                 <div className="text-white">
                     <div className={"text-8xl font-bold mb-8 "+styles.titleStroke}>EZswap Protocol</div>
                     <div className="font-bold text-xl">
-                        <span>Multi-Chain NFT & Inscription DEX Protocol</span><br/>
-                        <span>The First Gaming & Inscription Assets Market Making</span><br/>
-                        <span>Support ERC 404, ERC 721, ERC 1155</span>
+                        <div>Multi-Chain NFT & Inscription DEX Protocol</div>
+                        <div className="mt-1">The First Gaming & Inscription Assets Market Making</div>
+                        <div className="mt-1">Support ERC 404, ERC 721, ERC 1155</div>
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@ const Swap = () => {
                         <div className="flex items-center mt-5">
                             <img src="/line1.png" alt=""/>
                             <div className="ml-3">
-                                <div className="text-[#3ACD37] text-4xl font-bold">+421%</div>
+                                <div className="text-[#3ACD37] text-4xl font-bold">+330%</div>
                                 <div className="text-[7px] text-center text-[#9B9B9B] mt-2">ATH since Launch</div>
                             </div>
                         </div>
@@ -64,14 +64,14 @@ const Swap = () => {
                             {/*里面左右布局*/}
                             <img width="50px" src="https://ezonline.s3.us-west-2.amazonaws.com/echo_img2.png" alt=""/>
                             <div className="ml-3">
-                                <div className="text-4xl font-bold">ECHO 404</div>
+                                <div className="text-4xl font-bold">Mars</div>
                                 <div className="text-xs">The First EOS EVM Smart Inscription (404)</div>
                             </div>
                         </div>
                         <div className="flex items-center mt-5">
                             <img src="/line1.png" alt=""/>
                             <div className="ml-3">
-                                <div className="text-[#3ACD37] text-4xl font-bold">+421%</div>
+                                <div className="text-[#3ACD37] text-4xl font-bold">+4001%</div>
                                 <div className="text-[7px] text-center text-[#9B9B9B] mt-2">ATH since Launch</div>
                             </div>
                         </div>

@@ -124,12 +124,13 @@ const AirdropClaim = () => {
       return setAlertMsg(languageModel.PleaseConnectWallet, "alert-error");
     if (
       twitterLink &&
-      (twitterLink.substring(0, 14).toLowerCase() === "https://x.com/" ||
-        twitterLink.substring(0, 20).toLowerCase() === "https://twitter.com/")
+      (twitterLink.toLowerCase().indexOf("x.com") !== -1  ||
+        twitterLink.toLowerCase().indexOf("twitter.com")!== -1)
     ) {
       let params = {
         address: owner,
         sendTwitter: 1,
+        twitterLink: twitterLink,
       };
       let result = await updateAddressInfo(params);
       if (result) {

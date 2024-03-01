@@ -1,92 +1,127 @@
-import InputAmount from "@/components/swap/InputAmount";
-import NFTSearch from "@/components/swap/NFTSearch";
-import SwapButton from "@/components/swap/SwapButton";
-import TokenSearch from "@/components/swap/TokenSearch";
 import styles from "./index.module.scss";
-import {ethers} from "ethers";
 
 import React, {useState, useEffect} from "react";
-import {useFormik} from "formik";
-import * as Yup from "yup";
-
-import {useNetwork, useAccount} from "wagmi";
-
-import networkConfig from "../data/networkconfig.json";
-import {useLanguage} from "@/contexts/LanguageContext";
 
 const Swap = () => {
 
+
+    const [screenWidth, setScreenWidth] = useState();
+    useEffect(() => {
+        setScreenWidth(window.innerWidth)
+    });
+
     return (
         <div className={"" + styles.divBackground}>
-            <div className="flex items-center px-14 mt-20 backdrop-blur-sm">
-                <div className="flex justify-start items-center">
-                    <img src="/bannerlogo.png" alt=""/>
-                    <img className="ml-10 mr-20" src="/bannertiao.png" alt=""/>
+            {screenWidth > 800?
+                // web
+                <div className="flex items-center min-[1110px]:pl-16 mt-20 backdrop-blur-sm">
+                <div className="flex items-center">
+                    <img src="/bannerlogo.png" className="" alt=""/>
+                    <img className="ml-14 mr-20 max-[800px]:mr-6 max-[800px]:ml-5" src="/bannertiao.png" alt=""/>
                 </div>
                 <div className="text-white">
-                    <div className={"text-8xl font-bold mb-8 "+styles.titleStroke}>EZswap Protocol</div>
-                    <div className="font-bold text-xl">
+                    <div className={"min-[1110px]:text-8xl min-[1400px]:text-9xl text-6xl font-bold mb-8 max-[800px]:text-3xl "+styles.titleStroke}>EZswap Protocol</div>
+                    <div className="font-bold text-2xl max-[800px]:text-xl ">
                         <div>Multi-Chain NFT & Inscription DEX Protocol</div>
                         <div className="mt-1">The First Gaming & Inscription Assets Market Making</div>
                         <div className="mt-1">Support ERC 404, ERC 721, ERC 1155</div>
                     </div>
                 </div>
-            </div>
-            <div className="relative px-14 pt-16">
+            </div>:
+                // 移动端
+                <div className="min-[799px]:pl-40 mt-10 backdrop-blur-sm pl-5 pt-3">
+                    <div className="flex items-center justify-center">
+                        <img src="/bannerlogo.png" className="w-[80px]" alt=""/>
+                        <img className="ml-14 mr-20 max-[800px]:mr-6 max-[800px]:ml-5 h-[90px]" src="/bannertiao.png" alt=""/>
+                        <div className={"text-9xl font-bold max-[800px]:text-4xl "+styles.titleStroke}>EZswap Protocol</div>
+                    </div>
+                    <div className="text-white mt-6">
+                        <div className="font-bold text-2xl max-[800px]:text-xs ">
+                            <div>Multi-Chain NFT & Inscription DEX Protocol</div>
+                            <div className="mt-2">The First Gaming & Inscription Assets Market Making</div>
+                            <div className="mt-2">Support ERC 404, ERC 721, ERC 1155</div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div className="min-[1110px]:pl-16 pt-16 max-[800px]:pl-5">
                 <div>
-                    <span className="color-[#2ed1d8] font-bold text-5xl">Featured Projects</span>
-                    <img className="mt-5 mb-10" src="/Vector.png" alt=""/>
+                    <span className="color-[#2ed1d8] font-bold text-4xl">Featured Projects</span>
+                    <img className="mt-5 mb-10 max-[800px]:w-[85%]" src="/Vector.png" alt=""/>
                 </div>
-                <div className="flex">
+                <div className="flex max-[800px]:flex-col max-[800px]:mr-10">
                     {/*第一个item*/}
-                    <div className="bg-black border border-[#737373] rounded-md px-6 pt-10 pb-5">
+                    <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 text-white min-[799px]:mr-5">
                         {/*最外面上下布局*/}
-                        <div className="flex items-center">
+                        <div className="flex items-center pl-10 pr-10 max-[800px]:pr-1">
                             {/*里面左右布局*/}
-                            <img width="50px" src="https://ezonline.s3.us-west-2.amazonaws.com/echo_img2.png" alt=""/>
-                            <div className="ml-3">
-                                <div className="text-4xl font-bold">ECHO 404</div>
-                                <div className="text-xs">The First EOS EVM Smart Inscription (404)</div>
+                            <img className="w-[50px]" src="https://ezonline.s3.us-west-2.amazonaws.com/echo_img2.png" alt=""/>
+                            <div className="ml-8 max-[800px]:ml-5">
+                                <div className="text-4xl font-bold max-[800px]:text-3xl">ECHO 404</div>
+                                <div className="text-sm mt-1 max-[800px]:text-xs">The First EOS EVM Smart Inscription (404)</div>
                             </div>
                         </div>
-                        <div className="flex items-center mt-5">
+                        <div className="flex items-center mt-7 ml-10 mr-10">
                             <img src="/line1.png" alt=""/>
                             <div className="ml-3">
-                                <div className="text-[#3ACD37] text-4xl font-bold">+330%</div>
+                                <div className="text-[#3ACD37] text-5xl font-bold max-[800px]:text-3xl"><span className="mr-1">+</span>330%</div>
                                 <div className="text-[7px] text-center text-[#9B9B9B] mt-2">ATH since Launch</div>
                             </div>
                         </div>
                     </div>
-                    {/*第二个item*/}
-                    <div className="bg-black border border-[#737373] rounded-md px-6  pt-10 pb-5 ml-10">
+                    {/*第一个item*/}
+                    <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 text-white max-[800px]:mt-7 min-[799px]:mr-5">
                         {/*最外面上下布局*/}
-                        <div className="flex items-center">
+                        <div className="flex items-center pl-10 pr-10 max-[800px]:pr-1">
                             {/*里面左右布局*/}
-                            <img width="50px" src="https://ezonline.s3.us-west-2.amazonaws.com/echo_img2.png" alt=""/>
-                            <div className="ml-3">
-                                <div className="text-4xl font-bold">Mars</div>
-                                <div className="text-xs">The First EOS EVM Smart Inscription (404)</div>
+                            <img className="w-[50px]" src="https://ezonline.s3.us-west-2.amazonaws.com/echo_img2.png" alt=""/>
+                            <div className="ml-8 max-[800px]:ml-5">
+                                <div className="text-4xl font-bold max-[800px]:text-3xl">Mars 404</div>
+                                <div className="text-sm mt-1 max-[800px]:text-xs">Manta 404</div>
                             </div>
                         </div>
-                        <div className="flex items-center mt-5">
+                        <div className="flex items-center mt-7 ml-10 mr-10">
                             <img src="/line1.png" alt=""/>
                             <div className="ml-3">
-                                <div className="text-[#3ACD37] text-4xl font-bold">+4001%</div>
+                                <div className="text-[#3ACD37] text-5xl font-bold max-[800px]:text-3xl"><span className="mr-1">+</span>330%</div>
                                 <div className="text-[7px] text-center text-[#9B9B9B] mt-2">ATH since Launch</div>
                             </div>
                         </div>
                     </div>
+                    {/*第一个item*/}
+                    {/*<div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 text-white max-[800px]:mt-7">*/}
+                    {/*    /!*最外面上下布局*!/*/}
+                    {/*    <div className="flex items-center pl-10 pr-10 max-[800px]:pr-1">*/}
+                    {/*        /!*里面左右布局*!/*/}
+                    {/*        <img className="w-[50px]" src="https://ezonline.s3.us-west-2.amazonaws.com/echo_img2.png" alt=""/>*/}
+                    {/*        <div className="ml-8 max-[800px]:ml-5">*/}
+                    {/*            <div className="text-4xl font-bold max-[800px]:text-3xl">ECHO 404</div>*/}
+                    {/*            <div className="text-sm mt-1 max-[800px]:text-xs">The First EOS EVM Smart Inscription (404)</div>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*    <div className="flex items-center mt-7 ml-10 mr-10">*/}
+                    {/*        <img src="/line1.png" alt=""/>*/}
+                    {/*        <div className="ml-3">*/}
+                    {/*            <div className="text-[#3ACD37] text-5xl font-bold max-[800px]:text-3xl"><span className="mr-1">+</span>330%</div>*/}
+                    {/*            <div className="text-[7px] text-center text-[#9B9B9B] mt-2">ATH since Launch</div>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+
+
+
+
                 </div>
             </div>
-            <div className="px-14 pt-16">
+            <div className="px-14 pt-16 min-[1110px]:pl-16 max-[800px]:pl-5 ">
                 <div>
                     <span className="color-[#2ed1d8] font-bold text-5xl">Partners</span>
                     <img className="mt-5 mb-10" src="/Vector.png" alt=""/>
                 </div>
-                <div className="flex mb-32">
-                    <img className="w-1/12 mr-10" src="/polygon-Partner.png" alt=""/>
-                    <img className="w-1/12 mr-10" src="/manta-Partner.png" alt=""/>
-                    <img className="w-1/12 mr-10" src="/zkh-Partner.png" alt=""/>
+                <div className="flex mb-32  max-[800px]:flex-col max-[800px]:mt-10">
+                    <img className="w-[12%] min-[799px]:mr-14  max-[800px]:w-[45%]" src="/polygon-Partner.png" alt=""/>
+                    <img className="w-[12%] min-[799px]:mr-14 max-[800px]:w-[45%]" src="/manta-Partner.png" alt=""/>
+                    <img className="w-[12%] min-[799px]:mr-14 max-[800px]:w-[45%]" src="/zkh-Partner.png" alt=""/>
                 </div>
             </div>
         </div>

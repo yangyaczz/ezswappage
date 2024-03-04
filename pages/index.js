@@ -32,7 +32,7 @@ export default function Home() {
   });
 
   return (
-      <div className={"flex flex-col items-center  " + styles.divBackground}>
+      <div className={"flex flex-col items-center max-w-[2000px] " + styles.divBackground}>
         <div className="">
           {screenWidth > 800?
               // web

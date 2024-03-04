@@ -121,10 +121,10 @@ export default function Home() {
                             <span className="color-[#2ed1d8] font-bold text-4xl  max-[800px]:text-3xl">Partners</span>
                             <img className="mt-5 mb-10 max-[800px]:w-[85%]" src="/Vector.png" alt=""/>
                         </div>
-                        <div className="flex mb-32 max-[800px]:flex-col max-[800px]:mt-10">
-                            <img className="w-[6%] min-[799px]:mr-14  max-[800px]:w-[45%]" src="/polygon2.JPG" alt=""/>
-                            <img className="w-[6%] min-[799px]:mr-14 max-[800px]:w-[45%]" src="/manta2.JPG" alt=""/>
-                            <img className={"w-[6%] min-[799px]:mr-14 max-[800px]:w-[45%] "+ styles.zkhColor} src="/zkh2.svg" alt=""/>
+                        <div className="flex mb-32 max-[800px]:mt-10">
+                            <img className="w-[6%] min-[799px]:mr-14 max-[800px]:w-[20%] max-[800px]:mr-6" src="/polygon2.JPG" alt=""/>
+                            <img className="w-[6%] min-[799px]:mr-14 max-[800px]:w-[20%] max-[800px]:mr-6" src="/manta2.JPG" alt=""/>
+                            <img className={"w-[6%] min-[799px]:mr-14 max-[800px]:w-[20%] max-[800px]:mr-10 " + styles.zkhColor} src="/zkh2.svg" alt=""/>
                             {/*<img className="w-[12%] min-[799px]:mr-14 max-[800px]:w-[45%]" src="/zkh-Partner.png" alt=""/>*/}
                         </div>
                     </div>

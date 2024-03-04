@@ -124,7 +124,7 @@ export default function Home() {
                         <div className="flex mb-32 max-[800px]:flex-col max-[800px]:mt-10">
                             <img className="w-[6%] min-[799px]:mr-14  max-[800px]:w-[45%]" src="/polygon2.JPG" alt=""/>
                             <img className="w-[6%] min-[799px]:mr-14 max-[800px]:w-[45%]" src="/manta2.JPG" alt=""/>
-                            <img className="w-[6%] min-[799px]:mr-14 max-[800px]:w-[45%]" src="/manta2.jpg" alt=""/>
+                            <img className={"w-[6%] min-[799px]:mr-14 max-[800px]:w-[45%] "+ styles.zkhColor} src="/zkh2.svg" alt=""/>
                             {/*<img className="w-[12%] min-[799px]:mr-14 max-[800px]:w-[45%]" src="/zkh-Partner.png" alt=""/>*/}
                         </div>
                     </div>

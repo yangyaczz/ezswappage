@@ -110,11 +110,12 @@ const AirdropClaim = () => {
       setTwitterLink("");
     };
   }, [owner]);
+  //@EZswapProtocol has launched airdrop season 2🪂🪂%0A%0AEZswap will airdrop ${tokenToClaim} $EZSWAP to my address✅✅✅%0A%0AGet ur $EZSWAP here: https://ezswap.io/%23/event/airdropOverview?inviteAddress=${owner}
 
   function handleTweetClick() {
     if (owner)
       window.open(
-        `https://twitter.com/intent/tweet?text=@EZswapProtocol has launched airdrop season 2🪂🪂%0A%0AEZswap will airdrop ${tokenToClaim} $EZSWAP to my address✅✅✅%0A%0AGet ur $EZSWAP here: https://ezswap.io/%23/event/airdropOverview?inviteAddress=${owner}`,
+        `https://twitter.com/intent/tweet?text=🎉 Airdrop Alert! 🪂 EZswap Protocol (@EZswapProtocol) has successfully wrapped up season 2 of their airdrop! 🚀 I'm thrilled to share that ${tokenToClaim} $EZSWAP tokens are on their way to my wallet! ✅ Grab your $EZSWAP now! https://ezswap.io/airdropclaimV2 %0A %0A %23EZswapProtocol %23Airdrop`,
         "_blank"
       );
   }

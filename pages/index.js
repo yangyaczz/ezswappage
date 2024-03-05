@@ -35,7 +35,7 @@ export default function Home() {
     return (
         <div className="min-[1700px]:flex min-[1700px]:flex-col min-[1700px]:items-center">
             <div className={"flex flex-col items-center " + styles.divBackground}>
-                <div className="">
+                <div className="ml-14 min-[1700px]:ml-32  max-[800px]:ml-0">
                     {screenWidth > 800 ?
                         // web
                         <div className="flex items-center mt-20 backdrop-blur-sm">
@@ -44,7 +44,7 @@ export default function Home() {
                                 <img className="ml-14 mr-20 max-[800px]:mr-6 max-[800px]:ml-5" src="/bannertiao.png" alt=""/>
                             </div>
                             <div className="text-white">
-                                <div className={"min-[1110px]:text-7xl min-[1400px]:text-8xl text-6xl font-bold mb-8 max-[800px]:text-3xl min-[1700px]:mr-10 " + styles.titleStroke}>EZswap Protocol</div>
+                                <div className={"min-[1110px]:text-7xl min-[1400px]:text-[5rem] text-6xl font-bold mb-8 max-[800px]:text-3xl min-[1700px]:mr-10 min-[1700px]:text-8xl " + styles.titleStroke}>EZswap Protocol</div>
                                 <div className="font-bold text-2xl max-[800px]:text-xl ">
                                     <div>Multi-Chain NFT & Inscription DEX Protocol</div>
                                     <div className="mt-1">The First Gaming & Inscription Assets Market Making</div>
@@ -70,7 +70,7 @@ export default function Home() {
                     }
                     <div className=" pt-16 max-[800px]:pl-10">
                         <div>
-                            <span className="color-[#2ed1d8] font-bold text-3xl">Featured Projects</span>
+                            <span className="color-[#2ed1d8] font-bold text-4xl">Featured Projects</span>
                             <img className="mt-5 mb-10 max-[800px]:w-[85%]" src="/Vector.png" alt=""/>
                         </div>
                         <div className="flex max-[800px]:flex-col max-[800px]:mr-10">
@@ -116,16 +116,51 @@ export default function Home() {
 
                         </div>
                     </div>
-                    <div className="pt-16 max-[800px]:pl-10 ">
+                    <div className="pt-16 max-[800px]:pl-10 max-w-[1700px]">
                         <div>
-                            <span className="color-[#2ed1d8] font-bold text-4xl  max-[800px]:text-3xl">Partners</span>
+                            <span className="color-[#2ed1d8] font-bold text-4xl max-[800px]:text-3xl">Partners</span>
                             <img className="mt-5 mb-10 max-[800px]:w-[85%]" src="/Vector.png" alt=""/>
                         </div>
-                        <div className="flex mb-32 max-[800px]:mt-10">
-                            <img className="w-[6%] min-[799px]:mr-14 max-[800px]:w-[20%] max-[800px]:mr-6" src="/polygon2.JPG" alt=""/>
-                            <img className="w-[6%] min-[799px]:mr-14 max-[800px]:w-[20%] max-[800px]:mr-6" src="/manta2.JPG" alt=""/>
-                            <img className={"w-[6%] min-[799px]:mr-14 max-[800px]:w-[20%] max-[800px]:mr-10 " + styles.zkhColor} src="/zkh2.svg" alt=""/>
-                            {/*<img className="w-[12%] min-[799px]:mr-14 max-[800px]:w-[45%]" src="/zkh-Partner.png" alt=""/>*/}
+                        <div className="flex flex-wrap mb-16 max-[800px]:mt-10 gap-10  min-[800px]:mr-20">
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/manta2.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/eos2.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/polygon2.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/zks2.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/arb2.PNG" alt=""/>
+                        </div>
+                        <div className="flex flex-wrap mb-32 max-[800px]:mt-10 gap-10 min-[800px]:mr-20">
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9873.PNG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9874.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9875.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9876.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9877.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9878.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9879.PNG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9880.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9881.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9882.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9883.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9884.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9885.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9886.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9887.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9888.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9889.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9890.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9891.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9892.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9893.PNG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9894.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9895.PNG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9896.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9897.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9898.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9899.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9900.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9901.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9902.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9903.JPG" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9905.JPG" alt=""/>
                         </div>
                     </div>
                 </div>

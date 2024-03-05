@@ -35,7 +35,7 @@ export default function Home() {
     return (
         <div className="min-[1700px]:flex min-[1700px]:flex-col min-[1700px]:items-center">
             <div className={"flex flex-col items-center " + styles.divBackground}>
-                <div className="ml-14 min-[1700px]:ml-32  max-[800px]:ml-0">
+                <div className="ml-20 min-[1700px]:ml-32  max-[800px]:ml-0">
                     {screenWidth > 800 ?
                         // web
                         <div className="flex items-center mt-20 backdrop-blur-sm">

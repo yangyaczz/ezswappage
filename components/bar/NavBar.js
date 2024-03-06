@@ -84,7 +84,7 @@ const NavBar = () => {
     const isProd = nextConfig.publicRuntimeConfig.env.API === "dev2";
     if (isProd) {
       setAirdropJumpUrl("https://ezswap.io/#/event/airdropOverview");
-      setLaunchpadJump("https://ezswap.io/#/launchpadList");
+      setLaunchpadJump("https://launchpad.ezswap.io/#/launchpadList");
       setMainPageJumpUrl("https://ezswap.io");
     } else {
       setAirdropJumpUrl("https://test.ezswap.io/#/event/airdropOverview");

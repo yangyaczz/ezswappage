@@ -85,7 +85,7 @@ const CollectionList = () => {
                             )) {
                                 // console.log('collection.address', collection)
                                 //搜索功能
-                                if (searchCollection !== '' && collection.address.indexOf(searchCollection) === -1 && collection.name.indexOf(searchCollection) === -1) {
+                                if (searchCollection !== '' && collection.address.toLowerCase().indexOf(searchCollection.toLowerCase()) === -1 && collection.name.toLowerCase().indexOf(searchCollection.toLowerCase()) === -1) {
                                     continue
                                 }
                                 colByPair.push({
@@ -182,7 +182,7 @@ const CollectionList = () => {
         return () => {
             setCollectionsByTradingPair([]);
         };
-    }, [chain, searchCollection]);
+    }, [chain, searchCollection.length>=3]);
 
     const handleDepositInputChange = (e) => {
         setSearchCollection(e.target.value)

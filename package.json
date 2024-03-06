@@ -23,6 +23,7 @@
     "formik": "^2.4.5",
     "git": "^0.1.5",
     "git-cli": "^0.11.0",
+    "lodash": "^4.17.21",
     "next": "^14.0.4",
     "react": "latest",
     "react-dom": "latest",

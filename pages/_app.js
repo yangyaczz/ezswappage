@@ -23,6 +23,7 @@ import nextConfig from "../next.config.js";
 import { Wallet } from "ethers";
 import { LanguageProvider } from "@/contexts/LanguageContext.js";
 import { mainnet, arbitrum, polygon,goerli } from "wagmi/chains";
+import Footer from "../components/footer/Footer";
 require("dotenv").config();
 
 const mantatest = {
@@ -201,6 +202,7 @@ export default function App({ Component, pageProps }) {
             <CollectionProvider>
               <Component {...pageProps} />
             </CollectionProvider>
+            <Footer></Footer>
           </div>
         </LanguageProvider>
       </RainbowKitProvider>

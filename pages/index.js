@@ -118,7 +118,7 @@ export default function Home() {
                     </div>
                     <div className="pt-16 max-[800px]:pl-10 max-w-[1700px]">
                         <div>
-                            <span className="color-[#2ed1d8] font-bold text-4xl max-[800px]:text-3xl">Partners</span>
+                            <span className="color-[#2ed1d8] font-bold text-4xl max-[800px]:text-3xl">Ecosystem</span>
                             <img className="mt-5 mb-10 max-[800px]:w-[85%]" src="/Vector.png" alt=""/>
                         </div>
                         <div className="flex flex-wrap mb-16 max-[800px]:mt-10 gap-10  min-[800px]:mr-20">
@@ -127,6 +127,10 @@ export default function Home() {
                             <img className="w-[6%] max-[800px]:w-[20%]" src="/polygon2.JPG" alt=""/>
                             <img className="w-[6%] max-[800px]:w-[20%]" src="/zks2.JPG" alt=""/>
                             <img className="w-[6%] max-[800px]:w-[20%]" src="/arb2.PNG" alt=""/>
+                        </div>
+                        <div>
+                            <span className="color-[#2ed1d8] font-bold text-4xl max-[800px]:text-3xl">Business Partner</span>
+                            <img className="mt-5 mb-10 max-[800px]:w-[85%]" src="/Vector.png" alt=""/>
                         </div>
                         <div className="flex flex-wrap mb-32 max-[800px]:mt-10 gap-10 min-[800px]:mr-20">
                             <img className="w-[6%] max-[800px]:w-[20%]" src="/game/IMG_9873.PNG" alt=""/>

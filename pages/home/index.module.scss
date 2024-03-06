@@ -1,0 +1,14 @@
+.divBackground{
+  //background: black;
+  background-image:url("/bannerbackground2.png");
+  background-size: 100%;
+  background-repeat:no-repeat;
+}
+.titleStroke{
+  font-family: 'KronaOneRegular', sans-serif;
+  //text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;
+}
+
+.zkhColor{
+  filter: grayscale(1)
+}

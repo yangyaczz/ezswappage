@@ -84,7 +84,7 @@ const NavBar = () => {
     const isProd = nextConfig.publicRuntimeConfig.env.API === "dev2";
     if (isProd) {
       setAirdropJumpUrl("https://ezswap.io/#/event/airdropOverview");
-      setLaunchpadJump("https://ezswap.io/#/launchpadList");
+      setLaunchpadJump("https://launchpad.ezswap.io/#/launchpadList");
       setMainPageJumpUrl("https://ezswap.io");
     } else {
       setAirdropJumpUrl("https://test.ezswap.io/#/event/airdropOverview");
@@ -191,7 +191,7 @@ const NavBar = () => {
 
   const HamburgerNavBar = () => (
     <div className="relative flex items-center justify-between w-full h-full px-4 py-2 m-auto sm:hidden">
-      <Link href={mainPageJumpUrl}>
+      <Link href="/">
         <Image src="/1500X500WhiteHalfHorizontal.svg" alt="EZswap" width={135} height={38} />
       </Link>
       <button
@@ -383,7 +383,7 @@ const NavBar = () => {
       {/* Usual Navbar */}
       <div className={`${styles.headerBox} hidden sm:flex`}>
         <div className={styles.ezLogo}>
-          <Link href={mainPageJumpUrl}>
+          <Link href="/">
             <img src="/1500X500WhiteHalfHorizontal.svg" alt="EZswap" />
           </Link>
         </div>

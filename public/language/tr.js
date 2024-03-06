@@ -112,5 +112,16 @@ export default {
   sellPool: "Sell Pool",
   tradePool: "Trade Pool",
   sortByNFT: "Sort By NFT",
-  sortByBalance: "Sort By Balance"
+  sortByBalance: "Sort By Balance",
+
+  EnterMantaAddressForAirdrop: "Airdrop almak için Manta adresinizi girin",
+  EZTokenAirdropShortly:
+    "Manta'daki adresinize $EZSWAP jetonu yakında doğrudan airdropped olacak",
+  YourAddressIsRecorded: "Adresiniz kaydedildi",
+  PleaseConnectWallet: "Lütfen Cüzdan Bağlayın",
+
+  TweetForAirdrop: "Airdrop için Tweet At",
+  PasteYourPost: "Lütfen gönderinizin linkini buraya yapıştırın",
+  EZTokenAirdropSoon: "$EZSWAP yakında Manta cüzdanınıza airdrop edilecek",
+  AirdropGranted: "Airdrop Onaylandı",
 };

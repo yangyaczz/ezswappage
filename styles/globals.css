@@ -8,6 +8,11 @@
   src: url("./Montserrat/Montserrat-VariableFont_wght.ttf") format("ttf");
 }
 @font-face {
+  font-family: "KronaOneRegular";
+  src: url("./Montserrat/KronaOne-Regular.ttf");
+}
+
+@font-face {
   font-family: "Montserrat-Variable";
   src: url("./Montserrat/Montserrat-VariableFont_wght.ttf") format("ttf");
 }

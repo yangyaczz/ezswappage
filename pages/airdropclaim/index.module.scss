@@ -16,3 +16,30 @@
     color: black;
     border: 0px;
 }
+
+
+@keyframes slideAnimation {
+    0%{
+        transform:translateX(-60%) skewX(30deg);
+        opacity: 0;
+        
+    }
+    25%{
+        transform: translateX(-40%) skewX(30deg);
+        opacity: 0.1;
+    }
+    50%{
+        transform: translateX(-20%);
+        opacity: 0.6;
+    }
+    90%{
+        font-style: normal;
+    }
+    100%{
+        transform: translateX(0) skewX(0deg);
+        opacity: 1;
+    }
+}
+.slideIn{
+    animation: slideAnimation 1s ease-out;
+}

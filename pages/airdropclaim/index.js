@@ -121,27 +121,30 @@ const AirdropClaim = () => {
   }
 
   async function handleConfirmClick() {
-    if (!owner)
-      return setAlertMsg(languageModel.PleaseConnectWallet, "alert-error");
-    if (
-      twitterLink &&
-      (twitterLink.toLowerCase().indexOf("x.com") !== -1  ||
-        twitterLink.toLowerCase().indexOf("twitter.com")!== -1)
-    ) {
-      let params = {
-        address: owner,
-        sendTwitter: 1,
-        twitterLink: twitterLink,
-      };
-      let result = await updateAddressInfo(params);
-      if (result) {
-        setTwitterSent(true);
-        setTwitterLink("");
-        setAlertMsg("Airdrop recorded", "alert-success");
-      }
-    } else {
-      setAlertMsg("Link format not correct", "alert-error");
-    }
+    setAlertMsg("Airdrop End", "alert-error");
+    return
+
+    // if (!owner)
+    //   return setAlertMsg(languageModel.PleaseConnectWallet, "alert-error");
+    // if (
+    //   twitterLink &&
+    //   (twitterLink.toLowerCase().indexOf("x.com") !== -1  ||
+    //     twitterLink.toLowerCase().indexOf("twitter.com")!== -1)
+    // ) {
+    //   let params = {
+    //     address: owner,
+    //     sendTwitter: 1,
+    //     twitterLink: twitterLink,
+    //   };
+    //   let result = await updateAddressInfo(params);
+    //   if (result) {
+    //     setTwitterSent(true);
+    //     setTwitterLink("");
+    //     setAlertMsg("Airdrop recorded", "alert-success");
+    //   }
+    // } else {
+    //   setAlertMsg("Link format not correct", "alert-error");
+    // }
   }
 
   async function updateAddressInfo(params) {

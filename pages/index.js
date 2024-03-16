@@ -107,7 +107,7 @@ export default function Home() {
                                 <div className="flex items-center mt-7 ml-10 mr-10 max-[800px]:ml-5">
                                     <img src="/line2.svg" alt=""/>
                                     <div className="ml-3">
-                                        <div className="text-[#3ACD37] text-5xl font-bold max-[800px]:text-3xl"><span className="mr-1">+</span>1725%</div>
+                                        <div className="text-[#3ACD37] text-5xl font-bold max-[800px]:text-3xl"><span className="mr-1">+</span>4001%</div>
                                         <div className="text-[7px] text-center text-[#9B9B9B] mt-2">ATH since Launch</div>
                                     </div>
                                 </div>

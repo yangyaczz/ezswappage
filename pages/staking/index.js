@@ -1,68 +1,222 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {useAccount, useContractRead, useContractWrite} from "wagmi";
+import {useAccount, useContractRead, useContractWrite, useWaitForTransaction} from "wagmi";
 import ERC20ABI from "../data/ABI/ERC20.json";
+import stakeAbi from "../data/ABI/stakeabi.json";
 import AlertComponent from "../../components/common/AlertComponent";
+import ERC721EnumABI from "../data/ABI/ERC721Enum.json";
+import networkConfig from "../data/networkconfig.json";
 
 
 const staking = () => {
 
     const [tokenStake, setTokenStake] = useState(0);
     const [tokenUnstaked, setTokenUnstaked] = useState(0);
+    const [tokenCanWithdraw, setTokenCanWithdraw] = useState(0);
     const [tokenBalance, setTokenBalance] = useState(0);
     const [activeButton, setActiveButton] = useState(0);
     const [inputAmount, setInputAmount] = useState("");
     const alertRef = useRef(null);
+    const [stakeLoading, setStakeLoading] = useState(false);
+    const [tokenApproval, setTokenApproval] = useState(0);
 
     const {address: owner} = useAccount();
 
     const {data: tokenAmount1155, refetch: balanceOfRefetch} = useContractRead({
-        address: '0x31753b319f03a7ca0264A1469dA0149982ed7564',
+        address: '0xB32eFC47Bf503B3593a23204cF891295a85115Ea',
         abi: ERC20ABI,
         functionName: 'balanceOf',
         args: [owner],
-        watch: false,
-        enabled: false,
+        watch: true,
         onSuccess(data) {
-            console.log('balance: ', data)
-            setTokenBalance(data)
-        }
+            console.log('balance: ', parseInt(data))
+            setTokenBalance(parseInt(data) / 1e18)
+        },
+        onError(err) {
+            console.log("查询失败:", err);
+        },
     })
 
     const {data: tokenAmount, refetch: balanceOfRefetch2} = useContractRead({
-        address: '0x31753b319f03a7ca0264A1469dA0149982ed7564',
-        abi: ERC20ABI,
-        functionName: 'balanceOf',
+        address: '0x5Ac527E475DE83665D224809FC193921482aB48c',
+        abi: stakeAbi,
+        functionName: 'stakes',
         args: [owner],
-        watch: false,
-        enabled: false,
+        watch: true,
         onSuccess(data) {
             console.log('setTokenStake: ', data)
-            setTokenStake(data)
-        }
+            setTokenStake(parseInt(data)/1e18)
+        },
+        onError(err) {
+            console.log("查询失败:", err);
+        },
     })
-
-    const {data: tokenAmount3, refetch: balanceOfRefetch3} = useContractRead({
-        address: '0x31753b319f03a7ca0264A1469dA0149982ed7564',
-        abi: ERC20ABI,
-        functionName: 'balanceOf',
+    const {data: tokenAmount2, refetch: balanceOfRefetch3} = useContractRead({
+        address: '0x5Ac527E475DE83665D224809FC193921482aB48c',
+        abi: stakeAbi,
+        functionName: 'getTotalUnstakedAmount',
         args: [owner],
-        watch: false,
-        enabled: false,
+        watch: true,
         onSuccess(data) {
-            console.log('setTokenUnstaked: ', data)
-            setTokenUnstaked(data)
-        }
+            console.log('getTotalUnstakedAmount: ', data)
+            setTokenUnstaked(parseInt(data)/1e18)
+        },
+        onError(err) {
+            console.log("查询失败:", err);
+        },
     })
 
-    const { data: mintNFTData, write: mintNFT, isLoading: mintNFTLoading } = useContractWrite({
-        address: '0x31753b319f03a7ca0264A1469dA0149982ed7564',
+    const {data: tokenAmount4, refetch: balanceOfRefetch4} = useContractRead({
+        address: '0x5Ac527E475DE83665D224809FC193921482aB48c',
+        abi: stakeAbi,
+        functionName: 'getAvailableWithdrawAmount',
+        args: [owner],
+        watch: true,
+        onSuccess(data) {
+            console.log('getTotalUnstakedAmount: ', data)
+            setTokenCanWithdraw(parseInt(data))
+        },
+        onError(err) {
+            console.log("查询失败:", err);
+        },
+    })
+
+    const {data: nftApprovalData} = useContractRead({
+        address: "0xB32eFC47Bf503B3593a23204cF891295a85115Ea",
         abi: ERC20ABI,
-        functionName: 'mint',
-        args: [],
+        functionName: "allowance",
+        args: [owner, "0x5Ac527E475DE83665D224809FC193921482aB48c"],
+        watch: true,
+        onSuccess(data) {
+            console.log('授权结果', data)
+            setTokenApproval(parseInt(data))
+        },
+    });
+
+    const {
+        data: approveNFTData, isLoading: approveLoading, isSuccess: approveSuccess, write: approveTokenFunction, status: approveStatus, error: approveError,
+    } = useContractWrite({
+        address: '0xB32eFC47Bf503B3593a23204cF891295a85115Ea',
+        abi: ERC20ABI,
+        functionName: "approve",
+        args: ["0x5Ac527E475DE83665D224809FC193921482aB48c", 1e18 * 1e18],
+        onError(err) {
+            console.log('授权失败,', err)
+            alertRef.current.showErrorAlert("Approve fail");
+            setStakeLoading(false)
+        },
+        onSettled(data, error) {
+            console.log('授权成功')
+            if (error) {
+                alertRef.current.showErrorAlert("Approve fail");
+                setStakeLoading(false)
+            }
+        }
+    });
+    const {
+        waitApproveData2,
+        waitApproveIsError2,
+        isLoading: waitApproveLoading2,
+    } = useWaitForTransaction({
+        hash: approveNFTData?.hash,
+        confirmations: 1,
+        onSuccess(data) {
+            alertRef.current.showSuccessAlert("Approve Success");
+            setStakeLoading(false)
+        },
+        onError(err) {
+            alertRef.current.showErrorAlert("Approve Fail");
+            setStakeLoading(false)
+        },
+    });
+
+    const {data: stakeResult, write: stakeToken, isLoading: mintNFTLoading} = useContractWrite({
+        address: '0x5Ac527E475DE83665D224809FC193921482aB48c',
+        abi: stakeAbi,
+        functionName: 'stake',
+        args: [(inputAmount * 1e18).toString()],
         onError(error) {
             alertRef.current.showErrorAlert("error", error);
+            setStakeLoading(false)
         }
     })
+
+    const {data: unStakeResult, write: unStakeTokenFunction, isLoading: unStakingLoading} = useContractWrite({
+        address: '0x5Ac527E475DE83665D224809FC193921482aB48c',
+        abi: stakeAbi,
+        functionName: 'unstake',
+        args: [(inputAmount * 1e18).toString()],
+        onError(error) {
+            alertRef.current.showErrorAlert("error", error);
+            setStakeLoading(false)
+        }
+    })
+
+    const {data: withdrawResult, write: withdrawTokenFunction, isLoading: withdrawLoading} = useContractWrite({
+        address: '0x5Ac527E475DE83665D224809FC193921482aB48c',
+        abi: stakeAbi,
+        functionName: 'withdraw',
+        args: [],
+        onError(error) {
+            console.log('withdraw 错误', error.message)
+            let errorMsg = "error: ";
+            if (error.message.indexOf("No available amount to withdraw") > -1) {
+                errorMsg += "No available amount to withdraw";
+            }
+            alertRef.current.showErrorAlert(errorMsg);
+            setStakeLoading(false)
+        }
+    })
+
+    const {
+        waitApproveData,
+        waitApproveIsError,
+        isLoading: waitApproveLoading,
+    } = useWaitForTransaction({
+        hash: stakeResult?.hash,
+        confirmations: 1,
+        onSuccess(data) {
+            alertRef.current.showSuccessAlert("Stake Success");
+            setStakeLoading(false)
+        },
+        onError(err) {
+            alertRef.current.showErrorAlert("Stake Fail");
+            setStakeLoading(false)
+        },
+    });
+
+    const {
+        waitUnstakingData,
+        waitUnstakingIsError,
+        isLoading: unStakingResultLoading,
+    } = useWaitForTransaction({
+        hash: unStakeResult?.hash,
+        confirmations: 1,
+        onSuccess(data) {
+            alertRef.current.showSuccessAlert("Unstaking Success");
+            setStakeLoading(false)
+        },
+        onError(err) {
+            alertRef.current.showErrorAlert("Unstaking Fail");
+            setStakeLoading(false)
+        },
+    });
+
+    const {
+        waitWithdrawData,
+        waitWithdrawIsError,
+        isLoading: WithdrawResultLoading,
+    } = useWaitForTransaction({
+        hash: withdrawResult?.hash,
+        confirmations: 1,
+        onSuccess(data) {
+            alertRef.current.showSuccessAlert("Withdraw Success");
+            setStakeLoading(false)
+        },
+        onError(err) {
+            alertRef.current.showErrorAlert("Withdraw Fail");
+            setStakeLoading(false)
+        },
+    });
 
     useEffect(() => {
 
@@ -101,13 +255,19 @@ const staking = () => {
     }
 
     function confirm() {
-        alertRef.current.showErrorAlert("error");
+        // alertRef.current.showErrorAlert("error");
+        setStakeLoading(true)
         if (activeButton === 0) {
-
+            if (tokenApproval < inputAmount * 1e18) {
+                approveTokenFunction()
+            } else {
+                stakeToken()
+            }
         } else if (activeButton === 1) {
+            unStakeTokenFunction()
 
         } else if (activeButton === 2) {
-
+            withdrawTokenFunction()
         }
     }
 
@@ -176,29 +336,29 @@ const staking = () => {
                                 <div className="font-bold text-xl mt-10 max-[800px]:text-base">
                                     $EZSWAP Balance:
                                 </div> :
-                                activeButton === 1 ?
+                                activeButton === 1 &&
                                     <div className="font-bold text-xl mt-10 max-[800px]:text-base">
                                         Staked $EZSWAP Balance:
-                                    </div> :
-                                    <div className="font-bold text-xl mt-10 max-[800px]:text-base">
-                                        Available Balance:
                                     </div>
+                                    // <div className="font-bold text-xl mt-10 max-[800px]:text-base">
+                                    //     Available Balance:
+                                    // </div>
                         }
 
-                        <div className="flex mt-3">
+                        {activeButton !== 2 && <div className="flex mt-3">
                             <input className="border bg-black rounded-md px-2 w-[80%]" placeholder="Amount" type="number" min={0}
                                    value={inputAmount}
                                    onChange={(e) => changeAmount(e.target.value)}/>
                             <button className="ml-4 px-3 py-1 border rounded-md" onClick={() => maxOrHalf(0)}>Max</button>
                             <button className="ml-4 px-3 py-1 border rounded-md ml-5" onClick={() => maxOrHalf(1)}>Half</button>
-                        </div>
+                        </div>}
                         <div className="flex justify-center mt-10 mb-4">
-                            <button onClick={() => confirm()} className="bg-[#00D5DA] text-white px-6 py-2 border rounded-md">{activeButton === 0 ? 'Stake' : activeButton === 1 ? 'Unstake' : 'Withdraw'}</button>
+                            <button onClick={() => confirm()} className="bg-[#00D5DA] text-white px-6 py-2 border rounded-md">{stakeLoading || approveLoading || waitApproveLoading2 || unStakingLoading || unStakingResultLoading || withdrawLoading || WithdrawResultLoading ? <span className="loading loading-spinner loading-sm"></span> : activeButton === 0 ? 'Stake' : activeButton === 1 ? 'Unstake' : 'Withdraw'}</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <AlertComponent ref={alertRef} />
+            <AlertComponent ref={alertRef}/>
         </div>
     )
 }

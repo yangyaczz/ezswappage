@@ -241,7 +241,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
 
 
   function goCreateSellPool(){
-    console.log('(Math.floor(createPoolBidsValue?.poolBuyPrice*1.001* 1000000000000000000) / 1000000000000000000).toString()', (Math.floor(createPoolBidsValue?.poolBuyPrice*1.001* 1000000000000000000) / 1000000000000000000).toString())
+    // console.log('(Math.floor(createPoolBidsValue?.poolBuyPrice*1.001* 1000000000000000000) / 1000000000000000000).toString()', (Math.floor(createPoolBidsValue?.poolBuyPrice*1.001* 1000000000000000000) / 1000000000000000000).toString())
     calculateCreatePoolValue()
     if (tokenId1155 === null || tokenId1155 ==='') {
       // console.log([

@@ -27,7 +27,7 @@ import Footer from "../components/footer/Footer";
 require("dotenv").config();
 
 const mantatest = {
-  id: 3441005,
+  id: 3441006,
   name: "Manta Testnet",
   network: "Manta Testnet",
   iconBackground: "#008000",
@@ -38,17 +38,17 @@ const mantatest = {
     symbol: "ETH",
   },
   rpcUrls: {
-    public: { http: ["https://manta-testnet.calderachain.xyz/http"] },
-    default: { http: ["https://manta-testnet.calderachain.xyz/http"] },
+    public: { http: ["https://pacific-rpc.sepolia-testnet.manta.network/http"] },
+    default: { http: ["https://pacific-rpc.sepolia-testnet.manta.network/http"] },
   },
   blockExplorers: {
     default: {
       name: "pacific",
-      url: "https://pacific-explorer.testnet.manta.network/",
+      url: "https://pacific-explorer.sepolia-testnet.manta.network",
     },
     etherscan: {
       name: "pacific",
-      url: "https://pacific-explorer.testnet.manta.network/",
+      url: "https://pacific-explorer.sepolia-testnet.manta.network",
     },
   },
   testnet: true,
@@ -168,7 +168,7 @@ const { chains, publicClient } = configureChains(
 //   [publicProvider()]
 // );
 
-console.log(process.env.NEXT_PUBLIC_WALLETCONNECT_ID)
+// console.log(process.env.NEXT_PUBLIC_WALLETCONNECT_ID)
 // const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_ID;
 const projectId = '5a003a01c2453d55c2475817334d9993';
 

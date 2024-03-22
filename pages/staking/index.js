@@ -7,7 +7,7 @@ import ERC721EnumABI from "../data/ABI/ERC721Enum.json";
 import networkConfig from "../data/networkconfig.json";
 
 
-const staking = () => {
+const Staking = () => {
 
     const [tokenStake, setTokenStake] = useState(0);
     const [tokenUnstaked, setTokenUnstaked] = useState(0);
@@ -204,7 +204,7 @@ const staking = () => {
     const {
         waitWithdrawData,
         waitWithdrawIsError,
-        isLoading: WithdrawResultLoading,
+        isLoading: withdrawResultLoading,
     } = useWaitForTransaction({
         hash: withdrawResult?.hash,
         confirmations: 1,
@@ -218,9 +218,9 @@ const staking = () => {
         },
     });
 
-    useEffect(() => {
-
-    })
+    // useEffect(() => {
+    //
+    // })
 
     function changeState(step) {
         setActiveButton(step)
@@ -353,7 +353,7 @@ const staking = () => {
                             <button className="ml-4 px-3 py-1 border rounded-md ml-5" onClick={() => maxOrHalf(1)}>Half</button>
                         </div>}
                         <div className="flex justify-center mt-10 mb-4">
-                            <button onClick={() => confirm()} className="bg-[#00D5DA] text-white px-6 py-2 border rounded-md">{stakeLoading || approveLoading || waitApproveLoading2 || unStakingLoading || unStakingResultLoading || withdrawLoading || WithdrawResultLoading ? <span className="loading loading-spinner loading-sm"></span> : activeButton === 0 ? 'Stake' : activeButton === 1 ? 'Unstake' : 'Withdraw'}</button>
+                            <button onClick={() => confirm()} className="bg-[#00D5DA] text-white px-6 py-2 border rounded-md">{stakeLoading || approveLoading || waitApproveLoading2 || unStakingLoading || unStakingResultLoading || withdrawLoading || withdrawResultLoading ? <span className="loading loading-spinner loading-sm"></span> : activeButton === 0 ? 'Stake' : activeButton === 1 ? 'Unstake' : 'Withdraw'}</button>
                         </div>
                     </div>
                 </div>
@@ -363,4 +363,5 @@ const staking = () => {
     )
 }
 
-export default staking
+export default Staking
+

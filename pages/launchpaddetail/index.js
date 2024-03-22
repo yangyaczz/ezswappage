@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react'
 
 
-const launchpad = () => {
+const LaunchpadDetail = () => {
 
 
-    useEffect(() => {
-
-    })
+    // useEffect(() => {
+    //
+    // })
 
 
     return (
@@ -95,4 +95,4 @@ const launchpad = () => {
     )
 }
 
-export default launchpad
+export default LaunchpadDetail

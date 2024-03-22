@@ -73,7 +73,7 @@ const Staking = () => {
         watch: true,
         onSuccess(data) {
             console.log('getTotalUnstakedAmount: ', data)
-            setTokenCanWithdraw(parseInt(data))
+            setTokenCanWithdraw(parseInt(data)/1e18)
         },
         onError(err) {
             console.log("查询失败:", err);
@@ -240,12 +240,6 @@ const Staking = () => {
             } else {
                 setInputAmount(tokenStake / 2)
             }
-        } else if (activeButton === 2) {
-            if (step === 0) {
-                setInputAmount(tokenUnstaked)
-            } else {
-                setInputAmount(tokenUnstaked / 2)
-            }
         }
 
     }
@@ -292,27 +286,28 @@ const Staking = () => {
                     </div>
                     <div className="min-[800px]:ml-4 max-[800px]:text-center">
                         <div className="font-bold">Unstaked</div>
-                        <div>{tokenUnstaked}</div>
+                        {/*<div>{tokenUnstaked}</div>*/}
+                        <div>{tokenCanWithdraw}</div>
                     </div>
                 </div>
                 <div className="flex max-[800px]:flex-col max-[800px]:items-center max-[800px]:justify-center  border rounded-3xl overflow-hidden min-[800px]:pl-4 min-[800px]:py-5 max-[800px]:py-2 w-[26%]  max-[800px]:w-[33%]">
                     <div>
-                        <img className="w-[50px]" src="/wallet.svg" alt=""/>
+                        <img className="w-[50px]" src="/locked.svg" alt=""/>
                     </div>
                     <div className="min-[800px]:ml-4 max-[800px]:text-center">
-                        <div className="font-bold">Balance</div>
-                        <div>{tokenBalance}</div>
+                        <div className="font-bold">Locked</div>
+                        <div>{tokenStake-tokenCanWithdraw}</div>
                     </div>
                 </div>
             </div>
-            <div className="border-t my-10 w-[55%] max-[800px]:w-[85%]"></div>
+            <div className="border-t my-10 w-[50%] max-[800px]:w-[85%] border-[#00D5DA]"></div>
             {/*第二块*/}
             <div className="border rounded-3xl py-6 px-10 max-[800px]:px-3 w-[55%] mb-20 max-[800px]:w-[85%]">
                 <div className="flex justify-center">
                     <ul className="menu menu-horizontal max-[800px]:p-0">
-                        <li className={`border rounded-box min-[800px]:px-5 max-[800px]:py-2 font-bold ${activeButton === 0 && 'bg-[#00D5DA] text-black'}`}><a onClick={() => changeState(0)}>STAKE</a></li>
-                        <li className={`border rounded-box min-[800px]:px-5  max-[800px]:py-2 mx-10 max-[800px]:mx-3 font-bold ${activeButton === 1 && 'bg-[#00D5DA] text-black'}`}><a onClick={() => changeState(1)}>UNSTAKE</a></li>
-                        <li className={`border rounded-box min-[800px]:px-5 max-[800px]:py-2  font-bold ${activeButton === 2 && 'bg-[#00D5DA] text-black'}`}><a onClick={() => changeState(2)}>WITHDRAW</a></li>
+                        <li className={`border border-[#00D5DA] rounded-box min-[800px]:px-5 max-[800px]:py-2 font-bold ${activeButton === 0 && 'bg-[#00D5DA] text-black'}`}><a onClick={() => changeState(0)}>STAKE</a></li>
+                        <li className={`border border-[#00D5DA] rounded-box min-[800px]:px-5  max-[800px]:py-2 mx-10 max-[800px]:mx-3 font-bold ${activeButton === 1 && 'bg-[#00D5DA] text-black'}`}><a onClick={() => changeState(1)}>UNSTAKE</a></li>
+                        <li className={`border border-[#00D5DA] rounded-box min-[800px]:px-5 max-[800px]:py-2  font-bold ${activeButton === 2 && 'bg-[#00D5DA] text-black'}`}><a onClick={() => changeState(2)}>WITHDRAW</a></li>
                     </ul>
                 </div>
                 <div className="flex flex-col items-center justify-center max-[800px]:px-3">
@@ -320,40 +315,40 @@ const Staking = () => {
                         {
                             activeButton === 0 ?
                                 <div className="my-10 max-[800px]:text-center">
-                                    Staking tokens enables you to participate in EZSWAP governance, trading boost and future airdrop
+                                    Staking $EZswap enables you to participate in future airdrop and launchpad. Newly-staked tokens become eligible at the beginning of the next epoch.
                                 </div> :
                                 activeButton === 1 ?
                                     <div className="my-10 max-[800px]:text-center">
-                                        Unstake tokens may lead to serious loss and will need a cool down period to withdraw your token
+                                        Unstaking $EZswap enables you to withdraw them from the staking contract after a cooldown period of one epoch once the current epoch ends.
                                     </div> :
                                     <div className="my-10 max-[800px]:text-center">
-                                        Unstake tokens may lead to serious loss and will need a cool down period to withdraw your token
+                                        Withdraw $EZswap. Transfer tokens from the staking contract to your wallet.
                                     </div>
                         }
 
                         {
                             activeButton === 0 ?
                                 <div className="font-bold text-xl mt-10 max-[800px]:text-base">
-                                    $EZSWAP Balance:
+                                    $EZSWAP Balance: {tokenBalance}
                                 </div> :
-                                activeButton === 1 &&
+                                activeButton === 1 ?
                                     <div className="font-bold text-xl mt-10 max-[800px]:text-base">
-                                        Staked $EZSWAP Balance:
+                                        Staked $EZSWAP Balance: {tokenStake}
+                                    </div> :
+                                    <div className="font-bold text-xl mt-10 max-[800px]:text-base">
+                                        Available Balance:{tokenCanWithdraw}
                                     </div>
-                                    // <div className="font-bold text-xl mt-10 max-[800px]:text-base">
-                                    //     Available Balance:
-                                    // </div>
                         }
 
                         {activeButton !== 2 && <div className="flex mt-3">
                             <input className="border bg-black rounded-md px-2 w-[80%]" placeholder="Amount" type="number" min={0}
                                    value={inputAmount}
                                    onChange={(e) => changeAmount(e.target.value)}/>
-                            <button className="ml-4 px-3 py-1 border rounded-md" onClick={() => maxOrHalf(0)}>Max</button>
-                            <button className="ml-4 px-3 py-1 border rounded-md ml-5" onClick={() => maxOrHalf(1)}>Half</button>
+                            <button className="ml-4 px-3 py-1 border border-[#00D5DA] rounded-md" onClick={() => maxOrHalf(0)}>Max</button>
+                            <button className="ml-4 px-3 py-1 border border-[#00D5DA] rounded-md ml-5" onClick={() => maxOrHalf(1)}>Half</button>
                         </div>}
                         <div className="flex justify-center mt-10 mb-4">
-                            <button onClick={() => confirm()} className="bg-[#00D5DA] text-white px-6 py-2 border rounded-md">{stakeLoading || approveLoading || waitApproveLoading2 || unStakingLoading || unStakingResultLoading || withdrawLoading || withdrawResultLoading ? <span className="loading loading-spinner loading-sm"></span> : activeButton === 0 ? 'Stake' : activeButton === 1 ? 'Unstake' : 'Withdraw'}</button>
+                            <button onClick={() => confirm()} className="bg-[#00D5DA] text-black px-8 py-2 border rounded-md font-bold">{stakeLoading || approveLoading || waitApproveLoading2 || unStakingLoading || unStakingResultLoading || withdrawLoading || withdrawResultLoading ? <span className="loading loading-spinner loading-sm"></span> : activeButton === 0 ? 'Stake' : activeButton === 1 ? 'Unstake' : 'Withdraw'}</button>
                         </div>
                     </div>
                 </div>

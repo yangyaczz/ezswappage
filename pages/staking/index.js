@@ -133,7 +133,7 @@ const staking = () => {
         address: '0x5Ac527E475DE83665D224809FC193921482aB48c',
         abi: stakeAbi,
         functionName: 'stake',
-        args: [(inputAmount * 1e18).toString()],
+        args: [(inputAmount * 1e18).toLocaleString().replaceAll(',', '')],
         onError(error) {
             alertRef.current.showErrorAlert("error", error);
             setStakeLoading(false)
@@ -144,7 +144,7 @@ const staking = () => {
         address: '0x5Ac527E475DE83665D224809FC193921482aB48c',
         abi: stakeAbi,
         functionName: 'unstake',
-        args: [(inputAmount * 1e18).toString()],
+        args: [(inputAmount * 1e18).toLocaleString().replaceAll(',', '')],
         onError(error) {
             alertRef.current.showErrorAlert("error", error);
             setStakeLoading(false)

@@ -10,7 +10,7 @@ import networkConfig from "../data/networkconfig.json";
 const Staking = () => {
 
     const [tokenStake, setTokenStake] = useState(0);
-    const [tokenUnstaked, setTokenUnstaked] = useState(0);
+    const [tokenLocked, setTokenLocked] = useState(0);
     const [tokenCanWithdraw, setTokenCanWithdraw] = useState(0);
     const [tokenBalance, setTokenBalance] = useState(0);
     const [activeButton, setActiveButton] = useState(0);
@@ -37,7 +37,7 @@ const Staking = () => {
     })
 
     const {data: tokenAmount, refetch: balanceOfRefetch2} = useContractRead({
-        address: '0x5Ac527E475DE83665D224809FC193921482aB48c',
+        address: '0x01aa8D3fE783877d0a5c2Fe14B2c8aEB5EdDb1c1',
         abi: stakeAbi,
         functionName: 'stakes',
         args: [owner],
@@ -50,23 +50,9 @@ const Staking = () => {
             console.log("查询失败:", err);
         },
     })
-    const {data: tokenAmount2, refetch: balanceOfRefetch3} = useContractRead({
-        address: '0x5Ac527E475DE83665D224809FC193921482aB48c',
-        abi: stakeAbi,
-        functionName: 'getTotalUnstakedAmount',
-        args: [owner],
-        watch: true,
-        onSuccess(data) {
-            console.log('getTotalUnstakedAmount: ', data)
-            setTokenUnstaked(parseInt(data)/1e18)
-        },
-        onError(err) {
-            console.log("查询失败:", err);
-        },
-    })
 
     const {data: tokenAmount4, refetch: balanceOfRefetch4} = useContractRead({
-        address: '0x5Ac527E475DE83665D224809FC193921482aB48c',
+        address: '0x01aa8D3fE783877d0a5c2Fe14B2c8aEB5EdDb1c1',
         abi: stakeAbi,
         functionName: 'getAvailableWithdrawAmount',
         args: [owner],
@@ -80,11 +66,26 @@ const Staking = () => {
         },
     })
 
+    const {data: tokenAmount2, refetch: balanceOfRefetch3} = useContractRead({
+        address: '0x01aa8D3fE783877d0a5c2Fe14B2c8aEB5EdDb1c1',
+        abi: stakeAbi,
+        functionName: 'getUnwithdrawableUnstakedAmount',
+        args: [owner],
+        watch: true,
+        onSuccess(data) {
+            console.log('getTotalUnstakedAmount: ', data)
+            setTokenLocked(parseInt(data)/1e18)
+        },
+        onError(err) {
+            console.log("查询失败:", err);
+        },
+    })
+
     const {data: nftApprovalData} = useContractRead({
         address: "0xB32eFC47Bf503B3593a23204cF891295a85115Ea",
         abi: ERC20ABI,
         functionName: "allowance",
-        args: [owner, "0x5Ac527E475DE83665D224809FC193921482aB48c"],
+        args: [owner, "0x01aa8D3fE783877d0a5c2Fe14B2c8aEB5EdDb1c1"],
         watch: true,
         onSuccess(data) {
             console.log('授权结果', data)
@@ -98,7 +99,7 @@ const Staking = () => {
         address: '0xB32eFC47Bf503B3593a23204cF891295a85115Ea',
         abi: ERC20ABI,
         functionName: "approve",
-        args: ["0x5Ac527E475DE83665D224809FC193921482aB48c", 1e18 * 1e18],
+        args: ["0x01aa8D3fE783877d0a5c2Fe14B2c8aEB5EdDb1c1", 1e18 * 1e18],
         onError(err) {
             console.log('授权失败,', err)
             alertRef.current.showErrorAlert("Approve fail");
@@ -122,6 +123,7 @@ const Staking = () => {
         onSuccess(data) {
             alertRef.current.showSuccessAlert("Approve Success");
             setStakeLoading(false)
+            stakeToken()
         },
         onError(err) {
             alertRef.current.showErrorAlert("Approve Fail");
@@ -130,7 +132,7 @@ const Staking = () => {
     });
 
     const {data: stakeResult, write: stakeToken, isLoading: mintNFTLoading} = useContractWrite({
-        address: '0x5Ac527E475DE83665D224809FC193921482aB48c',
+        address: '0x01aa8D3fE783877d0a5c2Fe14B2c8aEB5EdDb1c1',
         abi: stakeAbi,
         functionName: 'stake',
         args: [(inputAmount * 1e18).toLocaleString().replaceAll(',', '')],
@@ -141,7 +143,7 @@ const Staking = () => {
     })
 
     const {data: unStakeResult, write: unStakeTokenFunction, isLoading: unStakingLoading} = useContractWrite({
-        address: '0x5Ac527E475DE83665D224809FC193921482aB48c',
+        address: '0x01aa8D3fE783877d0a5c2Fe14B2c8aEB5EdDb1c1',
         abi: stakeAbi,
         functionName: 'unstake',
         args: [(inputAmount * 1e18).toLocaleString().replaceAll(',', '')],
@@ -152,7 +154,7 @@ const Staking = () => {
     })
 
     const {data: withdrawResult, write: withdrawTokenFunction, isLoading: withdrawLoading} = useContractWrite({
-        address: '0x5Ac527E475DE83665D224809FC193921482aB48c',
+        address: '0x01aa8D3fE783877d0a5c2Fe14B2c8aEB5EdDb1c1',
         abi: stakeAbi,
         functionName: 'withdraw',
         args: [],
@@ -277,7 +279,7 @@ const Staking = () => {
                     </div>
                     <div className="min-[800px]:ml-4 max-[800px]:text-center">
                         <div className="font-bold">Staked</div>
-                        <div>{tokenStake}</div>
+                        <div>{tokenStake.toFixed(2)}</div>
                     </div>
                 </div>
                 <div className="flex max-[800px]:flex-col max-[800px]:items-center max-[800px]:justify-center  border rounded-3xl overflow-hidden min-[800px]:pl-4 min-[800px]:py-5 max-[800px]:py-2 w-[26%] max-[800px]:mx-3 max-[800px]:w-[33%]">
@@ -287,7 +289,7 @@ const Staking = () => {
                     <div className="min-[800px]:ml-4 max-[800px]:text-center">
                         <div className="font-bold">Unstaked</div>
                         {/*<div>{tokenUnstaked}</div>*/}
-                        <div>{tokenCanWithdraw}</div>
+                        <div>{tokenCanWithdraw.toFixed(2)}</div>
                     </div>
                 </div>
                 <div className="flex max-[800px]:flex-col max-[800px]:items-center max-[800px]:justify-center  border rounded-3xl overflow-hidden min-[800px]:pl-4 min-[800px]:py-5 max-[800px]:py-2 w-[26%]  max-[800px]:w-[33%]">
@@ -296,7 +298,7 @@ const Staking = () => {
                     </div>
                     <div className="min-[800px]:ml-4 max-[800px]:text-center">
                         <div className="font-bold">Locked</div>
-                        <div>{tokenStake-tokenCanWithdraw}</div>
+                        <div>{tokenLocked.toFixed(2)}</div>
                     </div>
                 </div>
             </div>
@@ -329,14 +331,14 @@ const Staking = () => {
                         {
                             activeButton === 0 ?
                                 <div className="font-bold text-xl mt-10 max-[800px]:text-base">
-                                    $EZSWAP Balance: {tokenBalance}
+                                    $EZSWAP Balance: {tokenBalance.toFixed(2)}
                                 </div> :
                                 activeButton === 1 ?
                                     <div className="font-bold text-xl mt-10 max-[800px]:text-base">
-                                        Staked $EZSWAP Balance: {tokenStake}
+                                        Staked $EZSWAP Balance: {tokenStake.toFixed(2)}
                                     </div> :
                                     <div className="font-bold text-xl mt-10 max-[800px]:text-base">
-                                        Available Balance:{tokenCanWithdraw}
+                                        Available Balance:{tokenCanWithdraw.toFixed(2)}
                                     </div>
                         }
 

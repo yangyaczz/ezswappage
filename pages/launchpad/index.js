@@ -1,19 +1,51 @@
 import React, {useState, useEffect} from 'react'
+import LaunchpadItem from "../../components/launchpad/LaunchpadItem";
 
 
 const Launchpad = () => {
 
+    const [inComingLaunchpad, setInComingLaunchpad] = useState([]);
+    const [endLaunchpad, setEndLaunchpad] = useState([]);
+    const [activeLaunchpad, setActiveLaunchpad] = useState([]);
 
-    // useEffect(() => {
-    //
-    // })
+    useEffect(() => {
+        queryLaunchpadList()
+    },[])
+
+    async function queryLaunchpadList() {
+        const params = {};
+        const response = await fetch("/api/queryLaunchpadList", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(params),
+        });
+        const data = await response.json();
+        if (data.success) {
+            let tempIncomingLaunchpad = [];
+            let tempEndLaunchpad = [];
+            let tempActiveLaunchpad = [];
+            for (const launchpadItem of data.data) {
+                if (launchpadItem.status === 1) {
+                    tempIncomingLaunchpad.push(launchpadItem)
+                } else if (launchpadItem.status === 2) {
+                    tempEndLaunchpad.push(launchpadItem)
+                } else if (launchpadItem.status === 3) {
+                    tempActiveLaunchpad.push(launchpadItem)
+                }
+            }
+            setInComingLaunchpad(tempIncomingLaunchpad)
+            setEndLaunchpad(tempEndLaunchpad)
+            setActiveLaunchpad(tempActiveLaunchpad)
+        }
+
+    }
 
 
     return (
         <div className="flex flex-col justify-center items-center">
             <div className="text-6xl font-bold mt-20 mb-10">EZSWAP LAUNCHPAD</div>
             {/*第二块*/}
-            <div className="border rounded-3xl py-6 px-10 w-[80%]">
+            <div className="border rounded-3xl py-6 px-10 w-[90%]">
                 {/*整体左右布局*/}
                 <div className="flex justify-between">
                     {/*左边的文案*/}
@@ -57,62 +89,39 @@ const Launchpad = () => {
                 </div>
             </div>
             {/*第三块*/}
-            <div className="w-[80%]">
+            <div className="w-[90%]">
                 <div className="text-4xl font-bold mt-20">Incoming</div>
                 <div className="border mt-5"></div>
                 {/*item*/}
-                <div className="border mt-10 rounded-3xl w-[40%] overflow-hidden">
-                    <div className="">
-                        <img src="/game/IMG_9873.PNG" alt=""/>
-                        {/*twitter小图标,网站*/}
-                        <div className="flex justify-between mr-4 relative -top-5">
-                            <div className="ml-10">
-                                <button className="bg-[#00D5DA] text-white rounded-3xl px-6 py-1">Mint</button>
-                            </div>
-                            <div className="flex">
-                                <a href=""><img src="/website.svg" alt=""/></a>
-                                <a className="ml-2" href=""><img src="/Twitter.svg" alt=""/></a>
-                            </div>
-                        </div>
-                    </div>
-                    {/*item的正文,左右排列*/}
-                    <div className="flex px-6 justify-between items-end bg-white text-black pt-3 pb-6">
-                        {/*左边的标题上下排列*/}
-                        <div className="w-[60%] pt-3">
-                            <div className="flex items-center pb-3">
-                                <img className="rounded-full w-[50px]" src="/game/IMG_9873.PNG" alt=""/>
-                                <span className="text-2xl font-bold ml-3">Project Name</span>
-                            </div>
-                            <div>
-                                <span>Description here Description here Description here Description here </span>
-                            </div>
-                        </div>
-                        {/*右边的说明,上下排列*/}
-                        <div className="w-[40%]">
-                            <div className="flex justify-between border-b border-[#999999]">
-                                <span>Token Name</span>
-                                <span>$SBT</span>
-                            </div>
-                            <div className="flex justify-between border-b border-[#999999]">
-                                <span>Token Type</span>
-                                <span>ERC-404</span>
-                            </div>
-                            <div className="flex justify-between border-b border-[#999999]">
-                                <span>Mint Price</span>
-                                <span className="flex items-center">
-                                    <img className="w-[13px] h-[13px] mr-1"  src="/game/IMG_9873.PNG" alt=""/>
-                                    <span>3</span>
-                                </span>
-                            </div>
-                            <div className="flex justify-between border-b border-[#999999]">
-                                <span>Blockchain</span>
-                                <span>Manta</span>
-                            </div>
-                            <button className="bg-[#00D5DA] text-white rounded-3xl px-6 py-1 mt-2">Trade on EZSWAP</button>
-                        </div>
-                    </div>
+                <div className="flex min-[800px]:flex-wrap gap-x-10">
+                {inComingLaunchpad.map((item, index) => (
+                    <LaunchpadItem key={index} launchpadItem={item}></LaunchpadItem>
+                ))}
                 </div>
             </div>
+            {/*第四块*/}
+            <div className="w-[90%]">
+                <div className="text-4xl font-bold mt-20">End</div>
+                <div className="border mt-5"></div>
+                {/*item*/}
+                <div className="flex min-[800px]:flex-wrap gap-x-10">
+                {endLaunchpad.map((item, index) => (
+                    <LaunchpadItem key={index} launchpadItem={item}></LaunchpadItem>
+                ))}
+                </div>
+            </div>
+            {/*第五块*/}
+            <div className="w-[90%]">
+                <div className="text-4xl font-bold mt-20">Active</div>
+                <div className="border mt-5"></div>
+                {/*item*/}
+                <div className="flex min-[800px]:flex-wrap gap-x-10">
+                {activeLaunchpad.map((item, index) => (
+                    <LaunchpadItem key={index} launchpadItem={item}></LaunchpadItem>
+                ))}
+                </div>
+            </div>
+
         </div>
     )
 }

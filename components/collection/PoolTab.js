@@ -4,7 +4,6 @@ import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Router from "next/router";
 import { useRef } from "react";
-import addressIcon from "../../pages/data/address_icon.json";
 const PoolTab = ({
   contractAddress,
   tokenId,

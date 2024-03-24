@@ -102,7 +102,7 @@ const Staking = () => {
         address: constAddress,
         abi: ERC20ABI,
         functionName: "approve",
-        args: [stakeAddress, 1e18 * 1e18],
+        args: [stakeAddress, '115792089237316195423570985008687907853269984665640564039457584007913129639935'],
         onError(err) {
             console.log('授权失败,', err)
             alertRef.current.showErrorAlert("Approve fail");
@@ -308,7 +308,7 @@ const Staking = () => {
                 </div>
                 <div className="flex max-[800px]:flex-col max-[800px]:items-center max-[800px]:justify-center  border rounded-3xl overflow-hidden min-[800px]:pl-4 min-[800px]:py-5 max-[800px]:py-2 w-[26%]  max-[800px]:w-[33%]">
                     <div>
-                        <img className="w-[50px]" src="/locked.svg" alt=""/>
+                        <img className="w-[50px]" src="/lock.svg" alt=""/>
                     </div>
                     <div className="min-[800px]:ml-4 max-[800px]:text-center">
                         <div className="font-bold">Locked</div>
@@ -331,11 +331,11 @@ const Staking = () => {
                         {
                             activeButton === 0 ?
                                 <div className="my-10 max-[800px]:text-center">
-                                    Staking $EZswap enables you to participate in future airdrop and launchpad. Newly-staked tokens become eligible at the beginning of the next epoch.
+                                    Staking $EZswap enables you to participate in future airdrop and launchpad. Newly-staked tokens will become eligible immediately.
                                 </div> :
                                 activeButton === 1 ?
                                     <div className="my-10 max-[800px]:text-center">
-                                        Unstaking $EZswap enables you to withdraw them from the staking contract after a cooldown period of one epoch once the current epoch ends.
+                                        Unstaking $EZswap enables you to withdraw them from the staking contract after a cooldown period (14 days) of one epoch once the current epoch ends. (Epochs start every Thursday at 00:00 UTC and last 7 days).
                                     </div> :
                                     <div className="my-10 max-[800px]:text-center">
                                         Withdraw $EZswap. Transfer tokens from the staking contract to your wallet.

@@ -21,7 +21,7 @@ const Staking = () => {
 
     const {address: owner} = useAccount();
 
-    const stakeAddress = '0x1b55a438736b734ab3b33c9c06f0c83b7f8d2877'
+    const stakeAddress = '0x7fa3d06516ef2ca0272cf13e1445146691a5fc05'
     const constAddress = '0xB32eFC47Bf503B3593a23204cF891295a85115Ea'
 
     const {data: tokenAmount1155, refetch: balanceOfRefetch} = useContractRead({

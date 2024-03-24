@@ -21,8 +21,11 @@ const Staking = () => {
 
     const {address: owner} = useAccount();
 
+    const stakeAddress = '0x1b55a438736b734ab3b33c9c06f0c83b7f8d2877'
+    const constAddress = '0xB32eFC47Bf503B3593a23204cF891295a85115Ea'
+
     const {data: tokenAmount1155, refetch: balanceOfRefetch} = useContractRead({
-        address: '0xB32eFC47Bf503B3593a23204cF891295a85115Ea',
+        address: constAddress,
         abi: ERC20ABI,
         functionName: 'balanceOf',
         args: [owner],
@@ -37,14 +40,14 @@ const Staking = () => {
     })
 
     const {data: tokenAmount, refetch: balanceOfRefetch2} = useContractRead({
-        address: '0x01aa8D3fE783877d0a5c2Fe14B2c8aEB5EdDb1c1',
+        address: stakeAddress,
         abi: stakeAbi,
         functionName: 'stakes',
         args: [owner],
         watch: true,
         onSuccess(data) {
             console.log('setTokenStake: ', data)
-            setTokenStake(parseInt(data)/1e18)
+            setTokenStake(parseInt(data) / 1e18)
         },
         onError(err) {
             console.log("查询失败:", err);
@@ -52,14 +55,14 @@ const Staking = () => {
     })
 
     const {data: tokenAmount4, refetch: balanceOfRefetch4} = useContractRead({
-        address: '0x01aa8D3fE783877d0a5c2Fe14B2c8aEB5EdDb1c1',
+        address: stakeAddress,
         abi: stakeAbi,
         functionName: 'getAvailableWithdrawAmount',
         args: [owner],
         watch: true,
         onSuccess(data) {
             console.log('getTotalUnstakedAmount: ', data)
-            setTokenCanWithdraw(parseInt(data)/1e18)
+            setTokenCanWithdraw(parseInt(data) / 1e18)
         },
         onError(err) {
             console.log("查询失败:", err);
@@ -67,14 +70,14 @@ const Staking = () => {
     })
 
     const {data: tokenAmount2, refetch: balanceOfRefetch3} = useContractRead({
-        address: '0x01aa8D3fE783877d0a5c2Fe14B2c8aEB5EdDb1c1',
+        address: stakeAddress,
         abi: stakeAbi,
         functionName: 'getUnwithdrawableUnstakedAmount',
         args: [owner],
         watch: true,
         onSuccess(data) {
             console.log('getTotalUnstakedAmount: ', data)
-            setTokenLocked(parseInt(data)/1e18)
+            setTokenLocked(parseInt(data) / 1e18)
         },
         onError(err) {
             console.log("查询失败:", err);
@@ -82,10 +85,10 @@ const Staking = () => {
     })
 
     const {data: nftApprovalData} = useContractRead({
-        address: "0xB32eFC47Bf503B3593a23204cF891295a85115Ea",
+        address: constAddress,
         abi: ERC20ABI,
         functionName: "allowance",
-        args: [owner, "0x01aa8D3fE783877d0a5c2Fe14B2c8aEB5EdDb1c1"],
+        args: [owner, stakeAddress],
         watch: true,
         onSuccess(data) {
             console.log('授权结果', data)
@@ -96,10 +99,10 @@ const Staking = () => {
     const {
         data: approveNFTData, isLoading: approveLoading, isSuccess: approveSuccess, write: approveTokenFunction, status: approveStatus, error: approveError,
     } = useContractWrite({
-        address: '0xB32eFC47Bf503B3593a23204cF891295a85115Ea',
+        address: constAddress,
         abi: ERC20ABI,
         functionName: "approve",
-        args: ["0x01aa8D3fE783877d0a5c2Fe14B2c8aEB5EdDb1c1", 1e18 * 1e18],
+        args: [stakeAddress, 1e18 * 1e18],
         onError(err) {
             console.log('授权失败,', err)
             alertRef.current.showErrorAlert("Approve fail");
@@ -122,7 +125,7 @@ const Staking = () => {
         confirmations: 1,
         onSuccess(data) {
             alertRef.current.showSuccessAlert("Approve Success");
-            setStakeLoading(false)
+            // setStakeLoading(false)
             stakeToken()
         },
         onError(err) {
@@ -132,7 +135,7 @@ const Staking = () => {
     });
 
     const {data: stakeResult, write: stakeToken, isLoading: mintNFTLoading} = useContractWrite({
-        address: '0x01aa8D3fE783877d0a5c2Fe14B2c8aEB5EdDb1c1',
+        address: stakeAddress,
         abi: stakeAbi,
         functionName: 'stake',
         args: [(inputAmount * 1e18).toLocaleString().replaceAll(',', '')],
@@ -143,18 +146,25 @@ const Staking = () => {
     })
 
     const {data: unStakeResult, write: unStakeTokenFunction, isLoading: unStakingLoading} = useContractWrite({
-        address: '0x01aa8D3fE783877d0a5c2Fe14B2c8aEB5EdDb1c1',
+        address: stakeAddress,
         abi: stakeAbi,
         functionName: 'unstake',
         args: [(inputAmount * 1e18).toLocaleString().replaceAll(',', '')],
         onError(error) {
             alertRef.current.showErrorAlert("error", error);
             setStakeLoading(false)
+            let errorMsg = "error: ";
+            if (error.message.indexOf("You have an unwithdrawn amount") > -1) {
+                errorMsg += "You have an unwithdrawn amount, please withdraw and try again.";
+            } else if (error.message.indexOf("Unstake balance error") > -1) {
+                errorMsg += "Unstake balance error";
+            }
+            alertRef.current.showErrorAlert(errorMsg);
         }
     })
 
     const {data: withdrawResult, write: withdrawTokenFunction, isLoading: withdrawLoading} = useContractWrite({
-        address: '0x01aa8D3fE783877d0a5c2Fe14B2c8aEB5EdDb1c1',
+        address: stakeAddress,
         abi: stakeAbi,
         functionName: 'withdraw',
         args: [],
@@ -163,6 +173,10 @@ const Staking = () => {
             let errorMsg = "error: ";
             if (error.message.indexOf("No available amount to withdraw") > -1) {
                 errorMsg += "No available amount to withdraw";
+            } else if (error.message.indexOf("You have an unwithdrawn amount") > -1) {
+                errorMsg += "You have an unwithdrawn amount, please withdraw and try again.";
+            } else if (error.message.indexOf("Unstake balance error") > -1) {
+                errorMsg += "Unstake balance error";
             }
             alertRef.current.showErrorAlert(errorMsg);
             setStakeLoading(false)

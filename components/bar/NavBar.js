@@ -234,17 +234,17 @@ const NavBar = () => {
         >
           {languageModel.pool}
         </Link>
-        <a
-          className="w-full p-2 text-xl font-bold text-right border-b-2 hover:bg-zinc-800"
-          href={launchpadJumpUrl}
-          target="_blank"
-          onClick={() => {
-            setToggleHamburger(false);
-            setHamburgerShowLanguage(false);
-          }}
-        >
-          {languageModel.mint}
-        </a>
+        {/*<a*/}
+        {/*  className="w-full p-2 text-xl font-bold text-right border-b-2 hover:bg-zinc-800"*/}
+        {/*  href={launchpadJumpUrl}*/}
+        {/*  target="_blank"*/}
+        {/*  onClick={() => {*/}
+        {/*    setToggleHamburger(false);*/}
+        {/*    setHamburgerShowLanguage(false);*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  {languageModel.mint}*/}
+        {/*</a>*/}
         <Link
           className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}
           href="/mypool"
@@ -276,9 +276,9 @@ const NavBar = () => {
         <div className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}>
           Staking(Coming)
         </div>
-        {/*<div className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}>*/}
-        {/*  Launchpad(Coming)*/}
-        {/*</div>*/}
+        <div className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}>
+          Launchpad(Coming)
+        </div>
         {/*</Link>*/}
 
         {/*<div*/}
@@ -422,13 +422,13 @@ const NavBar = () => {
           >
             {languageModel.pool}
           </Link>
-          <a
-            className={styles.headerBtn + " " + styles.launchpad}
-            href={launchpadJumpUrl}
-            target="_blank"
-          >
-            {languageModel.mint}
-          </a>
+          {/*<a*/}
+          {/*  className={styles.headerBtn + " " + styles.launchpad}*/}
+          {/*  href={launchpadJumpUrl}*/}
+          {/*  target="_blank"*/}
+          {/*>*/}
+          {/*  {languageModel.mint}*/}
+          {/*</a>*/}
           <Link
             className={styles.headerBtn + " " + styles.launchpad}
             href='/airdropclaim'
@@ -446,9 +446,9 @@ const NavBar = () => {
           <div className={styles.headerBtn + " " + styles.launchpad}>
             Staking(Coming)
           </div>
-          {/*<div className={styles.headerBtn + " " + styles.launchpad}>*/}
-          {/*  Launchpad(Coming)*/}
-          {/*</div>*/}
+          <div className={styles.headerBtn + " " + styles.launchpad}>
+            Launchpad(Coming)
+          </div>
 
 
           {/*airdrop 上线后打开*/}

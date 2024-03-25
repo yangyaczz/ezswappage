@@ -1,11 +1,13 @@
 import React, {useState, useEffect, useRef} from 'react'
 import addressIcon from "@/pages/data/address_icon";
-import {useAccount, useContractRead, useContractWrite, useWaitForTransaction} from "wagmi";
+import {useAccount, useContractRead, useContractWrite, useNetwork, useWaitForTransaction} from "wagmi";
 import ERC20ABI from "../data/ABI/ERC20.json";
 import SeaDrop721 from "../data/ABI/SeaDrop.json";
 import SeaDrop1155 from "../data/ABI/SeaDrop1155.json";
 import networkConfig from "../../pages/data/networkconfig.json";
 import AlertComponent from "../../components/common/AlertComponent";
+import {isNaN} from "formik";
+import {ethers} from "ethers";
 
 const LaunchpadDetail = () => {
 
@@ -17,6 +19,7 @@ const LaunchpadDetail = () => {
     const [publicMintCount, setPublicMintCount] = useState(0);
     const [mintNumber, setMintNumber] = useState(0);
     const {address: owner} = useAccount();
+    const { chain } = useNetwork();
 
     const alertRef = useRef(null);
     const [mintLoading, setMintLoading] = useState(false);
@@ -36,7 +39,7 @@ const LaunchpadDetail = () => {
     }
 
     const {refetch: queryInfoRefetch} = useContractRead({
-        address: networkConfig[parseInt(launchpadDetail?.network,16)]?.launchpadFactory,
+        address: networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory,
         abi: SeaDrop721,
         functionName: 'getMintStats',
         args: [launchpadDetail.contractAddress],
@@ -46,9 +49,9 @@ const LaunchpadDetail = () => {
             console.log('getMintStats: ', data)
         },
         onError(err) {
-            console.log('aaaaa',launchpadDetail.network, parseInt(launchpadDetail.network,16))
-            console.log('aaaaa',networkConfig[parseInt(launchpadDetail?.network,16)]?.launchpadFactory)
-            console.log("nft mint信息查询失败:",launchpadDetail.contractAddress, networkConfig[parseInt(launchpadDetail?.network,16)]?.launchpadFactory, err);
+            console.log('aaaaa', launchpadDetail.network, parseInt(launchpadDetail.network, 16))
+            console.log('aaaaa', networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory)
+            console.log("nft mint信息查询失败:", launchpadDetail.contractAddress, networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory, err);
         },
     })
 
@@ -89,8 +92,8 @@ const LaunchpadDetail = () => {
         }
     }
 
-    function currentStep(startTime, endTime) {
-        const currentTime = Math.round(new Date().getTime()/1000)
+    function stepStatus(startTime, endTime) {
+        const currentTime = Math.round(new Date().getTime() / 1000)
         // console.log(currentTime)
         if (currentTime < startTime) {
             return "Coming Soon"
@@ -101,7 +104,44 @@ const LaunchpadDetail = () => {
         }
     }
 
-    function formatTimestamp (timestamp) {
+    function currentStep() {
+        const currentTime = Math.round(new Date().getTime() / 1000)
+        if (launchpadDetail.haveWhiteMint === 1 && currentTime > launchpadDetail.whiteMintStartTime && currentTime < launchpadDetail.whiteMintEndTime) {
+            // 白单阶段打开了,并且有白单名额
+            if (freeWhiteList.signature !== null && freeWhiteList.signature !== undefined) {
+                return 0
+            } else if (currentTime > launchpadDetail.publicStartTime && currentTime < launchpadDetail.publicEndTime) {
+                return 2
+            } else {
+                return 0
+            }
+            // todo 还得考虑白单名额有没有用完
+        }
+        if (launchpadDetail.havePrivateMint === 1 && currentTime > launchpadDetail.privateStartTime && currentTime < launchpadDetail.privateEndTime) {
+            // 白单阶段打开了,并且有白单名额
+            // todo 还得考虑白单名额有没有用完
+            if (privateWhiteList.signature !== null && privateWhiteList.signature !== undefined) {
+                return 1
+            } else if (currentTime > launchpadDetail.publicStartTime && currentTime < launchpadDetail.publicEndTime) {
+                return 2
+            } else {
+                return 1
+            }
+        }
+        return 2
+
+        // console.log(currentTime)
+        // if (currentTime < startTime) {
+        //     return "Coming Soon"
+        // } else if (currentTime > startTime && currentTime < endTime) {
+        //     return "End at " + formatTimestamp(endTime)
+        // } else if (currentTime > endTime) {
+        //     return "End"
+        // }
+    }
+
+
+    function formatTimestamp(timestamp) {
         const date = new Date(timestamp * 1000)
         const year = date.getFullYear()
         const month = ('0' + (date.getMonth() + 1)).slice(-2)
@@ -112,25 +152,38 @@ const LaunchpadDetail = () => {
     }
 
     function mintNFT() {
+        console.log('parseInt(launchpadDetail.network, 16)', parseInt(launchpadDetail.network, 16), chain.id)
+        if (chain.id !== parseInt(launchpadDetail.network, 16)) {
+            alertRef.current.showErrorAlert("Please switch to right chain");
+            return;
+        }
+        // todo 每个钱包的上限限制
         console.log('fadfafa')
+        if (currentStep === 0) {
+            freeMintDataFunction()
+        } else if (currentStep === 1) {
+            privateMintDataFunction()
+        } else {
+            publicMintDataFunction()
+        }
     }
 
     const {
         data: freeMintData, isLoading: approveLoading, isSuccess: approveSuccess, write: freeMintDataFunction, status: approveStatus, error: approveError,
     } = useContractWrite({
-        address: networkConfig[parseInt(launchpadDetail?.network,16)]?.launchpadFactory,
-        abi: SeaDrop721,
+        address: launchpadDetail.erc === '721' ? networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory : networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpad1155Factory,
+        abi: launchpadDetail.erc === '721' ? SeaDrop721 : SeaDrop1155,
         functionName: "whiteListMint",
-        args: [launchpadDetail.contractAddress, owner, mintNumber, freeWhiteList.signature],
+        args: launchpadDetail.erc === '721' ? [launchpadDetail.contractAddress, owner, mintNumber, freeWhiteList.signature] : [launchpadDetail.contractAddress, owner, launchpadDetail.currentTokenId, mintNumber, freeWhiteList.signature],
         onError(err) {
-            console.log('授权失败,', err)
-            alertRef.current.showErrorAlert("Approve fail");
+            console.log('free mint 失败,', err)
+            alertRef.current.showErrorAlert("Free Mint fail");
             setMintLoading(false)
         },
         onSettled(data, error) {
-            console.log('授权成功')
+            console.log('free mint 失败', error)
             if (error) {
-                alertRef.current.showErrorAlert("Approve fail");
+                alertRef.current.showErrorAlert("Free Mint Fail");
                 setMintLoading(false)
             }
         }
@@ -143,11 +196,83 @@ const LaunchpadDetail = () => {
         hash: freeMintData?.hash,
         confirmations: 1,
         onSuccess(data) {
-            alertRef.current.showSuccessAlert("Approve Success");
+            alertRef.current.showSuccessAlert("Free Mint Success");
             setMintLoading(false)
         },
         onError(err) {
-            alertRef.current.showErrorAlert("Approve Fail");
+            alertRef.current.showErrorAlert("Free Mint Fail");
+            setMintLoading(false)
+        },
+    });
+
+    const {
+        data: privateMintData, isLoading: privateLoading, isSuccess: privateSuccess, write: privateMintDataFunction, status: privateStatus, error: privateError,
+    } = useContractWrite({
+        address: launchpadDetail.erc === '721' ? networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory : networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpad1155Factory,
+        abi: launchpadDetail.erc === '721' ? SeaDrop721 : SeaDrop1155,
+        functionName: "mintPrivate",
+        args: launchpadDetail.erc === '721' ? [launchpadDetail.contractAddress, owner, mintNumber, privateWhiteList.signature] : [launchpadDetail.contractAddress, owner, launchpadDetail.currentTokenId, mintNumber, privateWhiteList.signature],
+        value: mintNumber && launchpadDetail.publicFee ? ethers.utils.parseEther((Math.floor(mintNumber * launchpadDetail.privateFee * 1000000000000000000) / 1000000000000000000).toString()) : 0,
+        onError(err) {
+            console.log('private mint 失败,', err)
+            alertRef.current.showErrorAlert("Private Mint fail");
+            setMintLoading(false)
+        },
+        onSettled(data, error) {
+            console.log('free mint 失败', error)
+            if (error) {
+                alertRef.current.showErrorAlert("Private Mint Fail");
+                setMintLoading(false)
+            }
+        }
+    });
+    const {
+        isLoading: waitPrivateLoading,
+    } = useWaitForTransaction({
+        hash: privateMintData?.hash,
+        confirmations: 1,
+        onSuccess(data) {
+            alertRef.current.showSuccessAlert("Private Mint Success");
+            setMintLoading(false)
+        },
+        onError(err) {
+            alertRef.current.showErrorAlert("Private Mint Fail");
+            setMintLoading(false)
+        },
+    });
+
+    const {
+        data: publicMintData, isLoading: publicLoading, isSuccess: publicSuccess, write: publicMintDataFunction, status: publicStatus, error: publicError,
+    } = useContractWrite({
+        address: launchpadDetail.erc === '721' ? networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory : networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpad1155Factory,
+        abi: launchpadDetail.erc === '721' ? SeaDrop721 : SeaDrop1155,
+        functionName: "mintPublic",
+        args: launchpadDetail.erc === '721' ? [launchpadDetail.contractAddress, owner, mintNumber] : [launchpadDetail.contractAddress, owner, launchpadDetail.currentTokenId, mintNumber],
+        value: mintNumber && launchpadDetail.publicFee ? ethers.utils.parseEther((Math.floor(mintNumber * launchpadDetail.publicFee * 1000000000000000000) / 1000000000000000000).toString()) : 0,
+        onError(err) {
+            console.log('public mint 失败,', err)
+            alertRef.current.showErrorAlert("Public Mint fail");
+            setMintLoading(false)
+        },
+        onSettled(data, error) {
+            console.log('public mint 失败', error)
+            if (error) {
+                alertRef.current.showErrorAlert("Public Mint Fail");
+                setMintLoading(false)
+            }
+        }
+    });
+    const {
+        isLoading: waitPublicLoading,
+    } = useWaitForTransaction({
+        hash: publicMintData?.hash,
+        confirmations: 1,
+        onSuccess(data) {
+            alertRef.current.showSuccessAlert("Public Mint Success");
+            setMintLoading(false)
+        },
+        onError(err) {
+            alertRef.current.showErrorAlert("Public Mint Fail");
             setMintLoading(false)
         },
     });
@@ -182,7 +307,7 @@ const LaunchpadDetail = () => {
                                     <img className="w-[13px] h-[13px] mr-1" src={addressIcon[launchpadDetail.network] && addressIcon[launchpadDetail.network]["0x0000000000000000000000000000000000000000"]?.src} alt=""/>
                                     <span>3</span>
                                 </span>
-                        <button className="bg-[#00D5DA] text-black rounded-xl px-6 py-1 mt-2" onClick={() => mintNFT(0)}>{mintLoading ? <span className="loading loading-spinner loading-sm"></span> : 'Mint'}</button>
+                        <button className="bg-[#00D5DA] text-black rounded-xl px-6 py-1 mt-2" onClick={() => mintNFT(0)}>{mintLoading || privateLoading || waitPrivateLoading || publicLoading || waitPublicLoading ? <span className="loading loading-spinner loading-sm"></span> : 'Mint'}</button>
                     </div>
                 </div>
             </div>
@@ -200,7 +325,7 @@ const LaunchpadDetail = () => {
                             <div className="timeline-end ">
                                 <div>white list</div>
                                 <div>999/999</div>
-                                <div>{currentStep(launchpadDetail.whiteMintStartTime, launchpadDetail.whiteMintEndTime)}</div>
+                                <div>{stepStatus(launchpadDetail.whiteMintStartTime, launchpadDetail.whiteMintEndTime)}</div>
                             </div>
                             <hr className="bg-white"/>
                         </li>}
@@ -214,7 +339,7 @@ const LaunchpadDetail = () => {
                             <div className="timeline-end ">
                                 <div>private list</div>
                                 <div>999/999</div>
-                                <div>{currentStep(launchpadDetail.privateStartTime, launchpadDetail.privateEndTime)}</div>
+                                <div>{stepStatus(launchpadDetail.privateStartTime, launchpadDetail.privateEndTime)}</div>
                             </div>
                             <hr className="bg-white"/>
                         </li>}
@@ -228,7 +353,7 @@ const LaunchpadDetail = () => {
                             <div className="timeline-end ">
                                 <div>public list</div>
                                 <div>999/999</div>
-                                <div>{currentStep(launchpadDetail.publicStartTime, launchpadDetail.publicEndTime)}</div>
+                                <div>{stepStatus(launchpadDetail.publicStartTime, launchpadDetail.publicEndTime)}</div>
                             </div>
                             <hr className="bg-white"/>
                         </li>

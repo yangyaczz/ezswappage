@@ -265,16 +265,21 @@ const NavBar = () => {
         >
           Airdrop Season 2
         </Link>
-        <Link
-            className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}
-            href="/staking"
-            onClick={() => {
-              setToggleHamburger(false);
-              setHamburgerShowLanguage(false);
-            }}
-        >
-          Staking
-        </Link>
+        {/*<Link*/}
+        {/*    className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}*/}
+        {/*    href="/staking"*/}
+        {/*    onClick={() => {*/}
+        {/*      setToggleHamburger(false);*/}
+        {/*      setHamburgerShowLanguage(false);*/}
+        {/*    }}*/}
+        {/*>*/}
+        <div className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}>
+          Staking(Coming)
+        </div>
+        {/*<div className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}>*/}
+        {/*  Launchpad(Coming)*/}
+        {/*</div>*/}
+        {/*</Link>*/}
 
         {/*<div*/}
         {/*  className={`w-full p-2 text-xl font-bold text-right  border-b-2 ${*/}
@@ -431,13 +436,19 @@ const NavBar = () => {
           >
             Airdrop Season 2
           </Link>
-          <Link
-            className={styles.headerBtn + " " + styles.launchpad}
-            href='/staking'
-            target="_self"
-          >
-            Staking
-          </Link>
+          {/*<Link*/}
+          {/*  className={styles.headerBtn + " " + styles.launchpad}*/}
+          {/*  href='/staking'*/}
+          {/*  target="_self"*/}
+          {/*>*/}
+          {/*  Staking*/}
+          {/*</Link>*/}
+          <div className={styles.headerBtn + " " + styles.launchpad}>
+            Staking(Coming)
+          </div>
+          {/*<div className={styles.headerBtn + " " + styles.launchpad}>*/}
+          {/*  Launchpad(Coming)*/}
+          {/*</div>*/}
 
 
           {/*airdrop 上线后打开*/}

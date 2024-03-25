@@ -41,7 +41,14 @@ $searching-height: 640px;
     font-weight: bold;
     position: relative;
     outline: none;
-    padding: 10px 20px;
+    @media (max-width:1450px) {
+      padding: 10px 10px;
+    }
+    @media (min-width:1451px) {
+      padding: 10px 20px;
+    }
+
+
     box-sizing: border-box;
   }
   .airdropBtn {
@@ -118,7 +125,13 @@ $searching-height: 640px;
 
   .headerLeft {
     flex-grow: 1;
-    margin-left: 170px;
+    @media (max-width:1450px) {
+      margin-left: 140px;
+    }
+    @media (min-width:1451px) {
+      margin-left:200px;
+    }
+
     display: flex;
     align-items: center;
     //align-items: center;

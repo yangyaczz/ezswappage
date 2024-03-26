@@ -184,6 +184,7 @@
         "linear": "0x0d197261f32dd36B07cAFe633Af072B12832aA5a",
         "exponential": "0xD7d30a3069E034558e2639325EB89f87E4fCB001",
         "launchpad1155Factory": "0xea8DA9BD9414986a61943c507Cbfd7F27c4327D9",
+        "launchpadFactory": "0x86E55cFD1eCFC94293A4144a33771d3F2be67fDB",
         "ERC20": "",
         "ERC721": "",
         "ERC1155": "",

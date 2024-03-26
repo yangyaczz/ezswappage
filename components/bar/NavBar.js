@@ -263,7 +263,7 @@ const NavBar = () => {
               setHamburgerShowLanguage(false);
             }}
         >
-          Airdrop Season 2
+          Airdrop
         </Link>
         {/*<Link*/}
         {/*    className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}*/}
@@ -434,7 +434,7 @@ const NavBar = () => {
             href='/airdropclaim'
             target="_self"
           >
-            Airdrop Season 2
+            Airdrop
           </Link>
           {/*<Link*/}
           {/*  className={styles.headerBtn + " " + styles.launchpad}*/}

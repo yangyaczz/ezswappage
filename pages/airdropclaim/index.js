@@ -180,55 +180,63 @@ const AirdropClaim = () => {
             >
               <span className={`text-white `}>{tokenToClaim}</span> $EZSWAP
             </p>
-
-            {twitterSent ? (
-              <p>{languageModel.AirdropGranted}</p>
-            ) : (
-              <button
-                className="bg-[#00D5DA] text-black py-2 px-3 rounded-xl font-bold"
-                onClick={handleTweetClick}
-              >
-                {languageModel.TweetForAirdrop}
-              </button>
-            )}
-
-            <div className="flex flex-row w-2/3 h-10 transition-all sm:w-1/2 justify-center max-[800px]:flex-col max-[800px]:items-center ">
-              <p className="flex items-center min-[799px]:pr-3 text-base text-center text-white sm:text-base text-nowrap font-bold max-[800px]:mb-2">
-                {languageModel.PasteYourPost}:
-              </p>
-
-              <div className="flex flex-row min-[799px]:w-2/3 h-10 transition-all sm:w-1/2">
-                <input
-                  className="grow pl-2 text-base text-white bg-black border-[1px] border-r-0 border-white outline-none rounded-l-xl max-[800px]:rounded-r-none h-full"
-                  type="text"
-                  value={twitterLink}
-                  onChange={(e) => setTwitterLink(e.target.value)}
-                />
-                <button
-                  disabled={twitterSent}
-                  onClick={handleConfirmClick}
-                  className={`w-1/3 text-base sm:text-base xl:w-1/5 rounded-r-xl text-black font-bold border-[1px] border-white h-full max-[800px]:px-2 ${
-                    twitterSent ? "bg-zinc-400" : "bg-[#00D5DA]"
-                  }`}
-                >
-                  {signLoading ? (
-                    <span className="loading loading-spinner loading-sm"></span>
-                  ) : (
-                    languageModel.Confirm
-                  )}
-                </button>
-              </div>
-            </div>
-
-            <p className="text-base text-white sm:text-base lg:text-base font-bold max-[800px]:mx-14 text-center">
-              {languageModel.EZTokenAirdropSoon}
+            <p className="font-bold">
+              Airdrop Season 3 Coming Soon, Stay Tuned! $EZSWAP
             </p>
+
+            {/*{twitterSent ? (*/}
+            {/*  <p>{languageModel.AirdropGranted}</p>*/}
+            {/*) : (*/}
+            {/*  <button*/}
+            {/*    className="bg-[#00D5DA] text-black py-2 px-3 rounded-xl font-bold"*/}
+            {/*    onClick={handleTweetClick}*/}
+            {/*  >*/}
+            {/*    {languageModel.TweetForAirdrop}*/}
+            {/*  </button>*/}
+            {/*)}*/}
+
+            {/*<div className="flex flex-row w-2/3 h-10 transition-all sm:w-1/2 justify-center max-[800px]:flex-col max-[800px]:items-center ">*/}
+            {/*  <p className="flex items-center min-[799px]:pr-3 text-base text-center text-white sm:text-base text-nowrap font-bold max-[800px]:mb-2">*/}
+            {/*    {languageModel.PasteYourPost}:*/}
+            {/*  </p>*/}
+
+            {/*  <div className="flex flex-row min-[799px]:w-2/3 h-10 transition-all sm:w-1/2">*/}
+            {/*    <input*/}
+            {/*      className="grow pl-2 text-base text-white bg-black border-[1px] border-r-0 border-white outline-none rounded-l-xl max-[800px]:rounded-r-none h-full"*/}
+            {/*      type="text"*/}
+            {/*      value={twitterLink}*/}
+            {/*      onChange={(e) => setTwitterLink(e.target.value)}*/}
+            {/*    />*/}
+            {/*    <button*/}
+            {/*      disabled={twitterSent}*/}
+            {/*      onClick={handleConfirmClick}*/}
+            {/*      className={`w-1/3 text-base sm:text-base xl:w-1/5 rounded-r-xl text-black font-bold border-[1px] border-white h-full max-[800px]:px-2 ${*/}
+            {/*        twitterSent ? "bg-zinc-400" : "bg-[#00D5DA]"*/}
+            {/*      }`}*/}
+            {/*    >*/}
+            {/*      {signLoading ? (*/}
+            {/*        <span className="loading loading-spinner loading-sm"></span>*/}
+            {/*      ) : (*/}
+            {/*        languageModel.Confirm*/}
+            {/*      )}*/}
+            {/*    </button>*/}
+            {/*  </div>*/}
+            {/*</div>*/}
+
+            {/*<p className="text-base text-white sm:text-base lg:text-base font-bold max-[800px]:mx-14 text-center">*/}
+            {/*  {languageModel.EZTokenAirdropSoon}*/}
+            {/*</p>*/}
           </>
         )}
         {claimStatus === cStatus.INELIGIBLE && (
-          <p className=" mt-24 sm:mt-28 text-2xl font-extrabold lg:whitespace-nowrap sm:text-7xl max-[800px]:text-wrap">
-            {languageModel.SorryYouAreNotEligible}
-          </p>
+            <div className="flex flex-col items-center">
+              <p className=" mt-24 sm:mt-10 text-2xl font-extrabold lg:whitespace-nowrap sm:text-7xl max-[800px]:text-wrap">
+                {languageModel.SorryYouAreNotEligible}
+              </p>
+              <p className="mt-4 font-bold">
+                Airdrop Season 3 Coming Soon, Stay Tuned! $EZSWAP
+              </p>
+            </div>
         )}
         {claimStatus === cStatus.WALLET_DISCONNECTED && (
           <p className=" mt-24 sm:mt-28 text-base font-extrabold lg:whitespace-nowrap sm:text-3xl lg:text-5xl max-[800px]:text-wrap">

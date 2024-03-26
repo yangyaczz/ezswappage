@@ -8,6 +8,7 @@ import networkConfig from "../../pages/data/networkconfig.json";
 import AlertComponent from "../../components/common/AlertComponent";
 import {isNaN} from "formik";
 import {ethers} from "ethers";
+import styles from "../../components/swap/swapUtils/index.module.scss";
 
 const LaunchpadDetail = () => {
 
@@ -18,8 +19,11 @@ const LaunchpadDetail = () => {
     const [privateMintCount, setPrivateMintCount] = useState(0);
     const [publicMintCount, setPublicMintCount] = useState(0);
     const [mintNumber, setMintNumber] = useState(0);
+    const [totalSupply, setTotalSupply] = useState(0);
+    const [totalMinted, stTotalMinted] = useState(0);
     const {address: owner} = useAccount();
-    const { chain } = useNetwork();
+    const {chain} = useNetwork();
+    const [inputMax, setInputMax] = useState(0);
 
     const alertRef = useRef(null);
     const [mintLoading, setMintLoading] = useState(false);
@@ -28,18 +32,83 @@ const LaunchpadDetail = () => {
         initData()
     }, [])
 
+    useEffect(() => {
+        currentStep()
+    })
+
     async function initData() {
         await queryLaunchpadDetail()
         if (launchpadDetail.haveWhiteMint === 1) {
-            queryWhiteList(0)
+            await queryWhiteList(0)
+            // queryFreeMintInfoRefetch()
         }
         if (launchpadDetail.havePrivateMint === 1) {
-            queryWhiteList(1)
+            await queryWhiteList(1)
+            // queryPrivateInfoRefetch()
         }
+        // queryPublicMintInfoRefetch()
     }
 
-    const {refetch: queryInfoRefetch} = useContractRead({
-        address: networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory,
+    // 查询freemint总计的数量信息
+    const {refetch: queryFreeMintInfoRefetch} = useContractRead({
+        address: launchpadDetail.erc === '721' ? networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory : networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpad1155Factory,
+        abi: SeaDrop721,
+        functionName: 'getWhiteList',
+        args: [launchpadDetail.contractAddress],
+        watch: true,
+        // enabled: false,
+        onSuccess(data) {
+            console.log('getWhiteList: ', data)
+            setWhiteMintCount(parseInt(data[1]))
+            // setTotalSupply(parseInt(data.maxSupply))
+            // stTotalMinted(parseInt(data.totalMinted))
+        },
+        onError(err) {
+            console.log("nft mint信息查询失败:", launchpadDetail.contractAddress, networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory, err);
+        },
+    })
+
+    // 查询private总计的数量信息
+    const {refetch: queryPrivateInfoRefetch} = useContractRead({
+        address: launchpadDetail.erc === '721' ? networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory : networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpad1155Factory,
+        abi: SeaDrop721,
+        functionName: 'getPrivateDrop',
+        args: [launchpadDetail.contractAddress],
+        watch: true,
+        // enabled: false,
+        onSuccess(data) {
+            console.log('getPrivateDrop: ', data)
+            setPrivateMintCount(parseInt(data[2]))
+            // setTotalSupply(parseInt(data.maxSupply))
+            // stTotalMinted(parseInt(data.totalMinted))
+        },
+        onError(err) {
+            console.log("nft mint信息查询失败:", launchpadDetail.contractAddress, networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory, err);
+        },
+    })
+
+    // 查询总计的数量信息
+    const {refetch: queryPublicMintInfoRefetch} = useContractRead({
+        address: launchpadDetail.erc === '721' ? networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory : networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpad1155Factory,
+        abi: SeaDrop721,
+        functionName: 'getPublicDrop',
+        args: [launchpadDetail.contractAddress],
+        watch: true,
+        // enabled: false,
+        onSuccess(data) {
+            console.log('getPublicDrop: ', data)
+            setPublicMintCount(parseInt(data[2]))
+            // setTotalSupply(parseInt(data.maxSupply))
+            // stTotalMinted(parseInt(data.totalMinted))
+        },
+        onError(err) {
+            console.log("nft mint信息查询失败:", launchpadDetail.contractAddress, networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory, err);
+        },
+    })
+
+    // 查询每个阶段的数量信息
+    const {refetch: queryEveryStepMinted} = useContractRead({
+        address: launchpadDetail.erc === '721' ? networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory : networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpad1155Factory,
         abi: SeaDrop721,
         functionName: 'getMintStats',
         args: [launchpadDetail.contractAddress],
@@ -47,10 +116,10 @@ const LaunchpadDetail = () => {
         // enabled: false,
         onSuccess(data) {
             console.log('getMintStats: ', data)
+            setTotalSupply(parseInt(data.maxSupply))
+            stTotalMinted(parseInt(data.totalMinted))
         },
         onError(err) {
-            console.log('aaaaa', launchpadDetail.network, parseInt(launchpadDetail.network, 16))
-            console.log('aaaaa', networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory)
             console.log("nft mint信息查询失败:", launchpadDetail.contractAddress, networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory, err);
         },
     })
@@ -65,6 +134,7 @@ const LaunchpadDetail = () => {
         const data = await response.json();
         if (data.success) {
             await setLaunchpadDetail(data.data)
+            // queryFreeMintInfoRefetch()
             // await queryInfoRefetch()
         }
 
@@ -105,14 +175,18 @@ const LaunchpadDetail = () => {
     }
 
     function currentStep() {
+        console.log('currentStep')
         const currentTime = Math.round(new Date().getTime() / 1000)
         if (launchpadDetail.haveWhiteMint === 1 && currentTime > launchpadDetail.whiteMintStartTime && currentTime < launchpadDetail.whiteMintEndTime) {
             // 白单阶段打开了,并且有白单名额
             if (freeWhiteList.signature !== null && freeWhiteList.signature !== undefined) {
+                setInputMax(launchpadDetail.whiteMintEveryUserMintLimit)
                 return 0
             } else if (currentTime > launchpadDetail.publicStartTime && currentTime < launchpadDetail.publicEndTime) {
+                setInputMax(launchpadDetail.publicEveryUserMintLimit)
                 return 2
             } else {
+                setInputMax(launchpadDetail.whiteMintEveryUserMintLimit)
                 return 0
             }
             // todo 还得考虑白单名额有没有用完
@@ -121,13 +195,17 @@ const LaunchpadDetail = () => {
             // 白单阶段打开了,并且有白单名额
             // todo 还得考虑白单名额有没有用完
             if (privateWhiteList.signature !== null && privateWhiteList.signature !== undefined) {
+                setInputMax(launchpadDetail.privateEveryUserMintLimit)
                 return 1
             } else if (currentTime > launchpadDetail.publicStartTime && currentTime < launchpadDetail.publicEndTime) {
+                setInputMax(launchpadDetail.publicEveryUserMintLimit)
                 return 2
             } else {
+                setInputMax(launchpadDetail.privateEveryUserMintLimit)
                 return 1
             }
         }
+        setInputMax(launchpadDetail.publicEveryUserMintLimit)
         return 2
 
         // console.log(currentTime)
@@ -277,6 +355,26 @@ const LaunchpadDetail = () => {
         },
     });
 
+    const handleChange = (e) => {
+        const inputValue = e.target.value;
+
+        // check
+        if (/^\d+$/.test(inputValue)) {
+            setMintNumber(Math.min(Math.max(0, Number(inputValue)), inputMax));
+        } else {
+            setMintNumber(0);
+        }
+    };
+
+
+    const handleIncrement = () => {
+        setMintNumber(prev => Math.min(prev + 1, inputMax))
+    };
+
+    const handleDecrement = () => {
+        setMintNumber(prev => Math.max(prev - 1, 0))
+    };
+
 
     return (
         <div className="mt-20 text-white">
@@ -295,18 +393,42 @@ const LaunchpadDetail = () => {
                     </div>
                     <div className="relative">
                         {/*进度条*/}
-                        <div className="flex justify-center absolute z-10 w-full mt-1">11133</div>
-                        <progress className="progress progress-success mb-4 h-[30px] border" value="70" max="100"></progress>
+                        <div className="flex justify-center absolute z-10 w-full mt-1">{totalMinted}/{totalSupply >= 999999999 ? "∞" : totalSupply}</div>
+                        <progress className="progress progress-success mb-4 h-[30px] border" value={totalMinted} max={totalSupply}></progress>
                     </div>
                     <div>
                         {launchpadDetail.description}
                     </div>
                     <div className="flex justify-between mt-4">
+                        <div className="flex justify-center items-center">
+                        <div className='form-control'>
+                            <div className="input-group">
+                                <button
+                                    onClick={handleDecrement}
+                                    className="btn btn-square border border-1 border-white hover:border-white"
+                                >
+                                    -
+                                </button>
+                                <input
+                                    type="text"
+                                    value={mintNumber}
+                                    onChange={handleChange}
+                                    className={"w-20 text-center input input-bordered bg-black " + styles.inputContent}
+                                />
+                                <button
+                                    onClick={handleIncrement}
+                                    className="btn btn-square border border-1 border-white hover:border-white"
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </div>
                         {/*    mint按钮*/}
-                        <span className="flex items-center">
+                        <span className="flex items-center ml-4">
                                     <img className="w-[13px] h-[13px] mr-1" src={addressIcon[launchpadDetail.network] && addressIcon[launchpadDetail.network]["0x0000000000000000000000000000000000000000"]?.src} alt=""/>
-                                    <span>3</span>
+                                    <span>{currentStep === 0 ? "Free Mint" : currentStep === 1 ? (launchpadDetail.privateFee === 0 || launchpadDetail.privateFee === null ? 'Free Mint':launchpadDetail.privateFee / 1e18) : (launchpadDetail.publicFee === 0  || launchpadDetail.publicFee===null? 'Free Mint':launchpadDetail.publicFee / 1e18)}</span>
                                 </span>
+                        </div>
                         <button className="bg-[#00D5DA] text-black rounded-xl px-6 py-1 mt-2" onClick={() => mintNFT(0)}>{mintLoading || privateLoading || waitPrivateLoading || publicLoading || waitPublicLoading ? <span className="loading loading-spinner loading-sm"></span> : 'Mint'}</button>
                     </div>
                 </div>
@@ -324,7 +446,7 @@ const LaunchpadDetail = () => {
                             </div>
                             <div className="timeline-end ">
                                 <div>white list</div>
-                                <div>999/999</div>
+                                <div>{whiteMintCount}/{launchpadDetail.whiteMintSupply > 999999999 ? "∞" : launchpadDetail.whiteMintSupply}</div>
                                 <div>{stepStatus(launchpadDetail.whiteMintStartTime, launchpadDetail.whiteMintEndTime)}</div>
                             </div>
                             <hr className="bg-white"/>
@@ -338,7 +460,7 @@ const LaunchpadDetail = () => {
                             </div>
                             <div className="timeline-end ">
                                 <div>private list</div>
-                                <div>999/999</div>
+                                <div>{privateMintCount}/{launchpadDetail.privateSupply > 999999999 ? "∞" : launchpadDetail.privateSupply}</div>
                                 <div>{stepStatus(launchpadDetail.privateStartTime, launchpadDetail.privateEndTime)}</div>
                             </div>
                             <hr className="bg-white"/>
@@ -352,7 +474,7 @@ const LaunchpadDetail = () => {
                             </div>
                             <div className="timeline-end ">
                                 <div>public list</div>
-                                <div>999/999</div>
+                                <div>{publicMintCount}/{launchpadDetail.publicSupply > 999999999 ? "∞" : launchpadDetail.publicSupply}</div>
                                 <div>{stepStatus(launchpadDetail.publicStartTime, launchpadDetail.publicEndTime)}</div>
                             </div>
                             <hr className="bg-white"/>

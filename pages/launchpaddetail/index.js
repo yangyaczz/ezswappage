@@ -25,6 +25,7 @@ const LaunchpadDetail = () => {
     const {chain} = useNetwork();
     const [inputMax, setInputMax] = useState(0);
     const [currentStepStatus, setCurrentStepStatus] = useState(0);
+    const [userMintedCount, setUserMintedCount] = useState(0);
 
     const alertRef = useRef(null);
     const [mintLoading, setMintLoading] = useState(false);
@@ -41,6 +42,23 @@ const LaunchpadDetail = () => {
         await queryLaunchpadDetail()
         // queryPublicMintInfoRefetch()
     }
+
+    // 查询用户mint的数量
+    const {data: queryUserMintedCount,refetch: queryUserMintedRefetch} = useContractRead({
+        address: launchpadDetail.erc === '721' ? networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory : networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpad1155Factory,
+        abi: SeaDrop721,
+        functionName: 'walletMintedByStage',
+        args: [launchpadDetail.contractAddress, 0, owner],
+        watch: false,
+        enabled: false
+        // onSuccess(data) {
+        //     console.log('parseInt(data)', parseInt(data))
+        //     setUserMintedCount(parseInt(data))
+        // },
+        // onError(err) {
+        //     console.log("nft mint信息查询失败:", launchpadDetail.contractAddress, networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory, err);
+        // },
+    })
 
     // 查询freemint总计的数量信息
     const {refetch: queryFreeMintInfoRefetch} = useContractRead({
@@ -118,7 +136,7 @@ const LaunchpadDetail = () => {
     })
 
     async function queryLaunchpadDetail() {
-        const params = {id: 260};
+        const params = {id: 261};
         const response = await fetch("/api/queryLaunchpadDetail", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -144,7 +162,7 @@ const LaunchpadDetail = () => {
 
     async function queryWhiteList(step) {
         const params = {
-            "launchpadId": "260",
+            "launchpadId": "261",
             "walletAddress": owner,
             "launchpadStep": step
         };
@@ -163,7 +181,7 @@ const LaunchpadDetail = () => {
         if (currentTime < startTime) {
             return "Coming Soon"
         } else if (currentTime > startTime && currentTime < endTime) {
-            return "End at " + formatTimestamp(endTime)
+            return "" + formatTimestamp(endTime)
         } else if (currentTime > endTime) {
             return "End"
         }
@@ -184,13 +202,19 @@ const LaunchpadDetail = () => {
         if (_launchpadDetail.haveWhiteMint === 1 && currentTime > _launchpadDetail.whiteMintStartTime && currentTime < _launchpadDetail.whiteMintEndTime) {
             // 白单阶段打开了,并且有白单名额
             const _freeWhiteList = await queryWhiteList(0)
-            console.log('_freeWhiteList', _freeWhiteList.data)
             if (_freeWhiteList.success && _freeWhiteList.data) {
                 setFreeWhiteList(_freeWhiteList.data)
             }
             if (_freeWhiteList?.data?.signature !== null && _freeWhiteList?.data?.signature !== undefined) {
-                setInputMax(_launchpadDetail.whiteMintEveryUserMintLimit)
-                return setCurrentStepStatus(0)
+                const queryUserMintedCount = await queryUserMintedRefetch()
+                console.log('queryUserMintedCount,',queryUserMintedCount.data)
+                if (parseInt(queryUserMintedCount.data) >= _launchpadDetail.whiteMintEveryUserMintLimit) {
+                    setInputMax(_launchpadDetail.publicEveryUserMintLimit)
+                    return setCurrentStepStatus(2)
+                }else {
+                    setInputMax(_launchpadDetail.whiteMintEveryUserMintLimit)
+                    return setCurrentStepStatus(0)
+                }
             } else if (currentTime > _launchpadDetail.publicStartTime && currentTime < _launchpadDetail.publicEndTime) {
                 setInputMax(_launchpadDetail.publicEveryUserMintLimit)
                 return setCurrentStepStatus(2)
@@ -451,11 +475,11 @@ const LaunchpadDetail = () => {
                     <img className="rounded-2xl min-[800px]:w-[400px] border" src={launchpadDetail.imgUrl} alt=""/>
                 </div>
                 {/*右边*/}
-                <div className="min-[800px]:w-[40%] max-[800px]:mt-10  max-[800px]:items-start">
-                    <div className="text-4xl text-bold mb-4">{launchpadDetail.collectionName}</div>
+                <div className="min-[800px]:w-[40%] max-[800px]:mt-10  max-[800px]:items-start max-[800px]:mx-10">
+                    <div className="text-4xl font-bold mb-4">{launchpadDetail.collectionName}</div>
                     <div className="flex items-center  mb-4">
                         {/*<img src="/game/IMG_9873.PNG" className="rounded-full w-[40px]" alt=""/>*/}
-                        <span className="mr-4">@{launchpadDetail?.userAccount?.userName} </span>
+                        <span className="mr-4 font-bold">@{launchpadDetail?.userAccount?.userName} </span>
                         <a href=""><img src="/website.svg" alt=""/></a>
                         <a className="ml-4" href=""><img src="/Twitter.svg" alt=""/></a>
                     </div>
@@ -473,7 +497,7 @@ const LaunchpadDetail = () => {
                                 <div className="input-group">
                                     <button
                                         onClick={handleDecrement}
-                                        className="btn btn-square border border border-white hover:border-white rounded-r-none max-[800px]:min-h-0 max-[800px]:h-[30px]"
+                                        className="btn btn-square border border border-white hover:border-white rounded-r-none max-[800px]:min-h-0 max-[800px]:h-[30px] max-[800px]:w-8"
                                     >
                                         -
                                     </button>
@@ -481,11 +505,11 @@ const LaunchpadDetail = () => {
                                         type="text"
                                         value={mintNumber}
                                         onChange={handleChange}
-                                        className={"w-20 text-center border-y bg-black rounded-none pb-[12px] pt-[10px]  max-[800px]:min-h-0 max-[800px]:h-[30px] w-12 " + styles.inputContent}
+                                        className={"w-20 text-center border-y bg-black rounded-none pb-[12px] pt-[10px] min-[800px]:pt-[11px] max-[800px]:min-h-0 max-[800px]:h-[30px] w-12 max-[800px]:w-10 " + styles.inputContent}
                                     />
                                     <button
                                         onClick={handleIncrement}
-                                        className="btn btn-square border border border-white hover:border-white rounded-l-none max-[800px]:min-h-0 max-[800px]:h-[30px]"
+                                        className="btn btn-square border border border-white hover:border-white rounded-l-none max-[800px]:min-h-0 max-[800px]:h-[30px] max-[800px]:w-8"
                                     >
                                         +
                                     </button>
@@ -497,55 +521,55 @@ const LaunchpadDetail = () => {
                                     <span>{currentStepStatus === 0 ? "Free Mint" : currentStepStatus === 1 ? (launchpadDetail.privatePrice === 0 || launchpadDetail.privatePrice === null ? 'Free Mint' : launchpadDetail.privatePrice / 1e18) : (launchpadDetail.publicPrice === 0 || launchpadDetail.publicPrice === null ? 'Free Mint' : launchpadDetail.publicPrice / 1e18)}</span>
                                 </span>
                         </div>
-                        <button className="bg-[#00D5DA] text-black rounded-xl px-6 py-1 min-[800px]:mt-2 max-[800px]:ml-10" onClick={() => mintNFT(0)}>{mintLoading || privateLoading || waitPrivateLoading || publicLoading || waitPublicLoading ? <span className="loading loading-spinner loading-sm"></span> : 'Mint'}</button>
+                        <button className="bg-[#00D5DA] text-black rounded-md font-bold px-10 py-0 min-[800px]:mt-2 max-[800px]:ml-10" onClick={() => mintNFT(0)}>{mintLoading || privateLoading || waitPrivateLoading || publicLoading || waitPublicLoading ? <span className="loading loading-spinner loading-sm"></span> : 'Mint'}</button>
                     </div>
                 </div>
             </div>
             {/*时间轴*/}
-            <div className="flex justify-center">
-                <div className="min-[800px]:mt-10 mb-10 block min-[800px]:w-[80%]">
+            <div className="flex justify-center font-bold">
+                <div className="min-[800px]:mt-10 mb-10 block min-[800px]:w-[80%] max-[800px]:w-[100%]">
                     <ul className="timeline justify-center max-[800px]:items-start">
                         {launchpadDetail.haveWhiteMint === 1 && <li className="w-[30%]">
-                            <hr className="bg-white"/>
+                            <hr className="bg-white !h-[0.1rem]"/>
                             <div className="timeline-middle">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
                                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd"/>
                                 </svg>
                             </div>
-                            <div className="timeline-end ">
-                                <div>white list</div>
+                            <div className="timeline-end text-center max-[800px]:text-xs">
+                                <div>Whitelist Sale</div>
                                 <div>{whiteMintCount}/{launchpadDetail.whiteMintSupply > 999999999 ? "∞" : launchpadDetail.whiteMintSupply}</div>
                                 <div>{stepStatus(launchpadDetail.whiteMintStartTime, launchpadDetail.whiteMintEndTime)}</div>
                             </div>
-                            <hr className="bg-white"/>
+                            <hr className="bg-white !h-[0.1rem]"/>
                         </li>}
                         {launchpadDetail.havePrivateMint === 1 && <li className="w-[30%]">
-                            <hr className="bg-white"/>
+                            <hr className="bg-white !h-[0.1rem]"/>
                             <div className="timeline-middle">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
                                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd"/>
                                 </svg>
                             </div>
-                            <div className="timeline-end ">
-                                <div>private list</div>
+                            <div className="timeline-end text-center max-[800px]:text-xs">
+                                <div>Partnership Sale</div>
                                 <div>{privateMintCount}/{launchpadDetail.privateSupply > 999999999 ? "∞" : launchpadDetail.privateSupply}</div>
                                 <div>{stepStatus(launchpadDetail.privateStartTime, launchpadDetail.privateEndTime)}</div>
                             </div>
-                            <hr className="bg-white"/>
+                            <hr className="bg-white  !h-[0.1rem]"/>
                         </li>}
                         <li className="w-[30%]">
-                            <hr className="bg-white"/>
+                            <hr className="bg-white !h-[0.1rem]"/>
                             <div className="timeline-middle">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
                                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd"/>
                                 </svg>
                             </div>
-                            <div className="timeline-end ">
-                                <div>public list</div>
+                            <div className="timeline-end  text-center max-[800px]:text-xs">
+                                <div>Public Sale</div>
                                 <div>{publicMintCount}/{launchpadDetail.publicSupply > 999999999 ? "∞" : launchpadDetail.publicSupply}</div>
                                 <div>{stepStatus(launchpadDetail.publicStartTime, launchpadDetail.publicEndTime)}</div>
                             </div>
-                            <hr className="bg-white"/>
+                            <hr className="bg-white !h-[0.1rem]"/>
                         </li>
                     </ul>
                 </div>

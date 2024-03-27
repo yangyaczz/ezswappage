@@ -285,6 +285,7 @@
         "ERC721": "",
         "ERC1155": "",
         "launchpadFactory": "0xb8b027A9f72A4A364449EaefdbE6BD0DB7beD502",
+        "launchpad1155Factory": "0xF13c10fa90701eDe8b3bF123CdbB0c23Fc8244b6",
         "recommendNFT": [
             {
                 "type": "ERC1155",

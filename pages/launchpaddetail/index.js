@@ -529,10 +529,10 @@ const LaunchpadDetail = () => {
                             {/*    mint按钮*/}
                             <span className="flex items-center ml-4">
                                     <img className="w-[13px] h-[13px] mr-1" src={addressIcon[launchpadDetail.network] && addressIcon[launchpadDetail.network]["0x0000000000000000000000000000000000000000"]?.src} alt=""/>
-                                    <span>{currentStepStatus === 0 ? "Free Mint" : currentStepStatus === 1 ? (launchpadDetail.privatePrice === 0 || launchpadDetail.privatePrice === null ? 'Free Mint' : launchpadDetail.privatePrice / 1e18) : (launchpadDetail.publicPrice === 0 || launchpadDetail.publicPrice === null ? 'Free Mint' : launchpadDetail.publicPrice / 1e18)}</span>
+                                    <span className="">{currentStepStatus === 0 ? "Free Mint" : currentStepStatus === 1 ? (parseInt(launchpadDetail.privatePrice) === 0 || launchpadDetail.privatePrice === null ? 'Free Mint' : launchpadDetail.privatePrice / 1e18) : (parseInt(launchpadDetail.publicPrice) === 0 || launchpadDetail.publicPrice === null ? 'Free Mint' : launchpadDetail.publicPrice / 1e18)}</span>
                                 </span>
                         </div>
-                        <button className="bg-[#00D5DA] text-black rounded-md font-bold px-10 py-0 min-[800px]:mt-2 max-[800px]:ml-10" onClick={() => mintNFT(0)}>{mintLoading || privateLoading || waitPrivateLoading || publicLoading || waitPublicLoading ? <span className="loading loading-spinner loading-sm"></span> : 'Mint'}</button>
+                        <button className="bg-[#00D5DA] text-black rounded-md font-bold px-10 py-0 min-[800px]:mt-2 max-[800px]:ml-1" onClick={() => mintNFT(0)}>{mintLoading || privateLoading || waitPrivateLoading || publicLoading || waitPublicLoading ? <span className="loading loading-spinner loading-sm"></span> : 'Mint'}</button>
                     </div>
                 </div>
             </div>

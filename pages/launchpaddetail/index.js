@@ -58,6 +58,7 @@ const LaunchpadDetail = () => {
     const {data: queryUserMintedCount, refetch: queryUserMintedRefetch} = useContractRead({
         address: launchpadDetail.erc === '721' ? networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory : networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpad1155Factory,
         abi: SeaDrop721,
+        chainId: parseInt(launchpadDetail?.network, 16),
         functionName: 'walletMintedByStage',
         args: [launchpadDetail.contractAddress, 0, owner],
         watch: false,
@@ -75,6 +76,7 @@ const LaunchpadDetail = () => {
     const {refetch: queryFreeMintInfoRefetch} = useContractRead({
         address: launchpadDetail.erc === '721' ? networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory : networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpad1155Factory,
         abi: SeaDrop721,
+        chainId: parseInt(launchpadDetail?.network, 16),
         functionName: 'getWhiteList',
         args: [launchpadDetail.contractAddress],
         watch: true,
@@ -94,6 +96,7 @@ const LaunchpadDetail = () => {
     const {refetch: queryPrivateInfoRefetch} = useContractRead({
         address: launchpadDetail.erc === '721' ? networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory : networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpad1155Factory,
         abi: SeaDrop721,
+        chainId: parseInt(launchpadDetail?.network, 16),
         functionName: 'getPrivateDrop',
         args: [launchpadDetail.contractAddress],
         watch: true,
@@ -113,6 +116,7 @@ const LaunchpadDetail = () => {
     const {refetch: queryPublicMintInfoRefetch} = useContractRead({
         address: launchpadDetail.erc === '721' ? networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory : networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpad1155Factory,
         abi: SeaDrop721,
+        chainId: parseInt(launchpadDetail?.network, 16),
         functionName: 'getPublicDrop',
         args: [launchpadDetail.contractAddress],
         watch: true,
@@ -132,6 +136,7 @@ const LaunchpadDetail = () => {
     const {refetch: queryEveryStepMinted} = useContractRead({
         address: launchpadDetail.erc === '721' ? networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory : networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpad1155Factory,
         abi: SeaDrop721,
+        chainId: parseInt(launchpadDetail?.network, 16),
         functionName: 'getMintStats',
         args: [launchpadDetail.contractAddress],
         watch: true,
@@ -286,7 +291,7 @@ const LaunchpadDetail = () => {
         }
         // console.log('parseInt(launchpadDetail.network, 16)', parseInt(launchpadDetail.network, 16), chain.id)
         if (chain.id !== parseInt(launchpadDetail.network, 16)) {
-            alertRef.current.showErrorAlert("Please switch to right chain");
+            alertRef.current.showErrorAlert(`Please switch to ${networkConfig[parseInt(launchpadDetail?.network, 16)].networkName} chain`);
             return;
         }
         // todo 每个钱包的上限限制
@@ -491,8 +496,8 @@ const LaunchpadDetail = () => {
                     <div className="flex items-center  mb-4">
                         {/*<img src="/game/IMG_9873.PNG" className="rounded-full w-[40px]" alt=""/>*/}
                         <span className="mr-4 font-bold">@{launchpadDetail?.userAccount?.userName} </span>
-                        <a href=""><img src="/website.svg" alt=""/></a>
-                        <a className="ml-4" href=""><img src="/Twitter.svg" alt=""/></a>
+                        <a href={launchpadDetail.website}><img src="/website.svg" alt=""/></a>
+                        <a className="ml-4" href={launchpadDetail.twitter}><img src="/Twitter.svg" alt=""/></a>
                     </div>
                     <div className="relative">
                         {/*进度条*/}

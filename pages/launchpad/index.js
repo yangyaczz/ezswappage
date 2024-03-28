@@ -115,7 +115,7 @@ const Launchpad = () => {
                                 </div>
                                 <div className='flex items-center'>
                                     <a href={topLaunchpad.website}><img className="mt-2" src="/website.svg" alt=""/></a>
-                                    <a href={topLaunchpad.website}><img className="ml-2 mt-2" src="/Twitter.svg" alt=""/></a>
+                                    <a href={topLaunchpad.twitter}><img className="ml-2 mt-2" src="/Twitter.svg" alt=""/></a>
                                 </div>
                                 <div className="flex items-center mt-2 text-base">
                                     <span>{topLaunchpad.totalSupply>=999999999 ? "∞" : topLaunchpad.totalSupply} items</span>

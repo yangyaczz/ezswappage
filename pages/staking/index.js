@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {useAccount, useContractRead, useContractWrite, useWaitForTransaction} from "wagmi";
+import {useAccount, useContractRead, useContractWrite, useNetwork, useWaitForTransaction} from "wagmi";
 import ERC20ABI from "../data/ABI/ERC20.json";
 import stakeAbi from "../data/ABI/stakeabi.json";
 import AlertComponent from "../../components/common/AlertComponent";
@@ -20,6 +20,7 @@ const Staking = () => {
     const [tokenApproval, setTokenApproval] = useState(0);
 
     const {address: owner} = useAccount();
+    const {chain} = useNetwork();
 
     const stakeAddress = '0x7fa3d06516ef2ca0272cf13e1445146691a5fc05'
     const constAddress = '0xB32eFC47Bf503B3593a23204cF891295a85115Ea'
@@ -265,6 +266,10 @@ const Staking = () => {
     }
 
     function confirm() {
+        if (chain.id !== 169) {
+            alertRef.current.showErrorAlert("Please switch to manta chain");
+            return;
+        }
         // alertRef.current.showErrorAlert("error");
         setStakeLoading(true)
         if (activeButton === 0) {

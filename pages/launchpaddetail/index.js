@@ -9,9 +9,11 @@ import AlertComponent from "../../components/common/AlertComponent";
 import {isNaN} from "formik";
 import {ethers} from "ethers";
 import styles from "../../components/swap/swapUtils/index.module.scss";
+import {useRouter} from "next/router";
 
 const LaunchpadDetail = () => {
 
+    const router = useRouter();
     const [launchpadDetail, setLaunchpadDetail] = useState({});
     const [freeWhiteList, setFreeWhiteList] = useState({});
     const [privateWhiteList, setPrivateWhiteList] = useState({});
@@ -30,21 +32,30 @@ const LaunchpadDetail = () => {
     const alertRef = useRef(null);
     const [mintLoading, setMintLoading] = useState(false);
 
-    useEffect(() => {
-        initData()
-    }, [])
+    // useEffect(() => {
+    //
+    // }, [])
 
     // useEffect(() => {
     //     currentStep()
     // })
 
-    async function initData() {
-        await queryLaunchpadDetail()
+    async function initData(id) {
+        await queryLaunchpadDetail(id)
         // queryPublicMintInfoRefetch()
     }
 
+    useEffect(() => {
+        const id = router.query.id;
+        console.log('id', id)
+        if (null !== id && undefined !== id){
+            initData(id)
+        }
+        // 这里你可以使用获取到的id值进行一些操作
+    }, [router.query.id]);
+
     // 查询用户mint的数量
-    const {data: queryUserMintedCount,refetch: queryUserMintedRefetch} = useContractRead({
+    const {data: queryUserMintedCount, refetch: queryUserMintedRefetch} = useContractRead({
         address: launchpadDetail.erc === '721' ? networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory : networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpad1155Factory,
         abi: SeaDrop721,
         functionName: 'walletMintedByStage',
@@ -135,8 +146,8 @@ const LaunchpadDetail = () => {
         },
     })
 
-    async function queryLaunchpadDetail() {
-        const params = {id: 261};
+    async function queryLaunchpadDetail(id) {
+        const params = {id: id};
         const response = await fetch("/api/queryLaunchpadDetail", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -160,9 +171,9 @@ const LaunchpadDetail = () => {
 
     }
 
-    async function queryWhiteList(step) {
+    async function queryWhiteList(step, _launchpadDetail) {
         const params = {
-            "launchpadId": "261",
+            "launchpadId": _launchpadDetail.id,
             "walletAddress": owner,
             "launchpadStep": step
         };
@@ -201,17 +212,17 @@ const LaunchpadDetail = () => {
         const currentTime = Math.round(new Date().getTime() / 1000)
         if (_launchpadDetail.haveWhiteMint === 1 && currentTime > _launchpadDetail.whiteMintStartTime && currentTime < _launchpadDetail.whiteMintEndTime) {
             // 白单阶段打开了,并且有白单名额
-            const _freeWhiteList = await queryWhiteList(0)
+            const _freeWhiteList = await queryWhiteList(0, _launchpadDetail)
             if (_freeWhiteList.success && _freeWhiteList.data) {
                 setFreeWhiteList(_freeWhiteList.data)
             }
             if (_freeWhiteList?.data?.signature !== null && _freeWhiteList?.data?.signature !== undefined) {
                 const queryUserMintedCount = await queryUserMintedRefetch()
-                console.log('queryUserMintedCount,',queryUserMintedCount.data)
+                console.log('queryUserMintedCount,', queryUserMintedCount.data)
                 if (parseInt(queryUserMintedCount.data) >= _launchpadDetail.whiteMintEveryUserMintLimit) {
                     setInputMax(_launchpadDetail.publicEveryUserMintLimit)
                     return setCurrentStepStatus(2)
-                }else {
+                } else {
                     setInputMax(_launchpadDetail.whiteMintEveryUserMintLimit)
                     return setCurrentStepStatus(0)
                 }
@@ -227,7 +238,7 @@ const LaunchpadDetail = () => {
         if (_launchpadDetail.havePrivateMint === 1 && currentTime > _launchpadDetail.privateStartTime && currentTime < _launchpadDetail.privateEndTime) {
             // 白单阶段打开了,并且有白单名额
             // todo 还得考虑白单名额有没有用完
-            const _privateWhiteList = await queryWhiteList(1)
+            const _privateWhiteList = await queryWhiteList(1, _launchpadDetail)
             console.log('_privateWhiteList', _privateWhiteList)
             if (_privateWhiteList.success && _privateWhiteList.data) {
                 setPrivateWhiteList(_privateWhiteList.data)

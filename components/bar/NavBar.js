@@ -276,9 +276,16 @@ const NavBar = () => {
         <div className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}>
           Staking(Coming)
         </div>
-        <div className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}>
-          Launchpad(Coming)
-        </div>
+        <Link
+            className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}
+            href="/launchpad"
+            onClick={() => {
+              setToggleHamburger(false);
+              setHamburgerShowLanguage(false);
+            }}
+        >
+          Launchpad
+        </Link>
         {/*</Link>*/}
 
         {/*<div*/}
@@ -446,9 +453,16 @@ const NavBar = () => {
           <div className={styles.headerBtn + " " + styles.launchpad}>
             Staking(Coming)
           </div>
-          <div className={styles.headerBtn + " " + styles.launchpad}>
-            Launchpad(Coming)
-          </div>
+          {/*<div className={styles.headerBtn + " " + styles.launchpad}>*/}
+          {/*  Launchpad(Coming)*/}
+          {/*</div>*/}
+          <Link
+              className={styles.headerBtn + " " + styles.launchpad}
+              href='/launchpad'
+              target="_self"
+          >
+            Launchpad
+          </Link>
 
 
           {/*airdrop 上线后打开*/}

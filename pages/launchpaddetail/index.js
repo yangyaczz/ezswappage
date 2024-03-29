@@ -1,14 +1,10 @@
 import React, {useState, useEffect, useRef} from 'react'
 import addressIcon from "@/pages/data/address_icon";
 import {useAccount, useContractRead, useContractWrite, useNetwork, useWaitForTransaction} from "wagmi";
-import ERC20ABI from "../data/ABI/ERC20.json";
 import SeaDrop721 from "../data/ABI/SeaDrop.json";
 import SeaDrop1155 from "../data/ABI/SeaDrop1155.json";
 import networkConfig from "../../pages/data/networkconfig.json";
 import AlertComponent from "../../components/common/AlertComponent";
-import {isNaN} from "formik";
-import {ethers} from "ethers";
-import styles from "../../components/swap/swapUtils/index.module.scss";
 import {useRouter} from "next/router";
 
 const LaunchpadDetail = () => {
@@ -488,16 +484,19 @@ const LaunchpadDetail = () => {
         <div className="min-[800px]:mt-20 max-[800px]:mt-10 text-white">
             <div className="flex justify-center max-[800px]:flex-col max-[800px]:items-center">
                 <div className="min-[800px]:mr-16 max-[800px]:px-10">
-                    <img className="rounded-2xl min-[800px]:w-[400px] border" src={launchpadDetail.imgUrl} alt=""/>
+                    <img className="rounded-2xl min-[800px]:w-[400px]" src={launchpadDetail.imgUrl} alt=""/>
                 </div>
                 {/*右边*/}
                 <div className="min-[800px]:w-[40%] max-[800px]:mt-10  max-[800px]:items-start max-[800px]:mx-10">
-                    <div className="text-4xl font-bold mb-4">{launchpadDetail.collectionName}</div>
+                    <div className="text-4xl font-bold mb-4 flex items-center max-[800px]:text-4xl">
+                        {launchpadDetail.collectionName}
+                        <a className='ml-4 mt-1' href={launchpadDetail.website}><img src="/website.svg" alt=""/></a>
+                        <a className="ml-4 mt-1" href={launchpadDetail.twitter}><img src="/Twitter.svg" alt=""/></a>
+                    </div>
                     <div className="flex items-center  mb-4">
                         {/*<img src="/game/IMG_9873.PNG" className="rounded-full w-[40px]" alt=""/>*/}
-                        <span className="mr-4 font-bold">@{launchpadDetail?.userAccount?.userName} </span>
-                        <a href={launchpadDetail.website}><img src="/website.svg" alt=""/></a>
-                        <a className="ml-4" href={launchpadDetail.twitter}><img src="/Twitter.svg" alt=""/></a>
+                        {/*<span className="mr-4 font-bold">@{launchpadDetail?.userAccount?.userName} </span>*/}
+
                     </div>
                     <div className="relative">
                         {/*进度条*/}
@@ -511,29 +510,15 @@ const LaunchpadDetail = () => {
                         <div className="flex justify-center items-center">
                             <div className='form-control'>
                                 <div className="input-group">
-                                    <button
-                                        onClick={handleDecrement}
-                                        className="btn btn-square border border border-white hover:border-white rounded-r-none max-[800px]:min-h-0 max-[800px]:h-[30px] max-[800px]:w-8"
-                                    >
-                                        -
-                                    </button>
-                                    <input
-                                        type="text"
-                                        value={mintNumber}
-                                        onChange={handleChange}
-                                        className={"w-20 text-center border-y bg-black rounded-none pb-[12px] pt-[10px] min-[800px]:pt-[11px] max-[800px]:min-h-0 max-[800px]:h-[30px] w-12 max-[800px]:w-10 " + styles.inputContent}
-                                    />
-                                    <button
-                                        onClick={handleIncrement}
-                                        className="btn btn-square border border border-white hover:border-white rounded-l-none max-[800px]:min-h-0 max-[800px]:h-[30px] max-[800px]:w-8"
-                                    >
-                                        +
-                                    </button>
+                                    <button onClick={handleDecrement} className="rounded-l-xl btn-square border border-white max-[800px]:w-7 bg-black max-[800px]:h-[30px]">-</button>
+                                    <input type="text" value={mintNumber} onChange={handleChange}
+                                        className="w-14 max-[800px]:w-10 text-center border-y rounded-none py-[11px] bg-black border-y-white max-[800px]:h-[30px]"/>
+                                    <button onClick={handleIncrement} className="rounded-r-xl btn-square border border-white max-[800px]:w-7 bg-black max-[800px]:h-[30px]">+</button>
                                 </div>
                             </div>
                             {/*    mint按钮*/}
                             <span className="flex items-center ml-4">
-                                    <img className="w-[13px] h-[13px] mr-1" src={addressIcon[launchpadDetail.network] && addressIcon[launchpadDetail.network]["0x0000000000000000000000000000000000000000"]?.src} alt=""/>
+                                    {launchpadDetail.network !== null && <img className="w-[13px] h-[13px] mr-1" src={addressIcon[launchpadDetail.network] && addressIcon[launchpadDetail.network]["0x0000000000000000000000000000000000000000"]?.src} alt=""/>}
                                     <span className="">{currentStepStatus === 0 ? "Free Mint" : currentStepStatus === 1 ? (parseInt(launchpadDetail.privatePrice) === 0 || launchpadDetail.privatePrice === null ? 'Free Mint' : launchpadDetail.privatePrice / 1e18) : (parseInt(launchpadDetail.publicPrice) === 0 || launchpadDetail.publicPrice === null ? 'Free Mint' : launchpadDetail.publicPrice / 1e18)}</span>
                                 </span>
                         </div>

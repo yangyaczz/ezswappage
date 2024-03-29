@@ -75,11 +75,11 @@ const Launchpad = () => {
                                     <a href={topLaunchpad.twitter}><img className="ml-2" src="/website.svg" alt=""/></a>
                                     <a href={topLaunchpad.website}><img className="ml-2" src="/Twitter.svg" alt=""/></a>
                                 </div>
-                                <div className="flex items-center mt-4 text-base">
+                                <div className="flex items-center mt-4 text-base font-bold">
                                     <span>{topLaunchpad.totalSupply>=999999999 ? "∞" : topLaunchpad.totalSupply} items</span>
                                     <span className="flex justify-center items-center ml-4">
                                         <img className="w-[22px] h-[22px] mr-1" src={addressIcon[topLaunchpad.network] && addressIcon[topLaunchpad.network]["0x0000000000000000000000000000000000000000"]?.src} alt=""/>
-                                        <span>{parseInt(topLaunchpad.publicPrice) === 0 ?"Free Mint": topLaunchpad.publicPrice/1e18}</span>
+                                        <span>{topLaunchpad.publicPrice === null ? 'na':parseInt(topLaunchpad.publicPrice) === 0 ?"Free Mint": topLaunchpad.publicPrice/1e18}</span>
                                     </span>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@ const Launchpad = () => {
                     </div>
                     {/*右边的图片*/}
                     <div>
-                        <img className="rounded-xl w-[220px]" src={topLaunchpad.imgUrl} alt=""/>
+                        <img className="rounded-xl w-[486px] h-[280px] object-cover	" src={topLaunchpad.imgUrl} alt=""/>
                     </div>
                 </div>:
                     // 移动端
@@ -121,7 +121,7 @@ const Launchpad = () => {
                                     <span>{topLaunchpad.totalSupply>=999999999 ? "∞" : topLaunchpad.totalSupply} items</span>
                                     <span className="flex justify-center items-center ml-4">
                                         <img className="w-[10px] h-[10px] mr-1" src={addressIcon[topLaunchpad.network] && addressIcon[topLaunchpad.network]["0x0000000000000000000000000000000000000000"]?.src} alt=""/>
-                                        <span>{parseInt(topLaunchpad.publicPrice) === 0 ?"Free Mint": topLaunchpad.publicPrice/1e18}</span>
+                                        <span>{topLaunchpad.publicPrice === null ? 'na':parseInt(topLaunchpad.publicPrice) === 0 ?"Free Mint": topLaunchpad.publicPrice/1e18}</span>
                                     </span>
                                 </div>
                             </div>
@@ -143,7 +143,7 @@ const Launchpad = () => {
                 <div className="text-4xl font-bold mt-20 text-white">Active</div>
                 <div className="border mt-5"></div>
                 {/*item*/}
-                <div className="flex min-[800px]:flex-wrap gap-x-10 max-[800px]:overflow-x-auto">
+                <div className="min-[800px]:grid min-[800px]:grid-cols-3 min-[800px]:justify-between max-[800px]:flex gap-x-7 max-[800px]:overflow-x-auto">
                     {activeLaunchpad.map((item, index) => (
                         <LaunchpadItem key={index} launchpadItem={item} step={2} screenWidth={screenWidth}></LaunchpadItem>
                     ))}
@@ -154,7 +154,7 @@ const Launchpad = () => {
                 <div className="text-4xl font-bold mt-20 text-white">Incoming</div>
                 <div className="border mt-5"></div>
                 {/*item*/}
-                <div className="flex gap-x-10 min-[800px]:flex-wrap max-[800px]:overflow-x-auto">
+                <div className="min-[800px]:grid min-[800px]:grid-cols-3 min-[800px]:justify-between max-[800px]:flex gap-x-7 max-[800px]:overflow-x-auto">
                 {inComingLaunchpad.map((item, index) => (
                     <LaunchpadItem key={index} launchpadItem={item} step={0} screenWidth={screenWidth}></LaunchpadItem>
                 ))}
@@ -165,7 +165,7 @@ const Launchpad = () => {
                 <div className="text-4xl font-bold mt-20 text-white">End</div>
                 <div className="border mt-5"></div>
                 {/*item*/}
-                <div className="flex min-[800px]:flex-wrap gap-x-10 max-[800px]:overflow-x-auto">
+                <div className="min-[800px]:grid min-[800px]:grid-cols-3 min-[800px]:justify-between max-[800px]:flex gap-x-7 max-[800px]:overflow-x-auto">
                 {endLaunchpad.map((item, index) => (
                     <LaunchpadItem key={index} launchpadItem={item} step={1} screenWidth={screenWidth}></LaunchpadItem>
                 ))}

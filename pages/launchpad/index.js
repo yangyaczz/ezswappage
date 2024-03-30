@@ -35,7 +35,7 @@ const Launchpad = () => {
                 } else if (launchpadItem.status === 2) {
                     tempActiveLaunchpad.push(launchpadItem)
                 }
-                if (launchpadItem.id === 218){
+                if (launchpadItem.id === 258){
                     setTopLaunchpad(launchpadItem)
                 }
             }
@@ -72,12 +72,12 @@ const Launchpad = () => {
                                 {/*标题上下布局*/}
                                 <div className="flex justify-center items-center">
                                     <span className="text-4xl font-bold max-[800px]:text-2xl">{topLaunchpad.collectionName}</span>
-                                    <a href={topLaunchpad.twitter}><img className="ml-2" src="/website.svg" alt=""/></a>
-                                    <a href={topLaunchpad.website}><img className="ml-2" src="/Twitter.svg" alt=""/></a>
+                                    <a href={topLaunchpad.website}><img className="ml-2" src="/website.svg" alt=""/></a>
+                                    <a href={topLaunchpad.twitter}><img className="ml-2" src="/Twitter.svg" alt=""/></a>
                                 </div>
                                 <div className="flex items-center mt-4 text-base font-bold">
                                     <span>{topLaunchpad.totalSupply>=999999999 ? "∞" : topLaunchpad.totalSupply} items</span>
-                                    <span className="flex justify-center items-center ml-4">
+                                    <span className="flex justify-center items-center ml-4 max-[800px]:ml-1">
                                         <img className="w-[22px] h-[22px] mr-1" src={addressIcon[topLaunchpad.network] && addressIcon[topLaunchpad.network]["0x0000000000000000000000000000000000000000"]?.src} alt=""/>
                                         <span>{topLaunchpad.publicPrice === null ? 'na':parseInt(topLaunchpad.publicPrice) === 0 ?"Free Mint": topLaunchpad.publicPrice/1e18}</span>
                                     </span>
@@ -119,7 +119,7 @@ const Launchpad = () => {
                                 </div>
                                 <div className="flex items-center mt-2 text-base">
                                     <span>{topLaunchpad.totalSupply>=999999999 ? "∞" : topLaunchpad.totalSupply} items</span>
-                                    <span className="flex justify-center items-center ml-4">
+                                    <span className="flex justify-center items-center ml-2">
                                         <img className="w-[10px] h-[10px] mr-1" src={addressIcon[topLaunchpad.network] && addressIcon[topLaunchpad.network]["0x0000000000000000000000000000000000000000"]?.src} alt=""/>
                                         <span>{topLaunchpad.publicPrice === null ? 'na':parseInt(topLaunchpad.publicPrice) === 0 ?"Free Mint": topLaunchpad.publicPrice/1e18}</span>
                                     </span>

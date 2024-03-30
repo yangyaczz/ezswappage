@@ -4,9 +4,15 @@ import addressIcon from "@/pages/data/address_icon";
 import Link from "next/link";
 
 const LaunchpadItem = ({launchpadItem,step,screenWidth}) => {
+
+    //if (item.jumpType === 1) {
+    //         this.$router.push(`/launchpad/mint/${item?.id}`)
+    //       } else if (item.jumpType === 2) {
+    //         window.open(item.jumpUrl)
+    //       }
     return (
         <div>
-            <Link href={`/launchpaddetail?id=${launchpadItem.id}`}>
+            <Link href={launchpadItem.jumpType === 1 ? `/launchpaddetail?id=${launchpadItem.id}`:launchpadItem.jumpUrl}>
                 <div className="mt-10 card w-[100%] max-[800px]:w-[20rem] bg-base-100 shadow-xl overflow-hidden">
                     <figure className="relative">
                         <img src={launchpadItem.imgUrl} alt="Shoes" className="w-[100%] h-[12rem] object-cover	"/>
@@ -24,10 +30,11 @@ const LaunchpadItem = ({launchpadItem,step,screenWidth}) => {
                         <div className="w-[57%] max-[800px]:w-[52%]">
                             <div className="flex items-center pb-1">
                                 {/*<img className="rounded-full w-[30px]" src="/game/IMG_9873.PNG" alt=""/>*/}
-                                <span className="text-base font-bold min-[800px]:whitespace-nowrap	">{screenWidth<800? (launchpadItem?.collectionName.length > 12 ? launchpadItem?.collectionName.substring(0, 12) + "..." : launchpadItem?.collectionName):(launchpadItem?.collectionName.length > 20 ? launchpadItem?.collectionName.substring(0, 20) + "..." : launchpadItem?.collectionName)}</span>
+                                <span className="text-base font-bold ">{launchpadItem?.collectionName}</span>
+                                {/*<span className="text-base font-bold ">{screenWidth<800? (launchpadItem?.collectionName.length > 12 ? launchpadItem?.collectionName.substring(0, 12) + "..." : launchpadItem?.collectionName):(launchpadItem?.collectionName.length > 20 ? launchpadItem?.collectionName.substring(0, 20) + "..." : launchpadItem?.collectionName)}</span>*/}
                             </div>
                             <div className="mr-6 text-xs">
-                                <span>{screenWidth<800?(launchpadItem?.description?.length > 40 ? launchpadItem?.description?.substring(0, 40) + "..." : launchpadItem?.description):(launchpadItem?.description?.length > 70 ? launchpadItem?.description?.substring(0, 70) + "..." : launchpadItem?.description)}</span>
+                                <span>{screenWidth<800?(launchpadItem?.description?.length > 40 ? launchpadItem?.description?.substring(0, 40) + "..." : launchpadItem?.description):(launchpadItem?.description?.length > 60 ? launchpadItem?.description?.substring(0, 60) + "..." : launchpadItem?.description)}</span>
                             </div>
                         </div>
                         {/*右边的说明,上下排列*/}

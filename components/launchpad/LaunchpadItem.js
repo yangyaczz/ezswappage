@@ -56,7 +56,7 @@ const LaunchpadItem = ({launchpadItem,step,screenWidth}) => {
                             </div>
                             <div className="flex justify-between border-b border-[#999999] mt-1">
                                 <span>Blockchain</span>
-                                <span className="font-bold">{chainIdToInfo[parseInt(launchpadItem.network, 16)]?.networkName === 'MANTA'? 'Manta':chainIdToInfo[parseInt(launchpadItem.network, 16)]?.networkName === 'EOS'?'EOS EVM':chainIdToInfo[parseInt(launchpadItem.network, 16)]?.networkName === 'MATIC' ? 'Polygon':chainIdToInfo[parseInt(launchpadItem.network, 16)]?.networkName === 'ARB'?'Arbitrum One':launchpadItem.id = 203? 'Manta & EOS EVM':chainIdToInfo[parseInt(launchpadItem.network, 16)]?.networkName}</span>
+                                <span className="font-bold">{chainIdToInfo[parseInt(launchpadItem.network, 16)]?.networkName === 'MANTA'? 'Manta':chainIdToInfo[parseInt(launchpadItem.network, 16)]?.networkName === 'EOS'?'EOS EVM':chainIdToInfo[parseInt(launchpadItem.network, 16)]?.networkName === 'MATIC' ? 'Polygon':chainIdToInfo[parseInt(launchpadItem.network, 16)]?.networkName === 'ARB'?'Arbitrum One':chainIdToInfo[parseInt(launchpadItem.network, 16)]?.networkName}</span>
                             </div>
                             {step===2?<div className='flex justify-center'>
                                 <button className="bg-[#00D5DA] text-white rounded-3xl px-6 py-1 mt-3 text-[9px] max-[800px]:text-[9px] font-bold">TRADE ON EZSWAP</button>

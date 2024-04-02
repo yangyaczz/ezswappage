@@ -75,6 +75,7 @@ export default function Home() {
                         </div>
                         <div className="flex max-[800px]:flex-col max-[800px]:mr-10">
                             {/*第一个item*/}
+                            <a href="https://twitter.com/echomkts">
                             <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 text-white min-[799px]:mr-5">
                                 {/*最外面上下布局*/}
                                 <div className="flex items-center pl-10 pr-10 max-[800px]:pr-1 max-[800px]:pl-5">
@@ -93,7 +94,9 @@ export default function Home() {
                                     </div>
                                 </div>
                             </div>
+                            </a>
                             {/*第一个item*/}
+                            <a href="https://twitter.com/mars404_manta">
                             <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 text-white max-[800px]:mt-7 min-[799px]:mr-5">
                                 {/*最外面上下布局*/}
                                 <div className="flex items-center pl-10 pr-10 max-[800px]:pr-1  max-[800px]:pl-5">
@@ -112,7 +115,7 @@ export default function Home() {
                                     </div>
                                 </div>
                             </div>
-
+                            </a>
 
                         </div>
                     </div>

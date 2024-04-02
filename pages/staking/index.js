@@ -262,12 +262,25 @@ const Staking = () => {
     }
 
     function changeAmount(amount) {
-        setInputAmount(amount)
+        if (amount > tokenBalance) {
+            setInputAmount(tokenBalance)
+        }else {
+            setInputAmount(amount)
+        }
     }
 
     function confirm() {
-        if (chain.id !== 169) {
+        if (chain === undefined) {
+            alertRef.current.showErrorAlert("please connect wallet");
+            return;
+        }
+        console.log('chain.id', chain.id)
+        if (chain.id !== 169 && chain.id !== 3441006) {
             alertRef.current.showErrorAlert("Please switch to manta chain");
+            return;
+        }
+        if (inputAmount === 0 || inputAmount === '' || inputAmount === "0") {
+            alertRef.current.showErrorAlert("Please input amount");
             return;
         }
         // alertRef.current.showErrorAlert("error");

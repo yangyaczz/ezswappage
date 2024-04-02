@@ -265,14 +265,16 @@ const NavBar = () => {
         >
           Airdrop
         </Link>
-        {/*<Link*/}
-        {/*    className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}*/}
-        {/*    href="/staking"*/}
-        {/*    onClick={() => {*/}
-        {/*      setToggleHamburger(false);*/}
-        {/*      setHamburgerShowLanguage(false);*/}
-        {/*    }}*/}
-        {/*>*/}
+        <Link
+            className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}
+            href="/staking"
+            onClick={() => {
+              setToggleHamburger(false);
+              setHamburgerShowLanguage(false);
+            }}
+        >
+          Staking
+        </Link>
         <div className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}>
           Staking(Coming)
         </div>
@@ -443,16 +445,16 @@ const NavBar = () => {
           >
             Airdrop
           </Link>
-          {/*<Link*/}
-          {/*  className={styles.headerBtn + " " + styles.launchpad}*/}
-          {/*  href='/staking'*/}
-          {/*  target="_self"*/}
-          {/*>*/}
+          <Link
+            className={styles.headerBtn + " " + styles.launchpad}
+            href='/staking'
+            target="_self"
+          >
+            Staking
+          </Link>
+          {/*<div className={styles.headerBtn + " " + styles.launchpad}>*/}
           {/*  Staking*/}
-          {/*</Link>*/}
-          <div className={styles.headerBtn + " " + styles.launchpad}>
-            Staking(Coming)
-          </div>
+          {/*</div>*/}
           {/*<div className={styles.headerBtn + " " + styles.launchpad}>*/}
           {/*  Launchpad(Coming)*/}
           {/*</div>*/}

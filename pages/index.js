@@ -75,7 +75,7 @@ export default function Home() {
                         </div>
                         <div className="flex max-[800px]:flex-col max-[800px]:mr-10">
                             {/*第一个item*/}
-                            <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 max-[800px]:pb-4 text-white min-[799px]:mr-5">
+                            <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 max-[800px]:pb-4 text-white min-[799px]:mr-5 min-[800px]:h-[260px]">
                                 {/*最外面上下布局*/}
                                 <div className="flex items-center pl-10 pr-10 max-[800px]:pr-1 max-[800px]:pl-5">
                                     {/*里面左右布局*/}
@@ -91,15 +91,15 @@ export default function Home() {
                                         <div className="text-[#3ACD37] text-5xl font-bold max-[800px]:text-3xl"><span className="mr-1">+</span>2600%</div>
                                         <div className="text-[7px] text-center text-[#9B9B9B] mt-2">ATH since Launch</div>
                                         <div className="flex mt-1 max-[800px]:flex-col max-[800px]:items-start	">
-                                            <a href="https://www.gate.io/zh/trade/EZSWAP_USDT" className="flex items-center underline"><img className="w-[20px] mr-2" src="/gate.io-logo.svg" alt=""/><span className="text-sm">Buy on Gate</span></a>
-                                            <a  href="https://www.bitget.com/zh-CN/spot/EZSWAPUSDT" className="flex items-center underline max-[800px]:mt-2"><img  className="w-[20px] min-[800px]:ml-4  mr-2" src="/bitget-logo.svg" alt=""/><span className="text-sm">Buy on Bitget</span></a>
+                                            <a href="https://www.gate.io/zh/trade/EZSWAP_USDT" className="flex items-center underline"><img className="w-[20px] mr-2" src="/gate.io-logo.svg" alt=""/><span className="text-sm whitespace-nowrap">Buy on Gate</span></a>
+                                            <a  href="https://www.bitget.com/zh-CN/spot/EZSWAPUSDT" className="flex items-center underline max-[800px]:mt-2"><img  className="w-[20px] min-[800px]:ml-4  mr-2" src="/bitget-logo.svg" alt=""/><span className="text-sm whitespace-nowrap">Buy on Bitget</span></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             {/*第一个item*/}
                             <a href="https://twitter.com/echomkts">
-                            <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 max-[800px]:mt-7  text-white min-[799px]:mr-5">
+                            <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 max-[800px]:mt-7  text-white min-[799px]:mr-5  min-[800px]:h-[260px]">
                                 {/*最外面上下布局*/}
                                 <div className="flex items-center pl-10 pr-10 max-[800px]:pr-1 max-[800px]:pl-5">
                                     {/*里面左右布局*/}
@@ -120,7 +120,7 @@ export default function Home() {
                             </a>
                             {/*第一个item*/}
                             <a href="https://twitter.com/mars404_manta">
-                            <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 text-white max-[800px]:mt-7 min-[799px]:mr-5">
+                            <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 text-white max-[800px]:mt-7 min-[799px]:mr-5  min-[800px]:h-[260px]">
                                 {/*最外面上下布局*/}
                                 <div className="flex items-center pl-10 pr-10 max-[800px]:pr-1  max-[800px]:pl-5">
                                     {/*里面左右布局*/}

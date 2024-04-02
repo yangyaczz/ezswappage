@@ -75,8 +75,31 @@ export default function Home() {
                         </div>
                         <div className="flex max-[800px]:flex-col max-[800px]:mr-10">
                             {/*第一个item*/}
+                            <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 max-[800px]:pb-4 text-white min-[799px]:mr-5">
+                                {/*最外面上下布局*/}
+                                <div className="flex items-center pl-10 pr-10 max-[800px]:pr-1 max-[800px]:pl-5">
+                                    {/*里面左右布局*/}
+                                    <img className="w-[50px]" src="/logo256.png" alt=""/>
+                                    <div className="ml-8 max-[800px]:ml-5">
+                                        <div className="text-4xl font-bold max-[800px]:text-3xl">EZswap</div>
+                                        <div className="text-sm mt-1 max-[800px]:text-xs">Manta</div>
+                                    </div>
+                                </div>
+                                <div className="flex items-center mt-4 ml-10 max-[800px]:mr-1 min-[800px]:mr-10  max-[800px]:ml-5">
+                                    <img src="/ezline.svg" className="h-[70px] w-[150px]" alt=""/>
+                                    <div className="ml-3">
+                                        <div className="text-[#3ACD37] text-5xl font-bold max-[800px]:text-3xl"><span className="mr-1">+</span>2600%</div>
+                                        <div className="text-[7px] text-center text-[#9B9B9B] mt-2">ATH since Launch</div>
+                                        <div className="flex mt-1 max-[800px]:flex-col max-[800px]:items-start	">
+                                            <a href="https://www.gate.io/zh/trade/EZSWAP_USDT" className="flex items-center underline"><img className="w-[20px] mr-2" src="/gate.io-logo.svg" alt=""/><span className="text-sm">Buy on Gate</span></a>
+                                            <a  href="https://www.bitget.com/zh-CN/spot/EZSWAPUSDT" className="flex items-center underline max-[800px]:mt-2"><img  className="w-[20px] min-[800px]:ml-4  mr-2" src="/bitget-logo.svg" alt=""/><span className="text-sm">Buy on Bitget</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {/*第一个item*/}
                             <a href="https://twitter.com/echomkts">
-                            <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 text-white min-[799px]:mr-5">
+                            <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 max-[800px]:mt-7  text-white min-[799px]:mr-5">
                                 {/*最外面上下布局*/}
                                 <div className="flex items-center pl-10 pr-10 max-[800px]:pr-1 max-[800px]:pl-5">
                                     {/*里面左右布局*/}
@@ -87,7 +110,7 @@ export default function Home() {
                                     </div>
                                 </div>
                                 <div className="flex items-center mt-7 ml-10 mr-10 max-[800px]:ml-5">
-                                    <img src="/line1.png" alt=""/>
+                                    <img src="/line1.png" className="h-[80px]" alt=""/>
                                     <div className="ml-3">
                                         <div className="text-[#3ACD37] text-5xl font-bold max-[800px]:text-3xl"><span className="mr-1">+</span>330%</div>
                                         <div className="text-[7px] text-center text-[#9B9B9B] mt-2">ATH since Launch</div>
@@ -108,7 +131,7 @@ export default function Home() {
                                     </div>
                                 </div>
                                 <div className="flex items-center mt-7 ml-10 mr-10 max-[800px]:ml-5">
-                                    <img src="/line2.svg" alt=""/>
+                                    <img src="/line2.svg" className="h-[80px]"  alt=""/>
                                     <div className="ml-3">
                                         <div className="text-[#3ACD37] text-5xl font-bold max-[800px]:text-3xl"><span className="mr-1">+</span>4001%</div>
                                         <div className="text-[7px] text-center text-[#9B9B9B] mt-2">ATH since Launch</div>
@@ -125,6 +148,8 @@ export default function Home() {
                             <img className="mt-5 mb-10 max-[800px]:w-[85%]" src="/Vector.png" alt=""/>
                         </div>
                         <div className="flex flex-wrap mb-16 max-[800px]:mt-10 gap-10  min-[800px]:mr-20">
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/bitget-logo.svg" alt=""/>
+                            <img className="w-[6%] max-[800px]:w-[20%]" src="/gate.io-logo.svg" alt=""/>
                             <img className="w-[6%] max-[800px]:w-[20%]" src="/manta2.JPG" alt=""/>
                             <img className="w-[6%] max-[800px]:w-[20%]" src="/eos2.JPG" alt=""/>
                             <img className="w-[6%] max-[800px]:w-[20%]" src="/polygon2.JPG" alt=""/>

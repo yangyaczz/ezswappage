@@ -262,10 +262,20 @@ const Staking = () => {
     }
 
     function changeAmount(amount) {
-        if (amount > tokenBalance) {
-            setInputAmount(tokenBalance)
-        }else {
-            setInputAmount(amount)
+
+
+        if (activeButton === 0) {
+            if (amount > tokenBalance) {
+                setInputAmount(tokenBalance)
+            }else {
+                setInputAmount(amount)
+            }
+        } else if (activeButton === 1) {
+            if (amount > tokenStake) {
+                setInputAmount(tokenStake)
+            }else {
+                setInputAmount(amount)
+            }
         }
     }
 

@@ -148,13 +148,13 @@ export default function Home() {
                             <img className="mt-5 mb-10 max-[800px]:w-[85%]" src="/Vector.png" alt=""/>
                         </div>
                         <div className="flex flex-wrap mb-16 max-[800px]:mt-10 gap-10  min-[800px]:mr-20">
-                            <img className="w-[6%] max-[800px]:w-[20%]" src="/bitget-logo.svg" alt=""/>
-                            <img className="w-[6%] max-[800px]:w-[20%]" src="/gate.io-logo.svg" alt=""/>
-                            <img className="w-[6%] max-[800px]:w-[20%]" src="/manta2.JPG" alt=""/>
-                            <img className="w-[6%] max-[800px]:w-[20%]" src="/eos2.JPG" alt=""/>
-                            <img className="w-[6%] max-[800px]:w-[20%]" src="/polygon2.JPG" alt=""/>
-                            <img className="w-[6%] max-[800px]:w-[20%]" src="/zks2.JPG" alt=""/>
-                            <img className="w-[6%] max-[800px]:w-[20%]" src="/arb2.PNG" alt=""/>
+                            <img className="w-[140px] object-contain max-[800px]:w-[24%]" src="/logo/Gate.png" alt=""/>
+                            <img className="w-[140px] object-contain max-[800px]:w-[24%]" src="/logo/bitget.png" alt=""/>
+                            <img className="w-[140px] object-contain max-[800px]:w-[24%]" src="/logo/mantap.png" alt=""/>
+                            <img className="w-[140px] object-contain max-[800px]:w-[24%]" src="/logo/Polygonp.png" alt=""/>
+                            <img className="w-[140px] object-contain max-[800px]:w-[24%]" src="/logo/arb.png" alt=""/>
+                            <img className="w-[140px] object-contain max-[800px]:w-[24%]" src="/logo/eosp.png" alt=""/>
+                            <img className="w-[140px] object-contain max-[800px]:w-[24%]" src="/logo/zksync.png" alt=""/>
                         </div>
                         <div>
                             <span className="color-[#2ed1d8] font-bold text-4xl max-[800px]:text-3xl">Business Partner</span>

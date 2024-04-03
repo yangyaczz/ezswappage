@@ -35,7 +35,7 @@ export default function Home() {
     return (
         <div className="min-[1700px]:flex min-[1700px]:flex-col min-[1700px]:items-center">
             <div className={"flex flex-col items-center " + styles.divBackground}>
-                <div className="ml-20 min-[1700px]:ml-32  max-[800px]:ml-0">
+                <div className="min-[1500px]:ml-20  ml-14 min-[1700px]:ml-32  max-[800px]:ml-0">
                     {screenWidth > 800 ?
                         // web
                         <div className="flex items-center mt-20 backdrop-blur-sm">
@@ -75,17 +75,17 @@ export default function Home() {
                         </div>
                         <div className="flex max-[800px]:flex-col max-[800px]:mr-10">
                             {/*第一个item*/}
-                            <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 max-[800px]:pb-4 text-white min-[799px]:mr-5 max-[1500px]:h-[260px]">
+                            <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 max-[800px]:pb-4 text-white min-[799px]:mr-5 max-[1500px]:h-[260px] min-[800px]:w-[440px]  min-[1500px]:w-[480px]">
                                 {/*最外面上下布局*/}
-                                <div className="flex items-center pl-10 pr-10 max-[800px]:pr-1 max-[800px]:pl-5">
+                                <div className="flex items-center pl-8 pr-5 max-[800px]:pr-1 max-[800px]:pl-5">
                                     {/*里面左右布局*/}
                                     <img className="w-[50px]" src="/logo256.png" alt=""/>
                                     <div className="ml-8 max-[800px]:ml-5">
-                                        <div className="text-4xl font-bold max-[800px]:text-3xl">EZswap</div>
-                                        <div className="text-sm mt-1 max-[800px]:text-xs">Manta</div>
+                                        <div className="text-4xl font-bold max-[800px]:text-3xl">EZswap Protocol</div>
+                                        <div className="text-sm mt-1 max-[800px]:text-xs">The Premier Game Assets and Meme DEX Protocol</div>
                                     </div>
                                 </div>
-                                <div className="flex items-center mt-4 ml-10 max-[800px]:mr-1 min-[800px]:mr-10  max-[800px]:ml-5">
+                                <div className="flex items-center mt-4 ml-4 max-[800px]:mr-1 min-[800px]:mr-10  max-[800px]:ml-5">
                                     <img src="/ezline.svg" className="h-[70px] w-[150px]" alt=""/>
                                     <div className="ml-3">
                                         <div className="text-[#3ACD37] text-5xl font-bold max-[800px]:text-3xl"><span className="mr-1">+</span>2600%</div>
@@ -99,9 +99,9 @@ export default function Home() {
                             </div>
                             {/*第一个item*/}
                             <a href="https://twitter.com/echomkts">
-                            <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 max-[800px]:mt-7  text-white min-[799px]:mr-5 max-[1500px]:h-[260px]">
+                            <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 max-[800px]:mt-7  text-white min-[799px]:mr-5 max-[1500px]:h-[260px] min-[800px]:w-[440px]  min-[1500px]:w-[480px]">
                                 {/*最外面上下布局*/}
-                                <div className="flex items-center pl-10 pr-10 max-[800px]:pr-1 max-[800px]:pl-5">
+                                <div className="flex items-center pl-8 pr-5 max-[800px]:pr-1 max-[800px]:pl-5">
                                     {/*里面左右布局*/}
                                     <img className="w-[50px]" src="https://ezonline.s3.us-west-2.amazonaws.com/echo_img2.png" alt=""/>
                                     <div className="ml-8 max-[800px]:ml-5">
@@ -109,7 +109,7 @@ export default function Home() {
                                         <div className="text-sm mt-1 max-[800px]:text-xs">The First EOS EVM Smart Inscription (404)</div>
                                     </div>
                                 </div>
-                                <div className="flex items-center mt-7 ml-10 mr-10 max-[800px]:ml-5">
+                                <div className="flex items-center mt-7 ml-8 mr-10 max-[800px]:ml-5">
                                     <img src="/line1.png" className="h-[80px]" alt=""/>
                                     <div className="ml-3">
                                         <div className="text-[#3ACD37] text-5xl font-bold max-[800px]:text-3xl"><span className="mr-1">+</span>330%</div>
@@ -120,9 +120,9 @@ export default function Home() {
                             </a>
                             {/*第一个item*/}
                             <a href="https://twitter.com/mars404_manta">
-                            <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 text-white max-[800px]:mt-7 min-[799px]:mr-5  max-[1500px]:h-[260px]">
+                            <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 text-white max-[800px]:mt-7 min-[799px]:mr-5  max-[1500px]:h-[260px] min-[800px]:w-[440px] min-[1500px]:w-[480px]">
                                 {/*最外面上下布局*/}
-                                <div className="flex items-center pl-10 pr-10 max-[800px]:pr-1  max-[800px]:pl-5">
+                                <div className="flex items-center pl-8 pr-5 max-[800px]:pr-1  max-[800px]:pl-5">
                                     {/*里面左右布局*/}
                                     <img className="w-[50px]" src="https://ezonline.s3.us-west-2.amazonaws.com/marsimage.jpeg" alt=""/>
                                     <div className="ml-8 max-[800px]:ml-5">
@@ -130,7 +130,7 @@ export default function Home() {
                                         <div className="text-sm mt-1 max-[800px]:text-xs">Manta 404</div>
                                     </div>
                                 </div>
-                                <div className="flex items-center mt-7 ml-10 mr-10 max-[800px]:ml-5">
+                                <div className="flex items-center mt-7 ml-8 mr-10 max-[800px]:ml-5">
                                     <img src="/line2.svg" className="h-[80px]"  alt=""/>
                                     <div className="ml-3">
                                         <div className="text-[#3ACD37] text-5xl font-bold max-[800px]:text-3xl"><span className="mr-1">+</span>4001%</div>

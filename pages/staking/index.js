@@ -367,14 +367,14 @@ const Staking = () => {
                         {
                             activeButton === 0 ?
                                 <div className="my-10 max-[800px]:text-center">
-                                    Staking $EZswap enables you to participate in future airdrop and launchpad. Newly-staked tokens will become eligible immediately.
+                                    Staking $EZSWAP enables you to participate in future airdrop and launchpad. Newly-staked tokens will become eligible immediately.
                                 </div> :
                                 activeButton === 1 ?
                                     <div className="my-10 max-[800px]:text-center">
-                                        Unstaking $EZswap enables you to withdraw them from the staking contract after a cooldown period (14 days) of one epoch once the current epoch ends. (Epochs start every Thursday at 00:00 UTC and last 7 days).
+                                        Unstaking $EZSWAP enables you to withdraw them from the staking contract after a cooldown period (14 days) of one epoch once the current epoch ends. (Epochs start every Thursday at 00:00 UTC and last 7 days).
                                     </div> :
                                     <div className="my-10 max-[800px]:text-center">
-                                        Withdraw $EZswap. Transfer tokens from the staking contract to your wallet.
+                                        Withdraw $EZSWAP. Transfer tokens from the staking contract to your wallet.
                                     </div>
                         }
 

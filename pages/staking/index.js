@@ -22,8 +22,9 @@ const Staking = () => {
     const {address: owner} = useAccount();
     const {chain} = useNetwork();
 
-    const stakeAddress = '0x7fa3d06516ef2ca0272cf13e1445146691a5fc05'
-    const constAddress = '0xB32eFC47Bf503B3593a23204cF891295a85115Ea'
+    // 测试版stake: 0x7fa3d06516ef2ca0272cf13e1445146691a5fc05
+    const stakeAddress = '0x3C4Ac4F4716e5b8Dfd19c60C7801581605507237'
+    const constAddress = '0x95d1b0f2a751010083bf12e29e7a2f13429f7143'
 
     const {data: tokenAmount1155, refetch: balanceOfRefetch} = useContractRead({
         address: constAddress,

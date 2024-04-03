@@ -23,6 +23,11 @@ const Staking = () => {
     const {chain} = useNetwork();
 
     // 测试版stake: 0x7fa3d06516ef2ca0272cf13e1445146691a5fc05
+    // 测试版token: 0xB32eFC47Bf503B3593a23204cF891295a85115Ea
+
+    // 正式版stake: 0x3C4Ac4F4716e5b8Dfd19c60C7801581605507237
+    // 正式版token: 0x95d1b0f2a751010083bf12e29e7a2f13429f7143
+
     const stakeAddress = '0x3C4Ac4F4716e5b8Dfd19c60C7801581605507237'
     const constAddress = '0x95d1b0f2a751010083bf12e29e7a2f13429f7143'
 
@@ -268,13 +273,13 @@ const Staking = () => {
         if (activeButton === 0) {
             if (amount > tokenBalance) {
                 setInputAmount(tokenBalance)
-            }else {
+            } else {
                 setInputAmount(amount)
             }
         } else if (activeButton === 1) {
             if (amount > tokenStake) {
                 setInputAmount(tokenStake)
-            }else {
+            } else {
                 setInputAmount(amount)
             }
         }
@@ -290,9 +295,11 @@ const Staking = () => {
             alertRef.current.showErrorAlert("Please switch to manta chain");
             return;
         }
-        if (inputAmount === 0 || inputAmount === '' || inputAmount === "0") {
-            alertRef.current.showErrorAlert("Please input amount");
-            return;
+        if (activeButton !== 2) {
+            if (inputAmount === 0 || inputAmount === '' || inputAmount === "0") {
+                alertRef.current.showErrorAlert("Please input amount");
+                return;
+            }
         }
         // alertRef.current.showErrorAlert("error");
         setStakeLoading(true)

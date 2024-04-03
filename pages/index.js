@@ -151,10 +151,10 @@ export default function Home() {
                             <img className="w-[140px] object-contain max-[800px]:w-[24%]" src="/logo/Gate.png" alt=""/>
                             <img className="w-[140px] object-contain max-[800px]:w-[24%]" src="/logo/bitget.png" alt=""/>
                             <img className="w-[140px] object-contain max-[800px]:w-[24%]" src="/logo/mantap.png" alt=""/>
-                            <img className="w-[140px] object-contain max-[800px]:w-[24%]" src="/logo/Polygonp.png" alt=""/>
-                            <img className="w-[140px] object-contain max-[800px]:w-[24%]" src="/logo/arb.png" alt=""/>
+                            <img className="w-[160px] object-contain max-[800px]:w-[24%]" src="/logo/Polygonp.png" alt=""/>
+                            <img className="w-[160px] object-contain max-[800px]:w-[24%]" src="/logo/arb.png" alt=""/>
                             <img className="w-[140px] object-contain max-[800px]:w-[24%]" src="/logo/eosp.png" alt=""/>
-                            <img className="w-[140px] object-contain max-[800px]:w-[24%]" src="/logo/zksync.png" alt=""/>
+                            <img className="w-[160px] object-contain max-[800px]:w-[24%]" src="/logo/zksync.png" alt=""/>
                         </div>
                         <div>
                             <span className="color-[#2ed1d8] font-bold text-4xl max-[800px]:text-3xl">Business Partner</span>

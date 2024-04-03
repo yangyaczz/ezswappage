@@ -275,19 +275,31 @@ const NavBar = () => {
         >
           Staking
         </Link>
-        <div className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}>
-          Staking(Coming)
-        </div>
-        <Link
+        <div
             className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}
-            href="/launchpad"
             onClick={() => {
               setToggleHamburger(false);
               setHamburgerShowLanguage(false);
             }}
         >
-          Launchpad
-        </Link>
+          Launchpad(Coming)
+        </div>
+
+        {/*<div className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}>*/}
+        {/*  Staking(Coming)*/}
+        {/*</div>*/}
+        {/*放开*/}
+        {/*<Link*/}
+        {/*    className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}*/}
+        {/*    href="/launchpad"*/}
+        {/*    onClick={() => {*/}
+        {/*      setToggleHamburger(false);*/}
+        {/*      setHamburgerShowLanguage(false);*/}
+        {/*    }}*/}
+        {/*>*/}
+        {/*  Launchpad*/}
+        {/*</Link>*/}
+        {/*放开*/}
         {/*</Link>*/}
 
         {/*<div*/}
@@ -455,16 +467,18 @@ const NavBar = () => {
           {/*<div className={styles.headerBtn + " " + styles.launchpad}>*/}
           {/*  Staking*/}
           {/*</div>*/}
-          {/*<div className={styles.headerBtn + " " + styles.launchpad}>*/}
-          {/*  Launchpad(Coming)*/}
-          {/*</div>*/}
-          <Link
-              className={styles.headerBtn + " " + styles.launchpad}
-              href='/launchpad'
-              target="_self"
-          >
-            Launchpad
-          </Link>
+          <div className={styles.headerBtn + " " + styles.launchpad}>
+            Launchpad(Coming)
+          </div>
+          {/*放开*/}
+          {/*<Link*/}
+          {/*    className={styles.headerBtn + " " + styles.launchpad}*/}
+          {/*    href='/launchpad'*/}
+          {/*    target="_self"*/}
+          {/*>*/}
+          {/*  Launchpad*/}
+          {/*</Link>*/}
+          {/*放开*/}
 
 
           {/*airdrop 上线后打开*/}

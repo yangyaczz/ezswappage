@@ -266,26 +266,26 @@ const NavBar = () => {
           Airdrop
         </Link>
         {/*放开*/}
-        {/*<Link*/}
-        {/*    className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}*/}
-        {/*    href="/staking"*/}
-        {/*    onClick={() => {*/}
-        {/*      setToggleHamburger(false);*/}
-        {/*      setHamburgerShowLanguage(false);*/}
-        {/*    }}*/}
-        {/*>*/}
-        {/*  Staking*/}
-        {/*</Link>*/}
-        {/*放开*/}
-        <div
+        <Link
             className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}
+            href="/staking"
             onClick={() => {
               setToggleHamburger(false);
               setHamburgerShowLanguage(false);
             }}
         >
-          Staking(Coming)
-        </div>
+          Staking
+        </Link>
+        {/*放开*/}
+        {/*<div*/}
+        {/*    className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}*/}
+        {/*    onClick={() => {*/}
+        {/*      setToggleHamburger(false);*/}
+        {/*      setHamburgerShowLanguage(false);*/}
+        {/*    }}*/}
+        {/*>*/}
+        {/*  Staking(Coming)*/}
+        {/*</div>*/}
         <div
             className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}
             onClick={() => {
@@ -470,17 +470,17 @@ const NavBar = () => {
             Airdrop
           </Link>
           {/*放开*/}
-          {/*<Link*/}
-          {/*  className={styles.headerBtn + " " + styles.launchpad}*/}
-          {/*  href='/staking'*/}
-          {/*  target="_self"*/}
-          {/*>*/}
-          {/*  Staking*/}
-          {/*</Link>*/}
+          <Link
+            className={styles.headerBtn + " " + styles.launchpad}
+            href='/staking'
+            target="_self"
+          >
+            Staking
+          </Link>
           {/*放开*/}
-          <div className={styles.headerBtn + " " + styles.launchpad}>
-            Staking(Coming)
-          </div>
+          {/*<div className={styles.headerBtn + " " + styles.launchpad}>*/}
+          {/*  Staking(Coming)*/}
+          {/*</div>*/}
           <div className={styles.headerBtn + " " + styles.launchpad}>
             Launchpad(Coming)
           </div>

@@ -265,6 +265,7 @@ const NavBar = () => {
         >
           Airdrop
         </Link>
+        {/*放开*/}
         {/*<Link*/}
         {/*    className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}*/}
         {/*    href="/staking"*/}
@@ -273,12 +274,44 @@ const NavBar = () => {
         {/*      setHamburgerShowLanguage(false);*/}
         {/*    }}*/}
         {/*>*/}
-        <div className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}>
+        {/*  Staking*/}
+        {/*</Link>*/}
+        {/*放开*/}
+        <div
+            className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}
+            onClick={() => {
+              setToggleHamburger(false);
+              setHamburgerShowLanguage(false);
+            }}
+        >
           Staking(Coming)
         </div>
-        <div className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}>
+        <div
+            className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}
+            onClick={() => {
+              setToggleHamburger(false);
+              setHamburgerShowLanguage(false);
+            }}
+        >
           Launchpad(Coming)
         </div>
+
+
+        {/*<div className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}>*/}
+        {/*  Staking(Coming)*/}
+        {/*</div>*/}
+        {/*放开*/}
+        {/*<Link*/}
+        {/*    className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}*/}
+        {/*    href="/launchpad"*/}
+        {/*    onClick={() => {*/}
+        {/*      setToggleHamburger(false);*/}
+        {/*      setHamburgerShowLanguage(false);*/}
+        {/*    }}*/}
+        {/*>*/}
+        {/*  Launchpad*/}
+        {/*</Link>*/}
+        {/*放开*/}
         {/*</Link>*/}
 
         {/*<div*/}
@@ -436,6 +469,7 @@ const NavBar = () => {
           >
             Airdrop
           </Link>
+          {/*放开*/}
           {/*<Link*/}
           {/*  className={styles.headerBtn + " " + styles.launchpad}*/}
           {/*  href='/staking'*/}
@@ -443,12 +477,22 @@ const NavBar = () => {
           {/*>*/}
           {/*  Staking*/}
           {/*</Link>*/}
+          {/*放开*/}
           <div className={styles.headerBtn + " " + styles.launchpad}>
             Staking(Coming)
           </div>
           <div className={styles.headerBtn + " " + styles.launchpad}>
             Launchpad(Coming)
           </div>
+          {/*放开*/}
+          {/*<Link*/}
+          {/*    className={styles.headerBtn + " " + styles.launchpad}*/}
+          {/*    href='/launchpad'*/}
+          {/*    target="_self"*/}
+          {/*>*/}
+          {/*  Launchpad*/}
+          {/*</Link>*/}
+          {/*放开*/}
 
 
           {/*airdrop 上线后打开*/}

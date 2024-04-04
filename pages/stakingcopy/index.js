@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {useAccount, useContractRead, useContractWrite, useWaitForTransaction} from "wagmi";
+import {useAccount, useContractRead, useContractWrite, useNetwork, useWaitForTransaction} from "wagmi";
 import ERC20ABI from "../data/ABI/ERC20.json";
 import stakeAbi from "../data/ABI/stakeabi.json";
 import AlertComponent from "../../components/common/AlertComponent";
@@ -20,9 +20,16 @@ const Staking = () => {
     const [tokenApproval, setTokenApproval] = useState(0);
 
     const {address: owner} = useAccount();
+    const {chain} = useNetwork();
 
-    const stakeAddress = '0x7fa3d06516ef2ca0272cf13e1445146691a5fc05'
-    const constAddress = '0xB32eFC47Bf503B3593a23204cF891295a85115Ea'
+    // 测试版stake: 0x7fa3d06516ef2ca0272cf13e1445146691a5fc05
+    // 测试版token: 0xB32eFC47Bf503B3593a23204cF891295a85115Ea
+
+    // 正式版stake: 0x3C4Ac4F4716e5b8Dfd19c60C7801581605507237
+    // 正式版token: 0x95d1b0f2a751010083bf12e29e7a2f13429f7143
+
+    const stakeAddress = '0x3C4Ac4F4716e5b8Dfd19c60C7801581605507237'
+    const constAddress = '0x95d1b0f2a751010083bf12e29e7a2f13429f7143'
 
     const {data: tokenAmount1155, refetch: balanceOfRefetch} = useContractRead({
         address: constAddress,
@@ -261,10 +268,39 @@ const Staking = () => {
     }
 
     function changeAmount(amount) {
-        setInputAmount(amount)
+
+
+        if (activeButton === 0) {
+            if (amount > tokenBalance) {
+                setInputAmount(tokenBalance)
+            } else {
+                setInputAmount(amount)
+            }
+        } else if (activeButton === 1) {
+            if (amount > tokenStake) {
+                setInputAmount(tokenStake)
+            } else {
+                setInputAmount(amount)
+            }
+        }
     }
 
     function confirm() {
+        if (chain === undefined) {
+            alertRef.current.showErrorAlert("please connect wallet");
+            return;
+        }
+        console.log('chain.id', chain.id)
+        if (chain.id !== 169 && chain.id !== 3441006) {
+            alertRef.current.showErrorAlert("Please switch to manta chain");
+            return;
+        }
+        if (activeButton !== 2) {
+            if (inputAmount === 0 || inputAmount === '' || inputAmount === "0") {
+                alertRef.current.showErrorAlert("Please input amount");
+                return;
+            }
+        }
         // alertRef.current.showErrorAlert("error");
         setStakeLoading(true)
         if (activeButton === 0) {
@@ -331,14 +367,14 @@ const Staking = () => {
                         {
                             activeButton === 0 ?
                                 <div className="my-10 max-[800px]:text-center">
-                                    Staking $EZswap enables you to participate in future airdrop and launchpad. Newly-staked tokens will become eligible immediately.
+                                    Staking $EZSWAP enables you to participate in future airdrop and launchpad. Newly-staked tokens will become eligible immediately.
                                 </div> :
                                 activeButton === 1 ?
                                     <div className="my-10 max-[800px]:text-center">
-                                        Unstaking $EZswap enables you to withdraw them from the staking contract after a cooldown period (14 days) of one epoch once the current epoch ends. (Epochs start every Thursday at 00:00 UTC and last 7 days).
+                                        Unstaking $EZSWAP enables you to withdraw them from the staking contract after a cooldown period (14 days) of one epoch once the current epoch ends. (Epochs start every Thursday at 00:00 UTC and last 7 days).
                                     </div> :
                                     <div className="my-10 max-[800px]:text-center">
-                                        Withdraw $EZswap. Transfer tokens from the staking contract to your wallet.
+                                        Withdraw $EZSWAP. Transfer tokens from the staking contract to your wallet.
                                     </div>
                         }
 

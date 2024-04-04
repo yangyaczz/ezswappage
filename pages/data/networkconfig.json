@@ -285,6 +285,7 @@
         "ERC721": "",
         "ERC1155": "",
         "launchpadFactory": "0xb8b027A9f72A4A364449EaefdbE6BD0DB7beD502",
+        "launchpad1155Factory": "0xF13c10fa90701eDe8b3bF123CdbB0c23Fc8244b6",
         "recommendNFT": [
             {
                 "type": "ERC1155",
@@ -396,6 +397,7 @@
         "ERC20": "",
         "ERC721": "",
         "ERC1155": "",
+        "launchpadFactory": "0x5C0Fe44391ee35856A5De861dFd340197D252624",
         "launchpad1155Factory": "0xC54bbA2F407a039DE8C78AEe88FAee5fe9c503b8",
         "recommendNFT": [
             {
@@ -458,6 +460,7 @@
         "ERC20": "",
         "ERC721": "",
         "ERC1155": "",
+        "launchpadFactory": "0x9e67e12D25a74c4AA5A72ffA2c7d3A93a6b9ce84",
         "launchpad1155Factory": "0x44444aeE2c51BeFA0ac20134b3205D9f44238058",
         "recommendNFT": [
             {

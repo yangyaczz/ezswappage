@@ -191,7 +191,7 @@ const LaunchpadDetail = () => {
         const currentTime = Math.round(new Date().getTime() / 1000)
         // console.log(currentTime)
         if (currentTime < startTime) {
-            return "Coming Soon"
+            return "Start at " + formatTimestamp(startTime)
         } else if (currentTime > startTime && currentTime < endTime) {
             return "" + formatTimestamp(endTime)
         } else if (currentTime > endTime) {
@@ -207,7 +207,11 @@ const LaunchpadDetail = () => {
         } else if (currentTime > startTime && currentTime < endTime) {
             return "Mint"
         } else if (currentTime > endTime) {
-            return "End"
+            if (currentTime < launchpadDetail.privateStartTime || currentTime < launchpadDetail.publicStartTime ){
+                return "Coming Soon"
+            }else {
+                return "End"
+            }
         }
     }
 
@@ -319,8 +323,18 @@ const LaunchpadDetail = () => {
         // console.log('fadfafa')
         setMintLoading(true)
         if (currentStepStatus === 0) {
+            if (freeWhiteList.signature === undefined){
+                alertRef.current.showErrorAlert(`MinterNotWhitelist`);
+                setMintLoading(false)
+                return;
+            }
             freeMintDataFunction()
         } else if (currentStepStatus === 1) {
+            if (privateWhiteList.signature === undefined){
+                alertRef.current.showErrorAlert(`MinterNotWhitelist`);
+                setMintLoading(false)
+                return;
+            }
             privateMintDataFunction()
         } else {
             publicMintDataFunction()
@@ -335,8 +349,8 @@ const LaunchpadDetail = () => {
         functionName: "whiteListMint",
         args: launchpadDetail.erc === '721' ? [launchpadDetail.contractAddress, owner, mintNumber, freeWhiteList.signature] : [launchpadDetail.contractAddress, owner, launchpadDetail.currentTokenId, mintNumber, freeWhiteList.signature],
         onError(err) {
-            console.log('free mint 失败,', err)
-            let errorMsg = "Free Mint Fail ";
+            console.log('Whitelist mint 失败,', err)
+            let errorMsg = "Whitelist Mint Fail ";
             if (err.message.indexOf("MinterNotWhitelist") > -1) {
                 errorMsg += "MinterNotWhitelist";
             } else if (err.message.indexOf("MintQuantityExceedsMaxMintedPerWallet") > -1) {
@@ -389,8 +403,8 @@ const LaunchpadDetail = () => {
         args: launchpadDetail.erc === '721' ? [launchpadDetail.contractAddress, owner, mintNumber, privateWhiteList.signature] : [launchpadDetail.contractAddress, owner, launchpadDetail.currentTokenId, mintNumber, privateWhiteList.signature],
         value: mintNumber && launchpadDetail.privatePrice ? (((mintNumber * launchpadDetail.privatePrice + parseInt(launchpadDetail.privateFee || 0)) * 1e18) / 1e18).toString() : 0,
         onError(err) {
-            console.log('private mint 失败,', err)
-            let errorMsg = "Private Mint Fail ";
+            console.log('Partnership mint 失败,', err)
+            let errorMsg = "Partnership Mint Fail ";
             if (err.message.indexOf("MinterNotWhitelist") > -1) {
                 errorMsg += "MinterNotWhitelist";
             } else if (err.message.indexOf("MintQuantityExceedsMaxMintedPerWallet") > -1) {

@@ -252,7 +252,7 @@ const LaunchpadDetail = () => {
                     setInputMax(_launchpadDetail.whiteMintEveryUserMintLimit)
                     return setCurrentStepStatus(0)
                 }
-            } else if (currentTime > _launchpadDetail.publicStartTime && currentTime < _launchpadDetail.publicEndTime) {
+            } else if (_launchpadDetail.havePublicMint === 1 && currentTime > _launchpadDetail.publicStartTime && currentTime < _launchpadDetail.publicEndTime) {
                 setInputMax(_launchpadDetail.publicEveryUserMintLimit)
                 return setCurrentStepStatus(2)
             } else {
@@ -272,7 +272,7 @@ const LaunchpadDetail = () => {
             if (_privateWhiteList?.data?.signature !== null && _privateWhiteList?.data?.signature !== undefined) {
                 setInputMax(_launchpadDetail.privateEveryUserMintLimit)
                 return setCurrentStepStatus(1)
-            } else if (currentTime > _launchpadDetail.publicStartTime && currentTime < _launchpadDetail.publicEndTime) {
+            } else if (_launchpadDetail.havePublicMint === 1 && currentTime > _launchpadDetail.publicStartTime && currentTime < _launchpadDetail.publicEndTime) {
                 setInputMax(_launchpadDetail.publicEveryUserMintLimit)
                 return setCurrentStepStatus(2)
             } else {
@@ -585,7 +585,7 @@ const LaunchpadDetail = () => {
                             </div>
                             <hr className="bg-white  !h-[0.1rem]"/>
                         </li>}
-                        <li className="w-[30%]">
+                        {launchpadDetail.havePublicMint === 1 && <li className="w-[30%]">
                             <hr className="bg-white !h-[0.1rem]"/>
                             <div className="timeline-middle">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
@@ -598,7 +598,7 @@ const LaunchpadDetail = () => {
                                 <div>{stepStatus(launchpadDetail.publicStartTime, launchpadDetail.publicEndTime)}</div>
                             </div>
                             <hr className="bg-white !h-[0.1rem]"/>
-                        </li>
+                        </li>}
                     </ul>
                 </div>
             </div>

@@ -147,7 +147,10 @@ const Staking = () => {
         functionName: 'stake',
         args: [(inputAmount * 1e18).toLocaleString().replaceAll(',', '')],
         onError(error) {
-            alertRef.current.showErrorAlert("error", error);
+            console.log(error)
+            if (error.message.indexOf("User rejected the request") === -1) {
+                alertRef.current.showErrorAlert("staking error"+ error.toString());
+            }
             setStakeLoading(false)
         }
     })
@@ -158,9 +161,9 @@ const Staking = () => {
         functionName: 'unstake',
         args: [(inputAmount * 1e18).toLocaleString().replaceAll(',', '')],
         onError(error) {
-            alertRef.current.showErrorAlert("error", error);
+            // alertRef.current.showErrorAlert("error", error);
             setStakeLoading(false)
-            let errorMsg = "error: ";
+            let errorMsg = "unstake error: ";
             if (error.message.indexOf("You have an unwithdrawn amount") > -1) {
                 errorMsg += "You have an unwithdrawn amount, please withdraw and try again.";
             } else if (error.message.indexOf("Unstake balance error") > -1) {
@@ -177,7 +180,7 @@ const Staking = () => {
         args: [],
         onError(error) {
             console.log('withdraw 错误', error.message)
-            let errorMsg = "error: ";
+            let errorMsg = "withdraw error: ";
             if (error.message.indexOf("No available amount to withdraw") > -1) {
                 errorMsg += "No available amount to withdraw";
             } else if (error.message.indexOf("You have an unwithdrawn amount") > -1) {

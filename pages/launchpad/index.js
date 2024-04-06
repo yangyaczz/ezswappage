@@ -35,7 +35,7 @@ const Launchpad = () => {
                 } else if (launchpadItem.status === 2) {
                     tempActiveLaunchpad.push(launchpadItem)
                 }
-                if (launchpadItem.id === 258){
+                if (launchpadItem.id === 264){
                     setTopLaunchpad(launchpadItem)
                 }
             }

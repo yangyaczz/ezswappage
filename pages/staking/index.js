@@ -358,8 +358,8 @@ const Staking = () => {
             <div className="border-t my-10 w-[50%] max-[800px]:w-[85%] border-[#00D5DA]"></div>
             {/*第二块*/}
             <div className="border rounded-3xl py-6 px-10 max-[800px]:px-3 w-[55%] mb-20 max-[800px]:w-[85%]">
-                <div className="flex justify-center">
-                    <ul className="menu menu-horizontal max-[800px]:p-0">
+                <div className="flex justify-center max-[800px]:flex-nowrap">
+                    <ul className="menu menu-horizontal max-[800px]:p-0 max-[800px]:flex-nowrap	">
                         <li className={`border border-[#00D5DA] rounded-box min-[800px]:px-5 max-[800px]:py-0 font-bold ${activeButton === 0 && 'bg-[#00D5DA] text-black'}`}><a className="max-[800px]:px-[0.3rem] " onClick={() => changeState(0)}>&nbsp;&nbsp;&nbsp;STAKE&nbsp;&nbsp;&nbsp;</a></li>
                         <li className={`border border-[#00D5DA] rounded-box min-[800px]:px-5  max-[800px]:py-0 mx-10 max-[800px]:mx-3 font-bold ${activeButton === 1 && 'bg-[#00D5DA] text-black'}`}><a className="max-[800px]:px-[0.3rem] " onClick={() => changeState(1)}>&nbsp;UNSTAKE&nbsp;</a></li>
                         <li className={`border border-[#00D5DA] rounded-box min-[800px]:px-5 max-[800px]:py-0 font-bold ${activeButton === 2 && 'bg-[#00D5DA] text-black'}`}><a className="max-[800px]:px-[0.3rem] " onClick={() => changeState(2)}>WITHDRAW</a></li>

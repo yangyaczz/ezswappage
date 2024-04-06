@@ -297,9 +297,7 @@ const NavBar = () => {
         </div>
 
 
-        {/*<div className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}>*/}
-        {/*  Staking(Coming)*/}
-        {/*</div>*/}
+
         {/*放开*/}
         {/*<Link*/}
         {/*    className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}*/}
@@ -478,9 +476,6 @@ const NavBar = () => {
             Staking
           </Link>
           {/*放开*/}
-          {/*<div className={styles.headerBtn + " " + styles.launchpad}>*/}
-          {/*  Staking(Coming)*/}
-          {/*</div>*/}
           <div className={styles.headerBtn + " " + styles.launchpad}>
             Launchpad(Coming)
           </div>

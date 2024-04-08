@@ -80,7 +80,7 @@ const LaunchpadDetail = () => {
         onSuccess(data) {
             // console.log('getWhiteList: ', data)
             if (launchpadDetail. collectionName=== 'Mantera'){
-                setWhiteMintCount(parseInt(data[1]) + 1600)
+                setWhiteMintCount(parseInt(data[1]) + 320)
             }else {
                 setWhiteMintCount(parseInt(data[1]))
             }
@@ -145,7 +145,7 @@ const LaunchpadDetail = () => {
             // console.log('getMintStats: ', data)
             setTotalSupply(parseInt(data.maxSupply))
             if (launchpadDetail. collectionName=== 'Mantera'){
-                stTotalMinted(parseInt(data.totalMinted)+1600)
+                stTotalMinted(parseInt(data.totalMinted)+320)
             }else {
                 stTotalMinted(parseInt(data.totalMinted))
             }

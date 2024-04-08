@@ -150,7 +150,7 @@ const LaunchpadDetail = () => {
             // console.log('getMintStats: ', data)
             setTotalSupply(parseInt(data.maxSupply))
             if (launchpadDetail. collectionName=== 'Mantera'){
-                stTotalMinted(3000)
+                stTotalMinted(3333)
             }else {
                 stTotalMinted(parseInt(data.totalMinted))
             }
@@ -643,7 +643,7 @@ const LaunchpadDetail = () => {
                             </div>
                             <div className="timeline-end  text-center max-[800px]:text-xs">
                                 <div>Liquidity mint</div>
-                                <div>0/333</div>
+                                <div>333/333</div>
                             </div>
                             <hr className="bg-white !h-[0.1rem]"/>
                         </li>}

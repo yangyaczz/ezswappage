@@ -529,7 +529,7 @@ const LaunchpadDetail = () => {
                 <div className="min-[800px]:w-[40%] max-[800px]:mt-10  max-[800px]:items-start max-[800px]:mx-10">
                     <div className="text-4xl font-bold mb-4 flex items-center max-[800px]:text-4xl">
                         {launchpadDetail.collectionName}
-                        <a className='ml-4 mt-1' href={launchpadDetail.website}><img src="/website.svg" alt=""/></a>
+                        {(launchpadDetail.website !== null && launchpadDetail.website !== '') && <a className='ml-4 mt-1' href={launchpadDetail.website}><img src="/website.svg" alt=""/></a>}
                         <a className="ml-4 mt-1" href={launchpadDetail.twitter}><img src="/Twitter.svg" alt=""/></a>
                     </div>
                     <div className="flex items-center  mb-4">
@@ -610,6 +610,19 @@ const LaunchpadDetail = () => {
                                 <div>Public Sale</div>
                                 <div>{publicMintCount}/{launchpadDetail.publicSupply > 999999999 ? "∞" : launchpadDetail.publicSupply}</div>
                                 <div>{stepStatus(launchpadDetail.publicStartTime, launchpadDetail.publicEndTime)}</div>
+                            </div>
+                            <hr className="bg-white !h-[0.1rem]"/>
+                        </li>}
+                        {launchpadDetail.collectionName === 'Mantera' && <li className="w-[30%]">
+                            <hr className="bg-white !h-[0.1rem]"/>
+                            <div className="timeline-middle">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd"/>
+                                </svg>
+                            </div>
+                            <div className="timeline-end  text-center max-[800px]:text-xs">
+                                <div>Liquidity mint</div>
+                                <div>0/333</div>
                             </div>
                             <hr className="bg-white !h-[0.1rem]"/>
                         </li>}

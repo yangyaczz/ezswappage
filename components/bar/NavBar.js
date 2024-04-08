@@ -234,17 +234,6 @@ const NavBar = () => {
         >
           {languageModel.pool}
         </Link>
-        {/*<a*/}
-        {/*  className="w-full p-2 text-xl font-bold text-right border-b-2 hover:bg-zinc-800"*/}
-        {/*  href={launchpadJumpUrl}*/}
-        {/*  target="_blank"*/}
-        {/*  onClick={() => {*/}
-        {/*    setToggleHamburger(false);*/}
-        {/*    setHamburgerShowLanguage(false);*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  {languageModel.mint}*/}
-        {/*</a>*/}
         <Link
           className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}
           href="/mypool"
@@ -284,139 +273,24 @@ const NavBar = () => {
         {/*      setHamburgerShowLanguage(false);*/}
         {/*    }}*/}
         {/*>*/}
-        {/*  Staking(Coming)*/}
+        {/*  Launchpad(Coming)*/}
         {/*</div>*/}
-        <div
+
+
+
+        {/*放开*/}
+        <Link
             className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}
+            href="/launchpad"
             onClick={() => {
               setToggleHamburger(false);
               setHamburgerShowLanguage(false);
             }}
         >
-          Launchpad(Coming)
-        </div>
-
-
-
-        {/*放开*/}
-        {/*<Link*/}
-        {/*    className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}*/}
-        {/*    href="/launchpad"*/}
-        {/*    onClick={() => {*/}
-        {/*      setToggleHamburger(false);*/}
-        {/*      setHamburgerShowLanguage(false);*/}
-        {/*    }}*/}
-        {/*>*/}
-        {/*  Launchpad*/}
-        {/*</Link>*/}
+          Launchpad
+        </Link>
         {/*放开*/}
         {/*</Link>*/}
-
-        {/*<div*/}
-        {/*  className={`w-full p-2 text-xl font-bold text-right  border-b-2 ${*/}
-        {/*    hamburgerShowLanguage ? "" : "hover:bg-zinc-800"*/}
-        {/*  } self-end`}*/}
-        {/*>*/}
-        {/*  <a*/}
-        {/*    onClick={() => setHamburgerShowLanguage((showLan) => !showLan)}*/}
-        {/*    className="flex justify-end"*/}
-        {/*  >*/}
-        {/*    <FontAwesomeIcon*/}
-        {/*      icon={faGlobe}*/}
-        {/*      size="xl"*/}
-        {/*      className="cursor-pointer"*/}
-        {/*    />*/}
-        {/*  </a>*/}
-        {/*  {hamburgerShowLanguage && (*/}
-        {/*    <ul className="flex flex-col items-end justify-center mt-2 border-b-2">*/}
-        {/*      {Object.keys(lanMap).map((lan) => (*/}
-        {/*        <button*/}
-        {/*          key={lan}*/}
-        {/*          className={`w-full h-8 capitalize text-zinc-50 text-sm hover:bg-zinc-800`}*/}
-        {/*          onClick={() => handleLanguageSelection(lan)}*/}
-        {/*        >*/}
-        {/*          {lanMap[lan].name}*/}
-        {/*        </button>*/}
-        {/*      ))}*/}
-        {/*    </ul>*/}
-        {/*  )}*/}
-        {/*</div>*/}
-        {/* Claim Button For Mobile */}
-        {/*// href="/airdropclaim"*/}
-        {/*<Link*/}
-        {/*  className={`${styles.launchpad} ${styles.airdropBtn} ${styles.claimAirdropBG} self-end my-3 `}*/}
-        {/*  // target="_self"*/}
-        {/*  href="/airdropclaim"*/}
-        {/*  // onClick={()=>setToggleHamburger(false)}*/}
-        {/*  // onClick={() => goClaim()}*/}
-        {/*>*/}
-        {/*  {languageModel.Airdrop}*/}
-        {/*</Link>*/}
-
-        {/*{addressInfo.dcUserId === undefined ||*/}
-        {/*addressInfo.dcUserId === null ||*/}
-        {/*addressInfo.dcUserId === "" ||*/}
-        {/*addressInfo.sendTwitter !== 1 ? (*/}
-        {/*  <a*/}
-        {/*    className={`${styles.launchpad} ${styles.airdropBtn} ${styles.airdropBG} self-end my-3 `}*/}
-        {/*    href={airdropJumpUrl}*/}
-        {/*    target="_self"*/}
-        {/*  >*/}
-        {/*    {languageModel.Airdrop}*/}
-        {/*  </a>*/}
-        {/*) : (*/}
-        {/*  <div*/}
-        {/*    className={*/}
-        {/*      "dropdown dropdown-hover" +*/}
-        {/*      " " +*/}
-        {/*      styles.launchpad +*/}
-        {/*      " " +*/}
-        {/*      styles.airdropColorBtn +*/}
-        {/*      " " +*/}
-        {/*      styles.rainbowBar*/}
-        {/*    }*/}
-        {/*  >*/}
-        {/*    <div className="flex items-end">*/}
-        {/*      <div*/}
-        {/*        tabIndex="0"*/}
-        {/*        role="button"*/}
-        {/*        className={styles.airdropColorBtn + " " + styles.headerScore}*/}
-        {/*      >*/}
-        {/*        {addressInfo.score} PTS{" "}*/}
-        {/*      </div>*/}
-        {/*      <div className="flex items-end">*/}
-        {/*        {userHavePoineerCount > 0 && (*/}
-        {/*          <span className="text-[0.5rem] ml-1"> 1.25x</span>*/}
-        {/*        )}*/}
-        {/*        {userHavePoineerCount > 0 && (*/}
-        {/*          <img className="h-2 mb-2 ml-0.3" src="/top.png" alt="" />*/}
-        {/*        )}*/}
-        {/*      </div>*/}
-        {/*    </div>*/}
-        {/*    <ul*/}
-        {/*      tabIndex="0"*/}
-        {/*      className={*/}
-        {/*        "dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"*/}
-        {/*      }*/}
-        {/*    >*/}
-        {/*      <div*/}
-        {/*        className={addressInfo.todayPunch === 1 ? styles.cantPunch : ""}*/}
-        {/*      >*/}
-        {/*        <li*/}
-        {/*          className={*/}
-        {/*            addressInfo.todayPunch === 1 ? styles.cantPunch : ""*/}
-        {/*          }*/}
-        {/*          onClick={() => handleClick(1)}*/}
-        {/*        >*/}
-        {/*          <a className={styles.airdropText}>Get Today’s Free PTS</a>*/}
-        {/*        </li>*/}
-        {/*      </div>*/}
-        {/*      <li className={styles.liStyle} onClick={() => handleClick(2)}>*/}
-        {/*        <a className={styles.airdropText}>Copy Invite Link</a>*/}
-        {/*      </li>*/}
-        {/*    </ul>*/}
-        {/*  </div>*/}
-        {/*)}*/}
         <ConnectButton />
       </div>
     </div>
@@ -476,111 +350,18 @@ const NavBar = () => {
             Staking
           </Link>
           {/*放开*/}
-          <div className={styles.headerBtn + " " + styles.launchpad}>
-            Launchpad(Coming)
-          </div>
+          {/*<div className={styles.headerBtn + " " + styles.launchpad}>*/}
+          {/*  Launchpad(Coming)*/}
+          {/*</div>*/}
           {/*放开*/}
-          {/*<Link*/}
-          {/*    className={styles.headerBtn + " " + styles.launchpad}*/}
-          {/*    href='/launchpad'*/}
-          {/*    target="_self"*/}
-          {/*>*/}
-          {/*  Launchpad*/}
-          {/*</Link>*/}
+          <Link
+              className={styles.headerBtn + " " + styles.launchpad}
+              href='/launchpad'
+              target="_self"
+          >
+            Launchpad
+          </Link>
           {/*放开*/}
-
-
-          {/*airdrop 上线后打开*/}
-
-          {/* Claim Button for web */}
-          {/*{ <Link*/}
-          {/*  className={*/}
-          {/*    styles.launchpad +*/}
-          {/*    " " +*/}
-          {/*    styles.airdropBtn +*/}
-          {/*    " " +*/}
-          {/*    styles.claimAirdropBG*/}
-          {/*  }*/}
-          {/*  href="/airdropclaim"*/}
-          {/*  // onClick={() => goClaim()}*/}
-          {/*  // target="_self"*/}
-          {/*>*/}
-          {/*  {languageModel.Airdrop}*/}
-          {/*</Link> }*/}
-          {/*Airdrop*/}
-          {/*{addressInfo.dcUserId === undefined ||*/}
-          {/*addressInfo.dcUserId === null ||*/}
-          {/*addressInfo.dcUserId === "" ||*/}
-          {/*addressInfo.sendTwitter !== 1 ? (*/}
-          {/*  <a*/}
-          {/*    className={*/}
-          {/*      styles.launchpad +*/}
-          {/*      " " +*/}
-          {/*      styles.airdropBtn +*/}
-          {/*      " " +*/}
-          {/*      styles.airdropBG*/}
-          {/*    }*/}
-          {/*    href={airdropJumpUrl}*/}
-          {/*    target="_self"*/}
-          {/*  >*/}
-          {/*    {languageModel.Airdrop}*/}
-          {/*  </a>*/}
-          {/*) : (*/}
-          {/*  <div*/}
-          {/*    className={*/}
-          {/*      "dropdown dropdown-hover" +*/}
-          {/*      " " +*/}
-          {/*      styles.launchpad +*/}
-          {/*      " " +*/}
-          {/*      styles.airdropColorBtn +*/}
-          {/*      " " +*/}
-          {/*      styles.rainbowBar*/}
-          {/*    }*/}
-          {/*  >*/}
-          {/*    <div className="flex items-end">*/}
-          {/*      <div*/}
-          {/*        tabIndex="0"*/}
-          {/*        role="button"*/}
-          {/*        className={styles.airdropColorBtn + " " + styles.headerScore}*/}
-          {/*      >*/}
-          {/*        {addressInfo.score} PTS{" "}*/}
-          {/*      </div>*/}
-          {/*      <div className="flex items-end">*/}
-          {/*        {userHavePoineerCount > 0 && (*/}
-          {/*          <span className="text-[0.5rem] ml-1"> 1.25x</span>*/}
-          {/*        )}*/}
-          {/*        {userHavePoineerCount > 0 && (*/}
-          {/*          <img className="h-2 mb-2 ml-0.3" src="/top.png" alt="" />*/}
-          {/*        )}*/}
-          {/*      </div>*/}
-          {/*    </div>*/}
-          {/*    <ul*/}
-          {/*      tabIndex="0"*/}
-          {/*      className={*/}
-          {/*        "dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"*/}
-          {/*      }*/}
-          {/*    >*/}
-          {/*      <div*/}
-          {/*        className={*/}
-          {/*          addressInfo.todayPunch === 1 ? styles.cantPunch : ""*/}
-          {/*        }*/}
-          {/*      >*/}
-          {/*        <li*/}
-          {/*          className={*/}
-          {/*            addressInfo.todayPunch === 1 ? styles.cantPunch : ""*/}
-          {/*          }*/}
-          {/*          onClick={() => handleClick(1)}*/}
-          {/*        >*/}
-          {/*          <a className={styles.airdropText}>Get Today’s Free PTS</a>*/}
-          {/*        </li>*/}
-          {/*      </div>*/}
-          {/*      <li className={styles.liStyle} onClick={() => handleClick(2)}>*/}
-          {/*        <a className={styles.airdropText}>Copy Invite Link</a>*/}
-          {/*      </li>*/}
-          {/*    </ul>*/}
-          {/*  </div>*/}
-          {/*)}*/}
-          {/*airdrop 上线后打开*/}
 
           {/*<a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad} href='https://ezswap.readme.io/reference/overview'target="_blank">API</a>*/}
           {/*<a className={styles.headerBtn + " " + styles.headerBtn + " " + styles.launchpad}>Buy/Sell Crypto</a>*/}

@@ -103,7 +103,12 @@ const LaunchpadDetail = () => {
         // enabled: false,
         onSuccess(data) {
             // console.log('getPrivateDrop: ', data)
-            setPrivateMintCount(parseInt(data[2]))
+            if (launchpadDetail. collectionName=== 'Mantera'){
+                setPrivateMintCount(1000)
+            }else {
+                setPrivateMintCount(parseInt(data[2]))
+            }
+
             // setTotalSupply(parseInt(data.maxSupply))
             // stTotalMinted(parseInt(data.totalMinted))
         },
@@ -145,7 +150,7 @@ const LaunchpadDetail = () => {
             // console.log('getMintStats: ', data)
             setTotalSupply(parseInt(data.maxSupply))
             if (launchpadDetail. collectionName=== 'Mantera'){
-                stTotalMinted(1000)
+                stTotalMinted(3000)
             }else {
                 stTotalMinted(parseInt(data.totalMinted))
             }

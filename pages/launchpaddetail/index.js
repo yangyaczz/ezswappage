@@ -357,6 +357,8 @@ const LaunchpadDetail = () => {
                 errorMsg += "MintQuantityExceedsMaxMintedPerWallet";
             } else if (err.message.indexOf("nvalid signature") > -1) {
                 errorMsg += "invalid signature";
+            } else if (err.message.indexOf("NotActive") > -1) {
+                errorMsg += "NotActive";
             }
             alertRef.current.showErrorAlert(errorMsg);
             setMintLoading(false)
@@ -371,6 +373,8 @@ const LaunchpadDetail = () => {
                     errorMsg += "MintQuantityExceedsMaxMintedPerWallet";
                 } else if (err.message.indexOf("nvalid signature") > -1) {
                     errorMsg += "invalid signature";
+                } else if (err.message.indexOf("NotActive") > -1) {
+                    errorMsg += "NotActive";
                 }
                 alertRef.current.showErrorAlert(errorMsg);
                 setMintLoading(false)
@@ -411,6 +415,8 @@ const LaunchpadDetail = () => {
                 errorMsg += "MintQuantityExceedsMaxMintedPerWallet";
             } else if (err.message.indexOf("nvalid signature") > -1) {
                 errorMsg += "invalid signature";
+            } else if (err.message.indexOf("NotActive") > -1) {
+                errorMsg += "NotActive";
             }
             alertRef.current.showErrorAlert(errorMsg);
             setMintLoading(false)
@@ -425,6 +431,8 @@ const LaunchpadDetail = () => {
                     errorMsg += "MintQuantityExceedsMaxMintedPerWallet";
                 } else if (err.message.indexOf("nvalid signature") > -1) {
                     errorMsg += "invalid signature";
+                } else if (err.message.indexOf("NotActive") > -1) {
+                    errorMsg += "NotActive";
                 }
                 alertRef.current.showErrorAlert(errorMsg);
                 setMintLoading(false)

@@ -529,7 +529,7 @@ const LaunchpadDetail = () => {
                 <div className="min-[800px]:w-[40%] max-[800px]:mt-10  max-[800px]:items-start max-[800px]:mx-10">
                     <div className="text-4xl font-bold mb-4 flex items-center max-[800px]:text-4xl">
                         {launchpadDetail.collectionName}
-                        <a className='ml-4 mt-1' href={launchpadDetail.website}><img src="/website.svg" alt=""/></a>
+                        {(launchpadDetail.website !== null && launchpadDetail.website !== '') && <a className='ml-4 mt-1' href={launchpadDetail.website}><img src="/website.svg" alt=""/></a>}
                         <a className="ml-4 mt-1" href={launchpadDetail.twitter}><img src="/Twitter.svg" alt=""/></a>
                     </div>
                     <div className="flex items-center  mb-4">

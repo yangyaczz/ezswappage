@@ -21,7 +21,7 @@ const LaunchpadItem = ({launchpadItem,step,screenWidth}) => {
                                 <button className="bg-[#00D5DA] text-white rounded-3xl px-6 py-1 text-xs font-bold">Mint</button>
                             </div>:<div></div>}
                             <div className="flex mr-6">
-                                <a href={launchpadItem.website}><img src="/website.svg" alt=""/></a>
+                                {(launchpadItem.website !== null && launchpadItem.website !== '') && <a href={launchpadItem.website}><img src="/website.svg" alt=""/></a>}
                                 <a className="ml-7 mt-1" href={launchpadItem.twitter}><img src="/Twitter.svg" alt=""/></a>
                             </div>
                         </div>

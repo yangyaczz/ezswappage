@@ -72,7 +72,7 @@ const Launchpad = () => {
                                 {/*标题上下布局*/}
                                 <div className="flex justify-center items-center">
                                     <span className="text-4xl font-bold max-[800px]:text-2xl">{topLaunchpad.collectionName}</span>
-                                    <a href={topLaunchpad.website}><img className="ml-2" src="/website.svg" alt=""/></a>
+                                    {(topLaunchpad.website !== null && topLaunchpad.website !== '') && <a href={topLaunchpad.website}><img className="ml-2" src="/website.svg" alt=""/></a>}
                                     <a href={topLaunchpad.twitter}><img className="ml-2" src="/Twitter.svg" alt=""/></a>
                                 </div>
                                 <div className="flex items-center mt-4 text-base font-bold">

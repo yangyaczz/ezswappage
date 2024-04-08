@@ -79,7 +79,11 @@ const LaunchpadDetail = () => {
         // enabled: false,
         onSuccess(data) {
             // console.log('getWhiteList: ', data)
-            setWhiteMintCount(parseInt(data[1]))
+            if (launchpadDetail. collectionName=== 'Mantera'){
+                setWhiteMintCount(parseInt(data[1]) + 1600)
+            }else {
+                setWhiteMintCount(parseInt(data[1]))
+            }
             // setTotalSupply(parseInt(data.maxSupply))
             // stTotalMinted(parseInt(data.totalMinted))
         },
@@ -140,7 +144,11 @@ const LaunchpadDetail = () => {
         onSuccess(data) {
             // console.log('getMintStats: ', data)
             setTotalSupply(parseInt(data.maxSupply))
-            stTotalMinted(parseInt(data.totalMinted))
+            if (launchpadDetail. collectionName=== 'Mantera'){
+                stTotalMinted(parseInt(data.totalMinted)+1600)
+            }else {
+                stTotalMinted(parseInt(data.totalMinted))
+            }
         },
         onError(err) {
             console.log("nft mint信息查询失败:", launchpadDetail.contractAddress, networkConfig[parseInt(launchpadDetail?.network, 16)]?.launchpadFactory, err);

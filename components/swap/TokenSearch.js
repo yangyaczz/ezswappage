@@ -67,7 +67,7 @@ const TokenSearch = ({
     <div className="form-control">
       <button
         disabled={!formikData.collection.type}
-        className={"btn justify-between w-[240px] md:w-[300px] border border-1 border-white hover:border-white " + " " + styles.buttonDisabled}
+        className={"btn justify-between w-[240px] md:w-[300px] border border-1 bg-black border-white hover:border-white " + " " + styles.buttonDisabled}
         onClick={() => document.getElementById("token_search_sell").showModal()}
       >
         <div className="flex items-center text-sm justify-start space-x-2">

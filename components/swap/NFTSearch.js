@@ -469,7 +469,7 @@ const NFTSearch = ({
   return (
     <div className="form-control ">
       <button
-        className="justify-between mb-2 text-sm text-white btn md:w-[300px] w-[240px] border border-1 border-white hover:border-white"
+        className="justify-between mb-2 text-sm text-white btn md:w-[300px] w-[240px] border border-1 border-white hover:border-white bg-black"
         onClick={() => document.getElementById("nft_search_sell").showModal()}
       >
         {formikData.collection.name

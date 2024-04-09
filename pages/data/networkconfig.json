@@ -102,6 +102,13 @@
         "launchpad1155Factory": "0x45f2d735dCC45F9293Ab99C28479d215853500f4",
         "recommendNFT": [
             {
+                "type": "ERC1155",
+                "address": "0x9426600cD72f9A70CaBe2f0f5405484dcA31cAa3",
+                "name": "Mantera",
+                "tokenId1155": "1",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/nft_pic.jpg"
+            },
+            {
                 "type": "ERC721",
                 "address": "0x1008bB9C06Ff83f9d5e744A53893baCE03092eB9",
                 "name": "Mars",

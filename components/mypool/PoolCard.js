@@ -684,7 +684,7 @@ const PoolCard = ({ item,formikData, owner, comeFrom }) => {
                 {/*    </span>*/}
                 {/*</div>*/}
             </div>
-            <div className="min-[800px]:flex min-[800px]:justify-between py-4 rounded-lg bg-base-200 ">
+            <div className="min-[800px]:flex min-[800px]:justify-between py-4 rounded-lg bg-base-200 bg-black ">
                 <div className='flex min-[800px]:flex-col max-[799px]:items-center'>
                     <span className="text-white text-sm align-baseline xl:text-base whitespace-nowrap max-[799px]:mr-4">{languageModel.CurrentPrice}</span>
                     {item.type === "1" && <span className="lg:mt-1 text-gray-500 ">{item.currentBuyPrice === undefined? `0` :` ${parseFloat(Number(item.currentBuyPrice).toFixed(5))}`}&nbsp;{item.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : item.tokenName}</span>}

@@ -1,5 +1,14 @@
 [
   {
+    "name": "Mantera",
+    "address": "0x9426600cD72f9A70CaBe2f0f5405484dcA31cAa3",
+    "type": "ERC1155",
+    "tokenId1155": "1",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/nft_pic.jpg",
+    "network": "manta",
+    "order": 0
+  },
+  {
     "name": "echo1155_test",
     "address": "0x7013cFEc3F6cEFe96A184e7f35E32ea00cefd734",
     "type": "ERC1155",

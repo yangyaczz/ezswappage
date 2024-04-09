@@ -111,7 +111,7 @@ const InputAmount = ({
     <div className="form-control">
       <button
         disabled={!formikData.collection.type}
-        className={"btn justify-between w-[240px] md:w-[300px] disabled:border disabled:border-1 border border-1 border-white hover:border-white " + " " + styles.buttonDisabled}
+        className={"btn justify-between w-[240px] md:w-[300px] disabled:border bg-black disabled:border-1 border border-1 border-white hover:border-white " + " " + styles.buttonDisabled}
         onClick={() => document.getElementById("input_sell").showModal()}
       >
         <div className="flex text-sm items-center justify-start space-x-2">

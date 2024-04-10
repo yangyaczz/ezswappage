@@ -177,7 +177,7 @@
     "tokenId1155": "",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.jpg",
     "network": "manta",
-    "order": 1
+    "order": 2
   },
   {
     "name": "Holdem Tier 2",
@@ -447,6 +447,6 @@
     "tokenId1155": "",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/marsimage.jpeg",
     "network": "manta",
-    "order": 0
+    "order": 1
   }
 ]

@@ -161,24 +161,9 @@ function Input1155Buy({ formikData, setSelectIds, setTupleEncode, setTotalGet, s
             <div><span className='mr-3 font-bold'>{languageModel.YouwanttobuyNftAmount}:</span></div>
             <div className='form-control'>
                 <div className="input-group">
-                    <button
-                        onClick={handleDecrement}
-                        className="btn btn-square border border-1 border-white hover:border-white"
-                    >
-                        -
-                    </button>
-                    <input
-                        type="text"
-                        value={value}
-                        onChange={handleChange}
-                        className={"w-20 text-center input input-bordered bg-black " + styles.inputContent}
-                    />
-                    <button
-                        onClick={handleIncrement}
-                        className="btn btn-square border border-1 border-white hover:border-white"
-                    >
-                        +
-                    </button>
+                    <button onClick={handleDecrement} className="btn-square rounded-r-none border max-[800px]:w-10  border-white border-white hover:border-white bg-black rounded-l-xl">-</button>
+                    <input type="text" value={value} onChange={handleChange} className=" max-[800px]:w-14 w-20 rounded-none text-center border-y py-[11px] border-y-white bg-black"/>
+                    <button onClick={handleIncrement} className="btn-square rounded-l-none border max-[800px]:w-10  border-white border-white hover:border-white bg-black rounded-r-xl">+</button>
                 </div>
             </div>
 

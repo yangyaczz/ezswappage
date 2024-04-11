@@ -69,7 +69,7 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount }) => {
       Date.parse(new Date()) / 1000 + 60 * 3600,
     ],
     onError(err) {
-      showErrorAlert("swap error", err);
+      showErrorAlert("Swap Error", err);
     },
   });
   const {
@@ -219,7 +219,10 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount }) => {
       }  else if (swapError.message.indexOf("insufficient balance for transfer") > -1) {
         showErrorAlert("insufficient balance for transfer");
       } else {
-        showErrorAlert("swap error");
+        if (swapError.message.indexOf("User rejected the request") === -1) {
+          showErrorAlert("Swap Error");
+          // alertRef.current.showErrorAlert("staking error"+ error.toString());
+        }
       }
     }
   }

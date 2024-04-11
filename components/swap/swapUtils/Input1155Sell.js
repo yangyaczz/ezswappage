@@ -154,24 +154,9 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
             <div><span className='mr-3 font-bold'>Sell NFT Amount ({max}):</span></div>
             <div className='form-control'>
                 <div className="input-group">
-                    <button
-                        onClick={handleDecrement}
-                        className="btn btn-square border border-1 border-white hover:border-white"
-                    >
-                        -
-                    </button>
-                    <input
-                        type="text"
-                        value={value}
-                        onChange={handleChange}
-                        className={"w-20 text-center input input-bordered " + styles.inputContent}
-                    />
-                    <button
-                        onClick={handleIncrement}
-                        className="btn btn-square border border-1 border-white hover:border-white"
-                    >
-                        +
-                    </button>
+                    <button onClick={handleDecrement} className="btn-square border rounded-r-none border-1 max-[800px]:w-10  border-white hover:border-white bg-black rounded-l-xl">-</button>
+                    <input type="text" value={value} onChange={handleChange} className="w-20 max-[800px]:w-14 text-center rounded-none border-y py-[11px] border-y-white bg-black"/>
+                    <button onClick={handleIncrement} className="btn-square border rounded-l-none border-1 max-[800px]:w-10  border-white hover:border-white bg-black rounded-r-xl">+</button>
                 </div>
             </div>
 

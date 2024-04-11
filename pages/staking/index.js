@@ -340,7 +340,7 @@ const Staking = () => {
     return (
         <div className="flex flex-col justify-center items-center text-white">
             <div className="text-6xl font-bold mt-20  max-[800px]:mt-5 max-[800px]:text-3xl">STAKE $EZSWAP</div>
-            <div className="mb-10 mt-3 font-bold text-xl">Total Staked $EZSWAP: {totalStake}</div>
+            <div className="mb-10 mt-3 font-bold text-xl">Total Staked $EZSWAP: {totalStake.toLocaleString()}</div>
             <div className="flex justify-between w-[55%] max-[800px]:w-[85%]">
                 <div className="flex max-[800px]:flex-col max-[800px]:items-center max-[800px]:justify-center border rounded-3xl overflow-hidden min-[800px]:pl-4 min-[800px]:py-5 max-[800px]:py-2 w-[26%] max-[800px]:w-[33%]">
                     <div>

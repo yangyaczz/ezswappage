@@ -18,6 +18,7 @@ const Staking = () => {
     const alertRef = useRef(null);
     const [stakeLoading, setStakeLoading] = useState(false);
     const [tokenApproval, setTokenApproval] = useState(0);
+    const [totalStake, setTotalStake] = useState(0);
 
     const {address: owner} = useAccount();
     const {chain} = useNetwork();
@@ -40,6 +41,21 @@ const Staking = () => {
         onSuccess(data) {
             console.log('balance: ', parseInt(data))
             setTokenBalance(parseInt(data) / 1e18)
+        },
+        onError(err) {
+            console.log("查询失败:", err);
+        },
+    })
+
+    const {data: tokenAmount1155aa, refetch: balanceOfRefetchbb} = useContractRead({
+        address: constAddress,
+        abi: ERC20ABI,
+        functionName: 'balanceOf',
+        args: [stakeAddress],
+        watch: true,
+        onSuccess(data) {
+            console.log('balance: ', parseInt(data))
+            setTotalStake(Math.floor(parseInt(data) / 1e18))
         },
         onError(err) {
             console.log("查询失败:", err);
@@ -323,8 +339,8 @@ const Staking = () => {
 
     return (
         <div className="flex flex-col justify-center items-center text-white">
-            <div className="text-6xl font-bold mt-20  max-[800px]:mt-5 mb-10 max-[800px]:text-3xl">STAKE $EZSWAP</div>
-
+            <div className="text-6xl font-bold mt-20  max-[800px]:mt-5 max-[800px]:text-3xl">STAKE $EZSWAP</div>
+            <div className="mb-10 mt-3 font-bold text-xl">Total Staked $EZSWAP: {totalStake}</div>
             <div className="flex justify-between w-[55%] max-[800px]:w-[85%]">
                 <div className="flex max-[800px]:flex-col max-[800px]:items-center max-[800px]:justify-center border rounded-3xl overflow-hidden min-[800px]:pl-4 min-[800px]:py-5 max-[800px]:py-2 w-[26%] max-[800px]:w-[33%]">
                     <div>

@@ -156,8 +156,8 @@ const eosevmmain = {
 //----------------------------------------------------------------------
 const { chains, publicClient } = configureChains(
   nextConfig.publicRuntimeConfig.env.API === "dev2"
-    ? [mainnet, arbitrum, mantamain, eosevmmain]
-    : [mainnet, arbitrum, mantatest, mantamain, eosevmtest, eosevmmain,goerli],
+    ? [mantamain, mainnet, arbitrum, eosevmmain]
+    : [mantamain, mainnet, arbitrum, mantatest, eosevmtest, eosevmmain,goerli],
   [publicProvider()]
 );
 

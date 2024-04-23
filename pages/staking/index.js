@@ -127,12 +127,10 @@ const Staking = () => {
         functionName: "approve",
         args: [stakeAddress, '115792089237316195423570985008687907853269984665640564039457584007913129639935'],
         onError(err) {
-            console.log('授权失败,', err)
             alertRef.current.showErrorAlert("Approve fail");
             setStakeLoading(false)
         },
         onSettled(data, error) {
-            console.log('授权成功')
             if (error) {
                 alertRef.current.showErrorAlert("Approve fail");
                 setStakeLoading(false)
@@ -165,7 +163,7 @@ const Staking = () => {
         onError(error) {
             console.log(error)
             if (error.message.indexOf("User rejected the request") === -1) {
-                alertRef.current.showErrorAlert("staking error"+ error.toString());
+                alertRef.current.showErrorAlert("staking error" + error.toString());
             }
             setStakeLoading(false)
         }
@@ -221,7 +219,7 @@ const Staking = () => {
             setStakeLoading(false)
         },
         onError(err) {
-            alertRef.current.showErrorAlert("Stake Fail");
+            alertRef.current.showErrorAlert("Stake Fail " + err.toString());
             setStakeLoading(false)
         },
     });

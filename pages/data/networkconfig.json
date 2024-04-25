@@ -416,6 +416,13 @@
             },
             {
                 "type": "ERC721",
+                "address": "0xe0ab70d4e344cdbb1461f804c66940f28aa5a854",
+                "name": "BladeGames Degen Book",
+                "tokenId1155": "",
+                "img": "https://ezonline.s3.us-west-2.amazonaws.com/DegenBook.png"
+            },
+            {
+                "type": "ERC721",
                 "address": "0x9E9FbDE7C7a83c43913BddC8779158F1368F0413",
                 "name": "Pandora",
                 "tokenId1155": "",

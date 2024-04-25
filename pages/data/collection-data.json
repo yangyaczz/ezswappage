@@ -448,5 +448,14 @@
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/marsimage.jpeg",
     "network": "manta",
     "order": 1
+  },
+  {
+    "name": "BladeGames Degen Book",
+    "address": "0xe0ab70d4e344cdbb1461f804c66940f28aa5a854",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/DegenBook.png",
+    "network": "ethmain",
+    "order": 3
   }
 ]

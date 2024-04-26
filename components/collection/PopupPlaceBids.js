@@ -238,7 +238,7 @@ const PopupPlaceBids = ({ handleApproveClick }) => {
               min={0}
               className="rounded-none bg-black w-[106px] inline pr-[26px] pl-1 outline-0 border-l-2 border-l-white text-base"
               value={bidPrice}
-              onChange={(e) => setBidPrice(parseFloat(e.target.value))}
+              onChange={(e) => setBidPrice(e.target.value)}
             />
             <Image
                 src={currencyImage?.src}

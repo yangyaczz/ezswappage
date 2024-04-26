@@ -324,7 +324,7 @@ const PopupDeposit = ({ handleApproveClick = () => {} }) => {
                 placeholder="Amount"
                 className="rounded-none	bg-black w-[106px] inline pr-[26px] pl-1 outline-0 border-l-2 border-l-white text-base"
                 value={listingPrice}
-                onChange={(e) => setListingPrice(parseFloat(e.target.value))}
+                onChange={(e) => setListingPrice(e.target.value)}
               />
               <Image
                 src={currencyImage?.src}

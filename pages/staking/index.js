@@ -182,6 +182,8 @@ const Staking = () => {
                 errorMsg += "You have an unwithdrawn amount, please withdraw and try again.";
             } else if (error.message.indexOf("Unstake balance error") > -1) {
                 errorMsg += "Unstake balance error";
+            }else {
+                errorMsg += error.message
             }
             alertRef.current.showErrorAlert(errorMsg);
         }

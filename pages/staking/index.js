@@ -36,7 +36,7 @@ const Staking = () => {
         address: constAddress,
         abi: ERC20ABI,
         functionName: 'balanceOf',
-        args: ['0x204C75a4657779B9342cAf57B845E790d66D4542'],
+        args: [owner],
         watch: true,
         onSuccess(data) {
             console.log('balance: ', parseInt(data))
@@ -66,7 +66,7 @@ const Staking = () => {
         address: stakeAddress,
         abi: stakeAbi,
         functionName: 'stakes',
-        args: ['0x204C75a4657779B9342cAf57B845E790d66D4542'],
+        args: [owner],
         watch: true,
         onSuccess(data) {
             console.log('setTokenStake: ', data)
@@ -81,7 +81,7 @@ const Staking = () => {
         address: stakeAddress,
         abi: stakeAbi,
         functionName: 'getAvailableWithdrawAmount',
-        args: ['0x204C75a4657779B9342cAf57B845E790d66D4542'],
+        args: [owner],
         watch: true,
         onSuccess(data) {
             console.log('getTotalUnstakedAmount: ', data)
@@ -96,7 +96,7 @@ const Staking = () => {
         address: stakeAddress,
         abi: stakeAbi,
         functionName: 'getUnwithdrawableUnstakedAmount',
-        args: ['0x204C75a4657779B9342cAf57B845E790d66D4542'],
+        args: [owner],
         watch: true,
         onSuccess(data) {
             console.log('getTotalUnstakedAmount: ', data)
@@ -111,7 +111,7 @@ const Staking = () => {
         address: constAddress,
         abi: ERC20ABI,
         functionName: "allowance",
-        args: ['0x204C75a4657779B9342cAf57B845E790d66D4542', stakeAddress],
+        args: [owner, stakeAddress],
         watch: true,
         onSuccess(data) {
             console.log('授权结果', data)
@@ -182,7 +182,7 @@ const Staking = () => {
                 errorMsg += "You have an unwithdrawn amount, please withdraw and try again.";
             } else if (error.message.indexOf("Unstake balance error") > -1) {
                 errorMsg += "Unstake balance error";
-            } else {
+            }else {
                 errorMsg += error.message
             }
             alertRef.current.showErrorAlert(errorMsg);

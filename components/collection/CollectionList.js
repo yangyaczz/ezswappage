@@ -63,7 +63,6 @@ const CollectionList = () => {
 function arrangeCollectionsByTradingPair() {
     setIsLoading(() => true);
 
-
     let colByPair = [];
     const fetchPromises = collections
       .filter((collection) => collection.network === chainConfig.networkName)
@@ -83,7 +82,7 @@ function arrangeCollectionsByTradingPair() {
             )) {
               colByPair.push({
                 ...collection,
-                id: `${collection.address}-${currencyAddress}-${collection.tokenId1155}`,
+                id: `${collection.address}/${currencyAddress}/${collection.tokenId1155}`,
                 pools: pools,
                 tradingCurrencyAddr: currencyAddress,
                 tradingCurrencyName:
@@ -100,7 +99,7 @@ function arrangeCollectionsByTradingPair() {
             //no pools found for this collection, still show collections but just only static data (default values to 0) and not filtered
             colByPair.push({
               ...collection,
-              id: `${collection.address}-${collection.tokenId1155}`,
+              id: `${collection.address}/${collection.tokenId1155}`,
               pools: [],
               tradingCurrencyAddr: null,
               tradingCurrencyName: null,

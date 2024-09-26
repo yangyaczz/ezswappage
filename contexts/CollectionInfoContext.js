@@ -135,6 +135,7 @@ function CollectionInfoProvider({ children }) {
   }
 
   async function updateContentType(contentType) {
+    console.log('contentType',contentType)
     dispatch({
       type: "colInfo/updateContentType",
       payload: contentType,
@@ -171,6 +172,7 @@ function CollectionInfoProvider({ children }) {
 }
 
 function useCollectionInfo() {
+  console.log('fffff')
   const context = useContext(CollectionInfoContext);
   if (context === undefined)
     throw new Error("CollectionInfo Context is outside of Provider");

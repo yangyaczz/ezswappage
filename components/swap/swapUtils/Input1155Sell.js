@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { BuyPoolLiner, TradePoolLiner, BuyPoolExp, TradePoolExp } from '../../utils/calculate'
 import { ethers } from 'ethers';
+import { useLanguage } from '@/contexts/LanguageContext';
+import styles from "./index.module.scss";
 
 function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, setIsExceeded }) {
 
-    const [value, setValue] = useState(1);
+    const [value, setValue] = useState(0);
     const tId = formikData.collection.tokenId1155
-    const max = formikData.userCollection.tokenAmount1155
-
+    const max = formikData.userCollection.tokenAmount1155 === undefined ? 0 : formikData.userCollection.tokenAmount1155
+    console.log(tId, max)
+    const {languageModel} = useLanguage()
     const update1155SellToPairs = (tokenId, pairs) => {
-        let protocolFee = 5000000000000000   // 0.5%  get from smartcontract
+        let protocolFee = 10000000000000000   // 0.5%  get from smartcontract
         let dec = 1e18
         let maxPrice = 0
         let maxPriceIndex = -1
@@ -37,7 +40,7 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
                 pair.ifUserAddGetPrice = res.userSellPrice
 
                 // get maxPrice pool
-                if (pair.tokenBalance / dec >= res.poolBuyPrice) {
+                if (pair.tokenBalance / dec * 0.999>= res.poolBuyPrice) {
                     const currentPrice = res.currentUintSellPrice
                     if (currentPrice > maxPrice) {
                         maxPrice = currentPrice
@@ -58,7 +61,7 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
                     [tokenId],
                     [pairs[maxPriceIndex].tokenIds.length]
                 ],
-                ethers.utils.parseEther(pairs[maxPriceIndex].userGetPrice.toString()).mul(ethers.BigNumber.from('100')).div(ethers.BigNumber.from('100'))
+                ethers.utils.parseEther(pairs[maxPriceIndex].userGetPrice.toString()).mul(ethers.BigNumber.from('995')).div(ethers.BigNumber.from('1000'))
             ]
         } else {
             console.log('nft execced amount')
@@ -68,7 +71,9 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
 
 
     const toggleSelected = (id, length) => {
-
+        if (Number.isNaN(length)) {
+            return
+        }
         let newSids = new Array(length).fill(id)
         setSelectIds(newSids)
 
@@ -91,6 +96,8 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
                 IdsAmount += pair.tokenIds.length
             }
         })
+
+        totalGet = Number(totalGet.toFixed(10));
 
         setTupleEncode(tupleEncode)
         setTotalGet(totalGet)
@@ -121,6 +128,7 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
 
 
     const handleIncrement = () => {
+        // 不能超过用户的自己NFT的数量
         setValue(prev => Math.min(prev + 1, max))
     };
 
@@ -136,34 +144,19 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
 
 
     //////////////////////////////////////////////////////////////////////////////
-    if (formikData.userCollection.tokenAmount1155 === 0) {
-        return <div>{`you don't have this nft`}</div>
+    if (formikData.userCollection.tokenAmount1155 === undefined || formikData.userCollection.tokenAmount1155 === 0) {
+        return <div>{languageModel.YouDontHaveThisNFT}</div>
     }
 
 
     return (
-        <div className='flex items-center p-5 space-x-4'>
-            <div>you want to sell nft amount :</div>
+        <div className='flex items-center justify-center space-x-4 justify-between'>
+            <div><span className='mr-3 font-bold'>Sell NFT Amount ({max}):</span></div>
             <div className='form-control'>
                 <div className="input-group">
-                    <button
-                        onClick={handleDecrement}
-                        className="btn btn-square"
-                    >
-                        -
-                    </button>
-                    <input
-                        type="text"
-                        value={value}
-                        onChange={handleChange}
-                        className="input input-bordered w-20 text-center"
-                    />
-                    <button
-                        onClick={handleIncrement}
-                        className="btn btn-square"
-                    >
-                        +
-                    </button>
+                    <button onClick={handleDecrement} className="btn-square border rounded-r-none border-1 max-[800px]:w-10  border-white hover:border-white bg-black rounded-l-xl">-</button>
+                    <input type="text" value={value} onChange={handleChange} className="w-20 max-[800px]:w-14 text-center rounded-none border-y py-[11px] border-y-white bg-black"/>
+                    <button onClick={handleIncrement} className="btn-square border rounded-l-none border-1 max-[800px]:w-10  border-white hover:border-white bg-black rounded-r-xl">+</button>
                 </div>
             </div>
 

@@ -2,15 +2,29 @@ $primaryColor: #2ed1d8;
 $header-height: 126px;
 $higher-header-height: 380px;
 $searching-height: 640px;
+
+.liStyle{
+  font-family: 'Montserrat-Variable', sans-serif;
+}
+
+@media (max-width:640px) {
+  .wrapNewHeader{
+    height:80px;
+  }
+}
+@media (min-width:640px) {
+  .wrapNewHeader{
+    height:$header-height
+  }
+}
 .wrapNewHeader {
   transition: all 0.5s;
-  height: $header-height;
   color: $primaryColor;
-  width: 100%;
+  // max-width: 100%;
   // position: fixed;
   left: 0;
   top: 0;
-  z-index: 999;
+  z-index: 40;
   background: rgba(0, 0, 0, 255);
   //background: rgba(0, 0, 0, 0.4);
   .header-line {
@@ -21,14 +35,47 @@ $searching-height: 640px;
   .headerBtn {
     border: 0;
     background: none;
-    font-family: "Inter";
+    //font-family: "Inter";
     //    text-transform: uppercase;
     color: $primaryColor;
     font-weight: bold;
     position: relative;
     outline: none;
-    padding: 10px 20px;
+    @media (max-width:1450px) {
+      padding: 10px 10px;
+    }
+    @media (min-width:1451px) {
+      padding: 10px 20px;
+    }
+
+
     box-sizing: border-box;
+  }
+  .airdropBtn {
+    height: 30px;
+    min-width: 120px;
+    //font-family: "Inter";
+    //    text-transform: uppercase;
+    font-weight: bold;
+    position: relative;
+    outline: none;
+    //padding: 10px 20px;
+    box-sizing: border-box;
+    //border: 1px solid;
+    // padding-right: 75px;
+    margin-left:10px;
+    //border-radius:40px;
+    border-image-source:linear-gradient(180deg, #1400FF 0%, #B500F4 47.92%, #E3CF18 69.99%, #F70000 100%);
+    background-image: linear-gradient(180deg, #1400FF 0%, #B500F4 47.92%, #E3CF18 69.99%, #F70000 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  .airdropBG{
+    background: url("/airdropButton.svg") no-repeat;
+  }
+  .claimAirdropBG{
+    background: url("/claimButton.svg") no-repeat;
   }
 
   .headerBtn::before,
@@ -39,6 +86,12 @@ $searching-height: 640px;
     border: 2px solid transparent;
     width: 0;
     height: 0;
+  }
+
+  .dropStyle{
+    //margin-top: 120px;
+    //margin-left: 70px;
+    //width: 500px;
   }
 
   .headerBtn::after {
@@ -72,8 +125,16 @@ $searching-height: 640px;
 
   .headerLeft {
     flex-grow: 1;
-    padding-left: 240px;
+    @media (max-width:1450px) {
+      margin-left: 140px;
+    }
+    @media (min-width:1451px) {
+      margin-left:200px;
+    }
+
     display: flex;
+    align-items: center;
+    //align-items: center;
 
     .searchBtn {
       cursor: pointer;
@@ -84,19 +145,19 @@ $searching-height: 640px;
     }
 
     .launchpad {
-      margin-left: 20px;
       cursor: pointer;
-
-      //width: 130px;
+      // min-width: 130px;
+      // width: 130px;
     }
   }
 
   .headerRight {
     display: flex;
     margin-right: 30px;
+    align-items: center;
+    gap:2rem;
 
     .rightBtn {
-      margin-right: 60px;
       cursor: pointer;
       border: 1px solid transparent;
       transition: all 0.5s;
@@ -112,7 +173,7 @@ $searching-height: 640px;
 
   .headerBox {
     height: $header-height;
-    display: flex;
+    // display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
@@ -121,11 +182,10 @@ $searching-height: 640px;
     .ezLogo {
       position: absolute;
       left: 40px;
-      top: 38px;
+      //top: 38px;
       cursor: pointer;
-
       img {
-        width: 140px;
+        width: 105px;
       }
     }
 
@@ -138,4 +198,60 @@ $searching-height: 640px;
       // background: transparent;
     }
   }
+  .rainbowBar{
+    background-image: url("/rainbowBar.svg");
+    width: 100px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    background-size: 100% 100%;
+    align-items: center;
+
+  }
+  .airdropColorBtn{
+    font-family: 'Montserrat-Variable', sans-serif;
+    background-color:transparent;
+    border-radius: 40px;
+    //margin-top: 5px;
+    &:hover {
+      background-color:transparent;
+    }
+    &:active {
+      color: rgb(240, 248, 255);
+      background-color:transparent;
+      border-color: rgb(148, 197, 238);
+    }
+  }
+  .headerScore {
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(180deg, #1400FF 0%, #B500F4 47.92%, #E3CF18 85.99%, #F70000 100%);
+    font-family: 'Montserrat-Variable', sans-serif;
+  }
+  .alertPosition{
+    position: fixed;
+    top: 134px;
+    right: 20px;
+    z-index: 999;
+  }
+  .getScore {
+    padding-left: 10px;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(180deg, #1400FF 0%, #B500F4 47.92%, #E3CF18 69.99%, #F70000 100%);
+  }
+  .cantPunch{
+    color: grey;
+    &:hover {
+      cursor:not-allowed!important;
+    }
+  }
+  .airdropText{
+    font-family: 'Montserrat-Variable', sans-serif;
+  }
+}
+
+
+.hamburgerMenuItem{
+
 }

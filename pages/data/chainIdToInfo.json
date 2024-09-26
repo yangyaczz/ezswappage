@@ -1,0 +1,23 @@
+{
+    "3441005": {
+        "networkName": "mantatest"
+    },
+    "169": {
+        "networkName": "MANTA"
+    },
+    "15557": {
+        "networkName": "eostest"
+    },
+    "17777": {
+        "networkName": "EOS"
+    },
+    "1": {
+        "networkName": "ETH"
+    },
+    "42161": {
+        "networkName": "ARB"
+    },
+    "137": {
+        "networkName": "MATIC"
+    }
+}

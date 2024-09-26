@@ -32,13 +32,15 @@
   margin-right: 10px;
 }
 .swapButton{
-  background: #28B7BC;
+  background: #00D5DA;
   color: #000000;
+  border-radius: 20px;
 }
 
 .swapButton:hover{
-  background: #28B7BC;
-  color: #000000;
+  background: #00D5DA !important;
+  color: #000000 !important;;
+  border-radius: 20px;
 }
 .optionStyle{
   display: flex;
@@ -61,8 +63,12 @@
 .alertPadding{
   padding: 10px 16px;
 }
+.modalSize{
+  max-width:48rem
+}
 
 .buttonDisabled:disabled {
+  border: 1px solid;
   pointer-events: auto!important;
   cursor: not-allowed!important;
   --tw-border-opacity: 0;
@@ -74,5 +80,15 @@
 
 .itemSelect{
   background: #28B7BC3B;
-
 }
+.buttonStyle{
+  background-color: #00D5DA;
+  color: black;
+  border: 0px;
+}
+.buttonStyle:hover{
+  background-color: #00D5DA;
+  color: black;
+  border: 0px;
+}
+

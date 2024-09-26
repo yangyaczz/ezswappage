@@ -12,6 +12,12 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "ezonline.s3.us-west-2.amazonaws.com",
+      },{
+        protocol: "https",
+        hostname: "data.skytest.club",
+      },{
+        protocol: "https",
+        hostname: "asmatch-resources.s3-accelerate.amazonaws.com",
       },
     ],
   },

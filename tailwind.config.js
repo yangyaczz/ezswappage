@@ -6,7 +6,9 @@ module.exports = {
         "4-auto": "repeat(4,minmax(0,auto))",
         "2-auto": "repeat(2,minmax(0,auto))",
         "7-3": "7fr 3fr",
+        "7-2": "7fr 2fr",
         "2-1": "2fr 1fr",
+        "3-1": "3fr 1fr",
       },
       gridTemplateRows: {
         "2-auto": "repeat(2,minmax(0,auto))",

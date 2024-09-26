@@ -61,9 +61,59 @@ const CollectionList = () => {
         }
         arrangeCollectionsByTradingPair();
 
+// <<<<<<< HEAD
 
         function arrangeCollectionsByTradingPair() {
             setIsLoading(() => true);
+// =======
+//     let colByPair = [];
+//     const fetchPromises = collections
+//       .filter((collection) => collection.network === chainConfig.networkName)
+//       .map((collection) =>
+//         queryPoolsOfEachCollection(
+//           collection.address,
+//           collection.network,
+//           collection.type,
+//           collection.tokenId1155
+//         ).then((eachCollectionPools) => {
+//           //if there are pools found, sort the collections by trading pairs and show dynamic data
+//           if (eachCollectionPools?.length > 0) {
+//             let colByCurrency =
+//               filterCollectionsByTradingPair(eachCollectionPools);
+//             for (let [currencyAddress, pools] of Object.entries(
+//               colByCurrency
+//             )) {
+//               colByPair.push({
+//                 ...collection,
+//                 id: `${collection.address}/${currencyAddress}/${collection.tokenId1155}`,
+//                 pools: pools,
+//                 tradingCurrencyAddr: currencyAddress,
+//                 tradingCurrencyName:
+//                   addressSymbol[chainConfig?.hex]?.[currencyAddress] ||
+//                   "(UNKNOWN)",
+//                 currencyImage: addressIcon[chainConfig?.hex]?.[
+//                   currencyAddress
+//                 ] || { label: "(UNKNOWN)", src: "/unknown.png" },
+//                 chainId: chainConfig?.hex,
+//                 order:collection.order
+//               });
+//             }
+//           } else {
+//             //no pools found for this collection, still show collections but just only static data (default values to 0) and not filtered
+//             colByPair.push({
+//               ...collection,
+//               id: `${collection.address}/${collection.tokenId1155}`,
+//               pools: [],
+//               tradingCurrencyAddr: null,
+//               tradingCurrencyName: null,
+//               currencyImage: addressIcon[chainConfig?.hex]?.['0x0000000000000000000000000000000000000000'] || { label: "(UNKNOWN)", src: "/unknown.png" },
+//               chainId: chainConfig?.hex,
+//               order:collection.order
+//             });
+//           }
+//         })
+//       );
+// >>>>>>> colv2
 
 
             let colByPair = [];

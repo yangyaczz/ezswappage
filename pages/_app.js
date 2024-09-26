@@ -14,7 +14,8 @@ import {
   rainbowWallet,
   walletConnectWallet,
   coinbaseWallet,
-  tokenPocketWallet, okxWallet
+  tokenPocketWallet,
+  okxWallet,
 } from "@rainbow-me/rainbowkit/wallets";
 import NavBar from "@/components/bar/NavBar";
 import { CollectionProvider } from "@/contexts/CollectionContext";
@@ -24,6 +25,7 @@ import { Wallet } from "ethers";
 import { LanguageProvider } from "@/contexts/LanguageContext.js";
 import { mainnet, arbitrum, polygon,goerli } from "wagmi/chains";
 import Footer from "../components/footer/Footer";
+import { CollectionInfoProvider } from "@/contexts/CollectionInfoContext.js";
 require("dotenv").config();
 
 const mantatest = {
@@ -31,7 +33,7 @@ const mantatest = {
   name: "Manta Testnet",
   network: "Manta Testnet",
   iconBackground: "#008000",
-  iconUrl:"/manta.jpg",
+  iconUrl: "/manta.jpg",
   nativeCurrency: {
     decimals: 18,
     name: "ETH",
@@ -59,7 +61,7 @@ const mantamain = {
   name: "Manta Pacific",
   network: "Manta Pacific",
   iconBackground: "#008000",
-  iconUrl:"/manta.jpg",
+  iconUrl: "/manta.jpg",
   nativeCurrency: {
     decimals: 18,
     name: "ETH",
@@ -87,7 +89,7 @@ const eosevmtest = {
   name: "EOS EVM Testnet",
   network: "EOS EVM Testnet",
   iconBackground: "#008000",
-  iconUrl:"/eos_chain.jpg",
+  iconUrl: "/eos_chain.jpg",
   nativeCurrency: {
     decimals: 18,
     name: "EOS",
@@ -111,7 +113,7 @@ const eosevmmain = {
   name: "EOS EVM",
   network: "EOS EVM",
   iconBackground: "#008000",
-  iconUrl:"/eos_chain.jpg",
+  iconUrl: "/eos_chain.jpg",
   nativeCurrency: {
     decimals: 18,
     name: "EOS",
@@ -129,7 +131,6 @@ const eosevmmain = {
   },
   testnet: false,
 };
-
 
 //  [mantatest, mantamain, eosevmtest, eosevmmain],
 
@@ -168,9 +169,8 @@ const { chains, publicClient } = configureChains(
 //   [publicProvider()]
 // );
 
-// console.log(process.env.NEXT_PUBLIC_WALLETCONNECT_ID)
 // const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_ID;
-const projectId = '5a003a01c2453d55c2475817334d9993';
+const projectId = "5a003a01c2453d55c2475817334d9993";
 
 const connectors = connectorsForWallets([
   {
@@ -180,7 +180,7 @@ const connectors = connectorsForWallets([
       injectedWallet({ projectId, chains }),
       metaMaskWallet({ projectId, chains }),
       bitgetWallet({ projectId, chains }),
-      tokenPocketWallet({projectId,chains}),
+      tokenPocketWallet({ projectId, chains }),
       walletConnectWallet({ projectId, chains }),
     ],
   },
@@ -200,7 +200,9 @@ export default function App({ Component, pageProps }) {
           <div className="grid h-full grid-rows-[80px,auto] sm:grid-rows-[126px,auto] auto-cols-auto">
             <NavBar></NavBar>
             <CollectionProvider>
-              <Component {...pageProps} />
+              <CollectionInfoProvider>
+                <Component {...pageProps} />
+              </CollectionInfoProvider>
             </CollectionProvider>
             <Footer></Footer>
           </div>

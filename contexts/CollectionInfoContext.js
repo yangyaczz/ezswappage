@@ -25,8 +25,15 @@ const initialState = {
   routerParams: {},
   colInfo,
   actionType: "ADD_LIQUIDITY",
-  contentType: "ACTIVITY",
+  contentType: "BUY",
   tradeActivities: [],
+
+  selectedNftTokenIds: [],
+  nftTokenId2PriceMap: {},
+  // tupleEncode: [],
+  // totalGet: undefined,
+  // isExceeded:false
+  swapButtonFormikData: { isExceeded: false, tupleEncode: [], totalGet: undefined, collection: { type: '', address: '' }, golbalParams: { router: '' }, selectIds: [] },
 };
 
 function reducer(state, action) {
@@ -60,6 +67,31 @@ function reducer(state, action) {
         ...state,
         tradeActivities: action.payload,
       };
+    case "colInfo/updateSelectedNftToenIds":
+      return {
+        ...state,
+        selectedNftTokenIds: action.payload,
+      };
+    case "colInfo/updateNftToenId2PriceMap":
+      return {
+        ...state,
+        nftTokenId2PriceMap: action.payload,
+      };
+    case "colInfo/updateTupleEncode":
+      return {
+        ...state,
+        tupleEncode: action.payload,
+      };
+    case "colInfo/updateTotalGet":
+      return {
+        ...state,
+        totalGet: action.payload,
+      };
+    case "colInfo/updateSwapButtonFormikData":
+      return {
+        ...state,
+        swapButtonFormikData: action.payload,
+      };
     default:
       throw new Error("Collection action type not valid");
   }
@@ -75,6 +107,11 @@ function CollectionInfoProvider({ children }) {
       actionType,
       contentType,
       tradeActivities,
+      selectedNftTokenIds,
+      nftTokenId2PriceMap,
+      // totalGet,
+      // tupleEncode,
+      swapButtonFormikData
     },
     dispatch,
   ] = useReducer(reducer, initialState);
@@ -135,7 +172,7 @@ function CollectionInfoProvider({ children }) {
   }
 
   async function updateContentType(contentType) {
-    console.log('contentType',contentType)
+    console.log('contentType', contentType)
     dispatch({
       type: "colInfo/updateContentType",
       payload: contentType,
@@ -149,6 +186,34 @@ function CollectionInfoProvider({ children }) {
     });
   }
 
+  async function updateSelectedNftToenIds(nftTokenIds) {
+    dispatch({
+      type: "colInfo/updateSelectedNftToenIds",
+      payload: nftTokenIds,
+    });
+  }
+  async function updateNftToenId2PriceMap(nftTokenId2PriceMap) {
+    dispatch({
+      type: "colInfo/updateNftToenId2PriceMap",
+      payload: nftTokenId2PriceMap,
+    });
+  }
+
+  // async function updateTupleEncode(tupleEncode) {
+  //   dispatch({
+  //     type: "colInfo/updateTupleEncode",
+  //     payload: tupleEncode,
+  //   });
+  // }
+
+  async function updateSwapButtonFormikData(data) {
+    dispatch({
+      type: "colInfo/updateSwapButtonFormikData",
+      payload: data,
+    });
+  }
+
+
   return (
     <CollectionInfoContext.Provider
       value={{
@@ -159,11 +224,17 @@ function CollectionInfoProvider({ children }) {
         actionType,
         contentType,
         tradeActivities,
+        selectedNftTokenIds,
+        nftTokenId2PriceMap,
+        swapButtonFormikData,
         loadColInfo,
         updateContentType,
         updateActionType,
         updateTradeActivities,
+        updateSelectedNftToenIds,
+        updateNftToenId2PriceMap,
         updateRouterParams,
+        updateSwapButtonFormikData
       }}
     >
       {children}
@@ -172,7 +243,6 @@ function CollectionInfoProvider({ children }) {
 }
 
 function useCollectionInfo() {
-  console.log('fffff')
   const context = useContext(CollectionInfoContext);
   if (context === undefined)
     throw new Error("CollectionInfo Context is outside of Provider");

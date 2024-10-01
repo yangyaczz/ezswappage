@@ -14,6 +14,7 @@ import ContentBar from "@/components/collectioninfo/ContentBar";
 import ContentSection from "@/components/collectioninfo/ContentSection";
 import collections from "@/pages/data/collection-data";
 import calculatePoolAllInfo from "@/components/utils/calculatePoolInfo";
+import ContentBuyCart from "@/components/collectioninfo/ContentBuyCart";
 import { useParams } from "next/navigation";
 
 const ETH_ADDRESS = "0x0000000000000000000000000000000000000000";
@@ -84,7 +85,7 @@ const CollectionInfo = () => {
 
         //just to format the prices to  2 decimals. But no decimal if equals to 0.
         //prettier-ignore
-        bestUserBuyPrice = parseFloat((bestUserBuyPrice*SLIPPING_RATE).toFixed(6)).toFixed(MaxFiveDecimal(bestUserBuyPrice*SLIPPING_RATE));
+        bestUserBuyPrice = parseFloat((bestUserBuyPrice * SLIPPING_RATE).toFixed(6)).toFixed(MaxFiveDecimal(bestUserBuyPrice * SLIPPING_RATE));
         //prettier-ignore
         bestUserSellPrice = bestUserSellPrice?.toFixed(MaxFiveDecimal(bestUserSellPrice));
         //prettier-ignore
@@ -178,12 +179,17 @@ const CollectionInfo = () => {
   }
 
   return (
-    <div className="flex flex-col items-stretch justify-start w-full h-full gap-8 px-10 py-6">
-      <CollectionInfoHeader />
-      <ActionBar />
-      <ContentBar />
-      <ContentSection />
+    <div className="flex">
+      <div className="flex flex-col items-stretch justify-start w-full h-full gap-8 px-10 py-6">
+        <CollectionInfoHeader />
+        <ActionBar />
+        <ContentBar />
+        <ContentSection />
+
+      </div>
+      <ContentBuyCart />
     </div>
+
   );
 };
 

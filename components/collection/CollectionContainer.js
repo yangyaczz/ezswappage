@@ -100,7 +100,7 @@ const CollectionContainer = ({ collection }) => {
     */
 
     <div
-      className="w-11/12 max-w-[1240px] border-[1px] border-solid border-zinc-100 rounded-md 
+      className="w-11/12 max-w-[1240px] border-[1px] border-solid border-zinc-100 rounded-md
     grid content-center
     min-h-1/2 sm:sm-h-1/6
     md:gap-x-3 gap-y-8 md:gap-y-4 p-3 xl:p-6 grid-cols-[5fr,1fr] sm:grid-cols-[7fr,1fr] md:grid-cols-[20fr,1fr] grid-rows-1"
@@ -126,12 +126,12 @@ const CollectionContainer = ({ collection }) => {
         </button>
       </div>
       {/* <Rewards COLLECTION_PIC_SIZE={COLLECTION_PIC_SIZE} network={network} /> */}
-      {/* <PoolTab
+      <PoolTab
         contractAddress={address}
         tokenId={tokenId1155}
         currencyImage={currencyImage}
-      /> */}
-      {/* <ButtonGroup
+      />
+      <ButtonGroup
         collectionName={name}
         img={img}
         contractAddress={address}
@@ -154,7 +154,7 @@ const CollectionContainer = ({ collection }) => {
         tokenId1155={tokenId1155}
         floorPrice={floorPrice}
         topBid={topBid}
-      /> */}
+      />
     </div>
   );
 };

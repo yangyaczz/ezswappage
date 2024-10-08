@@ -306,7 +306,7 @@ const ContentBuy = ({ }) => {
     // updateTupleEncode(tupleEncode);
     // updateTotalGet(totalGet);
 
-    updateSwapButtonFormikData({ isExceeded: false, tupleEncode: tupleEncode, totalGet: totalGet, collection: { type: colInfo.type, address: colInfo.address }, golbalParams: { router: golbalParams.router }, selectIds: newSids })
+    updateSwapButtonFormikData({ swapType: 'buy', isExceeded: false, tupleEncode: tupleEncode, totalGet: totalGet, collection: { type: colInfo.type, address: colInfo.address }, golbalParams: { router: golbalParams.router }, selectIds: newSids })
 
 
     ///////////////////////////////////////////////////////////////

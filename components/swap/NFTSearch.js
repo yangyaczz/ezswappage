@@ -423,7 +423,6 @@ const NFTSearch = ({
     args: [owner],
     watch: false,
     onSuccess(data) {
-      debugger
       const num = data.map((item) => Number(item));
       setUserCollection({
         tokenIds721: num,

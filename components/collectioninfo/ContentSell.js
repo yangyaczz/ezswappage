@@ -323,7 +323,7 @@ const ContentBuy = ({ }) => {
     totalGet = Number(totalGet.toFixed(10));
     console.log('totalGet', totalGet)
 
-    updateSwapButtonFormikData({ isExceeded: false, tupleEncode: tupleEncode, totalGet: totalGet, collection: { type: colInfo.type, address: colInfo.address }, golbalParams: { router: golbalParams.router }, selectIds: newSids })
+    updateSwapButtonFormikData({ swapType: 'sell', isExceeded: false, tupleEncode: tupleEncode, totalGet: totalGet, collection: { type: colInfo.type, address: colInfo.address }, golbalParams: { router: golbalParams.router }, selectIds: newSids })
 
     // setTupleEncode(tupleEncode);
     // setTotalGet(totalGet);

@@ -79,7 +79,7 @@ const ContentBuyCart = () => {
         }
         {selectedNftTokenIds.length > 0 &&
           <SwapButton
-            swapType={'buy'}
+            swapType={swapButtonFormikData.swapType}
             btnStyle={'btn w-[260px]'}
             boxStyle={'mt-5'}
             formikData={swapButtonFormikData}

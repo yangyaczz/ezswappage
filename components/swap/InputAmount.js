@@ -17,7 +17,7 @@ const InputAmount = ({
   setIsExceeded,
   setIsBanSelect,
 }) => {
-  const {languageModel} = useLanguage();
+  const { languageModel } = useLanguage();
   const displayFrame = () => {
     if (!formikData.selectIds.length) {
       return <div>{languageModel.selectItem}</div>;
@@ -95,15 +95,15 @@ const InputAmount = ({
     }
 
     if (formikData.collection.type == "ERC1155") {
-        return (
-            <Input1155Buy
-                formikData={formikData}
-                setSelectIds={setSelectIds}
-                setTotalGet={setTotalGet}
-                setTupleEncode={setTupleEncode}
-                setIsExceeded={setIsExceeded}
-            />
-        )
+      return (
+        <Input1155Buy
+          formikData={formikData}
+          setSelectIds={setSelectIds}
+          setTotalGet={setTotalGet}
+          setTupleEncode={setTupleEncode}
+          setIsExceeded={setIsExceeded}
+        />
+      )
     }
   };
 

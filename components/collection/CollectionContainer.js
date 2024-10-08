@@ -22,7 +22,7 @@ import { useRouter } from "next/router";
 
 const CollectionContainer = ({ collection }) => {
   //prettier-ignore
-  const { id, name, address, type,tokenId1155, img, pools, tradingCurrencyName, tradingCurrencyAddr, currencyImage,chainId} = collection;
+  const { id, name, address, type, tokenId1155, img, pools, tradingCurrencyName, tradingCurrencyAddr, currencyImage, chainId } = collection;
   const [floorPrice, setFloorPrice] = useState(0);
   const [topBid, setTopBid] = useState(0);
   const [nftAmount, setNFTAmount] = useState(0);
@@ -46,7 +46,7 @@ const CollectionContainer = ({ collection }) => {
 
       //just to format the prices to  2 decimals. But no decimal if equals to 0.
       //prettier-ignore
-      bestUserBuyPrice = parseFloat((bestUserBuyPrice*SLIPPING_RATE).toFixed(6)).toFixed(MaxFiveDecimal(bestUserBuyPrice*SLIPPING_RATE));
+      bestUserBuyPrice = parseFloat((bestUserBuyPrice * SLIPPING_RATE).toFixed(6)).toFixed(MaxFiveDecimal(bestUserBuyPrice * SLIPPING_RATE));
       //prettier-ignore
       bestUserSellPrice = bestUserSellPrice?.toFixed(MaxFiveDecimal(bestUserSellPrice));
       //prettier-ignore
@@ -84,7 +84,7 @@ const CollectionContainer = ({ collection }) => {
     //using 2 layers of dynamic routing here collection/[address]/[currency]
     //the tokenId1155 parameter is optional. having it means it is 1155, else 721
     router.push({
-      pathname:`/collection/${address}${tokenId1155 ? "/"+tokenId1155 : ""}`
+      pathname: `/collection/${address}${tokenId1155 ? "/" + tokenId1155 : ""}`
     })
   }
 
@@ -121,16 +121,23 @@ const CollectionContainer = ({ collection }) => {
         currencyImage={currencyImage}
       />
       <div className="flex items-center justify-center">
-        <button onClick={handleRedirect}>
-          <FontAwesomeIcon icon={faChevronRight} size="xl" />
-        </button>
+        <div className="flex items-center justify-center">
+          <PoolTab
+            contractAddress={address}
+            tokenId={tokenId1155}
+            currencyImage={currencyImage}
+          />
+          <button onClick={handleRedirect} className="p-5 ">
+            <FontAwesomeIcon icon={faChevronRight} size="xl" />
+          </button>
+        </div>
       </div>
       {/* <Rewards COLLECTION_PIC_SIZE={COLLECTION_PIC_SIZE} network={network} /> */}
-      <PoolTab
+      {/* <PoolTab
         contractAddress={address}
         tokenId={tokenId1155}
         currencyImage={currencyImage}
-      />
+      /> */}
       <ButtonGroup
         collectionName={name}
         img={img}

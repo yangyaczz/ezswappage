@@ -9,7 +9,7 @@ import { ethers } from "ethers";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 // todo 404要改
-const erc404Name = ['M404', 'mtest','Mars']
+const erc404Name = ['M404', 'mtest', 'Mars']
 
 const Input721Sell = ({
   formikData,
@@ -25,7 +25,7 @@ const Input721Sell = ({
     let dec = 1e18;
     let maxPrice = 0;
     let maxPriceIndex = -1;
-
+ 
     // get pool buy price
     pairs.forEach((pair, index) => {
       let res;
@@ -176,7 +176,6 @@ const Input721Sell = ({
   }, [formikData.token]);
 
   const initialSquares = formikData.userCollection.tokenIds721;
-
   if (!initialSquares.length) {
     return <div>{languageModel.YouDontHaveThisNFT}</div>;
   }

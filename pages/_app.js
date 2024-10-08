@@ -23,10 +23,38 @@ import { StrictMode } from "react";
 import nextConfig from "../next.config.js";
 import { Wallet } from "ethers";
 import { LanguageProvider } from "@/contexts/LanguageContext.js";
-import { mainnet, arbitrum, polygon,goerli } from "wagmi/chains";
+import { mainnet, arbitrum, polygon, goerli } from "wagmi/chains";
 import Footer from "../components/footer/Footer";
 import { CollectionInfoProvider } from "@/contexts/CollectionInfoContext.js";
 require("dotenv").config();
+
+const arbsepolia = {
+  id: 421614,
+  name: "Arb Sepolia",
+  network: "Arb Sepolia",
+  iconBackground: "#008000",
+  iconUrl: "/arbiscan.png",
+  nativeCurrency: {
+    decimals: 18,
+    name: "ETH",
+    symbol: "ETH",
+  },
+  rpcUrls: {
+    public: { http: ["https://arbitrum-sepolia.blockpi.network/v1/rpc/public"] },
+    default: { http: ["https://arbitrum-sepolia.blockpi.network/v1/rpc/public"] },
+  },
+  blockExplorers: {
+    default: {
+      name: "pacific",
+      url: "https://rinkeby-explorer.arbitrum.io/#/",
+    },
+    etherscan: {
+      name: "pacific",
+      url: "https://rinkeby-explorer.arbitrum.io/#/",
+    },
+  },
+  testnet: true,
+};
 
 const mantatest = {
   id: 3441006,
@@ -158,7 +186,7 @@ const eosevmmain = {
 const { chains, publicClient } = configureChains(
   nextConfig.publicRuntimeConfig.env.API === "dev2"
     ? [mantamain, mainnet, arbitrum, eosevmmain]
-    : [mantamain, mainnet, arbitrum, mantatest, eosevmtest, eosevmmain,goerli],
+    : [mantamain, mainnet, arbitrum, mantatest, eosevmtest, eosevmmain, goerli, arbsepolia],
   [publicProvider()]
 );
 

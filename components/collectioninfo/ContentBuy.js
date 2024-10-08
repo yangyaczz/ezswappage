@@ -30,7 +30,7 @@ const ContentBuy = ({ }) => {
     useCollectionInfo();
 
   const [golbalParams, setGolbalParams] = useState({})
-
+  const [isLoading, setLoading] = useState(true)
 
   const [nftList, setNftList] = useState([]);
   const [pairs, setPairs] = useState([])
@@ -39,20 +39,20 @@ const ContentBuy = ({ }) => {
   const { address: owner } = useAccount();
 
   useEffect(() => {
+    if (chain) {
+      setGolbalParams(networkConfig[chain.id])
+    }
+
+  }, [chain, owner]);
+
+  useEffect(() => {
     fetchData(colInfo.address)
     return () => {
       setPairs([])
       updateSelectedNftToenIds([])
       setIdPriceMap({})
     }
-  }, [colInfo.address]);
-
-  useEffect(() => {
-    if (chain) {
-      setGolbalParams(networkConfig[chain.id])
-    }
-
-  }, [chain, owner]);
+  }, [colInfo.address, golbalParams]);
 
 
 
@@ -75,6 +75,7 @@ const ContentBuy = ({ }) => {
       });
 
       const data = await response.json();
+      setLoading(false)
       if (data.success) {
         const pairsList = data.data;
         let filteredData = pairsList.filter(
@@ -147,7 +148,6 @@ const ContentBuy = ({ }) => {
 
 
 
-        // debugger
 
       }
     }
@@ -330,6 +330,11 @@ const ContentBuy = ({ }) => {
         return aSelected ? -1 : 1;
       }).map(item => item)
     setNftList(nftList)
+  }
+  if (isLoading) {
+    return (
+      <div className="text-center mt-10"><p className="h-max loading loading-bars loading-lg"></p></div>
+    )
   }
 
   return (

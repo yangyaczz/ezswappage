@@ -57,9 +57,13 @@ const ContentBuyCart = () => {
             return (
               <div key={tokenId} className='mt-2 flex border-[1px] border-solid border-[#496C6D] rounded-lg pr-2 py-2 '>
                 <img className='size-14 bg-black' src={colInfo.image}></img>
-                <div className='pl-2 flex-1 '>
+                <div className={'pl-2 flex-1 flex ' + (nftTokenId2PriceMap[tokenId] ? 'flex-col items-start' : '  items-center')}>
                   <span>#{tokenId}</span>
-                  <div className='flex  align-center items-center '><img src="/ETH.png" className='size-5 -ml-2'></img><span>{nftTokenId2PriceMap[tokenId]?.toFixed(5)}</span></div>
+                  {
+                    nftTokenId2PriceMap[tokenId] &&
+                    <div className='flex  align-center items-center '><img src="/ETH.png" className='size-5 -ml-2'></img><span>{nftTokenId2PriceMap[tokenId]?.toFixed(5)}</span></div>
+                  }
+
                 </div>
                 <button className='pr-2' onClick={() => deleteNft(tokenId)}>
                   <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -73,14 +77,19 @@ const ContentBuyCart = () => {
           }
           )
         }
-        <SwapButton
-          className="mt-5"
-          swapType={'buy'}
-          // formikData={{ tupleEncode: tupleEncode, totalGet: totalGet, collection: { type: colInfo.type, address: colInfo.address }, golbalParams: { router: golbalParams.router }, selectIds: selectedNftTokenIds }}
-          formikData={swapButtonFormikData}
-          owner={owner}
-          addSwapSuccessCount={addSwapSuccessCount}
-        />
+        {selectedNftTokenIds.length > 0 &&
+          <SwapButton
+            swapType={'buy'}
+            btnStyle={'btn w-[260px]'}
+            boxStyle={'mt-5'}
+            formikData={swapButtonFormikData}
+            showPrice={true}
+            owner={owner}
+            addSwapSuccessCount={addSwapSuccessCount}
+            iconUrl={chain?.iconUrl}
+          />
+        }
+
 
         {/* <button className={"btn w-full mt-10  ezBtn ezBtnPrimary !bg-[#00D5DA] " + (selectedNftTokenIds.length === 0 ? "hidden" : '')} >
           <span className="text-black">SWAP</span>

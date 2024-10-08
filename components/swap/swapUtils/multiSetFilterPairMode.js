@@ -15,9 +15,9 @@ const multiSetFilterPairMode = (
   setSwapMode
 ) => {
   // filter pool
-  filteredData = filteredData.filter(
-    (item) => item.owner.toLowerCase() !== owner?.toLowerCase()
-  );
+  // filteredData = filteredData.filter(
+  //   (item) => item.owner.toLowerCase() !== owner?.toLowerCase()
+  // );
 
   if (token === "ETH") {
     filteredData = filteredData.filter((item) => item.token === null);

@@ -25,7 +25,7 @@ const Input721Sell = ({
     let dec = 1e18;
     let maxPrice = 0;
     let maxPriceIndex = -1;
- 
+
     // get pool buy price
     pairs.forEach((pair, index) => {
       let res;
@@ -134,6 +134,7 @@ const Input721Sell = ({
       update721SellToPairs(id, pairs2);
     });
 
+    debugger
     let IdsPlusAmount = 0;
     pairs2.forEach((pair) => {
       if (pair.tuple) {

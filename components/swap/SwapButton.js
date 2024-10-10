@@ -18,10 +18,12 @@ import RouterABI from "../../pages/data/ABI/Router.json";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 
+
 let transfer721 = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
 let transfer1155 = '0xc3d58168c5ae7397731d063d5bbf3d657854427343f4c083240f7aacaa2d0f62'
 
 const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount, btnStyle, boxStyle, showPrice = false, iconUrl }) => {
+  // console.log(formikData)
   const [nftApproval, setNftApproval] = useState(false);
   const { languageModel } = useLanguage();
   const { data: nftApprovalData } = useContractRead({
@@ -313,6 +315,7 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount, btnStyle
               {
                 showPrice && formikData.totalGet > 0 && <span className="mt-1 text-[11px]">{formikData.totalGet.toFixed(5)}</span>
               }
+              <img src={iconUrl} className="size-10 absolute left-2 top-1" />
             </div>
           )}
         </button>
@@ -320,50 +323,34 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount, btnStyle
     }
 
     text = "Swap";
+
+    const btnContent = <>
+      <div className="flex flex-col relative">
+        <span>{text}</span>
+        {
+          showPrice && formikData.totalGet > 0 && <span className="mt-1 text-[11px]">{formikData.totalGet?.toFixed(5)}</span>
+        }
+
+      </div>
+      <img src={iconUrl} className="size-10 absolute left-2 top-1" /></>
     if (swapType === "sell") {
-      // return (
-      //     <>
-      //         <button onClick={() => swapNFTToToken()}>
-      //             {swapIsLoading ? <div>Loading...</div> : <div>{text}</div>}
-      //         </button>
-      //     </>
-      // )
       return (
         <button className={className + styles.buttonStyle} onClick={() => swapNFTToToken()}>
           {isLoading || waitTrxLoading ? (
             <span class="loading loading-spinner loading-sm"></span>
           ) : (
-            <div className="flex flex-col relative">
-              <span>{text}</span>
-              {
-                showPrice && formikData.totalGet > 0 && <span className="mt-1 text-[11px]">{formikData.totalGet?.toFixed(5)}</span>
-              }
-              <img src={iconUrl} className="size-10 absolute left-2 top-1" />
-            </div>
+            btnContent
           )}
         </button>
       );
     } else if (swapType === "buy") {
-      // text = 'swappp'
-      // return (
-      //     <>
-      //         <button onClick={() => swapETHToNFT()}>
-      //             {swapIsLoading ? <div>Loading...</div> : <div>{text}</div>}
-      //         </button>
-      //     </>
-      // )
+
       return (
         <button className={className + styles.buttonStyle} onClick={() => swapETHToNFT()}>
           {swapETHToNFTIsLoading || waitTrxLoading ? (
             <span class="loading loading-spinner loading-sm"></span>
           ) : (
-            <div className="flex flex-col ">
-              <span>{text}</span>
-              {
-                showPrice && formikData.totalGet > 0 && <span className="mt-1 text-[11px]">{formikData.totalGet?.toFixed(5)}</span>
-              }
-              <img src={iconUrl} className="size-10 absolute left-[2px] top-[4px]" />
-            </div>
+            btnContent
 
           )}
 
@@ -380,7 +367,6 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount, btnStyle
         <ConnectButton />
       </div>
     );
-
   return (
     <div className={'flex justify-center ' + boxStyle}>
       <div className={" " + "mx-6" + " " + styles.swapButton + " "}>

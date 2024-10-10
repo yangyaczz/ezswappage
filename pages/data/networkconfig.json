@@ -23,10 +23,17 @@
         "img": ""
       },
       {
+        "type": "ERC721",
+        "address": "0x75Be94C8029b32307B18a68bF736d6e778185403",
+        "name": "MTK2",
+        "tokenId1155": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif",
+        "img": ""
+      },
+      {
         "type": "ERC1155",
-        "address": "0x0929954B33df99d5EF96Ac7B613796FD25A20244",
+        "address": "0x4d7c33766130b818896BbE81dc7a5fA2fdCb1251",
         "name": "test1155",
-        "tokenId1155": "",
+        "tokenId1155": "1",
         "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
       }
     ],

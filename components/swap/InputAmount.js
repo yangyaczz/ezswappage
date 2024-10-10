@@ -40,7 +40,6 @@ const InputAmount = ({
     if (formikData.pairs && formikData.filterPairs.length === 0) {
       return <div>{languageModel.ThisPairHasNoLiquidity}</div>;
     }
-
     if (formikData.collection.type == "ERC721") {
       return (
         <Input721Sell
@@ -106,7 +105,6 @@ const InputAmount = ({
       )
     }
   };
-
   return (
     <div className="form-control">
       <button

@@ -4,7 +4,8 @@ import SwapButton from "@/components/swap/SwapButton";
 import { useNetwork, useAccount } from "wagmi";
 import networkConfig from "../../pages/data/networkconfig.json";
 const ContentBuyCart = () => {
-
+  const { refreshNftList } =
+    useCollectionInfo();
   const { chain } = useNetwork();
   const { address: owner } = useAccount();
   const [isClient, setIsClient] = useState(false);
@@ -12,6 +13,7 @@ const ContentBuyCart = () => {
   const { nftTokenId2PriceMap, selectedNftTokenIds, updateSelectedNftToenIds,
     updateNftToenId2PriceMap, colInfo, swapButtonFormikData } =
     useCollectionInfo();
+
 
   const deleteNft = (tokenId) => {
     let temp = selectedNftTokenIds.filter(item => tokenId !== item)
@@ -22,6 +24,10 @@ const ContentBuyCart = () => {
   }
   const addSwapSuccessCount = () => {
 
+    refreshNftList()
+    setTimeout(() => {
+      updateSelectedNftToenIds([])
+    }, 1000)
   }
   useEffect(() => {
     if (chain) {
@@ -40,9 +46,9 @@ const ContentBuyCart = () => {
   const totalPrice = selectedNftTokenIds.map(item => nftTokenId2PriceMap[item]).reduce((acc, num) => acc + num, 0);
   return (
     <>
-      <div className={`content-right-buy  h-full pt-10 px-5   border-solid border-l-[#496C6D] width-transition transition-all duration-500 ease-in-out overflow-hidden ` + (selectedNftTokenIds.length > 0 ? ' border-l-[1px] w-96' : 'w-0')}>
+      <div className={`content-right-buy  h-full pt-10    border-solid border-l-[#496C6D] width-transition transition-all duration-500 ease-in-out overflow-hidden ` + (selectedNftTokenIds.length > 0 ? ' border-l-[1px] w-96 px-5' : 'w-0')}>
         <div className=" w-full flex leading-[80px] overflow-hidden">
-          <div className="flex-1 text-[32px] font-bold">Buy {selectedNftTokenIds.length} NFT</div>
+          <div className="flex-1 text-[32px] font-bold">{swapButtonFormikData.swapType === 'buy' ? 'Buy' : 'Sell'} {selectedNftTokenIds.length} NFT</div>
 
           <button className=" right-5 bottom-2 relative top-5" onClick={() => deleteAll()}>
             <svg width="17" height="21" viewBox="0 0 17 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,7 +64,7 @@ const ContentBuyCart = () => {
               <div key={tokenId} className='mt-2 flex border-[1px] border-solid border-[#496C6D] rounded-lg pr-2 py-2 '>
                 <img className='size-14 bg-black' src={colInfo.image}></img>
                 <div className={'pl-2 flex-1 flex ' + (nftTokenId2PriceMap[tokenId] ? 'flex-col items-start' : '  items-center')}>
-                  <span>#{tokenId}</span>
+                  <span>#{colInfo.type === 'ERC721' ? tokenId : colInfo.tokenId1155}</span>
                   {
                     nftTokenId2PriceMap[tokenId] &&
                     <div className='flex  align-center items-center '><img src="/ETH.png" className='size-5 -ml-2'></img><span>{nftTokenId2PriceMap[tokenId]?.toFixed(5)}</span></div>

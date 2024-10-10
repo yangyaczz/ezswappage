@@ -1,9 +1,27 @@
 [
   {
-    "name": "arbsep",
+    "name": "arbsep721",
     "address": "0xEA926BB5aC32e68ebba1BfCE20d3Ced749198956",
     "type": "ERC721",
     "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png",
+    "network": "arbsep",
+    "order": 0
+  },
+  {
+    "name": "MTK721_2",
+    "address": "0x75Be94C8029b32307B18a68bF736d6e778185403",
+    "type": "ERC721",
+    "tokenId1155": "",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png",
+    "network": "arbsep",
+    "order": 0
+  },
+  {
+    "name": "arbsep1155",
+    "address": "0x4d7c33766130b818896BbE81dc7a5fA2fdCb1251",
+    "type": "ERC1155",
+    "tokenId1155": "1",
     "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png",
     "network": "arbsep",
     "order": 0

@@ -12,6 +12,7 @@ import { ethers } from "ethers";
 import { useNetwork, useAccount } from "wagmi";
 import networkConfig from "../../pages/data/networkconfig.json";
 import multiSetFilterPairMode from "../swap/swapUtils/multiSetFilterPairMode";
+import { useLanguage } from "@/contexts/LanguageContext";
 function mapIdsToPrices(ids, prices) {
   let result = {};
   ids.forEach((subArray, index) => {
@@ -26,9 +27,9 @@ function mapIdsToPrices(ids, prices) {
 
 const ContentBuy = ({ }) => {
   const { colInfo, nftTokenId2PriceMap: idPriceMap, selectedNftTokenIds: selectIds, updateSelectedNftToenIds,
-    updateNftToenId2PriceMap: setIdPriceMap, updateSwapButtonFormikData } =
+    updateNftToenId2PriceMap: setIdPriceMap, updateSwapButtonFormikData, refreshNftListKey } =
     useCollectionInfo();
-
+  const { languageModel } = useLanguage()
   const [golbalParams, setGolbalParams] = useState({})
   const [isLoading, setLoading] = useState(true)
 
@@ -46,15 +47,19 @@ const ContentBuy = ({ }) => {
   }, [chain, owner]);
 
   useEffect(() => {
+    setLoading(true)
     fetchData(colInfo.address)
     return () => {
       setPairs([])
       updateSelectedNftToenIds([])
       setIdPriceMap({})
     }
-  }, [colInfo.address, golbalParams]);
+  }, [colInfo.address, golbalParams, refreshNftListKey]);
 
-
+  // useEffect(() => {
+  //   debugger
+  //   console.log('refresh', refreshNftListKey)
+  // }, [refreshNftListKey]);
 
   const fetchData = async (contractAddress) => {
     if (
@@ -197,7 +202,7 @@ const ContentBuy = ({ }) => {
   }
 
   const radioRef = useRef(
-    10
+    0
   );
 
   //从swap 里面复制过来的方法
@@ -248,26 +253,17 @@ const ContentBuy = ({ }) => {
     }
   };
 
-  const toggleSelected = (id) => {
-    // add new id to formikdata
-    let newSids = [];
-    if (typeof id === 'object') {
-      newSids = id;
-    } else {
-      if (id) {
-        if (selectIds.includes(id)) {
-          newSids = selectIds.filter((item) => item !== id);
-        } else {
-          newSids = [...selectIds, id];
-        }
-      }
-    }
-    updateSelectedNftToenIds(newSids);
 
+  useEffect(() => {
+    updateSwapInfo()
+    console.log(selectIds)
+  }, [selectIds])
+
+  const updateSwapInfo = () => {
     ///////////////////////////////////////////////////////////////
 
     let tempPairs = JSON.parse(JSON.stringify(pairs));
-    newSids.forEach((id) => {
+    selectIds.forEach((id) => {
       update721BuyToPairs(id, tempPairs);
     });
 
@@ -303,10 +299,9 @@ const ContentBuy = ({ }) => {
     });
 
     totalGet = Number(totalGet.toFixed(10));
-    // updateTupleEncode(tupleEncode);
-    // updateTotalGet(totalGet);
 
-    updateSwapButtonFormikData({ swapType: 'buy', isExceeded: false, tupleEncode: tupleEncode, totalGet: totalGet, collection: { type: colInfo.type, address: colInfo.address }, golbalParams: { router: golbalParams.router }, selectIds: newSids })
+
+    updateSwapButtonFormikData({ swapType: 'buy', isExceeded: false, tupleEncode: tupleEncode, totalGet: totalGet, collection: { type: colInfo.type, address: colInfo.address }, golbalParams: { router: golbalParams.router }, selectIds: selectIds })
 
 
     ///////////////////////////////////////////////////////////////
@@ -317,6 +312,78 @@ const ContentBuy = ({ }) => {
     // } else {
     //   setIsExceeded(false);
     // }
+
+  }
+
+  const toggleSelected = (id) => {
+    // add new id to formikdata
+    let newSids = [];
+    if (typeof id === 'object') {
+      newSids = id;
+    } else {
+      if (id) {
+        if (selectIds.includes(id)) {
+          newSids = selectIds.filter((item) => item !== id);
+        } else {
+          newSids = [...selectIds, id];
+        }
+      }
+    }
+    updateSelectedNftToenIds(newSids);
+
+    // ///////////////////////////////////////////////////////////////
+
+    // let tempPairs = JSON.parse(JSON.stringify(pairs));
+    // newSids.forEach((id) => {
+    //   update721BuyToPairs(id, tempPairs);
+    // });
+
+    // // update idPriceMap
+    // let ids = tempPairs.map((item) => item.nftIds);
+    // let prices = tempPairs.map((item) => item.nftIdsPrice);
+
+    // let idPriceMap = mapIdsToPrices(ids, prices);
+
+    // let sc = tempPairs.map((pair) => pair.shoppingCart);
+    // sc = Object.assign({}, ...sc);
+
+    // for (let key in sc) {
+    //   if (sc.hasOwnProperty(key)) {
+    //     idPriceMap[key] = sc[key];
+    //   }
+    // }
+    // setIdPriceMap(idPriceMap);
+
+    // buildNftList(idPriceMap);
+
+
+
+    // /////////////////////////////////////////////
+
+    // let tupleEncode = [];
+    // let totalGet = 0;
+    // tempPairs.forEach((pair) => {
+    //   if (pair.tuple) {
+    //     tupleEncode.push(pair.tuple);
+    //     totalGet += pair.userGetPrice;
+    //   }
+    // });
+
+    // totalGet = Number(totalGet.toFixed(10));
+    // // updateTupleEncode(tupleEncode);
+    // // updateTotalGet(totalGet);
+
+    // updateSwapButtonFormikData({ swapType: 'buy', isExceeded: false, tupleEncode: tupleEncode, totalGet: totalGet, collection: { type: colInfo.type, address: colInfo.address }, golbalParams: { router: golbalParams.router }, selectIds: newSids })
+
+
+    // ///////////////////////////////////////////////////////////////
+
+    // // check if is execeeded ,if totalGet > user balance
+    // // if (formikData.userCollection.tokenBalance20 < totalGet) {
+    // //   setIsExceeded(true);
+    // // } else {
+    // //   setIsExceeded(false);
+    // // }
   };
 
   const buildNftList = (idPriceMap) => {
@@ -337,6 +404,12 @@ const ContentBuy = ({ }) => {
     )
   }
 
+  if (nftList.length === 0) {
+    return (
+      <div className="text-center mt-10"><p>{languageModel.noData}</p></div >
+    )
+  }
+
   return (
     <>
       <section className="w-full h-[470px] overflow-scroll  border-[1px] border-solid border-[#496C6D] rounded-lg grid grid-rows-[40px,auto] justify-items-stretch">
@@ -352,7 +425,7 @@ const ContentBuy = ({ }) => {
                 <img
                   src={colInfo.image}
                   style={{
-                    width: `250px`,
+                    width: `245px`,
                   }}
                 />
                 <p> #{square}</p>

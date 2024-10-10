@@ -1,5 +1,5 @@
 import { useCollectionInfo } from "@/contexts/CollectionInfoContext";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, use } from "react";
 import BuyNFTsSelectedRange from "@/components/collectioninfo/BuyNFTsSelectedRange";
 import ERC721EnumABI from "../../pages/data/ABI/ERC721Enum.json";
 import {
@@ -13,9 +13,11 @@ import {
 import { ethers } from "ethers";
 
 import networkConfig from "../../pages/data/networkconfig.json";
+import CollectionData from "../../pages/data/collection-data.json";
 import multiSetFilterPairMode from "../swap/swapUtils/multiSetFilterPairMode";
 import { useContractRead, useBalance, useNetwork, useAccount } from "wagmi";
-
+import { useLanguage } from "@/contexts/LanguageContext";
+const erc404Name = ['M404', 'mtest', 'Mars']
 function mapIdsToPrices(ids, prices) {
   let result = {};
   ids.forEach((subArray, index) => {
@@ -30,9 +32,10 @@ function mapIdsToPrices(ids, prices) {
 
 const ContentBuy = ({ }) => {
   const { colInfo, nftTokenId2PriceMap: idPriceMap, selectedNftTokenIds: selectIds, updateSelectedNftToenIds,
-    updateNftToenId2PriceMap: setIdPriceMap, updateSwapButtonFormikData } =
+    updateNftToenId2PriceMap: setIdPriceMap, updateSwapButtonFormikData, refreshNftListKey } =
     useCollectionInfo();
-
+  const { languageModel } = useLanguage()
+  const [isBanSelect, setIsBanSelect] = useState(false);
   const [golbalParams, setGolbalParams] = useState({})
   const [isLoading, setLoading] = useState(true)
 
@@ -41,6 +44,7 @@ const ContentBuy = ({ }) => {
 
   const { chain } = useNetwork();
   const { address: owner } = useAccount();
+  const [collectionName, setCollectionName] = useState(null)
   // const [nftNums, setNftNums] = useState([]);
   useEffect(() => {
     if (chain) {
@@ -52,22 +56,35 @@ const ContentBuy = ({ }) => {
 
   }, [chain, owner]);
 
+  // if (colInfo.address) {
   // if sell nft, get user nft info
-  const { data: tokenIds721 } = useContractRead({
+  const { refetch, data: tokenIds721 } = useContractRead({
     address: colInfo.address,
     abi: ERC721EnumABI,
     functionName: "tokensOfOwner",
     args: [owner],
     watch: false,
+    enabled: false,
     onSuccess(data) {
       const num = data.map((item) => Number(item));
       setNftList(num);
     },
     onError(e) {
-      setLoading(false)
+      // setLoading(false)
       console.log(e)
     }
   });
+
+  useEffect(() => {
+    setLoading(true)
+    refetch();
+    setCollectionName(CollectionData.find(item => item.address == colInfo.address))
+  }, [refreshNftListKey, colInfo.address]);
+  // }
+
+
+
+
 
   useEffect(() => {
     if (nftList.length > 0) {
@@ -102,7 +119,7 @@ const ContentBuy = ({ }) => {
       });
 
       const data = await response.json();
-      setLoading(false)
+
       if (data.success) {
         const pairsList = data.data;
         let filteredData = pairsList.filter(
@@ -150,6 +167,8 @@ const ContentBuy = ({ }) => {
           // setToken(token)
           // setTokenName(tokensNames[0])
 
+
+
           multiSetFilterPairMode(
             'sell',
             { collection: { type: colInfo.type } },
@@ -159,6 +178,8 @@ const ContentBuy = ({ }) => {
             setFilterPairs,
             setSwapMode
           );
+        } else {
+          setFilterPairs([])
         }
 
 
@@ -175,17 +196,42 @@ const ContentBuy = ({ }) => {
 
 
 
-        // 
+        //
 
+      } else {
+        setLoading(false)
       }
+
     } else {
-      setLoading(false)
+      // setLoading(false)
     }
   }
 
   const setFilterPairs = (filterPairs) => {
     console.log('filterPairs', filterPairs)
     setPairs(filterPairs);
+    setLoading(false)
+
+    let initSid = [0];
+    let initpair = JSON.parse(JSON.stringify(filterPairs));
+    initSid.forEach((id) => {
+      update721SellToPairs(id, initpair);
+    });
+
+    let IdsPlusAmount = 0;
+    initpair.forEach((pair) => {
+      if (pair.tuple) {
+        IdsPlusAmount += pair.tokenIds.length;
+      }
+    });
+    debugger
+    if (initSid.length > IdsPlusAmount) {
+      setIsBanSelect(true);
+    } else {
+      setIsBanSelect(false);
+    }
+
+
     // toggleSelected();
     // const ids = filterPairs?.map((item) => item.nftIds);
     // const prices = filterPairs?.map((item) => item.nftIdsPrice);
@@ -218,7 +264,7 @@ const ContentBuy = ({ }) => {
   }
 
   const radioRef = useRef(
-    10
+    0
   );
 
   //从swap 里面复制过来的方法
@@ -285,27 +331,15 @@ const ContentBuy = ({ }) => {
       // console.log('nft execced amount')
     }
   };
+  useEffect(() => {
+    updateSwapInfo()
+  }, [selectIds]);
 
-  const toggleSelected = (id) => {
-    // add new id to formikdata
-    let newSids = [];
-    if (typeof id === 'object') {
-      newSids = id;
-    } else {
-      if (id) {
-        if (selectIds.includes(id)) {
-          newSids = selectIds.filter((item) => item !== id);
-        } else {
-          newSids = [...selectIds, id];
-        }
-      }
-    }
-    updateSelectedNftToenIds(newSids);
+  const updateSwapInfo = () => {
 
     ///////////////////////////////////////////////////////////////
     let tempPairs = JSON.parse(JSON.stringify(pairs));
-
-    newSids.forEach((id) => {
+    selectIds.forEach((id) => {
       update721SellToPairs(id, tempPairs);
     });
 
@@ -323,45 +357,54 @@ const ContentBuy = ({ }) => {
     totalGet = Number(totalGet.toFixed(10));
     console.log('totalGet', totalGet)
 
-    updateSwapButtonFormikData({ swapType: 'sell', isExceeded: false, tupleEncode: tupleEncode, totalGet: totalGet, collection: { type: colInfo.type, address: colInfo.address }, golbalParams: { router: golbalParams.router }, selectIds: newSids })
-
-    // setTupleEncode(tupleEncode);
-    // setTotalGet(totalGet);
-    ///////////////////////////////////////////////////////////////
-
-    // check if is execeeded
-    // if (newSids.length > IdsAmount) {
-    //   setIsExceeded(true);
-    // } else {
-    //   setIsExceeded(false);
-    // }
-
-    ///////////////////////////////////////////////////////////////
-    // check if ban
-    // let newSidsPlus = new Array(newSids.length + 1).fill(0);
-    // let pairs2 = JSON.parse(JSON.stringify(formikData.filterPairs));
-    // newSidsPlus.forEach((id) => {
-    //   update721SellToPairs(id, pairs2);
-    // });
-
-    // let IdsPlusAmount = 0;
-    // pairs2.forEach((pair) => {
-    //   if (pair.tuple) {
-    //     IdsPlusAmount += pair.tokenIds.length;
-    //   }
-    // });
+    updateSwapButtonFormikData({ swapType: 'sell', isExceeded: false, tupleEncode: tupleEncode, totalGet: totalGet, collection: { type: colInfo.type, address: colInfo.address }, golbalParams: { router: golbalParams.router }, selectIds: selectIds })
 
 
 
-    // if (newSidsPlus.length > IdsPlusAmount) {
-    //   setIsBanSelect(true);
-    // } else {
-    //   setIsBanSelect(false);
-    // }
+    let newSidsPlus = new Array(selectIds.length + 1).fill(0);
+    let pairs2 = JSON.parse(JSON.stringify(pairs));
+    newSidsPlus.forEach((id) => {
+      update721SellToPairs(id, pairs2);
+    });
+    let IdsPlusAmount = 0;
+    pairs2.forEach((pair) => {
+      if (pair.tuple) {
+        IdsPlusAmount += pair.tokenIds.length;
+      }
+    });
 
-    // if (IdsAmount >= 1 && erc404Name.includes(formikData.collection.name)) {
-    //   setIsBanSelect(true);
-    // }
+    if (newSidsPlus.length > IdsPlusAmount) {
+      setIsBanSelect(true);
+    } else {
+      setIsBanSelect(false);
+    }
+
+    if (IdsAmount >= 1 && erc404Name.includes(collectionName)) {
+      setIsBanSelect(true);
+    }
+  }
+  const toggleSelected = (id) => {
+    if (
+      typeof id !== 'object' && !(selectIds.includes(id) ||
+        !isBanSelect)
+    ) {
+      return
+    }
+    // add new id to formikdata
+    let newSids = [];
+    if (typeof id === 'object') {
+      newSids = id;
+    } else {
+      if (id) {
+        if (selectIds.includes(id)) {
+          newSids = selectIds.filter((item) => item !== id);
+        } else {
+          newSids = [...selectIds, id];
+        }
+      }
+    }
+    updateSelectedNftToenIds(newSids);
+
   };
 
   // const buildNftList = (idPriceMap) => {
@@ -381,34 +424,41 @@ const ContentBuy = ({ }) => {
       <div className="text-center mt-10"><p className="h-max loading loading-bars loading-lg"></p></div>
     )
   }
+  if (nftList.length === 0) {
+    return (
+      <div className="text-center mt-10"><p>{languageModel.noData}</p></div >
+    )
+  }
 
   return (
     <>
-      <section className="w-full h-[470px] overflow-scroll  border-[1px] border-solid border-[#496C6D] rounded-lg grid grid-rows-[40px,auto] justify-items-stretch">
+      <section className="w-full h-[470px] overflow-scroll  border-[1px] border-solid border-[#496C6D] rounded-lg ">
 
 
         <BuyNFTsSelectedRange value={selectIds.length} radioRef={radioRef} min={0} max={nftList.length} handleRangeChange={(e) => rangeChange(e)} />
 
-        <div className="flex flex-wrap  p-5 mt-2">
+        <div className="flex flex-wrap  px-5 ">
 
           {
             nftList.map((square, index) => {
-              return (<div key={square} className="relative border border-[#00D5DA] mr-3 flex flex-col items-center  mt-5 pb-5 rounded-xl overflow-hidden" onClick={() => toggleSelected(square)}>
+              return (<div
+                data-tip="this collection has no liquidity"
+                key={square} className={'  relative  border border-[#00D5DA] mr-3 flex flex-col items-center  justify-center mt-10 pb-5 rounded-xl  ' + ((selectIds.includes(square) ||
+                  !isBanSelect) ? '' : ' filter grayscale  tooltip opacity-50 ')
+                } onClick={() => toggleSelected(square)}>
                 <img
                   src={colInfo.image}
+
+                  // className={(!selectIds.includes(square) && isBanSelect) ? 'filter grayscale ' : ''}
                   style={{
-                    width: `250px`,
+                    width: `245px`,
                   }}
                 />
-                <p> #{square}</p>
-                <div className="flex items-center mt-3">
-                  <span>{idPriceMap[square]?.toFixed(5)}  </span>
-                  {/* <img className="w-5 h-5 block" src cv\fg=dbh电热大肆宣传vv                      
-                  
-                  x tbvcfn76re, "/ETH.png" /> */}
-                </div>
+                <div className="text-center "> #{square}</div>
+
                 {
-                  selectIds.includes(square) && (
+                  selectIds.includes(square) &&
+                  (
                     <svg className="absolute top-5 right-5" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <circle cx="14" cy="14" r="14" fill="#00D5DA" />
                       <path d="M7.30831 12.6058C7.69163 12.2083 8.32466 12.1967 8.72225 12.58L13.5447 17.2291C13.9423 17.6124 13.9538 18.2455 13.5705 18.6431L12.9563 19.2801C12.573 19.6777 11.94 19.6893 11.5424 19.306L6.71996 14.6569C6.32234 14.2735 6.31078 13.6404 6.69413 13.2428L7.30831 12.6058Z" fill="black" />

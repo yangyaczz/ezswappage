@@ -1,4 +1,4 @@
-const { useContext, createContext, useReducer } = require("react");
+const { useContext, createContext, useReducer, useState } = require("react");
 
 const CollectionInfoContext = createContext();
 
@@ -98,6 +98,12 @@ function reducer(state, action) {
 }
 
 function CollectionInfoProvider({ children }) {
+  //refresh other page  data
+  const [refreshNftListKey, setRefreshNftListKey] = useState(0);
+  const refreshNftList = () => setRefreshNftListKey(() => {
+    return refreshNftListKey + 1
+  });
+
   const [
     {
       loading,
@@ -227,6 +233,7 @@ function CollectionInfoProvider({ children }) {
         selectedNftTokenIds,
         nftTokenId2PriceMap,
         swapButtonFormikData,
+        refreshNftListKey,
         loadColInfo,
         updateContentType,
         updateActionType,
@@ -234,7 +241,8 @@ function CollectionInfoProvider({ children }) {
         updateSelectedNftToenIds,
         updateNftToenId2PriceMap,
         updateRouterParams,
-        updateSwapButtonFormikData
+        updateSwapButtonFormikData,
+        refreshNftList
       }}
     >
       {children}

@@ -428,7 +428,6 @@ const NFTSearch = ({
         tokenIds721: num,
       });
     }, onError(error) {
-      debugger
       console.log(error)
       console.log(formikData.collection.type === "ERC721" &&
         swapType === "sell" &&
@@ -457,6 +456,9 @@ const NFTSearch = ({
         tokenAmount1155: num,
       });
     },
+    onError(e) {
+      console.log(e)
+    }
   });
 
   // if buy nft, get user eth or erc20 balance

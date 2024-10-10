@@ -40,8 +40,8 @@ const arbsepolia = {
     symbol: "ETH",
   },
   rpcUrls: {
-    public: { http: ["https://arbitrum-sepolia.blockpi.network/v1/rpc/public"] },
-    default: { http: ["https://arbitrum-sepolia.blockpi.network/v1/rpc/public"] },
+    public: { http: ["https://sepolia-rollup.arbitrum.io/rpc"] },
+    default: { http: ["https://sepolia-rollup.arbitrum.io/rpc"] },
   },
   blockExplorers: {
     default: {

@@ -25,7 +25,7 @@ const initialState = {
   routerParams: {},
   colInfo,
   actionType: "ADD_LIQUIDITY",
-  contentType: "SELL",
+  contentType: "BUY",
   tradeActivities: [],
 
   selectedNftTokenIds: [],

@@ -27,6 +27,15 @@
     "order": 0
   },
   {
+    "name": "arbsep1155",
+    "address": "0xa1F01AA3752ef1ecc584e50a07E444af33f9aD75",
+    "type": "ERC1155",
+    "tokenId1155": "1",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png",
+    "network": "arbsep",
+    "order": 0
+  },
+  {
     "name": "Mantera",
     "address": "0x9426600cD72f9A70CaBe2f0f5405484dcA31cAa3",
     "type": "ERC1155",

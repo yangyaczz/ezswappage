@@ -123,6 +123,7 @@ const CollectionContainer = ({ collection }) => {
       <div className="flex items-center justify-center">
         <div className="flex items-center justify-center">
           <PoolTab
+
             contractAddress={address}
             tokenId={tokenId1155}
             currencyImage={currencyImage}

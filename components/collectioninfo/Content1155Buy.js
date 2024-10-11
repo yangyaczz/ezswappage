@@ -12,7 +12,7 @@ import BuyNFTsSelectedRange from "@/components/collectioninfo/BuyNFTsSelectedRan
 function Input1155Buy({ }) {
 
   const { colInfo, selectedNftTokenIds: selectIds, updateSelectedNftToenIds,
-    updateSwapButtonFormikData, refreshNftListKey } =
+    updateSwapButtonFormikData, swapButtonFormikData, refreshNftListKey } =
     useCollectionInfo();
 
   // const [swapButtonFormikData, setSwapButtonFormikData] = useState({})
@@ -145,8 +145,6 @@ function Input1155Buy({ }) {
     setFilterPairs(paris);
     let totalNftCount1155 = paris.reduce((sum, item) => sum + item.nftCount1155, 0);
     setMax(totalNftCount1155)
-    const list = Array.from({ length: totalNftCount1155 }).map((_, index) => index);
-    setNftList(list)
   }
   const setSwapMode = (filterPairs) => {
     console.log('filterPairs', filterPairs)
@@ -230,9 +228,31 @@ function Input1155Buy({ }) {
   useEffect(() => {
 
     updateSwapInfo();
+    setValue(selectIds.length)
 
   }, [selectIds])
+  const handleChange = (e) => {
+    const inputValue = e.target.value;
 
+    // check
+    if (/^\d+$/.test(inputValue)) {
+      setValue(Math.min(Math.max(0, Number(inputValue)), max));
+    } else {
+      setValue(0);
+    }
+  };
+
+
+  const handleIncrement = () => {
+    setValue(prev => Math.min(prev + 1, max))
+  };
+
+  const handleDecrement = () => {
+    setValue(prev => Math.max(prev - 1, 0))
+  };
+  useEffect(() => {
+    toggleSelected(value)
+  }, [value]);
 
   const updateSwapInfo = () => {
     const newId = new Array(selectIds.length).fill(colInfo.tokenId1155)
@@ -261,10 +281,10 @@ function Input1155Buy({ }) {
   }
 
 
-  const toggleSelected = (newId) => {
+  const toggleSelected = (value) => {
 
 
-    updateSelectedNftToenIds(newId)
+    updateSelectedNftToenIds(new Array(value).fill(colInfo.nftId1155))
 
 
     ///////////////////////////////////////////////////////////////
@@ -352,40 +372,33 @@ function Input1155Buy({ }) {
 
   return (
     <>
-      <section className="w-full h-[470px] overflow-scroll  border-[1px] border-solid border-[#496C6D] rounded-lg grid grid-rows-[40px,auto] justify-items-stretch">
+      <section className="w-full h-[470px] overflow-scroll  border-[1px] border-solid border-[#496C6D] rounded-lg ">
+        <div className="relative border border-[#00D5DA] mr-3 flex flex-col items-center  mt-[40px] pb-5 rounded-xl  w-[245px] ml-[40px]" >
+          <img
+            src={colInfo.image}
+            className='w-full h-[245px]'
+          />
+          <p >#{colInfo.tokenId1155}</p>
+          <div className='flex justify-center items-center relative left-[2px]'>
+            <span>{swapButtonFormikData.totalGet?.toFixed(5)}</span>
+            <img className="w-5 h-5 block" src="/ETH.png" />
+          </div>
+          <div className='form-control mt-2'>
+            <div className="input-group">
+              <button onClick={handleDecrement} className="btn-square rounded-r-none border max-[800px]:w-10  border-white border-white hover:border-white bg-black rounded-l-xl">-</button>
+              <input type="text" value={value} onChange={handleChange} className=" max-[800px]:w-14 w-20 rounded-none text-center border-y py-[11px] border-y-white bg-black" />
+              <button onClick={handleIncrement} className="btn-square rounded-l-none border max-[800px]:w-10  border-white border-white hover:border-white bg-black rounded-r-xl">+</button>
+            </div>
+          </div>
 
+          {value > 0 && <svg className="absolute top-8 right-10" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="14" cy="14" r="14" fill="#00D5DA" />
+            <path d="M7.30831 12.6058C7.69163 12.2083 8.32466 12.1967 8.72225 12.58L13.5447 17.2291C13.9423 17.6124 13.9538 18.2455 13.5705 18.6431L12.9563 19.2801C12.573 19.6777 11.94 19.6893 11.5424 19.306L6.71996 14.6569C6.32234 14.2735 6.31078 13.6404 6.69413 13.2428L7.30831 12.6058Z" fill="black" />
+            <path d="M19.0995 8.72037C19.481 8.32226 20.1128 8.30814 20.5118 8.6888L21.1517 9.29943C21.5521 9.68145 21.5661 10.316 21.1829 10.7153L12.9649 19.279C12.5827 19.6773 11.9501 19.6906 11.5515 19.3087L10.9184 18.702C10.5196 18.3198 10.5061 17.6868 10.8883 17.288L19.0995 8.72037Z" fill="black" />
+          </svg>}
 
-        <BuyNFTsSelectedRange value={selectIds.length} radioRef={radioRef} min={0} max={nftList.length} handleRangeChange={(e) => rangeChange(e)} />
-
-        <div className="flex flex-wrap  p-5 mt-2">
-
-          {
-            nftList.map((index) => {
-              return (<div key={index} className="relative border border-[#00D5DA] mr-3 flex flex-col items-center  mt-5 pb-5 rounded-xl overflow-hidden" onClick={() => nftItemClick(index)}>
-                <img
-                  src={colInfo.image}
-                  style={{
-                    width: `245px`,
-                  }}
-                />
-                <p> #{colInfo.tokenId1155}</p>
-
-                {
-                  selectIds.includes(index) && (
-                    <svg className="absolute top-5 right-5" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="14" cy="14" r="14" fill="#00D5DA" />
-                      <path d="M7.30831 12.6058C7.69163 12.2083 8.32466 12.1967 8.72225 12.58L13.5447 17.2291C13.9423 17.6124 13.9538 18.2455 13.5705 18.6431L12.9563 19.2801C12.573 19.6777 11.94 19.6893 11.5424 19.306L6.71996 14.6569C6.32234 14.2735 6.31078 13.6404 6.69413 13.2428L7.30831 12.6058Z" fill="black" />
-                      <path d="M19.0995 8.72037C19.481 8.32226 20.1128 8.30814 20.5118 8.6888L21.1517 9.29943C21.5521 9.68145 21.5661 10.316 21.1829 10.7153L12.9649 19.279C12.5827 19.6773 11.9501 19.6906 11.5515 19.3087L10.9184 18.702C10.5196 18.3198 10.5061 17.6868 10.8883 17.288L19.0995 8.72037Z" fill="black" />
-                    </svg>
-                  )
-                }
-              </div>)
-            })
-          }
         </div>
-
-
-      </section >
+      </section>
     </>
   );
 }

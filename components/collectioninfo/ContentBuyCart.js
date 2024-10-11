@@ -16,8 +16,13 @@ const ContentBuyCart = () => {
 
 
   const deleteNft = (tokenId) => {
-    let temp = selectedNftTokenIds.filter(item => tokenId !== item)
-    updateSelectedNftToenIds(temp)
+    if (colInfo.type === 'ERC721') {
+      let temp = selectedNftTokenIds.filter(item => tokenId !== item)
+      updateSelectedNftToenIds(temp)
+    } else {
+      updateSelectedNftToenIds([])
+    }
+
   }
   const deleteAll = () => {
     updateSelectedNftToenIds([])
@@ -46,7 +51,7 @@ const ContentBuyCart = () => {
   const totalPrice = selectedNftTokenIds.map(item => nftTokenId2PriceMap[item]).reduce((acc, num) => acc + num, 0);
   return (
     <>
-      <div className={`content-right-buy  h-full pt-10    border-solid border-l-[#496C6D] width-transition transition-all duration-500 ease-in-out overflow-hidden ` + (selectedNftTokenIds.length > 0 ? ' border-l-[1px] w-96 px-5' : 'w-0')}>
+      <div className={` relative content-right-buy  h-full pt-10 pb-[150px]    border-solid border-l-[#496C6D] width-transition transition-all duration-500 ease-in-out overflow-x-hidden overflow-y-scroll ` + (selectedNftTokenIds.length > 0 ? ' border-l-[1px] w-96 px-5' : 'w-0')}>
         <div className=" w-full flex leading-[80px] overflow-hidden">
           <div className="flex-1 text-[32px] font-bold">{swapButtonFormikData.swapType === 'buy' ? 'Buy' : 'Sell'} {selectedNftTokenIds.length} NFT</div>
 
@@ -57,43 +62,80 @@ const ContentBuyCart = () => {
           </button>
 
         </div>
+        {colInfo.type === 'ERC721' &&
+          <div >
+            {
+              selectedNftTokenIds.map((tokenId) => {
+                return (
+                  <div key={tokenId} className='mt-2 flex border-[1px] border-solid border-[#496C6D] rounded-lg pr-2 py-2 '>
+                    <img className='size-14 bg-black' src={colInfo.image}></img>
+                    <div className={'pl-2 flex-1 flex ' + (nftTokenId2PriceMap[tokenId] ? 'flex-col items-start' : '  items-center')}>
+                      <span>#{tokenId}</span>
+                      {
+                        nftTokenId2PriceMap[tokenId] &&
+                        <div className='flex  align-center items-center '><img src="/ETH.png" className='size-5 -ml-2'></img><span>{nftTokenId2PriceMap[tokenId]?.toFixed(5)}</span></div>
+                      }
 
-        {
-          selectedNftTokenIds.map((tokenId) => {
-            return (
-              <div key={tokenId} className='mt-2 flex border-[1px] border-solid border-[#496C6D] rounded-lg pr-2 py-2 '>
-                <img className='size-14 bg-black' src={colInfo.image}></img>
-                <div className={'pl-2 flex-1 flex ' + (nftTokenId2PriceMap[tokenId] ? 'flex-col items-start' : '  items-center')}>
-                  <span>#{colInfo.type === 'ERC721' ? tokenId : colInfo.tokenId1155}</span>
-                  {
-                    nftTokenId2PriceMap[tokenId] &&
-                    <div className='flex  align-center items-center '><img src="/ETH.png" className='size-5 -ml-2'></img><span>{nftTokenId2PriceMap[tokenId]?.toFixed(5)}</span></div>
-                  }
+                    </div>
+                    <button className='pr-2' onClick={() => deleteNft(tokenId)}>
+                      <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.5 0C5.58823 0 0 5.58823 0 12.5C0 19.4118 5.58823 25 12.5 25C19.4118 25 25 19.4118 25 12.5C25 5.58823 19.4118 0 12.5 0ZM17.9412 15.7353C18.5294 16.3235 18.5294 17.3529 17.9412 17.9412C17.3529 18.5294 16.3235 18.5294 15.7353 17.9412L12.5 14.7059L9.26471 18.0882C8.67647 18.6765 7.64706 18.6765 7.05882 18.0882C6.76471 17.6471 6.61765 17.3529 6.61765 16.9118C6.61765 16.4706 6.76471 16.0294 7.05882 15.7353L10.2941 12.5L7.05882 9.41177C6.76471 8.97059 6.61765 8.67647 6.61765 8.23529C6.61765 7.79412 6.76471 7.35294 7.05882 7.05882C7.64706 6.47059 8.67647 6.47059 9.26471 7.05882L12.5 10.2941L15.7353 7.05882C16.3235 6.47059 17.3529 6.47059 17.9412 7.05882C18.5294 7.64706 18.5294 8.67647 17.9412 9.26471L14.7059 12.5L17.9412 15.7353Z" fill="#00D5DA" />
+                      </svg>
 
-                </div>
-                <button className='pr-2' onClick={() => deleteNft(tokenId)}>
-                  <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12.5 0C5.58823 0 0 5.58823 0 12.5C0 19.4118 5.58823 25 12.5 25C19.4118 25 25 19.4118 25 12.5C25 5.58823 19.4118 0 12.5 0ZM17.9412 15.7353C18.5294 16.3235 18.5294 17.3529 17.9412 17.9412C17.3529 18.5294 16.3235 18.5294 15.7353 17.9412L12.5 14.7059L9.26471 18.0882C8.67647 18.6765 7.64706 18.6765 7.05882 18.0882C6.76471 17.6471 6.61765 17.3529 6.61765 16.9118C6.61765 16.4706 6.76471 16.0294 7.05882 15.7353L10.2941 12.5L7.05882 9.41177C6.76471 8.97059 6.61765 8.67647 6.61765 8.23529C6.61765 7.79412 6.76471 7.35294 7.05882 7.05882C7.64706 6.47059 8.67647 6.47059 9.26471 7.05882L12.5 10.2941L15.7353 7.05882C16.3235 6.47059 17.3529 6.47059 17.9412 7.05882C18.5294 7.64706 18.5294 8.67647 17.9412 9.26471L14.7059 12.5L17.9412 15.7353Z" fill="#00D5DA" />
-                  </svg>
+                    </button>
+                  </div>
+                )
 
-                </button>
-              </div>
-            )
+              }
+              )
+            }
+          </div>}
+        {colInfo.type === 'ERC1155' &&
+          (<div className='mt-2 flex border-[1px] border-solid border-[#496C6D] rounded-lg pr-2 py-0 '>
+            <img className='size-14 bg-black' src={colInfo.image}></img>
+            <div className={'pl-2 flex-1 flex flex-col items-start pt-1 pb-2 '}>
+              <span className="font-bold">#{colInfo.tokenId1155}</span>
+              {
+                <div className='flex  align-center items-center font-bold'><img src="/ETH.png" className='size-5 -ml-2'></img><span>{swapButtonFormikData.totalGet?.toFixed(5)}</span></div>
+              }
 
-          }
-          )
-        }
+            </div>
+            <div className="flex items-center pr-2  font-bold">
+              x{selectedNftTokenIds.length}
+
+            </div>
+            <button className='pr-2' onClick={() => deleteNft()}>
+              <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.5 0C5.58823 0 0 5.58823 0 12.5C0 19.4118 5.58823 25 12.5 25C19.4118 25 25 19.4118 25 12.5C25 5.58823 19.4118 0 12.5 0ZM17.9412 15.7353C18.5294 16.3235 18.5294 17.3529 17.9412 17.9412C17.3529 18.5294 16.3235 18.5294 15.7353 17.9412L12.5 14.7059L9.26471 18.0882C8.67647 18.6765 7.64706 18.6765 7.05882 18.0882C6.76471 17.6471 6.61765 17.3529 6.61765 16.9118C6.61765 16.4706 6.76471 16.0294 7.05882 15.7353L10.2941 12.5L7.05882 9.41177C6.76471 8.97059 6.61765 8.67647 6.61765 8.23529C6.61765 7.79412 6.76471 7.35294 7.05882 7.05882C7.64706 6.47059 8.67647 6.47059 9.26471 7.05882L12.5 10.2941L15.7353 7.05882C16.3235 6.47059 17.3529 6.47059 17.9412 7.05882C18.5294 7.64706 18.5294 8.67647 17.9412 9.26471L14.7059 12.5L17.9412 15.7353Z" fill="#00D5DA" />
+              </svg>
+
+            </button>
+          </div>)}
+
         {selectedNftTokenIds.length > 0 &&
-          <SwapButton
-            swapType={swapButtonFormikData.swapType}
-            btnStyle={'btn w-[260px]'}
-            boxStyle={'mt-5'}
-            formikData={swapButtonFormikData}
-            showPrice={true}
-            owner={owner}
-            addSwapSuccessCount={addSwapSuccessCount}
-            iconUrl={chain?.iconUrl}
-          />
+          <div className="absolute bottom-5 left-0 right-0 flex  flex-col bg-black bg-opacity-50">
+            <div className="flex">
+              <div className="flex-1 text-left pl-10 font-bold ">
+                Total
+              </div>
+              <div className="flex-1 text-right pr-10 flex justify-end font-bold">
+                <span>{swapButtonFormikData.totalGet?.toFixed(5)}</span>
+                <img className="w-5 h-5 block" src="/ETH.png" />
+              </div>
+            </div>
+
+            <SwapButton
+              swapType={swapButtonFormikData.swapType}
+              btnStyle={'btn btn-circle w-[240px]'}
+              boxStyle={'mt-5'}
+              formikData={swapButtonFormikData}
+              // showPrice={true}
+              owner={owner}
+              addSwapSuccessCount={addSwapSuccessCount}
+              iconUrl={chain?.iconUrl}
+            />
+          </div>
+
         }
 
 

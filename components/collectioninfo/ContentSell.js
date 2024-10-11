@@ -224,7 +224,6 @@ const ContentBuy = ({ }) => {
         IdsPlusAmount += pair.tokenIds.length;
       }
     });
-    debugger
     if (initSid.length > IdsPlusAmount) {
       setIsBanSelect(true);
     } else {
@@ -454,8 +453,8 @@ const ContentBuy = ({ }) => {
                     width: `245px`,
                   }}
                 />
-                <div className="text-center "> #{square}</div>
 
+                <div className="text-center "> #{square}</div>
                 {
                   selectIds.includes(square) &&
                   (

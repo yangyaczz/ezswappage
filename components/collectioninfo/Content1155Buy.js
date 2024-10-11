@@ -228,7 +228,11 @@ function Input1155Buy({ }) {
   useEffect(() => {
 
     updateSwapInfo();
-    setValue(selectIds.length)
+    //切换tab 数据还没来得及清空
+    if (!(selectIds.length === 1 && selectIds[0] === undefined)) {
+      setValue(selectIds.length)
+    }
+
 
   }, [selectIds])
   const handleChange = (e) => {
@@ -283,83 +287,12 @@ function Input1155Buy({ }) {
 
   const toggleSelected = (value) => {
 
+    const array = new Array(value).fill(colInfo.nftId1155);
+    updateSelectedNftToenIds(array)
 
-    updateSelectedNftToenIds(new Array(value).fill(colInfo.nftId1155))
 
-
-    ///////////////////////////////////////////////////////////////
-
-    // let pairs = JSON.parse(JSON.stringify(filterPairs))
-
-    // newSids.forEach((id) => {
-    //   update1155BuyToPairs(id, pairs)
-    // })
-
-    // let tupleEncode = []
-    // let totalGet = 0
-    // let IdsAmount = 0
-    // pairs.forEach((pair) => {
-    //   if (pair.tuple) {
-    //     tupleEncode.push(pair.tuple)
-    //     totalGet += pair.userGetPrice
-    //     IdsAmount += pair.tokenIds.length
-    //   }
-    // })
-
-    // totalGet = Number(totalGet.toFixed(10));
-
-    // updateSwapButtonFormikData({ isExceeded: false, swapType: 'buy', tupleEncode: tupleEncode, totalGet: totalGet, collection: { type: colInfo.type, address: colInfo.address }, golbalParams: { router: golbalParams.router }, selectIds: newSids })
-
-    // setTupleEncode(tupleEncode)
-    // setTotalGet(totalGet)
-    // console.log('totalGet', totalGet)
-    // console.log(swapButtonFormikData)
-    ///////////////////////////////////////////////////////////////
-
-    // check if is execeeded
-
-    //TODO
-    // if (formikData.userCollection.tokenBalance20 < totalGet) {
-    //   setIsExceeded(true);
-    // } else {
-    //   setIsExceeded(false);
-    // }
   }
 
-
-
-
-
-  const rangeChange = (e) => {
-    const number = e.target.value / 1;
-    let newSids = [];
-    if (number === 0) {
-      toggleSelected(newSids);
-      return;
-    }
-    if (number < selectIds.length) {
-      newSids = selectIds.slice(0, number);
-    } else {
-      newSids = nftList.slice(0, number)
-    }
-    toggleSelected(newSids);
-    //重新计算价格
-  }
-
-  const nftItemClick = (index) => {
-    let newIndexs = []
-    if (selectIds.includes(index)) {
-      newIndexs = selectIds.filter(item => item !== index)
-    } else {
-      newIndexs = [...selectIds, index]
-    }
-    toggleSelected(newIndexs);
-  }
-
-
-  // useEffect(() => {
-  //   toggleSelected(colInfo.tokenId1155, value)
-  // }, [value]);
 
   if (isLoading) {
     return (

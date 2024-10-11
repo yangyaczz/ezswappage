@@ -30,7 +30,7 @@ function Input1155Sell({ }) {
 
   const { languageModel } = useLanguage()
 
-  const [nftList, setNftList] = useState([])
+
 
   useEffect(() => {
     if (chain) {
@@ -63,24 +63,6 @@ function Input1155Sell({ }) {
       updateSelectedNftToenIds([])
     }
   }, [refreshNftListKey, colInfo.address]);
-
-
-  const rangeChange = (e) => {
-    const number = e.target.value / 1;
-    let newSids = [];
-    if (number === 0) {
-      toggleSelected(newSids);
-      return;
-    }
-    if (number < selectIds.length) {
-      newSids = selectIds.slice(0, number);
-    } else {
-      newSids = nftList.slice(0, number)
-    }
-    // updateSelectedNftToenIds(newSids)
-    toggleSelected(newSids);
-    //重新计算价格
-  }
 
 
   const radioRef = useRef(
@@ -171,10 +153,7 @@ function Input1155Sell({ }) {
     }
 
   }
-  useEffect(() => {
-    const list = Array.from({ length: max }).map((_, index) => index);
-    setNftList(list)
-  }, [filterPairs, max])
+
   const setSwapMode = (filterPairs) => {
     console.log('filterPairs', filterPairs)
   }
@@ -238,8 +217,11 @@ function Input1155Sell({ }) {
 
 
   useEffect(() => {
-    console.log('selectIds', selectIds)
-    setValue(selectIds.length)
+    //切换tab 数据还没来得及清空
+    if (!(selectIds.length === 1 && selectIds[0] === undefined)) {
+      setValue(selectIds.length)
+    }
+
     updateSwapInfo();
 
   }, [selectIds])
@@ -273,7 +255,6 @@ function Input1155Sell({ }) {
   }
 
   const toggleSelected = (value) => {
-
 
     updateSelectedNftToenIds(new Array(value).fill(colInfo.nftId1155))
 
@@ -339,14 +320,14 @@ function Input1155Sell({ }) {
     if (/^\d+$/.test(inputValue)) {
       setValue(Math.min(Math.max(1, Number(inputValue)), max));
     } else {
-      setValue(1);
+      setValue(0);
     }
   };
 
 
   const handleIncrement = () => {
     // 不能超过用户的自己NFT的数量
-    setValue(prev => Math.min(prev + 1, max))
+    setValue(prev => Math.min(prev + 1, Math.min(max, parisMax)))
   };
 
   const handleDecrement = () => {

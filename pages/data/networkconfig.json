@@ -10,6 +10,13 @@
     "recommendNFT": [
       {
         "type": "ERC721",
+        "address": "0x2284f1239E57667a3EBAaF84ab852f800423050f",
+        "name": "MTK721_zn",
+        "tokenId1155": "",
+        "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
+      },
+      {
+        "type": "ERC721",
         "address": "0x290B37F027b879d2C39323C839BfcB6562E1A403",
         "name": "test721",
         "tokenId1155": "",
@@ -33,6 +40,13 @@
         "type": "ERC1155",
         "address": "0x4d7c33766130b818896BbE81dc7a5fA2fdCb1251",
         "name": "test1155",
+        "tokenId1155": "1",
+        "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
+      },
+      {
+        "type": "ERC1155_zn",
+        "address": "0x324200643020d233424274073bE8Cd5215636748",
+        "name": "test1155_zn",
         "tokenId1155": "1",
         "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
       },

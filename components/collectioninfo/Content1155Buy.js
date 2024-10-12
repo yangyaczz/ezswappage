@@ -229,7 +229,7 @@ function Input1155Buy({ }) {
 
     updateSwapInfo();
     //切换tab 数据还没来得及清空
-    if (!(selectIds.length === 1 && selectIds[0] === undefined)) {
+    if (!(selectIds.length > 1 && selectIds[0] === undefined)) {
       setValue(selectIds.length)
     }
 

@@ -28,11 +28,9 @@ const InputAmount = ({
 
   const displaySellDialog = () => {
     // console.log('display Sell Dialog', formikData.collection.filterPairs)
-
     if (!formikData.collection.type || !formikData.token) {
       return <div>{languageModel.SelectCollectionAndTokenFirst}...</div>;
     }
-
     if (formikData.userCollection.tokenIds721 === "") {
       return <div>{languageModel.Loading}...</div>;
     }
@@ -41,6 +39,8 @@ const InputAmount = ({
       return <div>{languageModel.ThisPairHasNoLiquidity}</div>;
     }
     if (formikData.collection.type == "ERC721") {
+
+
       return (
         <Input721Sell
           formikData={formikData}

@@ -48,7 +48,6 @@ function Input1155Sell({ }) {
     watch: false,
     enabled: false,
     onSuccess(data) {
-
       const num = Number(data);
       setMax(num)
       console.log('refetch-success', num)
@@ -127,7 +126,6 @@ function Input1155Sell({ }) {
           }
           // setToken(token)
           // setTokenName(tokensNames[0])
-
           multiSetFilterPairMode(
             'sell',
             { collection: { type: colInfo.type } },
@@ -146,11 +144,6 @@ function Input1155Sell({ }) {
   };
   const setPairs = (paris) => {
     setFilterPairs(paris);
-    let totalNftCount1155 = paris.reduce((sum, item) => sum + item.nftCount1155, 0);
-    setParisMax(totalNftCount1155)
-    if (max > totalNftCount1155) {
-      setMax(totalNftCount1155)
-    }
 
   }
 
@@ -218,7 +211,7 @@ function Input1155Sell({ }) {
 
   useEffect(() => {
     //切换tab 数据还没来得及清空
-    if (!(selectIds.length === 1 && selectIds[0] === undefined)) {
+    if (!(selectIds.length > 1 && selectIds[0] === undefined)) {
       setValue(selectIds.length)
     }
 
@@ -246,10 +239,14 @@ function Input1155Sell({ }) {
         IdsAmount += pair.tokenIds.length
       }
     })
-
+    let isExceeded = false
+    // check if is execeeded
+    if (selectIds.length > IdsAmount) {
+      isExceeded = true
+    }
     totalGet = Number(totalGet.toFixed(10));
 
-    updateSwapButtonFormikData({ isExceeded: false, swapType: 'sell', tupleEncode: tupleEncode, totalGet: totalGet, collection: { type: colInfo.type, address: colInfo.address }, golbalParams: { router: golbalParams.router }, selectIds: new Array(selectIds.length).fill(colInfo.tokenId1155) })
+    updateSwapButtonFormikData({ isExceeded: isExceeded, swapType: 'sell', tupleEncode: tupleEncode, totalGet: totalGet, collection: { type: colInfo.type, address: colInfo.address }, golbalParams: { router: golbalParams.router }, selectIds: new Array(selectIds.length).fill(colInfo.tokenId1155) })
 
 
   }
@@ -327,7 +324,7 @@ function Input1155Sell({ }) {
 
   const handleIncrement = () => {
     // 不能超过用户的自己NFT的数量
-    setValue(prev => Math.min(prev + 1, Math.min(max, parisMax)))
+    setValue(prev => Math.min(prev + 1, max))
   };
 
   const handleDecrement = () => {

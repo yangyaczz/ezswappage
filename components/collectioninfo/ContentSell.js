@@ -432,7 +432,6 @@ const ContentBuy = ({ }) => {
     <>
       <section className="w-full h-[470px] overflow-scroll  border-[1px] border-solid border-[#496C6D] rounded-lg ">
 
-
         <BuyNFTsSelectedRange value={selectIds.length} radioRef={radioRef} min={0} max={max} handleRangeChange={(e) => rangeChange(e)} />
 
         <div className="flex flex-wrap  px-5 ">

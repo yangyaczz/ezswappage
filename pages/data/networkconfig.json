@@ -44,7 +44,7 @@
         "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
       },
       {
-        "type": "ERC1155_zn",
+        "type": "ERC1155",
         "address": "0x324200643020d233424274073bE8Cd5215636748",
         "name": "test1155_zn",
         "tokenId1155": "1",

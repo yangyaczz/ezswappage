@@ -15,7 +15,8 @@ function Input1155Sell({ }) {
 
 
   const { colInfo, selectedNftTokenIds: selectIds, updateSelectedNftToenIds,
-    updateSwapButtonFormikData, swapButtonFormikData, refreshNftListKey } =
+    updateSwapButtonFormikData, swapButtonFormikData, refreshNftListKey, sellSuccessNfts, updateSellSuccessNfts
+  } =
     useCollectionInfo();
 
   const [filterPairs, setFilterPairs] = useState([]);
@@ -26,11 +27,17 @@ function Input1155Sell({ }) {
   const { chain } = useNetwork();
   const { address: owner } = useAccount();
   const [max, setMax] = useState(0);
-  const [parisMax, setParisMax] = useState(0);
-
-  const { languageModel } = useLanguage()
+  const [lastMax, setLastMax] = useState(0);
 
 
+  // useEffect(() => {
+  //   setLastMax(max - sellSuccessNfts.length)
+  // }, [buySuccessNfts, max])
+
+
+  useEffect(() => {
+    updateSellSuccessNfts([])
+  }, [colInfo.address])
 
   useEffect(() => {
     if (chain) {
@@ -48,15 +55,22 @@ function Input1155Sell({ }) {
     watch: false,
     enabled: false,
     onSuccess(data) {
+
       const num = Number(data);
+      console.log('1155nft_count', num)
       setMax(num)
-      console.log('refetch-success', num)
-      fetchData()
+      if (num === 0) {
+        setLoading(false)
+      } else {
+        fetchData()
+      }
+
     },
 
   });
   useEffect(() => {
     setLoading(true)
+
     refetch();
     return () => {
       updateSelectedNftToenIds([])
@@ -101,6 +115,10 @@ function Input1155Sell({ }) {
           );
         }
 
+        if (filteredData.length == 0) {
+          setMax(0)
+        }
+
 
         let canTradeToken = [
           ...new Set(filteredData.map((item) => item.token)),
@@ -124,6 +142,7 @@ function Input1155Sell({ }) {
             // setToken(token);
             // setTokenName(tokensNames[0]);
           }
+
           // setToken(token)
           // setTokenName(tokensNames[0])
           multiSetFilterPairMode(
@@ -145,6 +164,24 @@ function Input1155Sell({ }) {
   const setPairs = (paris) => {
     setFilterPairs(paris);
 
+    // let pairs = JSON.parse(JSON.stringify(paris))
+    // selectIds.forEach((id) => {
+    //   update1155SellToPairs(id, pairs)
+    // })
+    // let tupleEncode = []
+    // let totalGet = 0
+    // let IdsAmount = 0
+    // pairs.forEach((pair) => {
+    //   if (pair.tuple) {
+    //     tupleEncode.push(pair.tuple)
+    //     totalGet += pair.userGetPrice
+    //     IdsAmount += pair.tokenIds.length
+    //   }
+    // })
+    // IdsAmount = IdsAmount - sellSuccessNfts.length
+    // if (IdsAmount === 0) {
+    //   setMax(0)
+    // }
   }
 
   const setSwapMode = (filterPairs) => {
@@ -211,7 +248,7 @@ function Input1155Sell({ }) {
 
   useEffect(() => {
     //切换tab 数据还没来得及清空
-    if (!(selectIds.length > 1 && selectIds[0] === undefined)) {
+    if (!(selectIds.length >= 1 && selectIds[0] === undefined)) {
       setValue(selectIds.length)
     }
 
@@ -239,6 +276,7 @@ function Input1155Sell({ }) {
         IdsAmount += pair.tokenIds.length
       }
     })
+    IdsAmount = IdsAmount - sellSuccessNfts.length;
     let isExceeded = false
     // check if is execeeded
     if (selectIds.length > IdsAmount) {
@@ -253,7 +291,7 @@ function Input1155Sell({ }) {
 
   const toggleSelected = (value) => {
 
-    updateSelectedNftToenIds(new Array(value).fill(colInfo.nftId1155))
+    updateSelectedNftToenIds(new Array(value).fill(colInfo.tokenId1155))
 
     // ///////////////////////////////////////////////////////////////
 
@@ -350,9 +388,9 @@ function Input1155Sell({ }) {
   }
 
   //////////////////////////////////////////////////////////////////////////////
-  if (max == 0 || !colInfo.tokenId1155) {
-    return <div>{languageModel.YouDontHaveThisNFT}</div>
-  }
+  // if (max == 0 || !colInfo.tokenId1155) {
+  //   return <div>{languageModel.YouDontHaveThisNFT}</div>
+  // }
 
 
   // return (

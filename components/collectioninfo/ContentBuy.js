@@ -27,17 +27,30 @@ function mapIdsToPrices(ids, prices) {
 
 const ContentBuy = ({ }) => {
   const { colInfo, nftTokenId2PriceMap: idPriceMap, selectedNftTokenIds: selectIds, updateSelectedNftToenIds,
-    updateNftToenId2PriceMap: setIdPriceMap, updateSwapButtonFormikData, refreshNftListKey } =
+    updateNftToenId2PriceMap: setIdPriceMap, updateSwapButtonFormikData, refreshNftListKey, buySuccessNfts, updateBuySuccessNfts } =
     useCollectionInfo();
   const { languageModel } = useLanguage()
   const [golbalParams, setGolbalParams] = useState({})
   const [isLoading, setLoading] = useState(true)
 
   const [nftList, setNftList] = useState([]);
+  const [lastNftList, setLastNftList] = useState([]);
+
   const [pairs, setPairs] = useState([])
 
   const { chain } = useNetwork();
   const { address: owner } = useAccount();
+  useEffect(() => {
+    updateBuySuccessNfts([])
+  }, [colInfo.address])
+
+  useEffect(() => {
+    console.log('buySuccessNfts', buySuccessNfts)
+    const list = nftList.filter(item => !buySuccessNfts.includes(item))
+    setLastNftList(list)
+  }, [buySuccessNfts, nftList])
+
+
 
   useEffect(() => {
     if (chain) {
@@ -54,7 +67,7 @@ const ContentBuy = ({ }) => {
       updateSelectedNftToenIds([])
       setIdPriceMap({})
     }
-  }, [colInfo.address, golbalParams, refreshNftListKey]);
+  }, [colInfo.address, golbalParams]);
 
   // useEffect(() => {
   //   debugger
@@ -194,7 +207,7 @@ const ContentBuy = ({ }) => {
       newSids = selectIds.slice(0, number);
       // updateSelectedNftToenIds(newSelectIds)
     } else {
-      newSids = nftList.slice(0, number)
+      newSids = lastNftList.slice(0, number)
       // updateSelectedNftToenIds(nftList.slice(0, number))
     }
     toggleSelected(newSids);
@@ -387,7 +400,7 @@ const ContentBuy = ({ }) => {
   };
 
   const buildNftList = (idPriceMap) => {
-    const nftList = Object.keys(idPriceMap)
+    let nftList = Object.keys(idPriceMap)
       .sort((a, b) => {
         const aSelected = selectIds.includes(a);
         const bSelected = selectIds.includes(b);
@@ -396,6 +409,7 @@ const ContentBuy = ({ }) => {
         }
         return aSelected ? -1 : 1;
       }).map(item => item)
+
     setNftList(nftList)
   }
   if (isLoading) {
@@ -404,7 +418,7 @@ const ContentBuy = ({ }) => {
     )
   }
 
-  if (nftList.length === 0) {
+  if (lastNftList.length === 0) {
     return (
       <div className="text-center mt-10"><p>{languageModel.noData}</p></div >
     )
@@ -415,12 +429,12 @@ const ContentBuy = ({ }) => {
       <section className="w-full h-[470px] overflow-scroll  border-[1px] border-solid border-[#496C6D] rounded-lg grid grid-rows-[40px,auto] justify-items-stretch">
 
 
-        <BuyNFTsSelectedRange value={selectIds.length} radioRef={radioRef} min={0} max={nftList.length} handleRangeChange={(e) => rangeChange(e)} />
+        <BuyNFTsSelectedRange value={selectIds.length} radioRef={radioRef} min={0} max={lastNftList.length} handleRangeChange={(e) => rangeChange(e)} />
 
         <div className="flex flex-wrap  p-5 mt-2">
 
           {
-            nftList.map((square, index) => {
+            lastNftList.map((square, index) => {
               return (<div key={square} className="relative border border-[#00D5DA] mr-3 flex flex-col items-center  mt-5 pb-5 rounded-xl overflow-hidden" onClick={() => toggleSelected(square)}>
                 <img
                   src={colInfo.image}

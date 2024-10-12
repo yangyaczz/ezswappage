@@ -139,7 +139,6 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount, btnStyle
       } else if (formikData.collection.type === 'ERC1155') {
         eventTopic = transfer1155
       }
-
       for (let i = 0; i < data.logs.length; i++) {
         if (data.logs[i].address.toLowerCase() === formikData.collection.address.toLowerCase()) {
           if (data.logs[i].topics[0] === eventTopic) {
@@ -347,6 +346,7 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount, btnStyle
 
       return (
         <button className={className + styles.buttonStyle} onClick={() => swapETHToNFT()}>
+          {/* <button className={className + styles.buttonStyle} onClick={() => addSwapSuccessCount()}> */}
           {swapETHToNFTIsLoading || waitTrxLoading ? (
             <span class="loading loading-spinner loading-sm"></span>
           ) : (

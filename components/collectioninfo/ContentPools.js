@@ -38,7 +38,7 @@ const ContentPools = () => {
           </div>
           <p className="col-span-4 row-start-1">
             {/* Owner:{pool.owner.substring(0, 8)} */}
-
+            Owner:&nbsp;
             <label className="self-end min-[500px]:text-xs text-[9px] align-baseline cursor-pointer text-end">{`${pool.owner.substring(
               0,
               5

@@ -96,7 +96,6 @@ function Input1155Sell({ formikData, setSelectIds, setTupleEncode, setTotalGet, 
         IdsAmount += pair.tokenIds.length
       }
     })
-
     totalGet = Number(totalGet.toFixed(10));
 
     setTupleEncode(tupleEncode)

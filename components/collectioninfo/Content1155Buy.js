@@ -12,7 +12,7 @@ import BuyNFTsSelectedRange from "@/components/collectioninfo/BuyNFTsSelectedRan
 function Input1155Buy({ }) {
 
   const { colInfo, selectedNftTokenIds: selectIds, updateSelectedNftToenIds,
-    updateSwapButtonFormikData, swapButtonFormikData, refreshNftListKey } =
+    updateSwapButtonFormikData, swapButtonFormikData, refreshNftListKey, buySuccessNfts, updateBuySuccessNfts } =
     useCollectionInfo();
 
   // const [swapButtonFormikData, setSwapButtonFormikData] = useState({})
@@ -21,6 +21,7 @@ function Input1155Buy({ }) {
   // const tId = formikData.collection.tokenId1155
   // const tId = ""
   const [max, setMax] = useState(0);
+  const [lastMax, setLastMax] = useState(0);
   const { languageModel } = useLanguage();
   //TODO
   const [filterPairs, setFilterPairs] = useState([]);
@@ -30,7 +31,14 @@ function Input1155Buy({ }) {
   const { chain } = useNetwork();
   const { address: owner } = useAccount();
 
-  const [nftList, setNftList] = useState([])
+
+  useEffect(() => {
+    updateBuySuccessNfts([])
+  }, [colInfo.address])
+
+  useEffect(() => {
+    setLastMax(max - buySuccessNfts.length)
+  }, [buySuccessNfts, max])
 
   useEffect(() => {
     if (chain) {
@@ -229,7 +237,7 @@ function Input1155Buy({ }) {
 
     updateSwapInfo();
     //切换tab 数据还没来得及清空
-    if (!(selectIds.length > 1 && selectIds[0] === undefined)) {
+    if (!(selectIds.length >= 1 && selectIds[0] === undefined)) {
       setValue(selectIds.length)
     }
 
@@ -240,7 +248,7 @@ function Input1155Buy({ }) {
 
     // check
     if (/^\d+$/.test(inputValue)) {
-      setValue(Math.min(Math.max(0, Number(inputValue)), max));
+      setValue(Math.min(Math.max(0, Number(inputValue)), lastMax));
     } else {
       setValue(0);
     }
@@ -248,7 +256,7 @@ function Input1155Buy({ }) {
 
 
   const handleIncrement = () => {
-    setValue(prev => Math.min(prev + 1, max))
+    setValue(prev => Math.min(prev + 1, lastMax))
   };
 
   const handleDecrement = () => {

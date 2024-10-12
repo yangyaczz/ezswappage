@@ -51,9 +51,16 @@
         "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
       },
       {
-        "type": "ERC1155_2",
+        "type": "ERC1155",
         "address": "0xa1F01AA3752ef1ecc584e50a07E444af33f9aD75",
-        "name": "test1155",
+        "name": "test1155_2",
+        "tokenId1155": "1",
+        "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0x7013cFEc3F6cEFe96A184e7f35E32ea00cefd734",
+        "name": "test1155_3",
         "tokenId1155": "1",
         "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
       }

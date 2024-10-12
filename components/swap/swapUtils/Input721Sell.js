@@ -134,7 +134,6 @@ const Input721Sell = ({
       update721SellToPairs(id, pairs2);
     });
 
-    debugger
     let IdsPlusAmount = 0;
     pairs2.forEach((pair) => {
       if (pair.tuple) {

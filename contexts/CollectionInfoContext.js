@@ -34,6 +34,8 @@ const initialState = {
   // totalGet: undefined,
   // isExceeded:false
   swapButtonFormikData: { isExceeded: false, tupleEncode: [], totalGet: undefined, collection: { type: '', address: '' }, golbalParams: { router: '' }, selectIds: [] },
+  sellSuccessNfts: [],
+  buySuccessNfts: []
 };
 
 function reducer(state, action) {
@@ -92,6 +94,17 @@ function reducer(state, action) {
         ...state,
         swapButtonFormikData: action.payload,
       };
+
+    case "colInfo/updateSellSuccessNfts":
+      return {
+        ...state,
+        sellSuccessNfts: action.payload,
+      };
+    case "colInfo/updateBuySuccessNfts":
+      return {
+        ...state,
+        buySuccessNfts: action.payload,
+      };
     default:
       throw new Error("Collection action type not valid");
   }
@@ -117,7 +130,10 @@ function CollectionInfoProvider({ children }) {
       nftTokenId2PriceMap,
       // totalGet,
       // tupleEncode,
-      swapButtonFormikData
+      swapButtonFormikData,
+      //用于买卖成功记录nft，判断本地不显示
+      sellSuccessNfts,
+      buySuccessNfts
     },
     dispatch,
   ] = useReducer(reducer, initialState);
@@ -219,6 +235,19 @@ function CollectionInfoProvider({ children }) {
     });
   }
 
+  async function updateSellSuccessNfts(data) {
+    dispatch({
+      type: "colInfo/updateSellSuccessNfts",
+      payload: data,
+    });
+  }
+
+  async function updateBuySuccessNfts(data) {
+    dispatch({
+      type: "colInfo/updateBuySuccessNfts",
+      payload: data,
+    });
+  }
 
   return (
     <CollectionInfoContext.Provider
@@ -234,6 +263,8 @@ function CollectionInfoProvider({ children }) {
         nftTokenId2PriceMap,
         swapButtonFormikData,
         refreshNftListKey,
+        sellSuccessNfts,
+        buySuccessNfts,
         loadColInfo,
         updateContentType,
         updateActionType,
@@ -242,7 +273,9 @@ function CollectionInfoProvider({ children }) {
         updateNftToenId2PriceMap,
         updateRouterParams,
         updateSwapButtonFormikData,
-        refreshNftList
+        refreshNftList,
+        updateBuySuccessNfts,
+        updateSellSuccessNfts
       }}
     >
       {children}

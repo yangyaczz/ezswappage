@@ -11,7 +11,9 @@ const ContentBuyCart = () => {
   const [isClient, setIsClient] = useState(false);
   const [golbalParams, setGolbalParams] = useState({})
   const { nftTokenId2PriceMap, selectedNftTokenIds, updateSelectedNftToenIds,
-    updateNftToenId2PriceMap, colInfo, swapButtonFormikData } =
+    updateNftToenId2PriceMap, colInfo, swapButtonFormikData, updateBuySuccessNfts,
+    updateSellSuccessNfts, sellSuccessNfts,
+    buySuccessNfts } =
     useCollectionInfo();
 
   const [windowHeight, setWindowHeight] = useState(0); // 初始设置为当前窗口高度
@@ -43,11 +45,16 @@ const ContentBuyCart = () => {
     updateSelectedNftToenIds([])
   }
   const addSwapSuccessCount = () => {
-
-    refreshNftList()
+    console.log(swapButtonFormikData)
+    if (swapButtonFormikData.swapType === 'buy') {
+      updateBuySuccessNfts([...buySuccessNfts, ...swapButtonFormikData.selectIds])
+    } else {
+      updateSellSuccessNfts([...sellSuccessNfts, ...swapButtonFormikData.selectIds])
+    }
     setTimeout(() => {
+      refreshNftList()
       updateSelectedNftToenIds([])
-    }, 1000)
+    }, 2000)
   }
   useEffect(() => {
     if (chain) {

@@ -331,7 +331,7 @@ function Input1155Sell({ }) {
   };
 
   const handleDecrement = () => {
-    setValue(prev => Math.max(prev - 1, 1))
+    setValue(prev => Math.max(prev - 1, 0))
   };
 
 

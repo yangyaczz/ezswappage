@@ -179,7 +179,7 @@ const CollectionInfo = () => {
   }
 
   return (
-    <div className="flex">
+    <div className="flex h-full">
       <div className="flex flex-col items-stretch justify-start w-full h-full gap-8 px-10 py-6">
         <CollectionInfoHeader />
         {/* <ActionBar /> */}

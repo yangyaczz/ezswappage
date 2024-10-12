@@ -17,18 +17,9 @@ import CollectionData from "../../pages/data/collection-data.json";
 import multiSetFilterPairMode from "../swap/swapUtils/multiSetFilterPairMode";
 import { useContractRead, useBalance, useNetwork, useAccount } from "wagmi";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { max } from "lodash";
 const erc404Name = ['M404', 'mtest', 'Mars']
-function mapIdsToPrices(ids, prices) {
-  let result = {};
-  ids.forEach((subArray, index) => {
-    const price = prices[index];
-    subArray.forEach((id) => {
-      result[id] = price;
-    });
-  });
 
-  return result;
-}
 
 const ContentBuy = ({ }) => {
   const { colInfo, nftTokenId2PriceMap: idPriceMap, selectedNftTokenIds: selectIds, updateSelectedNftToenIds,
@@ -41,6 +32,7 @@ const ContentBuy = ({ }) => {
 
   const [nftList, setNftList] = useState([]);
   const [pairs, setPairs] = useState([])
+  const [max, setMax] = useState(0)
 
   const { chain } = useNetwork();
   const { address: owner } = useAccount();
@@ -224,6 +216,13 @@ const ContentBuy = ({ }) => {
         IdsPlusAmount += pair.tokenIds.length;
       }
     });
+    if (IdsPlusAmount) {
+      // 为什么加一我也不知道，修复bug
+      setMax(IdsPlusAmount + 1)
+    } else {
+      setMax(0)
+    }
+
     if (initSid.length > IdsPlusAmount) {
       setIsBanSelect(true);
     } else {
@@ -434,7 +433,7 @@ const ContentBuy = ({ }) => {
       <section className="w-full h-[470px] overflow-scroll  border-[1px] border-solid border-[#496C6D] rounded-lg ">
 
 
-        <BuyNFTsSelectedRange value={selectIds.length} radioRef={radioRef} min={0} max={nftList.length} handleRangeChange={(e) => rangeChange(e)} />
+        <BuyNFTsSelectedRange value={selectIds.length} radioRef={radioRef} min={0} max={max} handleRangeChange={(e) => rangeChange(e)} />
 
         <div className="flex flex-wrap  px-5 ">
 

@@ -14,6 +14,21 @@ const ContentBuyCart = () => {
     updateNftToenId2PriceMap, colInfo, swapButtonFormikData } =
     useCollectionInfo();
 
+  const [windowHeight, setWindowHeight] = useState(0); // 初始设置为当前窗口高度
+
+  useEffect(() => {
+    setWindowHeight(window.innerHeight);
+    const handleResize = () => {
+      setWindowHeight(window.innerHeight); // 更新窗口高度
+    };
+
+    window.addEventListener('resize', handleResize); // 监听窗口大小变化
+
+    return () => {
+      window.removeEventListener('resize', handleResize); // 清理事件监听
+    };
+  }, []);
+
 
   const deleteNft = (tokenId) => {
     if (colInfo.type === 'ERC721') {
@@ -51,7 +66,7 @@ const ContentBuyCart = () => {
   const totalPrice = selectedNftTokenIds.map(item => nftTokenId2PriceMap[item]).reduce((acc, num) => acc + num, 0);
   return (
     <>
-      <div className={` relative content-right-buy  h-full pt-10 pb-[150px]    border-solid border-l-[#496C6D] width-transition transition-all duration-500 ease-in-out overflow-x-hidden overflow-y-scroll ` + (selectedNftTokenIds.length > 0 ? ' border-l-[1px] w-96 px-5' : 'w-0')}>
+      <div style={{ height: (windowHeight - 126) + 'px' }} className={`flex flex-col relative content-right-buy   pt-0 pb-[150px]    border-solid border-l-[#496C6D] width-transition transition-all duration-500 ease-in-out overflow-x-hidden overflow-y-scroll ` + (selectedNftTokenIds.length > 0 ? ' border-l-[1px] w-96 px-5' : 'w-0')}>
         <div className=" w-full flex leading-[80px] overflow-hidden">
           <div className="flex-1 text-[32px] font-bold">{swapButtonFormikData.swapType === 'buy' ? 'Buy' : 'Sell'} {selectedNftTokenIds.length} NFT</div>
 
@@ -63,7 +78,7 @@ const ContentBuyCart = () => {
 
         </div>
         {colInfo.type === 'ERC721' &&
-          <div >
+          <div className="flex-1 overflow-y-scroll">
             {
               selectedNftTokenIds.map((tokenId) => {
                 return (
@@ -143,7 +158,7 @@ const ContentBuyCart = () => {
           <span className="text-black">SWAP</span>
         </button> */}
 
-      </div>
+      </div >
     </>
   )
 };

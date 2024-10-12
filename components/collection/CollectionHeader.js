@@ -21,21 +21,21 @@ const CollectionHeader = ({
 }) => {
   const { languageModel } = useLanguage();
   return (
-    <section className="grid gap-0 md:gap-4 grid-cols-1 grid-rows-[65px,auto] sm:grid-rows-[65px,auto] sm:grid-cols-[90px,auto] md:grid-rows-1">
+    <section className="grid gap-x-2 md:gap-4 grid-rows-1 grid-cols-[65px,auto] sm:grid-cols-[120px,auto]">
       {/* <Image
-        width={30}
-        height={30}
+        width={129}
+        height={129}
         src={img}
         alt={name}
       /> */}
       <img
         src={img}
         alt={name}
-        className="w-[65px] h-[65px] sm:w-[75px] sm:h-[75px] md:w-[90px] md:h-[90px] "
+        className="w-[65px] h-[65px] sm:w-[120px] sm:h-[120px]"
       />
       <div className="flex flex-col items-start justify-start gap-y-4">
         <header className="flex flex-col flex-wrap items-baseline justify-start max-w-lg min-w-full leading-4 gap-x-4 sm:flex-row">
-          <p className="flex items-baseline text-xl font-bold lg:text-2xl whitespace-nowrap text-white">
+          <p className="flex items-baseline text-xl font-bold text-white lg:text-2xl whitespace-nowrap">
             {name}
             {/*{type==="ERC1155" && <span className="text-base"> token {tokenId1155}</span>}*/}
             {currencyImage && (
@@ -48,10 +48,12 @@ const CollectionHeader = ({
               />
             )}
           </p>
-          <p className="text-white text-sm align-baseline xl:text-base whitespace-nowrap ">
-          {languageModel.Vol.toUpperCase()}: {totalVolume} {tradingCurrencyName}
-        </p>
+          <p className="text-sm text-white align-baseline xl:text-base whitespace-nowrap ">
+            {languageModel.Vol.toUpperCase()}: {totalVolume} {tradingCurrencyName}
+          </p>
           {/* <p className="text-sm lg:text-base">Estimated APR: 20%</p> */}
+
+
         </header>
 
         <div className="text-white grid self-stretch grid-cols-1 gap-2 place-items-start sm:grid-cols-2 sm:grid-rows-2 md:gap-4 lg:grid-cols-[3fr,2fr,3fr,3fr] lg:grid-rows-1 gap-x-4 whitespace-nowrap">

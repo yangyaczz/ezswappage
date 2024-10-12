@@ -15,7 +15,7 @@ const TokenSearch = ({
   setFilterPairs,
   setSwapMode,
 }) => {
-  const {languageModel} = useLanguage();
+  const { languageModel } = useLanguage();
   const handleTokenClick = (tokenName) => {
     reset23();
 
@@ -62,7 +62,6 @@ const TokenSearch = ({
       </button>
     ));
   };
-
   return (
     <div className="form-control">
       <button
@@ -72,7 +71,7 @@ const TokenSearch = ({
       >
         <div className="flex items-center text-sm justify-start space-x-2">
           <div>
-            {formikData.tokenName === 'ETH' && addressSymbol[formikData.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : formikData.tokenName ? formikData.tokenName : languageModel.SelectToken}
+            {formikData.tokenName === 'ETH' && addressSymbol[formikData.golbalParams.hex]?.["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : formikData.tokenName ? formikData.tokenName : languageModel.SelectToken}
           </div>
           {/*<svg*/}
           {/*  width="12"*/}

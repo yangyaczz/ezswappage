@@ -17,7 +17,7 @@ const InputAmount = ({
   setIsExceeded,
   setIsBanSelect,
 }) => {
-  const {languageModel} = useLanguage();
+  const { languageModel } = useLanguage();
   const displayFrame = () => {
     if (!formikData.selectIds.length) {
       return <div>{languageModel.selectItem}</div>;
@@ -28,11 +28,9 @@ const InputAmount = ({
 
   const displaySellDialog = () => {
     // console.log('display Sell Dialog', formikData.collection.filterPairs)
-
     if (!formikData.collection.type || !formikData.token) {
       return <div>{languageModel.SelectCollectionAndTokenFirst}...</div>;
     }
-
     if (formikData.userCollection.tokenIds721 === "") {
       return <div>{languageModel.Loading}...</div>;
     }
@@ -40,8 +38,9 @@ const InputAmount = ({
     if (formikData.pairs && formikData.filterPairs.length === 0) {
       return <div>{languageModel.ThisPairHasNoLiquidity}</div>;
     }
-
     if (formikData.collection.type == "ERC721") {
+
+
       return (
         <Input721Sell
           formikData={formikData}
@@ -95,18 +94,17 @@ const InputAmount = ({
     }
 
     if (formikData.collection.type == "ERC1155") {
-        return (
-            <Input1155Buy
-                formikData={formikData}
-                setSelectIds={setSelectIds}
-                setTotalGet={setTotalGet}
-                setTupleEncode={setTupleEncode}
-                setIsExceeded={setIsExceeded}
-            />
-        )
+      return (
+        <Input1155Buy
+          formikData={formikData}
+          setSelectIds={setSelectIds}
+          setTotalGet={setTotalGet}
+          setTupleEncode={setTupleEncode}
+          setIsExceeded={setIsExceeded}
+        />
+      )
     }
   };
-
   return (
     <div className="form-control">
       <button

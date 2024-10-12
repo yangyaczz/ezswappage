@@ -9,7 +9,7 @@ import { ethers } from "ethers";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 // todo 404要改
-const erc404Name = ['M404', 'mtest','Mars']
+const erc404Name = ['M404', 'mtest', 'Mars']
 
 const Input721Sell = ({
   formikData,
@@ -176,7 +176,6 @@ const Input721Sell = ({
   }, [formikData.token]);
 
   const initialSquares = formikData.userCollection.tokenIds721;
-
   if (!initialSquares.length) {
     return <div>{languageModel.YouDontHaveThisNFT}</div>;
   }

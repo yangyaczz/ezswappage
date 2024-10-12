@@ -1,6 +1,7 @@
 import { useCollectionInfo } from "@/contexts/CollectionInfoContext";
 import React, { useEffect, useState, useRef } from "react";
 import BuyNFTsSelectedRange from "@/components/collectioninfo/BuyNFTsSelectedRange";
+import Image from "next/image";
 import {
   SellPoolLiner,
   TradePoolLiner,
@@ -445,7 +446,13 @@ const ContentBuy = ({ }) => {
                 <p> #{square}</p>
                 <div className="flex items-center mt-3">
                   <span>{idPriceMap[square]?.toFixed(5)}  </span>
-                  <img className="w-5 h-5 block" src="/ETH.png" />
+                  <Image
+                    src={colInfo.currencyImage.src}
+                    alt={colInfo.currencyImage.label}
+                    width={28}
+                    height={28}
+                    className="inline"
+                  />
                 </div>
                 {
                   selectIds.includes(square) && (

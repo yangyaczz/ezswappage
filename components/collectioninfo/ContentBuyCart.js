@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import SwapButton from "@/components/swap/SwapButton";
 import { useNetwork, useAccount } from "wagmi";
 import networkConfig from "../../pages/data/networkconfig.json";
+import Image from "next/image";
 const ContentBuyCart = () => {
   const { refreshNftList } =
     useCollectionInfo();
@@ -95,7 +96,15 @@ const ContentBuyCart = () => {
                       <span>#{tokenId}</span>
                       {
                         nftTokenId2PriceMap[tokenId] &&
-                        <div className='flex  align-center items-center '><img src="/ETH.png" className='size-5 -ml-2'></img><span>{nftTokenId2PriceMap[tokenId]?.toFixed(5)}</span></div>
+                        <div className='flex  align-center items-center '>
+                          <span>{nftTokenId2PriceMap[tokenId]?.toFixed(5)}</span>
+                          <Image
+                            src={colInfo.currencyImage.src}
+                            alt={colInfo.currencyImage.label}
+                            width={28}
+                            height={28}
+                            className="inline"
+                          /></div>
                       }
 
                     </div>
@@ -142,7 +151,13 @@ const ContentBuyCart = () => {
               </div>
               <div className="flex-1 text-right pr-10 flex justify-end font-bold">
                 <span>{swapButtonFormikData.totalGet?.toFixed(5)}</span>
-                <img className="w-5 h-5 block" src="/ETH.png" />
+                <Image
+                  src={colInfo.currencyImage.src}
+                  alt={colInfo.currencyImage.label}
+                  width={28}
+                  height={28}
+                  className="inline"
+                />
               </div>
             </div>
 

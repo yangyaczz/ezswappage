@@ -46,7 +46,7 @@ const PoolTab = ({
 
       <div className="flex items-center justify-start gap-x-2">
         <div
-          className=" relative bottom-10 flex items-center gap-x-2  bg-[rgba(82,82,91,0.8)] opacity-80 px-3 sm:px-1 lg:px-3 py-[0.1rem] rounded-md cursor-pointer hover:bg-[rgba(63,63,70,0.8)] hover:text-white tooltip tooltip-top"
+          className=" relative bottom-9 left-14 flex items-center gap-x-2  bg-[rgba(82,82,91,0.8)] opacity-80 px-3 sm:px-1 lg:px-3 py-[0.1rem] rounded-md cursor-pointer hover:bg-[rgba(63,63,70,0.8)] hover:text-white tooltip tooltip-top"
           data-tip={languageModel.copyAddress}
           ref={tooltipRef}
           onMouseEnter={() => {
@@ -62,7 +62,7 @@ const PoolTab = ({
           }}
         >
           <FontAwesomeIcon icon={faCopy} size="xs" />
-          <label className="self-end min-[500px]:text-xs text-[9px] align-baseline cursor-pointer text-end">{`${contractAddress.substring(
+          <label className=" self-end min-[500px]:text-xs text-[9px] align-baseline cursor-pointer text-end">{`${contractAddress.substring(
             0,
             5
           )}......${contractAddress.substring(
@@ -72,7 +72,7 @@ const PoolTab = ({
       </div>
 
       <div className="relative bottom-2 text-white text-xs underline cursor-pointer sm:col-span-2 sm:col-start-1 justify-self-end sm:text-base whitespace-nowrap" onClick={handleClick}>
-        {languageModel.ExistingPool.toUpperCase()}
+        {/* {languageModel.ExistingPool.toUpperCase()} */}
       </div>
     </div>
   );

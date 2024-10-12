@@ -322,7 +322,7 @@ function Input1155Buy({ }) {
           <p >#{colInfo.tokenId1155}</p>
           <div className='flex justify-center items-center relative left-[2px]'>
             <span>{swapButtonFormikData.totalGet?.toFixed(5)}</span>
-            <img className="w-5 h-5 block" src="/ETH.png" />
+
           </div>
           <div className='form-control mt-2'>
             <div className="input-group">

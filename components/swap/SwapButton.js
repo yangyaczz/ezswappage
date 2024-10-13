@@ -314,7 +314,7 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount, btnStyle
               {
                 showPrice && formikData.totalGet > 0 && <span className="mt-1 text-[11px]">{formikData.totalGet.toFixed(5)}</span>
               }
-              <img src={iconUrl} className="size-10 absolute left-2 top-1" />
+              {iconUrl && <img src={iconUrl} className="size-10 absolute left-2 top-1" />}
             </div>
           )}
         </button>
@@ -331,7 +331,9 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount, btnStyle
         }
 
       </div>
-      <img src={iconUrl} className="size-10 absolute left-2 top-1" /></>
+      {
+        iconUrl && <img src={iconUrl} className="size-10 absolute left-2 top-1" />
+      }</>
     if (swapType === "sell") {
       return (
         <button className={className + styles.buttonStyle} onClick={() => swapNFTToToken()}>

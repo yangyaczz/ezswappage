@@ -3,12 +3,15 @@ import addressSymbol from "@/pages/data/address_symbol";
 import networkConfig from "../../pages/data/networkconfig.json";
 import { useNetwork, } from "wagmi";
 import { useEffect, useState } from "react";
+import { useLanguage } from '@/contexts/LanguageContext';
 const ContentPools = () => {
   const { colInfo } = useCollectionInfo();
   const { pools, tradingCurrencyName, nftAmount } = colInfo;
   const EIGHTEEN_ZEROS = 1e18;
   const { chain } = useNetwork();
   const [golbalParams, setGolbalParams] = useState({})
+  const { languageModel } = useLanguage();
+
   useEffect(() => {
     if (chain) {
       setGolbalParams(networkConfig[chain.id])
@@ -31,10 +34,16 @@ const ContentPools = () => {
               {pool.type.substring(0, 1).toUpperCase() +
                 pool.type.substring(1).toLowerCase()}
             </p>
-            <p>
-              Balance {pool.tokenBalance || pool.ethBalance || 0}{" "}
-              {tradingCurrencyName} and {nftAmount} NFTS
-            </p>
+            {/* Balance {pool.tokenBalance || pool.ethBalance || 0}{" "}
+              {tradingCurrencyName} and {nftAmount} NFTS */}
+
+            <div className="flex lg:items-center max-[800px]:flex-col">
+              <span className="text-white	text-xl lg:text-2xl font-bold mr-4">{pool.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : pool.tokenName} - {pool.NFTName}</span>
+              <span className="text-white text-sm align-baseline xl:text-base whitespace-nowrap">
+                {languageModel.Balance}:
+                {Math.floor(pool.tokenBalance * 10000) / 10000}&nbsp;{tradingCurrencyName}&nbsp;{pool.tokenName === 'ETH' && addressSymbol[formikData.values.golbalParams.hex]?.["0x0000000000000000000000000000000000000000"] === 'EOS' ? 'EOS' : pool.tokenName} {languageModel.And} {pool.tokenType === 'ERC721' ? pool.nftCount : pool.nftCount1155} NFT
+              </span>
+            </div>
           </div>
           <p className="col-span-4 row-start-1">
             {/* Owner:{pool.owner.substring(0, 8)} */}

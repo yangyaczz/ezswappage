@@ -9,7 +9,7 @@ const CollectionInfoHeader = () => {
   useEffect(() => { }, []);
 
   return (
-    <div className="w-full max-w-[1200px] h-[150px] sm:h-[210px] grid grid-cols-[150px,auto] sm:grid-cols-[210px,auto] grid-rows-3 gap-4 sm:gap-8">
+    <div className="w-full max-w-[1400px] h-[150px] sm:h-[210px] grid grid-cols-[150px,auto] sm:grid-cols-[210px,auto] grid-rows-3 gap-4 sm:gap-8">
       <div className="w-full relative pt-[100%]">
         <Image
           objectFit="cover"

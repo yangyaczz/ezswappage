@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BuyPoolLiner, TradePoolLiner, BuyPoolExp, TradePoolExp } from "@/components/utils/calculate";
 import { ethers } from 'ethers';
+import Image from "next/image";
 import { useLanguage } from '@/contexts/LanguageContext';
 import styles from "../swap/index.module.scss";
 import ERC1155ABI from "../../pages/data/ABI/ERC1155.json";
@@ -435,18 +436,24 @@ function Input1155Sell({ }) {
   // );
 
   return (
-    <section className="w-full h-[470px] overflow-scroll  border-[1px] border-solid border-[#496C6D] rounded-lg ">
-      <div className="relative border border-[#00D5DA] mr-3 flex flex-col items-center  mt-[40px] pb-5 rounded-xl  w-[245px] ml-[40px]" >
+    <section className="w-full h-[470px] ">
+      <div className="relative border border-[#00D5DA] mr-3 flex flex-col items-center  mt-[40px] pb-5 rounded-xl  w-[245px] ml-[40px] overflow-hidden" >
         <img
           src={colInfo.image}
           className='w-full h-[245px]'
         />
-        <p >#{colInfo.tokenId1155}</p>
+        <p className='mt-1'>#{colInfo.tokenId1155}</p>
         <div className='flex justify-center items-center relative left-[2px]'>
           <span>{swapButtonFormikData.totalGet?.toFixed(5)}</span>
-          <img className="w-5 h-5 block" src="/ETH.png" />
+          <Image
+            src={colInfo.currencyImage.src}
+            alt={colInfo.currencyImage.label}
+            width={28}
+            height={28}
+            className="inline"
+          />
         </div>
-        <div className='form-control mt-2'>
+        <div className='form-control mt-5'>
           <div className="input-group">
             <button onClick={handleDecrement} className="btn-square rounded-r-none border max-[800px]:w-10  border-white border-white hover:border-white bg-black rounded-l-xl">-</button>
             <input type="text" value={value} onChange={handleChange} className=" max-[800px]:w-14 w-20 rounded-none text-center border-y py-[11px] border-y-white bg-black" />

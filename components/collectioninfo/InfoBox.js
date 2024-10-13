@@ -4,9 +4,9 @@ const InfoBox = ({ style, children }) => {
       {children[0]}
       <div className="flex">
         {children[1]}
-        <div className="ml-2">
-          {children[2]}
-        </div>
+        {/* <div className="ml-2"> */}
+        {children[2]}
+        {/* </div> */}
       </div>
 
     </div>);

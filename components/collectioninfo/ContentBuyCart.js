@@ -104,7 +104,8 @@ const ContentBuyCart = () => {
                             width={28}
                             height={28}
                             className="inline"
-                          /></div>
+                          />
+                        </div>
                       }
 
                     </div>
@@ -127,7 +128,14 @@ const ContentBuyCart = () => {
             <div className={'pl-2 flex-1 flex flex-col items-start pt-1 pb-2 '}>
               <span className="font-bold">#{colInfo.tokenId1155}</span>
               {
-                <div className='flex  align-center items-center font-bold'><img src="/ETH.png" className='size-5 -ml-2'></img><span>{swapButtonFormikData.totalGet?.toFixed(5)}</span></div>
+                <div className='flex  align-center items-center font-bold'> <span>{swapButtonFormikData.totalGet?.toFixed(5)}</span>
+                  <Image
+                    src={colInfo.currencyImage.src}
+                    alt={colInfo.currencyImage.label}
+                    width={28}
+                    height={28}
+                    className="inline"
+                  /></div>
               }
 
             </div>
@@ -169,7 +177,7 @@ const ContentBuyCart = () => {
               // showPrice={true}
               owner={owner}
               addSwapSuccessCount={addSwapSuccessCount}
-              iconUrl={chain?.iconUrl}
+            // iconUrl={chain?.iconUrl}
             />
           </div>
 

@@ -440,7 +440,7 @@ const ContentBuy = ({ }) => {
             nftList.map((square, index) => {
               return (<div
                 data-tip="this collection has no liquidity"
-                key={square} className={'  relative  border border-[#00D5DA] mr-3 flex flex-col items-center  justify-center mt-10 pb-5 rounded-xl  ' + ((selectIds.includes(square) ||
+                key={square} className={'  relative  border border-[#00D5DA] mr-3 flex flex-col items-center  justify-center mt-10 pb-5 rounded-xl  overflow-hidden ' + ((selectIds.includes(square) ||
                   !isBanSelect) ? '' : ' filter grayscale  tooltip opacity-50 ')
                 } onClick={() => toggleSelected(square)}>
                 <img

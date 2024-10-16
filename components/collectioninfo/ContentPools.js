@@ -40,7 +40,7 @@ const ContentPools = () => {
         >
           <div className="flex items-center col-start-1 col-end-4 row-start-1 gap-4">
             <p
-              className={` w-24 h-10 max-[500px]:w-14   text-black flex justify-center items-center font-bold ${pool.type === "sell" && "bg-[#E48181]"
+              className={`rounded-lg w-24 h-10 max-[500px]:w-14   text-black flex justify-center items-center font-bold ${pool.type === "sell" && "bg-[#E48181]"
                 } ${pool.type === "buy" && "bg-[#00D5DA]"} ${pool.type === "trade" && "bg-white"
                 }`}
             >

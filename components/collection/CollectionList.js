@@ -117,6 +117,7 @@ const CollectionList = () => {
 
 
       let colByPair = [];
+      // debugger
       const fetchPromises = collections
         .filter((collection) => collection.network === chainConfig.networkName)
         .map((collection) =>

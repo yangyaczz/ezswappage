@@ -10,7 +10,8 @@ import networkConfig from "../../pages/data/networkconfig.json";
 import { useCollectionInfo } from "@/contexts/CollectionInfoContext";
 import { useNetwork, useAccount } from "wagmi";
 import multiSetFilterPairMode from "../swap/swapUtils/multiSetFilterPairMode";
-
+import CollectionData from "../../pages/data/collection-data.json";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 function Input1155Sell({ }) {
 
@@ -24,28 +25,28 @@ function Input1155Sell({ }) {
   const [value, setValue] = useState(0);
 
   const [golbalParams, setGolbalParams] = useState({})
-  const [isLoading, setLoading] = useState(true)
+  const [isLoading, setLoading] = useState(false)
   const { chain } = useNetwork();
   const { address: owner } = useAccount();
   const [max, setMax] = useState(0);
-  const [lastMax, setLastMax] = useState(0);
-
-
-  // useEffect(() => {
-  //   setLastMax(max - sellSuccessNfts.length)
-  // }, [buySuccessNfts, max])
-
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    updateSellSuccessNfts([])
+    setIsClient(true)
+    reset()
   }, [colInfo.address])
 
-  useEffect(() => {
-    if (chain) {
-      setGolbalParams(networkConfig[chain.id])
-    }
+  const reset = () => {
+    updateSellSuccessNfts([])
+    updateSelectedNftToenIds([])
+  }
 
-  }, [chain, owner]);
+  // useEffect(() => {
+  //   if (chain) {
+  //     setGolbalParams(networkConfig[chain.id])
+  //   }
+
+  // }, [chain, owner]);
 
 
   const { refetch, data: tokenAmount1155 } = useContractRead({
@@ -56,27 +57,241 @@ function Input1155Sell({ }) {
     watch: false,
     enabled: false,
     onSuccess(data) {
-
       const num = Number(data);
-      console.log('1155nft_count', num)
       setMax(num)
-      if (num === 0) {
-        setLoading(false)
-      } else {
-        fetchData()
-      }
-
     },
 
   });
   useEffect(() => {
-    setLoading(true)
+    fetchData()
+  }, [max])
 
-    refetch();
-    return () => {
-      updateSelectedNftToenIds([])
+
+  // useEffect(() => {
+
+  //   return () => {
+  //     updateSelectedNftToenIds([])
+  //   }
+  // }, [refreshNftListKey, colInfo.address]);
+
+  useEffect(() => {
+    const collection = CollectionData.find(item => item.address == colInfo.address)
+    if (!chain) {
+      return
     }
-  }, [refreshNftListKey, colInfo.address]);
+    reset();
+    const network = networkConfig[chain.id];
+    setGolbalParams(network)
+    // setCollectionName(collection)
+    const swapType = 'sell'
+    const fetchSellNFT = async (golbalParams) => {
+      setLoading(true)
+      const collection = CollectionData.find(item => item.address == colInfo.address)
+
+      // if sell, get user collection detail
+      if (colInfo.type === "ERC1155" && swapType === "sell") {
+        if (
+          golbalParams.networkName === "mantatest" ||
+          golbalParams.networkName === "manta"
+        ) {
+          let nftAddress = collection.address;
+          let tid = "0x" + collection.tokenId1155.toString(16);
+          let parseStr = (nftAddress + "/" + tid + "/" + owner).toLowerCase();
+
+          const networkType = golbalParams.networkName;
+          const params = {
+            query: `
+                    {
+                        erc1155Balances(
+                          where: {id: "${parseStr}"}
+                        ) {
+                          valueExact
+                        }
+                    }
+                    `,
+            urlKey: networkType,
+          };
+          const response = await fetch("/api/queryMantaNFT", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(params),
+          });
+          const data = await response.json();
+          let num1155 = data?.data?.erc1155Balances[0]?.valueExact;
+          setMax(num1155.length)
+          // setUserCollection({
+          //   tokenAmount1155: num1155,
+          // });
+        } else {
+          refetch()
+          // let frontText = "";
+          // if (golbalParams.networkName === "ethmain") {
+          //   frontText = "eth-mainnet";
+          // } else if (golbalParams.networkName === "arbmain") {
+          //   frontText = "arb-mainnet";
+          // }
+
+          // const params = {
+          //   url: `https://${frontText}.g.alchemy.com/nft/v3/dFyzJjfLmVHlfhHyKkiSEP86fHcuFOJj/getNFTsForOwner`,
+          //   owner: owner,
+          //   contractAddress: collection.address,
+          //   withMetadata: false,
+          //   pageSize: 100,
+          // };
+
+          // const response = await fetch("/api/queryNFTByAlchemy", {
+          //   method: "POST",
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //   },
+          //   body: JSON.stringify(params),
+          // });
+
+          // let data = await response.json();
+
+          // let tokenIdToCheck = collection.tokenId1155;
+          // let matchingNft = data?.ownedNfts?.find(
+          //   (nft) => nft.tokenId === tokenIdToCheck
+          // );
+
+          // setMax(matchingNft ? matchingNft.balance : 0)
+
+          // setUserCollection({
+          //   tokenAmount1155: matchingNft ? matchingNft.balance : 0,
+          // });
+        }
+      }
+      // else if (collection.type === "ERC721" && swapType === "sell") {
+      //   if (collection.name === "echo_old") {
+      //     const params = {
+      //       address: owner,
+      //     };
+      //     const response = await fetch("/api/queryECHOUserHaveToken", {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //       body: JSON.stringify(params),
+      //     });
+
+      //     const data = await response.json();
+
+      //     if (data.success) {
+      //       let ids721 = data?.data.map((item) => item.tokenId);
+      //       ids721?.sort(function (a, b) {
+      //         return a - b;
+      //       });
+      //       setNftList(ids721)
+      //     }
+      //     // todo 404要改
+      //   } 
+      // else if (collection.name === "M404" || collection.name === "mtest" || collection.name === "Mars") {
+      //   const params = {
+      //     ownerAddress: owner.toLowerCase(),
+      //     contractAddress: collection.address.toLowerCase(),
+      //     mode: golbalParams.networkName,
+      //   };
+      //   const response = await fetch("/api/queryOwnerNFT", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(params),
+      //   });
+
+      //   const data = await response.json();
+
+      //   if (data.success) {
+      //     let ids721 = data?.data.map((item) => item.tokenId);
+      //     ids721?.sort(function (a, b) {
+      //       return a - b;
+      //     });
+      //     setMax(ids721.length)
+
+      //   }
+      // }
+      //  else if (
+      //   golbalParams.networkName === "mantatest" ||
+      //   golbalParams.networkName === "manta"
+      // ) {
+      //   let nftAddress = collection.address;
+      //   const networkType = golbalParams.networkName;
+      //   const params = {
+      //     query: `
+      //             {
+      //                 erc721Tokens(where: { owner: "${owner.toLowerCase()}", contract: "${nftAddress.toLowerCase()}" }) {
+      //                   identifier
+      //                 }
+      //             }
+      //             `,
+      //     urlKey: networkType,
+      //   };
+      //   console.log("paramsparamsparams", params);
+      //   const response = await fetch("/api/queryMantaNFT", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(params),
+      //   });
+      //   const data = await response.json();
+
+      //   let ids721 = data?.data?.erc721Tokens.map((id) =>
+      //     Number(id.identifier)
+      //   );
+      //   ids721?.sort(function (a, b) {
+      //     return a - b;
+      //   });
+      //   setNftList(ids721)
+
+      // } 
+      else {
+        refetch()
+        // let frontText = "";
+        // if (golbalParams.networkName === "ethmain") {
+        //   frontText = "eth-mainnet";
+        // } else if (golbalParams.networkName === "arbmain") {
+        //   frontText = "arb-mainnet";
+        // }
+
+        // const params = {
+        //   url: `https://${frontText}.g.alchemy.com/nft/v3/dFyzJjfLmVHlfhHyKkiSEP86fHcuFOJj/getNFTsForOwner`,
+        //   owner: owner,
+        //   contractAddress: collection.address,
+        //   withMetadata: false,
+        //   pageSize: 100,
+        // };
+
+        // const response = await fetch("/api/queryNFTByAlchemy", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(params),
+        // });
+
+        // let data = await response.json();
+
+        // const tokenIds = data.ownedNfts.map((nft) => nft.tokenId);
+
+        // setMax(tokenIds.length)
+      }
+      // }
+    };
+    // if (
+    //   (collection.name !== "" &&
+    //     apiSell.includes(golbalParams.networkName)) ||
+    //   collection.name === "echo_old"
+    // ) {
+    if (colInfo.address) {
+      fetchSellNFT(network);
+    }
+
+    // }
+  }, [colInfo.address, owner, chain, refreshNftListKey]);
+
 
 
   const radioRef = useRef(
@@ -88,7 +303,7 @@ function Input1155Sell({ }) {
       golbalParams.networkName &&
       colInfo.address
     ) {
-      setLoading(true)
+      // setLoading(true)
       const params = {
         contractAddress: colInfo.address,
         network: golbalParams.networkName,
@@ -159,7 +374,8 @@ function Input1155Sell({ }) {
       }
       setLoading(false)
     } else {
-      setLoading(false)
+      // debugger
+      // setLoading(false)
     }
   };
   const setPairs = (paris) => {
@@ -375,7 +591,11 @@ function Input1155Sell({ }) {
     toggleSelected(value)
   }, [value]);
 
-
+  if (!chain && isClient) {
+    return (
+      <div className="flex justify-center mt-10 w-full"><ConnectButton /></div>
+    )
+  }
 
 
 
@@ -442,7 +662,7 @@ function Input1155Sell({ }) {
           src={colInfo.image}
           className='w-full h-[245px]'
         />
-        <p className='mt-1'>#{colInfo.tokenId1155}</p>
+        <p className='mt-2 font-bold'>#{colInfo.tokenId1155}</p>
         <div className='flex justify-center items-center relative left-[2px]'>
           <span>{swapButtonFormikData.totalGet?.toFixed(5)}</span>
           <Image
@@ -453,7 +673,7 @@ function Input1155Sell({ }) {
             className="inline"
           />
         </div>
-        <div className='form-control mt-5'>
+        <div className='form-control mt-5 liStyle'>
           <div className="input-group">
             <button onClick={handleDecrement} className="btn-square rounded-r-none border max-[800px]:w-10  border-white border-white hover:border-white bg-black rounded-l-xl">-</button>
             <input type="text" value={value} onChange={handleChange} className=" max-[800px]:w-14 w-20 rounded-none text-center border-y py-[11px] border-y-white bg-black" />

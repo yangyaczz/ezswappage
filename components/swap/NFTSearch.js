@@ -423,11 +423,13 @@ const NFTSearch = ({
     args: [owner],
     watch: false,
     onSuccess(data) {
+      debugger
       const num = data.map((item) => Number(item));
       setUserCollection({
         tokenIds721: num,
       });
     }, onError(error) {
+      debugger
       console.log(error)
       console.log(formikData.collection.type === "ERC721" &&
         swapType === "sell" &&

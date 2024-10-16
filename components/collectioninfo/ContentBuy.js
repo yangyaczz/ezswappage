@@ -14,6 +14,7 @@ import { useNetwork, useAccount } from "wagmi";
 import networkConfig from "../../pages/data/networkconfig.json";
 import multiSetFilterPairMode from "../swap/swapUtils/multiSetFilterPairMode";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 function mapIdsToPrices(ids, prices) {
   let result = {};
   ids.forEach((subArray, index) => {
@@ -41,8 +42,11 @@ const ContentBuy = ({ }) => {
 
   const { chain } = useNetwork();
   const { address: owner } = useAccount();
+
+  const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     updateBuySuccessNfts([])
+    setIsClient(true)
   }, [colInfo.address])
 
   useEffect(() => {
@@ -54,28 +58,32 @@ const ContentBuy = ({ }) => {
 
 
   useEffect(() => {
-    if (chain) {
-      setGolbalParams(networkConfig[chain.id])
-    }
 
-  }, [chain, owner]);
+
+  }, [chain]);
 
   useEffect(() => {
-    setLoading(true)
-    fetchData(colInfo.address)
+    if (!chain) {
+      return
+
+    }
+    const network = networkConfig[chain.id];
+    setGolbalParams(network)
+
+    fetchData(colInfo.address, network)
     return () => {
       setPairs([])
       updateSelectedNftToenIds([])
       setIdPriceMap({})
     }
-  }, [colInfo.address, golbalParams]);
+  }, [colInfo.address, chain, owner, refreshNftListKey]);
 
   // useEffect(() => {
   //   debugger
   //   console.log('refresh', refreshNftListKey)
   // }, [refreshNftListKey]);
 
-  const fetchData = async (contractAddress) => {
+  const fetchData = async (contractAddress, golbalParams) => {
     if (
       golbalParams.networkName &&
       contractAddress
@@ -413,6 +421,12 @@ const ContentBuy = ({ }) => {
 
     setNftList(nftList)
   }
+
+  if (!chain && isClient) {
+    return (
+      <div className="flex justify-center mt-10 w-full"><ConnectButton /></div>
+    )
+  }
   if (isLoading) {
     return (
       <div className="text-center mt-10"><p className="h-max loading loading-bars loading-lg"></p></div>
@@ -443,7 +457,7 @@ const ContentBuy = ({ }) => {
                     width: `245px`,
                   }}
                 />
-                <p> #{square}</p>
+                <p className="mt-2 font-bold liStyle "> #{square}</p>
                 <div className="flex items-center mt-3">
                   <span>{idPriceMap[square]?.toFixed(5)}  </span>
                   <Image

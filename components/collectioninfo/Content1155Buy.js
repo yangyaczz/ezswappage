@@ -10,6 +10,8 @@ import SwapButton from "@/components/swap/SwapButton";
 import multiSetFilterPairMode from "../swap/swapUtils/multiSetFilterPairMode";
 import BuyNFTsSelectedRange from "@/components/collectioninfo/BuyNFTsSelectedRange";
 import Image from "next/image";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+
 function Input1155Buy({ }) {
 
   const { colInfo, selectedNftTokenIds: selectIds, updateSelectedNftToenIds,
@@ -31,11 +33,18 @@ function Input1155Buy({ }) {
   const [isLoading, setLoading] = useState(true)
   const { chain } = useNetwork();
   const { address: owner } = useAccount();
-
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    updateBuySuccessNfts([])
+    reset()
+    setIsClient(true)
   }, [colInfo.address])
+
+  const reset = () => {
+    updateBuySuccessNfts([])
+    updateSelectedNftToenIds([])
+  }
+
 
   useEffect(() => {
     setLastMax(max - buySuccessNfts.length)
@@ -50,6 +59,7 @@ function Input1155Buy({ }) {
 
   useEffect(() => {
     if (colInfo.address) {
+      reset()
       fetchData();
 
     }
@@ -57,7 +67,7 @@ function Input1155Buy({ }) {
       updateSelectedNftToenIds([])
     }
 
-  }, [colInfo.address, golbalParams, refreshNftListKey])
+  }, [colInfo.address, refreshNftListKey, chain, owner])
 
   const radioRef = useRef(
     0
@@ -301,7 +311,11 @@ function Input1155Buy({ }) {
 
 
   }
-
+  if (!chain && isClient) {
+    return (
+      <div className="flex justify-center mt-10 w-full"><ConnectButton /></div>
+    )
+  }
 
   if (isLoading) {
     return (
@@ -320,7 +334,7 @@ function Input1155Buy({ }) {
             src={colInfo.image}
             className='w-full h-[245px]'
           />
-          <p className='mt-1 text-xl'>#{colInfo.tokenId1155}</p>
+          <p className='text-xl mt-2 font-bold '>#{colInfo.tokenId1155}</p>
           <div className='flex justify-center items-center relative left-[2px]'>
             <span>{swapButtonFormikData.totalGet?.toFixed(5)}</span>
             <Image
@@ -332,7 +346,7 @@ function Input1155Buy({ }) {
             />
 
           </div>
-          <div className='form-control mt-5'>
+          <div className='form-control mt-5 liStyle'>
             <div className="input-group">
               <button onClick={handleDecrement} className="btn-square rounded-r-none border max-[800px]:w-10  border-white border-white hover:border-white bg-black rounded-l-xl">-</button>
               <input type="text" value={value} onChange={handleChange} className=" max-[800px]:w-14 w-20 rounded-none text-center border-y py-[11px] border-y-white bg-black" />

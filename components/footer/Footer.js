@@ -4,7 +4,7 @@ const Footer = () => {
 
   return (
       <div className="bg-black">
-        <div className="flex flex-col justify-center items-center mb-10 text-[#9DA1A2] font-['Montserrat-Variable sans-serif']">
+        <div className="flex flex-col justify-center items-center mb-10 text-[#9DA1A2]">
           <div className="flex justify-center items-center gap-4">
             <a href="https://twitter.com/EZswapProtocol" target="_blank">
               <img className="w-[50px]" src="/twitter.png"/>

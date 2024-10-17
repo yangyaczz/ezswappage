@@ -459,7 +459,7 @@ const ContentBuy = ({ }) => {
                 />
                 <p className="mt-2 font-bold liStyle "> #{square}</p>
                 <div className="flex items-center mt-3">
-                  <span>{idPriceMap[square]?.toFixed(5)}  </span>
+                  <span className="font-bold ml-4">{idPriceMap[square]?.toFixed(5)}  </span>
                   <Image
                     src={colInfo.currencyImage.src}
                     alt={colInfo.currencyImage.label}

@@ -12,7 +12,7 @@ import BuyNFTsSelectedRange from "@/components/collectioninfo/BuyNFTsSelectedRan
 import Image from "next/image";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
-function Input1155Buy({ }) {
+function Input1155Buy() {
 
   const { colInfo, selectedNftTokenIds: selectIds, updateSelectedNftToenIds,
     updateSwapButtonFormikData, swapButtonFormikData, refreshNftListKey, buySuccessNfts, updateBuySuccessNfts } =

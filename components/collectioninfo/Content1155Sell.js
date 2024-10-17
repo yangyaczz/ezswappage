@@ -28,7 +28,7 @@ function Input1155Sell({ }) {
   const [isLoading, setLoading] = useState(false)
   const { chain } = useNetwork();
   const { address: owner } = useAccount();
-  const [max, setMax] = useState(0);
+  const [max, setMax] = useState(-1);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -62,9 +62,7 @@ function Input1155Sell({ }) {
     },
 
   });
-  useEffect(() => {
-    fetchData()
-  }, [max])
+
 
 
   // useEffect(() => {
@@ -119,8 +117,10 @@ function Input1155Sell({ }) {
             body: JSON.stringify(params),
           });
           const data = await response.json();
+          debugger
           let num1155 = data?.data?.erc1155Balances[0]?.valueExact;
-          setMax(num1155.length)
+          const num = num1155 ? num1155.length : 0
+          setMax(num)
           // setUserCollection({
           //   tokenAmount1155: num1155,
           // });
@@ -292,13 +292,17 @@ function Input1155Sell({ }) {
     // }
   }, [colInfo.address, owner, chain, refreshNftListKey]);
 
-
+  useEffect(() => {
+    debugger
+    fetchData()
+  }, [max])
 
   const radioRef = useRef(
     0
   );
 
   const fetchData = async () => {
+    debugger
     if (
       golbalParams.networkName &&
       colInfo.address

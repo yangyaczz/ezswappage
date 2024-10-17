@@ -15,6 +15,8 @@ import networkConfig from "../../pages/data/networkconfig.json";
 import multiSetFilterPairMode from "../swap/swapUtils/multiSetFilterPairMode";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+
+
 function mapIdsToPrices(ids, prices) {
   let result = {};
   ids.forEach((subArray, index) => {
@@ -44,6 +46,22 @@ const ContentBuy = ({ }) => {
   const { address: owner } = useAccount();
 
   const [isClient, setIsClient] = useState(false);
+
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    setWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
+
+
   useEffect(() => {
     updateBuySuccessNfts([])
     setIsClient(true)
@@ -441,7 +459,7 @@ const ContentBuy = ({ }) => {
 
   return (
     <>
-      <section className="w-full h-[470px] overflow-scroll  border-[1px] border-solid border-[#496C6D] rounded-lg grid grid-rows-[40px,auto] justify-items-stretch">
+      <section className={"h-[470px] overflow-scroll  border-[1px] border-solid border-[#496C6D] rounded-lg grid grid-rows-[40px,auto] justify-items-stretch"}>
 
 
         <BuyNFTsSelectedRange value={selectIds.length} radioRef={radioRef} min={0} max={lastNftList.length} handleRangeChange={(e) => rangeChange(e)} />

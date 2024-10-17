@@ -179,17 +179,18 @@ const CollectionInfo = () => {
   }
 
   return (
-    <div className="flex h-full">
-      <div className="flex flex-col items-stretch justify-start w-full h-full gap-8 px-10 py-6">
-        <CollectionInfoHeader />
-        {/* <ActionBar /> */}
-        <ContentBar />
-        <ContentSection />
+    <div className="flex justify-center">
+      <div className="flex h-full   max-w-[1680px]">
+        <div className="flex flex-col items-stretch justify-start w-full h-full gap-8 px-10 py-6">
+          <CollectionInfoHeader />
+          {/* <ActionBar /> */}
+          <ContentBar />
+          <ContentSection />
 
+        </div>
+        <ContentBuyCart />
       </div>
-      <ContentBuyCart />
     </div>
-
   );
 };
 

@@ -3,7 +3,7 @@ import { useCollectionInfo } from "@/contexts/CollectionInfoContext";
 const ContentBar = () => {
   const inActiveStyle = "text-white border-none";
   const activeStyle = "border-b-2 border-solid border-[#00D5DA] text-[#00D5DA]";
-  const style = "w-20 text-lg h-full";
+  const style = "w-20 text-lg h-full font-bold";
 
   const { contentType, updateContentType } = useCollectionInfo();
 

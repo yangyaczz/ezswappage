@@ -7,11 +7,32 @@ const CollectionInfoHeader = () => {
   const { colInfo } = useCollectionInfo();
 
   const Box = (
-    <section
-      id="volume_section"
-      className="flex items-end   gap-2 sm:gap-4  flex-wrap mt-3"
+    <div
+      className="flex gap-1 sm:gap-5  flex-wrap mt-3"
     >
-      <InfoBox style="max-[800px]:basis-1/3 max-[800px]:px-4">
+
+      {/* {[1, 2, 3, 4, 5].map(() => (
+
+        <InfoBox style=" max-[800px]:px-4">
+          <p className="text-sm color-[#8E8A8A] font-bold">Floor</p>
+          <p className="flex items-baseline text-base font-bold text-white sm:text-2xl lg:text-2xl whitespace-nowrap">
+            {colInfo.floorPrice}
+
+          </p>
+          {colInfo.currencyImage && colInfo.pools.length > 0 && (
+            <Image
+              src={colInfo.currencyImage.src}
+              alt={colInfo.currencyImage.label}
+              width={28}
+              height={28}
+              className="inline"
+            />
+          )}
+        </InfoBox>
+      ))} */}
+
+
+      <InfoBox style=" max-[800px]:px-4 ">
         <p className="text-sm color-[#8E8A8A] font-bold">Floor</p>
         <p className="flex items-baseline text-base font-bold text-white sm:text-2xl lg:text-2xl whitespace-nowrap">
           {colInfo.floorPrice}
@@ -27,7 +48,7 @@ const CollectionInfoHeader = () => {
           />
         )}
       </InfoBox>
-      <InfoBox style="max-[800px]:basis-1/3 max-[800px]:px-4">
+      <InfoBox style=" max-[800px]:px-4  ">
         <p className="text-sm color-[#8E8A8A] font-bold">Top Bid</p>
         <p className="flex items-baseline text-base font-bold text-white sm:text-2xl lg:text-2xl whitespace-nowrap">
           {colInfo.topBid}
@@ -42,7 +63,7 @@ const CollectionInfoHeader = () => {
           />
         )}
       </InfoBox>
-      <InfoBox style="max-[800px]:basis-1/3 max-[800px]:px-4">
+      <InfoBox style=" max-[800px]:px-4  ">
         <p className="text-sm color-[#8E8A8A] font-bold">Offer TVL</p>
         <p className="flex items-baseline text-base font-bold text-white sm:text-2xl lg:text-2xl whitespace-nowrap">
           {colInfo.offerTVL}
@@ -58,13 +79,13 @@ const CollectionInfoHeader = () => {
           />
         )}
       </InfoBox>
-      <InfoBox style="max-[800px]:basis-1/3 max-[800px]:px-4">
+      <InfoBox style=" max-[800px]:px-4  ">
         <p className="text-sm color-[#8E8A8A] font-bold">Listed</p>
         <p className="flex items-baseline text-base font-bold text-white sm:text-2xl lg:text-2xl whitespace-nowrap">
           {colInfo.nftAmount}
         </p>
       </InfoBox>
-      <InfoBox style="max-[800px]:w-1/2 max-[800px]:px-4">
+      <InfoBox style=" max-[800px]:px-4    ">
         <p className="text-sm color-[#8E8A8A] font-bold">Volume</p>
         <p className="flex items-baseline text-base font-bold text-white sm:text-2xl lg:text-2xl whitespace-nowrap">
           {colInfo.volume}
@@ -81,7 +102,7 @@ const CollectionInfoHeader = () => {
         )}
       </InfoBox>
 
-    </section>
+    </div>
   )
 
 
@@ -91,8 +112,8 @@ const CollectionInfoHeader = () => {
   // grid grid-cols-[150px,auto] sm:grid-cols-[210px,auto] grid-rows-3 gap-4 sm:gap-8
   return (
     <div>
-      <div className="w-full max-w-[1400px] min-h-[150px] sm:min-h-[210px] max-[800px]:h-[100px] flex flex-wrap max-[800px]:items-center">
-        <div className="size-[150px]   sm:size-[210px] overflow-hidden relative max-[800px]:size-[100px] w-full">
+      <div className="w-full  min-h-[150px] sm:min-h-[210px] max-[800px]:h-[100px] flex flex-wrap max-[800px]:items-center">
+        <div className="size-[150px]   sm:size-[210px] overflow-hidden relative max-[800px]:size-[100px] w-full rounded-xl overflow-hidden">
           <Image
             objectFit="cover"
             fill

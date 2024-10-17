@@ -90,10 +90,10 @@ const ContentBuyCart = () => {
             {
               selectedNftTokenIds.map((tokenId) => {
                 return (
-                  <div key={tokenId} className='mt-2 flex border-[1px] border-solid border-[#496C6D] rounded-lg pr-2 py-0 '>
+                  <div key={tokenId} className='mt-2 flex border-[1px] border-solid border-[#496C6D] rounded-lg pr-2 py-0  overflow-hidden'>
                     <img className='size-[70px] bg-black' src={colInfo.image}></img>
                     <div className={'pl-2 py-2 flex-1 flex ' + (nftTokenId2PriceMap[tokenId] ? 'flex-col items-start' : '  items-center')}>
-                      <div className="flex-1 flex justify-center items-center font-bold">#{tokenId}</div>
+                      <div className="flex-1 flex  items-center font-bold">#{tokenId}</div>
                       {
                         nftTokenId2PriceMap[tokenId] &&
                         <div className='flex-1 flex  align-center items-center justify-center h-full'>

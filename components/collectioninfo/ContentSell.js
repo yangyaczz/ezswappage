@@ -19,7 +19,7 @@ import { useContractRead, useBalance, useNetwork, useAccount } from "wagmi";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { max } from "lodash";
 const erc404Name = ['M404', 'mtest', 'Mars']
-
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const ContentBuy = ({ }) => {
   const { colInfo, nftTokenId2PriceMap: idPriceMap, selectedNftTokenIds: selectIds, updateSelectedNftToenIds,
@@ -37,16 +37,15 @@ const ContentBuy = ({ }) => {
   const { chain } = useNetwork();
   const { address: owner } = useAccount();
   const [collectionName, setCollectionName] = useState(null)
+  const [isClient, setIsClient] = useState(false);
   // const [nftNums, setNftNums] = useState([]);
-  useEffect(() => {
-    if (chain) {
-      setGolbalParams(networkConfig[chain.id])
-    }
+  // useEffect(() => {
 
 
 
 
-  }, [chain, owner]);
+
+  // }, [chain, owner]);
 
   // if (colInfo.address) {
   // if sell nft, get user nft info
@@ -67,27 +66,235 @@ const ContentBuy = ({ }) => {
     }
   });
 
-  useEffect(() => {
-    setLoading(true)
-    refetch();
-    setCollectionName(CollectionData.find(item => item.address == colInfo.address))
-  }, [refreshNftListKey, colInfo.address]);
-  // }
-
-
-
-
 
   useEffect(() => {
-    if (nftList.length > 0) {
-      fetchData(colInfo.address)
+    setIsClient(true)
+    if (!chain) {
+      return
     }
+    const network = networkConfig[chain.id];
+
+    setGolbalParams(network)
+
+    const collection = CollectionData.find(item => item.address == colInfo.address)
+    setCollectionName(collection)
+    const swapType = 'sell'
+    const fetchSellNFT = async (golbalParams) => {
+      setLoading(true)
+      // if sell, get user collection detail
+      // if (colInfo.type === "ERC1155" && swapType === "sell") {
+      //   if (
+      //     golbalParams.networkName === "mantatest" ||
+      //     golbalParams.networkName === "manta"
+      //   ) {
+      //     let nftAddress = collection.address;
+      //     let tid = "0x" + collection.tokenId1155.toString(16);
+      //     let parseStr = (nftAddress + "/" + tid + "/" + owner).toLowerCase();
+
+      //     const networkType = golbalParams.networkName;
+      //     const params = {
+      //       query: `
+      //               {
+      //                   erc1155Balances(
+      //                     where: {id: "${parseStr}"}
+      //                   ) {
+      //                     valueExact
+      //                   }
+      //               }
+      //               `,
+      //       urlKey: networkType,
+      //     };
+      //     const response = await fetch("/api/queryMantaNFT", {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //       body: JSON.stringify(params),
+      //     });
+      //     const data = await response.json();
+      //     let num1155 = data?.data?.erc1155Balances[0]?.valueExact;
+      //     setNftList(num1155)
+      //     // setUserCollection({
+      //     //   tokenAmount1155: num1155,
+      //     // });
+      //   } else {
+      //     let frontText = "";
+      //     if (golbalParams.networkName === "ethmain") {
+      //       frontText = "eth-mainnet";
+      //     } else if (golbalParams.networkName === "arbmain") {
+      //       frontText = "arb-mainnet";
+      //     }
+
+      //     const params = {
+      //       url: `https://${frontText}.g.alchemy.com/nft/v3/dFyzJjfLmVHlfhHyKkiSEP86fHcuFOJj/getNFTsForOwner`,
+      //       owner: owner,
+      //       contractAddress: collection.address,
+      //       withMetadata: false,
+      //       pageSize: 100,
+      //     };
+
+      //     const response = await fetch("/api/queryNFTByAlchemy", {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //       body: JSON.stringify(params),
+      //     });
+
+      //     let data = await response.json();
+
+      //     let tokenIdToCheck = collection.tokenId1155;
+      //     let matchingNft = data?.ownedNfts?.find(
+      //       (nft) => nft.tokenId === tokenIdToCheck
+      //     );
+
+      //     setUserCollection({
+      //       tokenAmount1155: matchingNft ? matchingNft.balance : 0,
+      //     });
+      //   }
+      // } 
+      // else 
+      // debugger
+      // if (collection.type === "ERC721" && swapType === "sell") {
+      //   if (collection.name === "echo_old") {
+      //     const params = {
+      //       address: owner,
+      //     };
+      //     const response = await fetch("/api/queryECHOUserHaveToken", {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //       body: JSON.stringify(params),
+      //     });
+
+      //     const data = await response.json();
+
+      //     if (data.success) {
+      //       let ids721 = data?.data.map((item) => item.tokenId);
+      //       ids721?.sort(function (a, b) {
+      //         return a - b;
+      //       });
+      //       setNftList(ids721)
+      //     }
+      //     // todo 404要改
+      //   } else 
+
+      if (collection.name === "M404" || collection.name === "mtest" || collection.name === "Mars") {
+        const params = {
+          ownerAddress: owner.toLowerCase(),
+          contractAddress: collection.address.toLowerCase(),
+          mode: golbalParams.networkName,
+        };
+        const response = await fetch("/api/queryOwnerNFT", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(params),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          let ids721 = data?.data.map((item) => item.tokenId);
+          ids721?.sort(function (a, b) {
+            return a - b;
+          });
+          setNftList(ids721)
+
+        }
+      } else if (
+        golbalParams.networkName === "mantatest" ||
+        golbalParams.networkName === "manta"
+      ) {
+        let nftAddress = collection.address;
+        const networkType = golbalParams.networkName;
+        const params = {
+          query: `
+                    {
+                        erc721Tokens(where: { owner: "${owner.toLowerCase()}", contract: "${nftAddress.toLowerCase()}" }) {
+                          identifier
+                        }
+                    }
+                    `,
+          urlKey: networkType,
+        };
+        console.log("paramsparamsparams", params);
+        const response = await fetch("/api/queryMantaNFT", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(params),
+        });
+        const data = await response.json();
+
+        let ids721 = data?.data?.erc721Tokens.map((id) =>
+          Number(id.identifier)
+        );
+        ids721?.sort(function (a, b) {
+          return a - b;
+        });
+        setNftList(ids721)
+
+      } else {
+        refetch()
+        // let frontText = "";
+        // if (golbalParams.networkName === "ethmain") {
+        //   frontText = "eth-mainnet";
+        // } else if (golbalParams.networkName === "arbmain") {
+        //   frontText = "arb-mainnet";
+        // }
+
+        // const params = {
+        //   url: `https://${frontText}.g.alchemy.com/nft/v3/dFyzJjfLmVHlfhHyKkiSEP86fHcuFOJj/getNFTsForOwner`,
+        //   owner: owner,
+        //   contractAddress: collection.address,
+        //   withMetadata: false,
+        //   pageSize: 100,
+        // };
+
+        // const response = await fetch("/api/queryNFTByAlchemy", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(params),
+        // });
+
+        // let data = await response.json();
+        // debugger
+        // const tokenIds = data.ownedNfts.map((nft) => nft.tokenId);
+
+        // setNftList(tokenIds)
+      }
+      // }
+    };
+    // if (
+    //   (collection.name !== "" &&
+    //     apiSell.includes(golbalParams.networkName)) ||
+    //   collection.name === "echo_old"
+    // ) {
+    if (colInfo.address && golbalParams) {
+      fetchSellNFT(network);
+    }
+
+    // }
+  }, [colInfo.address, owner, chain, refreshNftListKey, golbalParams]);
+
+
+
+
+
+  useEffect(() => {
+    fetchData(colInfo.address)
     return () => {
       setPairs([])
       updateSelectedNftToenIds([])
       setIdPriceMap({})
     }
-  }, [colInfo.address, golbalParams, nftList]);
+  }, [nftList]);
 
 
 
@@ -95,7 +302,7 @@ const ContentBuy = ({ }) => {
   const fetchData = async (contractAddress) => {
     if (
       golbalParams.networkName &&
-      contractAddress && nftList.length > 0
+      contractAddress
     ) {
       const params = {
         contractAddress: contractAddress,
@@ -191,11 +398,11 @@ const ContentBuy = ({ }) => {
         //
 
       } else {
-        setLoading(false)
+        // setLoading(false)
       }
 
     } else {
-      // setLoading(false)
+      setLoading(false)
     }
   }
 
@@ -417,6 +624,15 @@ const ContentBuy = ({ }) => {
   //     }).map(item => item)
   //   setNftList(nftList)
   // }
+
+
+  if (!chain && isClient) {
+    return (
+      <div className="flex justify-center mt-10 w-full"><ConnectButton /></div>
+    )
+  }
+
+
   if (isLoading) {
     return (
       <div className="text-center mt-10"><p className="h-max loading loading-bars loading-lg"></p></div>
@@ -452,7 +668,7 @@ const ContentBuy = ({ }) => {
                   }}
                 />
 
-                <div className="text-center "> #{square}</div>
+                <div className="text-center mt-2 font-bold liStyle"> #{square}</div>
                 {
                   selectIds.includes(square) &&
                   (

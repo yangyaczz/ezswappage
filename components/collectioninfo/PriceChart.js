@@ -44,9 +44,10 @@ const PriceChart = () => {
         name: "price",
         type: "line",
         data: [
-          { name: "Point 1", color: "#00D5DA", y: 60 },
+          { name: "#1", color: "#00D5DA", y: 60 },
           { name: "Point 2", color: "#E48181", y: 300 },
           { name: "Point 3", color: "#00D5DA", y: 60 },
+          { name: "Point 4", color: "#E48181", y: 800 },
           { name: "Point 4", color: "#E48181", y: 800 },
         ],
         color: "#D9D9D9",

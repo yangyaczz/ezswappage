@@ -20,7 +20,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { max } from "lodash";
 const erc404Name = ['M404', 'mtest', 'Mars']
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-
+import { isMobile } from '../utils/ezUtils'
 const ContentBuy = ({ }) => {
   const { colInfo, nftTokenId2PriceMap: idPriceMap, selectedNftTokenIds: selectIds, updateSelectedNftToenIds,
     updateNftToenId2PriceMap: setIdPriceMap, updateSwapButtonFormikData, refreshNftListKey } =
@@ -41,23 +41,23 @@ const ContentBuy = ({ }) => {
   // const [nftNums, setNftNums] = useState([]);
   // useEffect(() => {
   // const [windowHeight, setWindowHeight] = useState(0); // 初始设置为当前窗口高度
-  const minBoxHeight = 470;
-  const [boxHeght, setBoxHeght] = useState(0)
+  const minBoxHeight = 472;
+  const [boxHeght, setBoxHeght] = useState(minBoxHeight)
 
   useEffect(() => {
-    console.log(window.innerHeight)
-    setBoxHeght(window.innerHeight - 470);
-    const handleResize = () => {
-      setBoxHeght(window.innerHeight - 470); // 更新窗口高度
-    };
+    if (!isMobile(navigator.userAgent)) {
+      setBoxHeght(Math.max(window.innerHeight - minBoxHeight), minBoxHeight);
+      const handleResize = () => {
+        setBoxHeght(Math.max(window.innerHeight - minBoxHeight), minBoxHeight);
+      };
 
-    window.addEventListener('resize', handleResize); // 监听窗口大小变化
+      window.addEventListener('resize', handleResize); // 监听窗口大小变化
 
-    return () => {
-      window.removeEventListener('resize', handleResize); // 清理事件监听
-    };
+      return () => {
+        window.removeEventListener('resize', handleResize); // 清理事件监听
+      };
+    }
   }, []);
-
 
 
 
@@ -664,7 +664,7 @@ const ContentBuy = ({ }) => {
 
   return (
     <>
-      <div className={`w-full   h-[${Math.max(minBoxHeight, boxHeght)}px]  max-[800px]:h-[${minBoxHeight}px]  overflow-y-scroll no-scrollbar  border-[1px] border-solid border-[#496C6D] rounded-lg pb-14`}>
+      <div style={{ height: boxHeght + 'px' }} className={`w-full   overflow-y-scroll no-scrollbar  border-[1px] border-solid border-[#496C6D] rounded-lg pb-14`}>
 
         <BuyNFTsSelectedRange value={selectIds.length} radioRef={radioRef} min={0} max={max} handleRangeChange={(e) => rangeChange(e)} />
 

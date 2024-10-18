@@ -15,7 +15,7 @@ import networkConfig from "../../pages/data/networkconfig.json";
 import multiSetFilterPairMode from "../swap/swapUtils/multiSetFilterPairMode";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-
+import { isMobile } from '../utils/ezUtils'
 
 function mapIdsToPrices(ids, prices) {
   let result = {};
@@ -48,25 +48,23 @@ const ContentBuy = ({ }) => {
   const [isClient, setIsClient] = useState(false);
 
 
-  // const [windowHeight, setWindowHeight] = useState(0); // 初始设置为当前窗口高度
-  const minBoxHeight = 470;
-  const [boxHeght, setBoxHeght] = useState(0)
+  const minBoxHeight = 472;
+  const [boxHeght, setBoxHeght] = useState(minBoxHeight)
 
   useEffect(() => {
-    console.log(window.innerHeight)
-    setBoxHeght(window.innerHeight - 470);
-    const handleResize = () => {
-      setBoxHeght(window.innerHeight - 470); // 更新窗口高度
-    };
+    if (!isMobile(navigator.userAgent)) {
+      setBoxHeght(Math.max(window.innerHeight - minBoxHeight), minBoxHeight);
+      const handleResize = () => {
+        setBoxHeght(Math.max(window.innerHeight - minBoxHeight), minBoxHeight);
+      };
 
-    window.addEventListener('resize', handleResize); // 监听窗口大小变化
+      window.addEventListener('resize', handleResize); // 监听窗口大小变化
 
-    return () => {
-      window.removeEventListener('resize', handleResize); // 清理事件监听
-    };
+      return () => {
+        window.removeEventListener('resize', handleResize); // 清理事件监听
+      };
+    }
   }, []);
-
-
 
 
 
@@ -464,10 +462,10 @@ const ContentBuy = ({ }) => {
       <div className="text-center mt-10"><p>{languageModel.noData}</p></div >
     )
   }
-  // h - [${ Math.max(minBoxHeight, boxHeght) }px]
+  // h - [${ Math.max(minBoxHeight, boxHeght) }px]  h-[${boxHeght}px]
   return (
     <>
-      <div className={`w-full   h-[${Math.max(minBoxHeight, boxHeght)}px]  max-[800px]:h-[${minBoxHeight}px]  overflow-y-scroll no-scrollbar  border-[1px] border-solid border-[#496C6D] rounded-lg pb-14`}>
+      <div style={{ height: boxHeght + 'px' }} className={`w-full    overflow-y-scroll no-scrollbar  border-[1px] border-solid border-[#496C6D] rounded-lg pb-14`}>
         <BuyNFTsSelectedRange value={selectIds.length} radioRef={radioRef} min={0} max={lastNftList.length} handleRangeChange={(e) => rangeChange(e)} />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-5">

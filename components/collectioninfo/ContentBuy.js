@@ -459,12 +459,11 @@ const ContentBuy = ({ }) => {
 
   return (
     <>
-      <section className={"h-[470px] overflow-scroll  border-[1px] border-solid border-[#496C6D] rounded-lg grid grid-rows-[40px,auto] justify-items-stretch"}>
-
+      <section className="w-full h-[470px] overflow-y-scroll no-scrollbar  border-[1px] border-solid border-[#496C6D] rounded-lg pb-14">
 
         <BuyNFTsSelectedRange value={selectIds.length} radioRef={radioRef} min={0} max={lastNftList.length} handleRangeChange={(e) => rangeChange(e)} />
 
-        <div className="flex flex-wrap  p-5 mt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-5">
 
           {
             lastNftList.map((square, index) => {

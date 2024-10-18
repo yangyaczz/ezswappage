@@ -117,7 +117,6 @@ function Input1155Sell({ }) {
             body: JSON.stringify(params),
           });
           const data = await response.json();
-          debugger
           let num1155 = data?.data?.erc1155Balances[0]?.valueExact;
           const num = num1155 ? num1155.length : 0
           setMax(num)
@@ -293,7 +292,6 @@ function Input1155Sell({ }) {
   }, [colInfo.address, owner, chain, refreshNftListKey]);
 
   useEffect(() => {
-    debugger
     fetchData()
   }, [max])
 
@@ -302,7 +300,6 @@ function Input1155Sell({ }) {
   );
 
   const fetchData = async () => {
-    debugger
     if (
       golbalParams.networkName &&
       colInfo.address
@@ -378,7 +375,6 @@ function Input1155Sell({ }) {
       }
       setLoading(false)
     } else {
-      // debugger
       // setLoading(false)
     }
   };

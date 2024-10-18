@@ -646,17 +646,18 @@ const ContentBuy = ({ }) => {
 
   return (
     <>
-      <section className="w-full h-[470px] overflow-scroll  border-[1px] border-solid border-[#496C6D] rounded-lg ">
+      <section className="w-full h-[470px] overflow-y-scroll no-scrollbar  border-[1px] border-solid border-[#496C6D] rounded-lg pb-14">
 
         <BuyNFTsSelectedRange value={selectIds.length} radioRef={radioRef} min={0} max={max} handleRangeChange={(e) => rangeChange(e)} />
 
-        <div className="flex flex-wrap  px-5 ">
+        {/* <div className="flex flex-wrap  px-5 "> */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-5">
 
           {
             nftList.map((square, index) => {
               return (<div
                 data-tip="this collection has no liquidity"
-                key={square} className={'  relative  border border-[#00D5DA] mr-3 flex flex-col items-center  justify-center mt-10 pb-5 rounded-xl  overflow-hidden ' + ((selectIds.includes(square) ||
+                key={square} className={'  relative  border border-[#00D5DA] mr-3 flex flex-col items-center  justify-center mt-5 pb-5 rounded-xl  overflow-hidden ' + ((selectIds.includes(square) ||
                   !isBanSelect) ? '' : ' filter grayscale  tooltip opacity-50 ')
                 } onClick={() => toggleSelected(square)}>
                 <img

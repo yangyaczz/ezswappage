@@ -40,6 +40,24 @@ const ContentBuy = ({ }) => {
   const [isClient, setIsClient] = useState(false);
   // const [nftNums, setNftNums] = useState([]);
   // useEffect(() => {
+  // const [windowHeight, setWindowHeight] = useState(0); // 初始设置为当前窗口高度
+  const minBoxHeight = 470;
+  const [boxHeght, setBoxHeght] = useState(0)
+
+  useEffect(() => {
+    console.log(window.innerHeight)
+    setBoxHeght(window.innerHeight - 470);
+    const handleResize = () => {
+      setBoxHeght(window.innerHeight - 470); // 更新窗口高度
+    };
+
+    window.addEventListener('resize', handleResize); // 监听窗口大小变化
+
+    return () => {
+      window.removeEventListener('resize', handleResize); // 清理事件监听
+    };
+  }, []);
+
 
 
 
@@ -646,7 +664,7 @@ const ContentBuy = ({ }) => {
 
   return (
     <>
-      <section className="w-full h-[470px] overflow-y-scroll no-scrollbar  border-[1px] border-solid border-[#496C6D] rounded-lg pb-14">
+      <div className={`w-full   h-[${Math.max(minBoxHeight, boxHeght)}px]  max-[800px]:h-[${minBoxHeight}px]  overflow-y-scroll no-scrollbar  border-[1px] border-solid border-[#496C6D] rounded-lg pb-14`}>
 
         <BuyNFTsSelectedRange value={selectIds.length} radioRef={radioRef} min={0} max={max} handleRangeChange={(e) => rangeChange(e)} />
 
@@ -686,7 +704,7 @@ const ContentBuy = ({ }) => {
         </div>
 
 
-      </section >
+      </div >
     </>
   );
 };

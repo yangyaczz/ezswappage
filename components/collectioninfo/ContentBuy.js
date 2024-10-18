@@ -48,16 +48,24 @@ const ContentBuy = ({ }) => {
   const [isClient, setIsClient] = useState(false);
 
 
-  const [width, setWidth] = useState(window.innerWidth);
-
-  const handleResize = () => {
-    setWidth(window.innerWidth);
-  };
+  // const [windowHeight, setWindowHeight] = useState(0); // 初始设置为当前窗口高度
+  const minBoxHeight = 470;
+  const [boxHeght, setBoxHeght] = useState(0)
 
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    console.log(window.innerHeight)
+    setBoxHeght(window.innerHeight - 470);
+    const handleResize = () => {
+      setBoxHeght(window.innerHeight - 470); // 更新窗口高度
+    };
+
+    window.addEventListener('resize', handleResize); // 监听窗口大小变化
+
+    return () => {
+      window.removeEventListener('resize', handleResize); // 清理事件监听
+    };
   }, []);
+
 
 
 
@@ -456,11 +464,10 @@ const ContentBuy = ({ }) => {
       <div className="text-center mt-10"><p>{languageModel.noData}</p></div >
     )
   }
-
+  // h - [${ Math.max(minBoxHeight, boxHeght) }px]
   return (
     <>
-      <section className="w-full h-[470px] overflow-y-scroll no-scrollbar  border-[1px] border-solid border-[#496C6D] rounded-lg pb-14">
-
+      <div className={`w-full   h-[${Math.max(minBoxHeight, boxHeght)}px]  max-[800px]:h-[${minBoxHeight}px]  overflow-y-scroll no-scrollbar  border-[1px] border-solid border-[#496C6D] rounded-lg pb-14`}>
         <BuyNFTsSelectedRange value={selectIds.length} radioRef={radioRef} min={0} max={lastNftList.length} handleRangeChange={(e) => rangeChange(e)} />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-5">
@@ -500,7 +507,7 @@ const ContentBuy = ({ }) => {
         </div>
 
 
-      </section >
+      </div >
     </>
   );
 };

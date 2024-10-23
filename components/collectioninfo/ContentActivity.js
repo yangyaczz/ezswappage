@@ -1,41 +1,54 @@
 import { useCollectionInfo } from "@/contexts/CollectionInfoContext";
 import PriceChart from "./PriceChart";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { MaxFiveDecimal } from "../utils/roundoff";
 
+const days = [1, 7, 30]
+
+const types = ['Buy', 'Sell']
+
 const ContentActivity = () => {
-  const { colInfo, tradeActivities, updateTradeActivities } =
+  const { colInfo } =
     useCollectionInfo();
+  const [activitys, setActivitys] = useState([])
+
+  const [loading, setLoading] = useState(true)
+
+  const [daysCount, setDaysCount] = useState(30)
+  const [type, setType] = useState(['Buy', 'Sell'])
 
   useEffect(() => {
-    async function loadTrades() {
-      const trades = await fetchActivities(colInfo.address);
-      updateTradeActivities(trades);
-    }
+    // async function loadTrades() {
+    //   const trades = await fetchActivities(colInfo.address);
+    // }
 
-    loadTrades();
-  }, [colInfo.address]);
+    // loadTrades();
+    fetchActivities(colInfo.address);
+  }, [colInfo.address, type]);
 
   async function fetchActivities(collectionAddress) {
+    setLoading(true);
     const result = await fetch("/api/queryTradeActivities", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        nftContractAddress: "0x9D79c95314eB049e1FAFEAf14bc7B221Baf95F81",
+        nftContractAddress: collectionAddress,
+        transactionType: type.join(),
       }),
     });
     const data = await result.json();
+    setLoading(false);
+    setActivitys(data.data)
 
-    return data.data;
   }
 
   function timeAgo(date) {
     const totalSeconds = Date.parse(new Date()) / 1000 - date;
     console.log(Date.parse(new Date()) / 1000)
     console.log(date)
-    console.log("totalSeconds:",totalSeconds)
+    console.log("totalSeconds:", totalSeconds)
     let year = Math.floor(totalSeconds / 31536000);
     if (year >= 1) {
       return `${year} year ago`;
@@ -60,19 +73,37 @@ const ContentActivity = () => {
     return `${Math.floor(totalSeconds)} seconds ago`;
   }
 
+  const typeClick = (item) => {
+    if (type.includes(item)) {
+      setType(type.filter(type => type !== item))
+    } else {
+      setType([...type, item])
+    }
+  }
   return (
     <>
       <section className="w-full h-[470px] p-4 border-[1px] border-solid border-[#496C6D] rounded-lg grid grid-rows-[40px,auto] justify-items-stretch">
+
+
         <header
           title="time_range_bar"
-          className="flex items-center justify-center gap-4 pt-4 pr-8 justify-self-end"
+          className="flex items-center justify-between gap-4 pt-4 pr-8 justify-self-end"
         >
-          <button className="text-[#8E8A8A] text-lg ">1d</button>
-          <button className="text-[#8E8A8A] text-lg ">7d</button>
-          <button className="text-[#00D5DA] text-lg underline ">30d</button>
+          <div className="flex items-center justify-center gap-4 justify-self-end float-start mr-10">
+            {
+              types.map((item) => (
+                <button className={" text-lg " + (type.includes(item) ? 'text-[#00D5DA] underline ' : ' text-[#8E8A8A] ')} onClick={() => typeClick(item)}>{item}</button>
+              ))
+            }
+          </div>
+          {
+            days.map((item) => (
+              <button className={" text-lg " + (item === daysCount ? 'text-[#00D5DA] underline ' : 'text-[#8E8A8A]')} onClick={() => setDaysCount(item)}>{item}d</button>
+            ))
+          }
         </header>
-        <PriceChart />
-      </section>
+        <PriceChart daysCount={daysCount} type={type} />
+      </section >
       <section className="w-full p-4 border-[1px] border-solid border-[#496C6D] rounded-lg flex flex-col gap-4">
         <div
           id="activity_table_header"
@@ -85,19 +116,18 @@ const ContentActivity = () => {
           <p>Trader</p>
           <p>Time</p>
         </div>
-        {tradeActivities.map((trade) => (
+        {activitys.map((trade) => (
           <div
             key={trade.id}
             className="grid grid-cols-[1fr,250px,1fr,1fr,1fr,1fr] auto-rows-auto justify-items-center gap-4 h-9 text-white text-md border-b-[0.5px] border-solid border-[#496C6D]"
           >
             <p
-              className={`font-bold ${
-                trade.transactionType.toUpperCase() === "BUY"
-                  ? "text-[#00D5DA]"
-                  : trade.transactionType.toUpperCase() === "SELL"
+              className={`font-bold ${trade.transactionType.toUpperCase() === "BUY"
+                ? "text-[#00D5DA]"
+                : trade.transactionType.toUpperCase() === "SELL"
                   ? "text-[#E48181]"
                   : "text-white"
-              }`}
+                }`}
             >
               {trade.transactionType}
             </p>

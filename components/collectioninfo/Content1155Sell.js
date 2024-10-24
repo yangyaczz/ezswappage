@@ -33,7 +33,9 @@ function Input1155Sell({ }) {
 
   useEffect(() => {
     setIsClient(true)
-    reset()
+    return () => {
+      reset()
+    }
   }, [colInfo.address])
 
   const reset = () => {

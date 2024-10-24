@@ -136,7 +136,7 @@ const PriceChart = ({ daysCount, type }) => {
       body: JSON.stringify({
         nftContractAddress: colInfo.address,
         daysCount: daysCount,
-        // transactionType: type
+        transactionType: type.join()
       }),
     });
     const data = await result.json();
@@ -152,6 +152,11 @@ const PriceChart = ({ daysCount, type }) => {
   if (loading) {
     return (
       <div className="text-center mt-10"><p className="h-max loading loading-bars loading-lg"></p></div>
+    )
+  }
+  if (priceData.length === 0) {
+    return (
+      <div className="text-center mt-36 h-max "><p>No activity history found with the provided filters</p></div>
     )
   }
 

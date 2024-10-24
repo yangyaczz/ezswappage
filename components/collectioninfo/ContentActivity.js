@@ -36,6 +36,7 @@ const ContentActivity = () => {
       body: JSON.stringify({
         nftContractAddress: collectionAddress,
         transactionType: type.join(),
+        daysCount: daysCount,
       }),
     });
     const data = await result.json();

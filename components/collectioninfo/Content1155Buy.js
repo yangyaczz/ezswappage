@@ -36,8 +36,10 @@ function Input1155Buy() {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    reset()
     setIsClient(true)
+    return () => {
+      reset()
+    }
   }, [colInfo.address])
 
   const reset = () => {

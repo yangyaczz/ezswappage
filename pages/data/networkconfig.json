@@ -63,6 +63,13 @@
         "name": "test1155_3",
         "tokenId1155": "1",
         "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0xE2004E42EC692b0243E11b13A5e7deC7cB84e589",
+        "name": "test1155_4",
+        "tokenId1155": "1",
+        "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
       }
     ],
     "recommendERC20": [

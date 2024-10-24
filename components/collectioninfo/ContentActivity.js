@@ -24,7 +24,7 @@ const ContentActivity = () => {
 
     // loadTrades();
     fetchActivities(colInfo.address);
-  }, [colInfo.address, type]);
+  }, [colInfo.address, type, daysCount]);
 
   async function fetchActivities(collectionAddress) {
     setLoading(true);
@@ -41,7 +41,7 @@ const ContentActivity = () => {
     });
     const data = await result.json();
     setLoading(false);
-    setActivitys(data.data)
+    setActivitys(data.data || [])
 
   }
 
@@ -142,9 +142,22 @@ const ContentActivity = () => {
               )}{" "}
               ETH
             </p>
-            <p>{trade.poolAddress.substring(0, 8)}</p>
-            <p>{trade.userAddress.substring(0, 8)}</p>
-            <p>{timeAgo(trade.createdAt)}</p>
+
+
+
+            <p>   {`${trade.poolAddress.substring(
+              0,
+              5
+            )}......${trade.poolAddress.substring(
+              trade.poolAddress.length - 4
+            )}`}</p>
+            <p>  {`${trade.userAddress.substring(
+              0,
+              5
+            )}......${trade.userAddress.substring(
+              trade.userAddress.length - 4
+            )}`}</p>
+            <p>{timeAgo(trade.blockTimestamp)}</p>
           </div>
         ))}
       </section>

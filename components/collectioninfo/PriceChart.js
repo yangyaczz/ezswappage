@@ -63,13 +63,18 @@ const PriceChart = ({ daysCount, type }) => {
             });
 
           },
-          // render: function (chart) {
-          //   console.log('图表渲染完2成');
-          //   const legendItems = document.querySelectorAll('.highcharts-legend-item');
-          //   legendItems.forEach((item) => {
-          //     item.style.display = 'none';  // 隐藏所有图例项
-          //   });
-          // }
+          render: function (chart) {
+            // 在图表渲染完成后执行额外操作，比如隐藏图例项
+            const legendItems = document.querySelectorAll('.highcharts-legend-item');
+            legendItems.forEach((item) => {
+              item.style.display = 'none';  // 隐藏所有图例项
+            });
+            const highchartsCredits = document.querySelectorAll('.highcharts-credits');
+            highchartsCredits.forEach((item) => {
+              item.style.display = 'none';  // 隐藏所有图例项
+            });
+
+          }
         }
       },
       title: {
@@ -80,6 +85,7 @@ const PriceChart = ({ daysCount, type }) => {
       },
       series: [
         {
+          name: "",
           type: "line",
           data: data,
 

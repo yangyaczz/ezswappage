@@ -1,8 +1,8 @@
 import nextConfig from "../next.config.js";
 
 export const BASE_URL = {
-  dev: "http://127.0.0.1:8085/",
-  // dev: "https://testapi.ezswap.io/",
+  // dev: "http://127.0.0.1:8085/",
+  dev: "https://testapi.ezswap.io/",
   test: "https://testapi.ezswap.io/",
   dev2: "https://api.ezswap.io/",
 }[nextConfig.publicRuntimeConfig.env.API];

@@ -307,7 +307,7 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount, btnStyle
       return (
         <button className={className + styles.buttonStyle} onClick={() => doApprove()}>
           {approveLoading || waitApproveLoading ? (
-            <span class="loading loading-spinner loading-sm"></span>
+            <span className="loading loading-spinner loading-sm"></span>
           ) : (
             <div className="flex flex-col">
               <span>{text}</span>
@@ -338,7 +338,7 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount, btnStyle
       return (
         <button className={className + styles.buttonStyle} onClick={() => swapNFTToToken()}>
           {isLoading || waitTrxLoading ? (
-            <span class="loading loading-spinner loading-sm"></span>
+            <span className="loading loading-spinner loading-sm"></span>
           ) : (
             btnContent
           )}
@@ -350,7 +350,7 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount, btnStyle
         <button className={className + styles.buttonStyle} onClick={() => swapETHToNFT()}>
           {/* <button className={className + styles.buttonStyle} onClick={() => addSwapSuccessCount()}> */}
           {swapETHToNFTIsLoading || waitTrxLoading ? (
-            <span class="loading loading-spinner loading-sm"></span>
+            <span className="loading loading-spinner loading-sm"></span>
           ) : (
             btnContent
 

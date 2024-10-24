@@ -54,6 +54,15 @@
     "order": 0
   },
   {
+    "name": "arbsep1155_4",
+    "address": "0xE2004E42EC692b0243E11b13A5e7deC7cB84e589",
+    "type": "ERC1155",
+    "tokenId1155": "1",
+    "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png",
+    "network": "arbsep",
+    "order": 0
+  },
+  {
     "name": "arbsep1155_zn",
     "address": "0x324200643020d233424274073bE8Cd5215636748",
     "type": "ERC1155",

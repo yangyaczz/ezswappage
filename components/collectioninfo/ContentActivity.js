@@ -105,59 +105,62 @@ const ContentActivity = () => {
         </header>
         <PriceChart daysCount={daysCount} type={type} />
       </section >
-      <section className="w-full p-4 border-[1px] border-solid border-[#496C6D] rounded-lg flex flex-col gap-4">
+      <section className="w-full p-4 border-[1px] border-solid border-[#496C6D] rounded-lg flex flex-col gap-0">
         <div
           id="activity_table_header"
-          className="grid grid-cols-[1fr,250px,1fr,1fr,1fr,1fr] auto-rows-auto justify-items-center gap-4 h-9 text-lg text-white font-bold border-b-[0.5px] border-solid border-[#496C6D]"
+          className="w-full grid grid-cols-[1fr,1fr,1fr,1fr,1fr,1fr] max-[800px]:grid-cols-[1fr,1fr,1fr]  auto-rows-auto justify-items-center gap-1 h-9 text-lg text-white font-bold border-b-[0.5px] border-solid border-[#496C6D]"
         >
           <p>Event</p>
-          <p className="justify-self-start">Item</p>
+          <p >Item</p>
           <p>Price</p>
-          <p>Pool</p>
-          <p>Trader</p>
-          <p>Time</p>
+          <p className="max-[800px]:hidden ">Pool</p>
+          <p className="max-[800px]:hidden ">Trader</p>
+          <p className="max-[800px]:hidden ">Time</p>
         </div>
         {activitys.map((trade) => (
           <div
             key={trade.id}
-            className="grid grid-cols-[1fr,250px,1fr,1fr,1fr,1fr] auto-rows-auto justify-items-center gap-4 h-9 text-white text-md border-b-[0.5px] border-solid border-[#496C6D]"
+            className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,1fr] max-[800px]:grid-cols-[1fr,1fr,1fr] auto-rows-auto justify-items-center gap-1 min-h-14 text-white text-md border-b-[0.5px] border-solid border-[#496C6D]"
           >
             <p
-              className={`font-bold ${trade.transactionType.toUpperCase() === "BUY"
+              className={`flex flex-col items-center justify-center break-all font-bold ${trade.transactionType.toUpperCase() === "BUY"
                 ? "text-[#00D5DA]"
                 : trade.transactionType.toUpperCase() === "SELL"
                   ? "text-[#E48181]"
                   : "text-white"
                 }`}
             >
-              {trade.transactionType}
+              <div className=" flex items-center">  {trade.transactionType}</div>
+              <span className="text-xs text-gray-400 hidden max-[800px]:block">  {timeAgo(trade.blockTimestamp)}</span>
             </p>
-            <p className="justify-self-start">
+            <p className="flex items-center  break-all">
               {colInfo.name}
-              <span>{` #${trade.nftId}`}</span>
+              <br className="hidden max-[800px]:block" />
+              {` #${trade.nftId}`}
             </p>
-            <p>
+            <p className="flex items-center break-all">
               {parseFloat(trade.totalPrice).toFixed(
                 MaxFiveDecimal(parseFloat(trade.totalPrice))
               )}{" "}
+              <br className="hidden max-[800px]:block" />
               ETH
             </p>
 
 
 
-            <p>   {`${trade.poolAddress.substring(
+            <p className="flex items-center  break-all max-[800px]:hidden">   {`${trade.poolAddress.substring(
               0,
               5
             )}......${trade.poolAddress.substring(
               trade.poolAddress.length - 4
             )}`}</p>
-            <p>  {`${trade.userAddress.substring(
+            <p className="flex items-center   break-all max-[800px]:hidden">  {`${trade.userAddress.substring(
               0,
               5
             )}......${trade.userAddress.substring(
               trade.userAddress.length - 4
             )}`}</p>
-            <p>{timeAgo(trade.blockTimestamp)}</p>
+            <p className="flex items-center break-all max-[800px]:hidden">{timeAgo(trade.blockTimestamp)}</p>
           </div>
         ))}
       </section>

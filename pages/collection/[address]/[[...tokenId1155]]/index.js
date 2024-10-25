@@ -12,6 +12,8 @@ import CollectionInfoHeader from "@/components/collectioninfo/CollectionInfoHead
 import ActionBar from "@/components/collectioninfo/ActionBar";
 import ContentBar from "@/components/collectioninfo/ContentBar";
 import ContentSection from "@/components/collectioninfo/ContentSection";
+import SearchDropdown from "@/components/collectioninfo/SearchDropdown";
+
 import collections from "@/pages/data/collection-data";
 import calculatePoolAllInfo from "@/components/utils/calculatePoolInfo";
 import ContentBuyCart from "@/components/collectioninfo/ContentBuyCart";
@@ -19,20 +21,24 @@ import { useParams } from "next/navigation";
 
 const ETH_ADDRESS = "0x0000000000000000000000000000000000000000";
 const SLIPPING_RATE = 1.005;
-
 const CollectionInfo = () => {
   const router = useRouter();
   const { chain } = useNetwork();
-  const { loaded, loadColInfo } = useCollectionInfo();
+  const { loaded, loadColInfo, colInfo } = useCollectionInfo();
+
 
   useEffect(() => {
     let chainConfig = {};
-    if (router.isReady) setup();
+    if (router.isReady) {
+      setup();
+    }
 
     async function setup() {
       if (chain && chain.id in networkConfig)
         chainConfig = networkConfig[chain.id];
-
+      console.log('colInfo.address', colInfo.address)
+      setDropdownOptions(collections
+        .filter((collection) => collection.network === chainConfig.networkName))
       // 给个默认值显示eos,改成显示manta,不然会显示no data
       if (chainConfig === undefined || chainConfig.networkName === undefined) {
         chainConfig = networkConfig[169];
@@ -178,10 +184,50 @@ const CollectionInfo = () => {
       .then((data) => data.data);
   }
 
+  // Custom filter function to search through options
+  const filterFunction = (options, query) => {
+    return options.filter(option =>
+      option.name.toLowerCase().includes(query.toLowerCase()) || option.address.toLowerCase() === query.toLowerCase()
+    );
+  };
+
+  // Custom render function to style each option
+  // ${colInfo.address === option.address ? 'hidden' : ''}
+  const renderOption = (option) => (
+    <div className={`p-2 hover:bg-primary hover:text-white rounded-lg flex ${colInfo.address === option.address ? 'filter grayscale pointer-events-none cursor-not-allowed' : ''}`}>
+      <img className="size-12" src={option.img} />
+      <div className="flex flex-col ml-2">
+        <span> {option.name}</span>
+        <span> {option.address}</span>
+      </div>
+    </div >
+  );
+  const handleSelect = async (collection) => {
+    if (collection.address.toLowerCase() === colInfo.address.toLowerCase()) {
+      return
+
+    }
+    const { address, tokenId1155, } = collection;
+    router.push({
+      pathname: `/collection/${address}${tokenId1155 ? "/" + tokenId1155 : ""}`
+    }).then(_ => {
+      router.reload()
+    })
+  };
+
+  const [dropdownOptions, setDropdownOptions] = useState([])
+
   return (
     <div className="flex justify-center">
       <div className="flex h-full   max-w-[1680px]">
         <div className="flex flex-col items-stretch justify-start w-full h-full gap-8 px-10 py-6">
+          <SearchDropdown
+            options={dropdownOptions}
+            placeholder="Search collection or contract"
+            onSelect={handleSelect}
+            filterFunction={filterFunction}
+            renderOption={renderOption}
+          />
           <CollectionInfoHeader />
           {/* <ActionBar /> */}
           <ContentBar />

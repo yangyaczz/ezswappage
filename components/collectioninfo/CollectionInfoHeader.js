@@ -126,6 +126,9 @@ const CollectionInfoHeader = () => {
           <span className=" max-[800px]:text-3xl  text-5xl font-bold text-white max-[800px]:max-w-[300px] overflow-hidden text-ellipsis whitespace-nowrap">
             {colInfo.name}
           </span>
+          {/* <span className=" max-[800px]:text-3xl  text-2xl font-bold text-white max-[800px]:max-w-[300px] overflow-hidden text-ellipsis whitespace-nowrap">
+            {colInfo.address}
+          </span> */}
           <div className=" max-[800px]:hidden">
             {Box}
           </div>

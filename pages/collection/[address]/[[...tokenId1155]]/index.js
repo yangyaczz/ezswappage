@@ -26,7 +26,13 @@ const CollectionInfo = () => {
   const { chain } = useNetwork();
   const { loaded, loadColInfo, colInfo } = useCollectionInfo();
 
-
+  useEffect(() => {
+    if (chain && chain.id) {
+      const net = networkConfig[chain.id]
+      setDropdownOptions(collections
+        .filter((collection) => collection.network === net.networkName))
+    }
+  }, [chain])
   useEffect(() => {
     let chainConfig = {};
     if (router.isReady) {
@@ -36,9 +42,8 @@ const CollectionInfo = () => {
     async function setup() {
       if (chain && chain.id in networkConfig)
         chainConfig = networkConfig[chain.id];
-      console.log('colInfo.address', colInfo.address)
-      setDropdownOptions(collections
-        .filter((collection) => collection.network === chainConfig.networkName))
+
+
       // 给个默认值显示eos,改成显示manta,不然会显示no data
       if (chainConfig === undefined || chainConfig.networkName === undefined) {
         chainConfig = networkConfig[169];

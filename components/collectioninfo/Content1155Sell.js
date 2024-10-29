@@ -33,6 +33,7 @@ function Input1155Sell({ }) {
 
   useEffect(() => {
     setIsClient(true)
+    reset()
     return () => {
       reset()
     }

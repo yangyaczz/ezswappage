@@ -83,9 +83,19 @@ const PriceChart = ({ daysCount, type }) => {
           color: "white",
         },
       },
+      legend: {
+        show: false,  // 隐藏图例
+        data: []
+      },
+      tooltip: {
+        trigger: 'item',
+        formatter: function (params) {
+          return this.point.name + ': ' + this.y;
+        }
+      },
       series: [
         {
-          name: "",
+          name: "Price",
           type: "line",
           data: data,
 

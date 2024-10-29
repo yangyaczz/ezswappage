@@ -37,9 +37,7 @@ function Input1155Buy() {
 
   useEffect(() => {
     setIsClient(true)
-    return () => {
-      reset()
-    }
+    reset()
   }, [colInfo.address])
 
   const reset = () => {
@@ -52,21 +50,26 @@ function Input1155Buy() {
     setLastMax(max - buySuccessNfts.length)
   }, [buySuccessNfts, max])
 
+  // useEffect(() => {
+  //   if (chain) {
+  //     setGolbalParams(networkConfig[chain.id])
+  //   }
+
+  // }, [chain, owner]);
+
   useEffect(() => {
-    if (chain) {
-      setGolbalParams(networkConfig[chain.id])
+    if (!chain) {
+      return;
     }
-
-  }, [chain, owner]);
-
-  useEffect(() => {
+    const network = networkConfig[chain.id];
+    setGolbalParams(network)
     if (colInfo.address) {
       reset()
-      fetchData();
+      fetchData(network);
 
     }
     return () => {
-      updateSelectedNftToenIds([])
+      reset()
     }
 
   }, [colInfo.address, refreshNftListKey, chain, owner])
@@ -75,15 +78,16 @@ function Input1155Buy() {
     0
   );
 
-  const fetchData = async () => {
+  const fetchData = async (network) => {
+    console.log('fetchData')
     if (
-      golbalParams.networkName &&
+      network.networkName &&
       colInfo.address
     ) {
       setLoading(true)
       const params = {
         contractAddress: colInfo.address,
-        network: golbalParams.networkName,
+        network: network.networkName,
       };
 
       const response = await fetch("/api/proxy", {
@@ -113,7 +117,7 @@ function Input1155Buy() {
         let canTradeToken = [
           ...new Set(filteredData.map((item) => item.token)),
         ].map((token) => (token === null ? "ETH" : token));
-        let permitTokens = golbalParams.recommendERC20.map(
+        let permitTokens = network.recommendERC20.map(
           (item) => item.address.toLowerCase()
         );
         canTradeToken = canTradeToken.filter((token) =>

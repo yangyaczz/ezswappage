@@ -126,7 +126,7 @@ const ContentActivity = () => {
               className={`flex flex-col items-center justify-center break-all font-bold ${trade.transactionType.toUpperCase() === "BUY"
                 ? "text-[#00D5DA]"
                 : trade.transactionType.toUpperCase() === "SELL"
-                  ? "text-[#E48181]"
+                  ? "text-[red]"
                   : "text-white"
                 }`}
             >

@@ -75,7 +75,7 @@ export default function Home() {
                         </div>
                         <div className="flex max-[800px]:flex-col max-[800px]:mr-10">
                             {/*第一个item*/}
-                            <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 max-[800px]:pb-4 text-white min-[799px]:mr-5 max-[1500px]:h-[240px] max-[1250px]:w-[330px] max-[1300px]:w-[380px] max-[1500px]:w-[400px] max-[1700px]:w-[440px] w-[480px]">
+                            <div className="bg-black border border-[#737373] rounded-md pt-10 pb-7 max-[800px]:pb-4 text-white min-[799px]:mr-5 max-[1500px]:h-[240px] max-[1250px]:w-[330px] max-[1300px]:w-[380px] max-[1500px]:w-[400px] max-[1700px]:w-[500px] w-[500px]">
                                 {/*最外面上下布局*/}
                                 <div className="flex items-center pl-8 pr-5 max-[800px]:pr-1 max-[800px]:pl-5">
                                     {/*里面左右布局*/}
@@ -99,7 +99,7 @@ export default function Home() {
                             </div>
                             {/*第二个item*/}
                             <a href="https://twitter.com/echomkts">
-                                <div className="max-[1250px]:px-4 flex flex-col items-center bg-black border border-[#737373] rounded-md pt-10 pb-7 max-[800px]:mt-7  text-white min-[799px]:mr-5 max-[1500px]:h-[240px] max-[1250px]:w-[330px]  max-[1300px]:w-[380px] max-[1500px]:w-[400px] max-[1700px]:w-[440px] w-[480px]">
+                                <div className="max-[1250px]:px-4 flex flex-col items-center bg-black border border-[#737373] rounded-md pt-10 pb-7 max-[800px]:mt-7  text-white min-[799px]:mr-5 max-[1500px]:h-[240px] max-[1250px]:w-[330px]  max-[1300px]:w-[380px] max-[1500px]:w-[400px] max-[1700px]:w-[500px] w-[500px]">
                                     {/*最外面上下布局*/}
                                     <div>
                                         <div className="flex items-center max-[800px]:pr-1 max-[800px]:pl-5">
@@ -122,7 +122,7 @@ export default function Home() {
                             </a>
                             {/*第三个item*/}
                             <a href="https://twitter.com/mars404_manta">
-                                <div className="flex flex-col items-center bg-black border border-[#737373] rounded-md pt-10 pb-7 text-white max-[800px]:mt-7 min-[799px]:mr-5  max-[1500px]:h-[240px] max-[1250px]:w-[330px]  max-[1300px]:w-[380px] max-[1500px]:w-[400px] max-[1700px]:w-[440px] w-[480px]">
+                                <div className="flex flex-col items-center bg-black border border-[#737373] rounded-md pt-10 pb-7 text-white max-[800px]:mt-7 min-[799px]:mr-5  max-[1500px]:h-[240px] max-[1250px]:w-[330px]  max-[1300px]:w-[380px] max-[1500px]:w-[400px] max-[1700px]:w-[500px] w-[500px]">
                                     {/*最外面上下布局*/}
                                     <div>
                                         <div className="flex items-center max-[800px]:pr-1  max-[800px]:pl-5">

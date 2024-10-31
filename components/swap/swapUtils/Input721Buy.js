@@ -166,12 +166,11 @@ const Input721Buy = ({
             }
             className={`
                                     p-3 mr-2 mb-5 cursor-pointer
-                                    ${
-                                      formikData.selectIds.includes(square)
-                                        ? "bg-[#28B7BC3B]"
-                                        : formikData.isBanSelect &&
-                                          "!cursor-not-allowed tooltip bg-gray-500 opacity-50"
-                                    }
+                                    ${formikData.selectIds.includes(square)
+                ? "bg-[#28B7BC3B]"
+                : formikData.isBanSelect &&
+                "!cursor-not-allowed tooltip bg-gray-500 opacity-50"
+              }
                                 `}
           >
             <div
@@ -191,7 +190,7 @@ const Input721Buy = ({
               <div className="font-bold">#{square}</div>
             </div>
             <div className="flex items-center content-center mt-1 font-bold">
-              <span>{idPriceMap[square].toFixed(5)}</span>&nbsp;{addressSymbol[formikData.golbalParams.hex]["0x0000000000000000000000000000000000000000"]}
+              <span>{idPriceMap[square]?.toFixed(5)}</span>&nbsp;{addressSymbol[formikData.golbalParams.hex]?.["0x0000000000000000000000000000000000000000"]}
             </div>
           </div>
         ))}

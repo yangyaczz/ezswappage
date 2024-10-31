@@ -1,495 +1,579 @@
 {
-    "3441005": {
-        "networkName": "mantatest",
-        "hex": "0x34816d",
-        "router": "0x28Fd27256d1E1CEaeB38a33A8C8945E4421f9EC3",
-        "factory": "0x86388a46f5e3dafbf815b7521e244930E0727eE3",
-        "linear": "0xE567f07cD4aeC9AEDD8A54E4F2A4d24de204eB98",
-        "exponential": "0x75f155c8F3AF789Ea05A1061467476b216F9102b",
-        "ERC20": "0x0B20E82DAC9dCc7b9D082C2Abb32AEf2D33a42D6",
-        "ERC721": "0xB0CCEC418B8c5606EED44ecCf83E7932893E1105",
-        "ERC1155": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
-        "launchpadFactory": "0x3b328975b14c9aE3B4886b63dfbb92C1760Ad563",
-        "launchpad1155Factory": "0xea8DA9BD9414986a61943c507Cbfd7F27c4327D9",
-        "recommendNFT": [
-            {
-                "type": "ERC721",
-                "address": "0x6B8a2dBdcfE02bee42b8bD5703eC28eb70d9862D",
-                "name": "M404",
-                "tokenId1155": "",
-                "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
-            },
-            {
-                "type": "ERC721",
-                "address": "0x3D3fa1f6dE1a8e8f466BF6598b2601a250643464",
-                "name": "ts721ec1",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
-                "name": "ts1155tk3",
-                "tokenId1155": "3",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
-                "name": "ts1155tk4",
-                "tokenId1155": "4",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
-            },
-            {
-                "type": "ERC721",
-                "address": "0x2c236CCb897e7d22e238E98dB4b960445506BFc0",
-                "name": "ZKholdem",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
-            },
-            {
-                "type": "ERC721",
-                "address": "0x2AD088E42Ab634009f1cF1406795dC05782139e9",
-                "name": "ZKholdem Test1",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
-            },
-            {
-                "type": "ERC721",
-                "address": "0x84C11897C1f1c4599f74E9e792e2CFfDEA25daC1",
-                "name": "ZKholdem Test2",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
-                "name": "ts1155tk1",
-                "tokenId1155": "1",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
-                "name": "ts1155tk2",
-                "tokenId1155": "2",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
-            }
-        ],
-        "recommendERC20": [
-            {
-                "address": "ETH",
-                "name": "ETH"
-            },
-            {
-                "address": "0x0B20E82DAC9dCc7b9D082C2Abb32AEf2D33a42D6",
-                "name": "tsez20",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
-            }
-        ]
-    },
-    "169": {
-        "networkName": "manta",
-        "hex": "0xa9",
-        "router": "0x3d51749Cb2Db7355392100BAc202216BE7071E66",
-        "factory": "0x353F4106641Db62384cF0e4F1Ef15F8Ac9A9fb4B",
-        "linear": "0x9Be2Dc731bFf38B0a5D893c7a5ECE8e170c67b86",
-        "exponential": "0x20C318AA7c2eC1190F20D41EB6C6F3Ec9f5955fe",
-        "ERC20": "0xB32eFC47Bf503B3593a23204cF891295a85115Ea",
-        "ERC721": "0xE567f07cD4aeC9AEDD8A54E4F2A4d24de204eB98",
-        "ERC1155": "0x7e19ae65b9DE48C09eAdFdF0e4Be2CF977eE63b3",
-        "launchpadFactory": "0x05E8095DaD351A33aA171F7C6426045b693A4D20",
-        "launchpad1155Factory": "0x45f2d735dCC45F9293Ab99C28479d215853500f4",
-        "recommendNFT": [
-            {
-                "type": "ERC1155",
-                "address": "0x9426600cD72f9A70CaBe2f0f5405484dcA31cAa3",
-                "name": "Mantera",
-                "tokenId1155": "1",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/nft_pic.jpg"
-            },
-            {
-                "type": "ERC721",
-                "address": "0x1008bB9C06Ff83f9d5e744A53893baCE03092eB9",
-                "name": "Mars",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/marsimage.jpeg"
-            },
-            {
-                "type": "ERC721",
-                "address": "0xd7d2d92081e5afc352c12f7c9e619dc7403d969d",
-                "name": "zkHoldem NFT",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.jpg"
-            },
-            {
-                "type": "ERC721",
-                "address": "0x5865Bd7a1C7FcC69E364528bB278E1F7A82079B9",
-                "name": "zkHoldem NFT mini",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/zkHoldem_NFT_mini.jpeg"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0x4F4cD5fF9c3eb5b20A5BC2780127Fb5e9dCa27Db",
-                "name": "Pacific Game Changer",
-                "tokenId1155": "1",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/nft1.png"
-            },
-            {
-                "type": "ERC721",
-                "address": "0x7F63835f91E1B7f7812849b09Ec62E5f28623965",
-                "name": "Holdem Tier 3",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/tier3.webp"
-            },
-            {
-                "type": "ERC721",
-                "address": "0xe197f35b7ca3804Cf502Ae1b26013e658fD71423",
-                "name": "Holdem Tier 4",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/tier4.webp"
-            },
-            {
-                "type": "ERC721",
-                "address": "0x38DbACbA205eA6BE0DCD5B2Be18629eDEa7A88a9",
-                "name": "Holdem Tier 5",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/tier5.webp"
-            },
-            {
-                "type": "ERC721",
-                "address": "0xeeaaa26bcc421851497584ea44a329a2c1eb567c",
-                "name": "Holdem Tier 2",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t5.jpg"
-            },
-            {
-                "type": "ERC721",
-                "address": "0xB9dcc0AeD41A30B81D380Acba495533B2F94973f",
-                "name": "AsMatch zkPortrait Pass Lite",
-                "tokenId1155": "",
-                "img": "https://asmatch-resources.s3-accelerate.amazonaws.com/nft/zkpl.jpeg"
-            }
-        ],
-        "recommendERC20": [
-            {
-                "address": "ETH",
-                "name": "ETH"
-            },
-            {
-                "address": "0x0B20E82DAC9dCc7b9D082C2Abb32AEf2D33a42D6",
-                "name": "tsez20"
-            }
-        ]
-    },
-    "15557": {
-        "networkName": "eostest",
-        "hex": "0x3cc5",
-        "router": "0x9D79c95314eB049e1FAFEAf14bc7B221Baf95F81",
-        "factory": "0xe893287f3B0e5682e639caa51fdAfe9653AB4abf",
-        "linear": "0x0d197261f32dd36B07cAFe633Af072B12832aA5a",
-        "exponential": "0xD7d30a3069E034558e2639325EB89f87E4fCB001",
-        "launchpad1155Factory": "0xea8DA9BD9414986a61943c507Cbfd7F27c4327D9",
-        "launchpadFactory": "0x86E55cFD1eCFC94293A4144a33771d3F2be67fDB",
-        "ERC20": "",
-        "ERC721": "",
-        "ERC1155": "",
-        "recommendNFT": [
-            {
-                "type": "ERC1155",
-                "address": "0x7013cFEc3F6cEFe96A184e7f35E32ea00cefd734",
-                "name": "echo1155_test",
-                "tokenId1155": "0",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/echo_img.png"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
-                "name": "Block World Test:1",
-                "tokenId1155": "1",
-                "img": "https://data.skytest.club/bimg/VALKYRIE.gif"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
-                "name": "Block World Test:2",
-                "tokenId1155": "2",
-                "img": "https://data.skytest.club/bimg/VALKYRIE.gif"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
-                "name": "Block World Test:3",
-                "tokenId1155": "3",
-                "img": "https://data.skytest.club/bimg/VALKYRIE.gif"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
-                "name": "Block World Test:4",
-                "tokenId1155": "4",
-                "img": "https://data.skytest.club/bimg/VALKYRIE.gif"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
-                "name": "Block World Test:5",
-                "tokenId1155": "5",
-                "img": "https://data.skytest.club/bimg/VALKYRIE.gif"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
-                "name": "Block World Test:6",
-                "tokenId1155": "6",
-                "img": "https://data.skytest.club/bimg/VALKYRIE.gif"
-            },
-            {
-                "type": "ERC721",
-                "address": "0xeb44b631bf4c525ac8d2ec658c0329b9bbe2c70f",
-                "name": "Ezswap EOS Testnet test",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
-            },
-            {
-                "type": "ERC721",
-                "address": "0xdC43817b9D819202f90E68E773C06C33D3CcADff",
-                "name": "Ezswap EOS Testnet test2",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0x058169768d0484a043997073598e49F8dbb4e8e2",
-                "name": "EZ Test1155",
-                "tokenId1155": "1",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0x058169768d0484a043997073598e49F8dbb4e8e2",
-                "name": "EZ Test1155 2",
-                "tokenId1155": "2",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
-            }
-        ],
-        "recommendERC20": [
-            {
-                "address": "ETH",
-                "name": "EOS"
-            }
-        ]
-    },
-    "17777": {
-        "networkName": "eosmain",
-        "hex": "0x4571",
-        "router": "0x3d51749Cb2Db7355392100BAc202216BE7071E66",
-        "factory": "0x353F4106641Db62384cF0e4F1Ef15F8Ac9A9fb4B",
-        "linear": "0x9Be2Dc731bFf38B0a5D893c7a5ECE8e170c67b86",
-        "exponential": "0x20C318AA7c2eC1190F20D41EB6C6F3Ec9f5955fe",
-        "ERC20": "",
-        "ERC721": "",
-        "ERC1155": "",
-        "launchpadFactory": "0xb8b027A9f72A4A364449EaefdbE6BD0DB7beD502",
-        "launchpad1155Factory": "0xF13c10fa90701eDe8b3bF123CdbB0c23Fc8244b6",
-        "recommendNFT": [
-            {
-                "type": "ERC1155",
-                "address": "0x31753b319f03a7ca0264A1469dA0149982ed7564",
-                "name": "echo",
-                "tokenId1155": "0",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/echo_img2.png"
-            },
-            {
-                "type": "ERC721",
-                "address": "0xd2ffD7e6644EC7266Ffb50582784EA3D4686026d",
-                "name": "Game Raider",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg"
-            },
-            {
-                "type": "ERC721",
-                "address": "0xF7CADf2Ca041657516d8e13e5c75ABEbB49D919d",
-                "name": "Holdem Tier 0.5",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkheos/tier05.jpg"
-            },
-            {
-                "type": "ERC721",
-                "address": "0x04e90bc87E31D67dECC33aAAfc9158DbdDcF2dF2",
-                "name": "Holdem Tier 2",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkheos/tier2.jpg"
-            },
-            {
-                "type": "ERC721",
-                "address": "0xa60928929c2f17fBAEB121E3a3085585E6CF332e",
-                "name": "Holdem Tier 3",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkheos/Holdem3.webp"
-            },
-            {
-                "type": "ERC721",
-                "address": "0x439551ED0FAcC9516b3f9317BE911208d16bC7AB",
-                "name": "Holdem Tier 4",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkheos/Holdem4.webp"
-            },
-            {
-                "type": "ERC721",
-                "address": "0x0b317387cF6Eeb9258dE77B1f0E35f8450cC3902",
-                "name": "Holdem Tier 5",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkheos/iter5.jpg"
-            },
-
-            {
-                "type": "ERC1155",
-                "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
-                "name": "VALKYRIE",
-                "tokenId1155": "1",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/VALKYRIE.gif"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
-                "name": "ABBOT",
-                "tokenId1155": "2",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/ABBOT.gif"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
-                "name": "EMERALD DRAGON",
-                "tokenId1155": "3",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/EMERALD.gif"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
-                "name": "ARDENT DRAGON",
-                "tokenId1155": "4",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/ARDENT.gif"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
-                "name": "CELESTIAL",
-                "tokenId1155": "5",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/CELESTIAL.gif"
-            },
-            {
-                "type": "ERC1155",
-                "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
-                "name": "BLACK DRAGON",
-                "tokenId1155": "6",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/BLACK.gif"
-            }
-        ],
-        "recommendERC20": [
-            {
-                "address": "ETH",
-                "name": "EOS"
-            }
-        ]
-    },
-    "1": {
-        "networkName": "ethmain",
-        "hex": "0x01",
-        "router": "0xb1d1aBE25073bf3EbA0AFd5381CDa0B2Bd61c8C0",
-        "factory": "0x2A95E4FDF5F12B9E9AC627fEcbF70420D3202db1",
-        "linear": "0x20c318aa7c2ec1190f20d41eb6c6f3ec9f5955fe",
-        "exponential": "0x4f65da64c4b1cad8f58fdf06a55bca73e6a840ec",
-        "ERC20": "",
-        "ERC721": "",
-        "ERC1155": "",
-        "launchpadFactory": "0x5C0Fe44391ee35856A5De861dFd340197D252624",
-        "launchpad1155Factory": "0xC54bbA2F407a039DE8C78AEe88FAee5fe9c503b8",
-        "recommendNFT": [
-            {
-                "type": "ERC721",
-                "address": "0x670d854C7Da9E7Fa55c1958A1AeB368B48496020",
-                "name": "EZSwapPioneer",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/ezpoineer.png"
-            },
-            {
-                "type": "ERC721",
-                "address": "0xe0ab70d4e344cdbb1461f804c66940f28aa5a854",
-                "name": "BladeGames Degen Book",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/DegenBook.png"
-            },
-            {
-                "type": "ERC721",
-                "address": "0x9E9FbDE7C7a83c43913BddC8779158F1368F0413",
-                "name": "Pandora",
-                "tokenId1155": "",
-                "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
-            },
-            {
-                "type": "ERC721",
-                "address": "0xd6f6A071506821a92d3C02759e3920A213BC5DfB",
-                "name": "Gusto",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/Gusto.png"
-            },
-            {
-                "type": "ERC721",
-                "address": "0xaf854D6A783B0237C57B53dCbAE5733A43168D03",
-                "name": "Freedom",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/Gusto.png"
-            },
-            {
-                "type": "ERC721",
-                "address": "0x01A23C30F1044Cbc8CdA0F6356DEBd94C575B6ED",
-                "name": "Liberty",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/Gusto.png"
-            },
-            {
-                "type": "ERC721",
-                "address": "0xd9b5149749420737EdfF665FF1FF64A8d345579d",
-                "name": "Independence",
-                "tokenId1155": "",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/Gusto.png"
-            }
-        ],
-        "recommendERC20": [
-            {
-                "address": "ETH",
-                "name": "ETH"
-            }
-        ]
-    },
-    "42161": {
-        "networkName": "arbmain",
-        "hex": "0xa4b1",
-        "router": "0x2A95E4FDF5F12B9E9AC627fEcbF70420D3202db1",
-        "factory": "0x3d51749Cb2Db7355392100BAc202216BE7071E66",
-        "linear": "0x9Be2Dc731bFf38B0a5D893c7a5ECE8e170c67b86",
-        "exponential": "0x20C318AA7c2eC1190F20D41EB6C6F3Ec9f5955fe",
-        "ERC20": "",
-        "ERC721": "",
-        "ERC1155": "",
-        "launchpadFactory": "0x9e67e12D25a74c4AA5A72ffA2c7d3A93a6b9ce84",
-        "launchpad1155Factory": "0x44444aeE2c51BeFA0ac20134b3205D9f44238058",
-        "recommendNFT": [
-            {
-                "type": "ERC1155",
-                "address": "0xd96C7f9d00D6d2C75060D96Bb3CB24FDFB6c8582",
-                "name": "Game Revolution",
-                "tokenId1155": "1",
-                "img": "https://ezonline.s3.us-west-2.amazonaws.com/arb_launchpad.png"
-            }
-        ],
-        "recommendERC20": [
-            {
-                "address": "ETH",
-                "name": "ETH"
-            }
-        ]
-    }
+  "421614": {
+    "networkName": "arbsep",
+    "hex": "0x66EEE",
+    "router": "0xbefE9dCF81Dc6E5B743dEf794733a1551fa95901",
+    "factory": "0x3149B149068F76e4438aD1C446E3903a351E105b",
+    "linear": "0x657fE4Fcb432658887BCBfACEa9A308151EC982c",
+    "exponential": "0x2660afEf2934B74Ca5227E6a224fC3f602D0acfF",
+    "launchpadFactory": "",
+    "recommendNFT": [
+      {
+        "type": "ERC721",
+        "address": "0x2284f1239E57667a3EBAaF84ab852f800423050f",
+        "name": "MTK721_zn",
+        "tokenId1155": "",
+        "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
+      },
+      {
+        "type": "ERC721",
+        "address": "0x290B37F027b879d2C39323C839BfcB6562E1A403",
+        "name": "test721",
+        "tokenId1155": "",
+        "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
+      },
+      {
+        "type": "ERC721",
+        "address": "0xEA926BB5aC32e68ebba1BfCE20d3Ced749198956",
+        "name": "MTK",
+        "tokenId1155": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif",
+        "img": ""
+      },
+      {
+        "type": "ERC721",
+        "address": "0x75Be94C8029b32307B18a68bF736d6e778185403",
+        "name": "MTK_2",
+        "tokenId1155": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif",
+        "img": ""
+      },
+      {
+        "type": "ERC1155",
+        "address": "0x4d7c33766130b818896BbE81dc7a5fA2fdCb1251",
+        "name": "test1155",
+        "tokenId1155": "1",
+        "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0x324200643020d233424274073bE8Cd5215636748",
+        "name": "test1155_zn",
+        "tokenId1155": "1",
+        "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0xa1F01AA3752ef1ecc584e50a07E444af33f9aD75",
+        "name": "test1155_2",
+        "tokenId1155": "1",
+        "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0x7013cFEc3F6cEFe96A184e7f35E32ea00cefd734",
+        "name": "test1155_3",
+        "tokenId1155": "1",
+        "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0xE2004E42EC692b0243E11b13A5e7deC7cB84e589",
+        "name": "test1155_4",
+        "tokenId1155": "1",
+        "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
+      }
+    ],
+    "recommendERC20": [
+      {
+        "address": "ETH",
+        "name": "ETH"
+      },
+      {
+        "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
+        "name": "tsez20",
+        "img": ""
+      }
+    ]
+  },
+  "3441006": {
+    "networkName": "mantatest",
+    "hex": "0x34816d",
+    "router": "0x28Fd27256d1E1CEaeB38a33A8C8945E4421f9EC3",
+    "factory": "0x86388a46f5e3dafbf815b7521e244930E0727eE3",
+    "linear": "0xE567f07cD4aeC9AEDD8A54E4F2A4d24de204eB98",
+    "exponential": "0x75f155c8F3AF789Ea05A1061467476b216F9102b",
+    "ERC20": "0x0B20E82DAC9dCc7b9D082C2Abb32AEf2D33a42D6",
+    "ERC721": "0xB0CCEC418B8c5606EED44ecCf83E7932893E1105",
+    "ERC1155": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
+    "launchpadFactory": "0x3b328975b14c9aE3B4886b63dfbb92C1760Ad563",
+    "launchpad1155Factory": "0xea8DA9BD9414986a61943c507Cbfd7F27c4327D9",
+    "recommendNFT": [
+      {
+        "type": "ERC721",
+        "address": "0x6B8a2dBdcfE02bee42b8bD5703eC28eb70d9862D",
+        "name": "M404",
+        "tokenId1155": "",
+        "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
+      },
+      {
+        "type": "ERC721",
+        "address": "0x3D3fa1f6dE1a8e8f466BF6598b2601a250643464",
+        "name": "ts721ec1",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
+        "name": "ts1155tk3",
+        "tokenId1155": "3",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
+        "name": "ts1155tk4",
+        "tokenId1155": "4",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+      },
+      {
+        "type": "ERC721",
+        "address": "0x2c236CCb897e7d22e238E98dB4b960445506BFc0",
+        "name": "ZKholdem",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+      },
+      {
+        "type": "ERC721",
+        "address": "0x2AD088E42Ab634009f1cF1406795dC05782139e9",
+        "name": "ZKholdem Test1",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+      },
+      {
+        "type": "ERC721",
+        "address": "0x84C11897C1f1c4599f74E9e792e2CFfDEA25daC1",
+        "name": "ZKholdem Test2",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
+        "name": "ts1155tk1",
+        "tokenId1155": "1",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0xd48Aa2a392A1c6253D88728e20d20f0203F8838c",
+        "name": "ts1155tk2",
+        "tokenId1155": "2",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+      }
+    ],
+    "recommendERC20": [
+      {
+        "address": "ETH",
+        "name": "ETH"
+      },
+      {
+        "address": "0x0B20E82DAC9dCc7b9D082C2Abb32AEf2D33a42D6",
+        "name": "tsez20",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.png"
+      }
+    ]
+  },
+  "169": {
+    "networkName": "manta",
+    "hex": "0xa9",
+    "router": "0x3d51749Cb2Db7355392100BAc202216BE7071E66",
+    "factory": "0x353F4106641Db62384cF0e4F1Ef15F8Ac9A9fb4B",
+    "linear": "0x9Be2Dc731bFf38B0a5D893c7a5ECE8e170c67b86",
+    "exponential": "0x20C318AA7c2eC1190F20D41EB6C6F3Ec9f5955fe",
+    "ERC20": "0xB32eFC47Bf503B3593a23204cF891295a85115Ea",
+    "ERC721": "0xE567f07cD4aeC9AEDD8A54E4F2A4d24de204eB98",
+    "ERC1155": "0x7e19ae65b9DE48C09eAdFdF0e4Be2CF977eE63b3",
+    "launchpadFactory": "0x05E8095DaD351A33aA171F7C6426045b693A4D20",
+    "launchpad1155Factory": "0x45f2d735dCC45F9293Ab99C28479d215853500f4",
+    "recommendNFT": [
+      {
+        "type": "ERC1155",
+        "address": "0x9426600cD72f9A70CaBe2f0f5405484dcA31cAa3",
+        "name": "Mantera",
+        "tokenId1155": "1",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/nft_pic.jpg"
+      },
+      {
+        "type": "ERC721",
+        "address": "0x1008bB9C06Ff83f9d5e744A53893baCE03092eB9",
+        "name": "Mars",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/marsimage.jpeg"
+      },
+      {
+        "type": "ERC721",
+        "address": "0xd7d2d92081e5afc352c12f7c9e619dc7403d969d",
+        "name": "zkHoldem NFT",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t1.jpg"
+      },
+      {
+        "type": "ERC721",
+        "address": "0x5865Bd7a1C7FcC69E364528bB278E1F7A82079B9",
+        "name": "zkHoldem NFT mini",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/zkHoldem_NFT_mini.jpeg"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0x4F4cD5fF9c3eb5b20A5BC2780127Fb5e9dCa27Db",
+        "name": "Pacific Game Changer",
+        "tokenId1155": "1",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/nft1.png"
+      },
+      {
+        "type": "ERC721",
+        "address": "0x7F63835f91E1B7f7812849b09Ec62E5f28623965",
+        "name": "Holdem Tier 3",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/tier3.webp"
+      },
+      {
+        "type": "ERC721",
+        "address": "0xe197f35b7ca3804Cf502Ae1b26013e658fD71423",
+        "name": "Holdem Tier 4",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/tier4.webp"
+      },
+      {
+        "type": "ERC721",
+        "address": "0x38DbACbA205eA6BE0DCD5B2Be18629eDEa7A88a9",
+        "name": "Holdem Tier 5",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/tier5.webp"
+      },
+      {
+        "type": "ERC721",
+        "address": "0xeeaaa26bcc421851497584ea44a329a2c1eb567c",
+        "name": "Holdem Tier 2",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkh/t5.jpg"
+      },
+      {
+        "type": "ERC721",
+        "address": "0xB9dcc0AeD41A30B81D380Acba495533B2F94973f",
+        "name": "AsMatch zkPortrait Pass Lite",
+        "tokenId1155": "",
+        "img": "https://asmatch-resources.s3-accelerate.amazonaws.com/nft/zkpl.jpeg"
+      }
+    ],
+    "recommendERC20": [
+      {
+        "address": "ETH",
+        "name": "ETH"
+      },
+      {
+        "address": "0x0B20E82DAC9dCc7b9D082C2Abb32AEf2D33a42D6",
+        "name": "tsez20"
+      }
+    ]
+  },
+  "15557": {
+    "networkName": "eostest",
+    "hex": "0x3cc5",
+    "router": "0x9D79c95314eB049e1FAFEAf14bc7B221Baf95F81",
+    "factory": "0xe893287f3B0e5682e639caa51fdAfe9653AB4abf",
+    "linear": "0x0d197261f32dd36B07cAFe633Af072B12832aA5a",
+    "exponential": "0xD7d30a3069E034558e2639325EB89f87E4fCB001",
+    "launchpad1155Factory": "0xea8DA9BD9414986a61943c507Cbfd7F27c4327D9",
+    "launchpadFactory": "0x86E55cFD1eCFC94293A4144a33771d3F2be67fDB",
+    "ERC20": "",
+    "ERC721": "",
+    "ERC1155": "",
+    "recommendNFT": [
+      {
+        "type": "ERC1155",
+        "address": "0x7013cFEc3F6cEFe96A184e7f35E32ea00cefd734",
+        "name": "echo1155_test",
+        "tokenId1155": "0",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/echo_img.png"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+        "name": "Block World Test:1",
+        "tokenId1155": "1",
+        "img": "https://data.skytest.club/bimg/VALKYRIE.gif"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+        "name": "Block World Test:2",
+        "tokenId1155": "2",
+        "img": "https://data.skytest.club/bimg/VALKYRIE.gif"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+        "name": "Block World Test:3",
+        "tokenId1155": "3",
+        "img": "https://data.skytest.club/bimg/VALKYRIE.gif"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+        "name": "Block World Test:4",
+        "tokenId1155": "4",
+        "img": "https://data.skytest.club/bimg/VALKYRIE.gif"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+        "name": "Block World Test:5",
+        "tokenId1155": "5",
+        "img": "https://data.skytest.club/bimg/VALKYRIE.gif"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0x9D5971991b60eDb0C357343d01A53b7f58731FD2",
+        "name": "Block World Test:6",
+        "tokenId1155": "6",
+        "img": "https://data.skytest.club/bimg/VALKYRIE.gif"
+      },
+      {
+        "type": "ERC721",
+        "address": "0xeb44b631bf4c525ac8d2ec658c0329b9bbe2c70f",
+        "name": "Ezswap EOS Testnet test",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
+      },
+      {
+        "type": "ERC721",
+        "address": "0xdC43817b9D819202f90E68E773C06C33D3CcADff",
+        "name": "Ezswap EOS Testnet test2",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0x058169768d0484a043997073598e49F8dbb4e8e2",
+        "name": "EZ Test1155",
+        "tokenId1155": "1",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0x058169768d0484a043997073598e49F8dbb4e8e2",
+        "name": "EZ Test1155 2",
+        "tokenId1155": "2",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/fdasfaasad.png"
+      }
+    ],
+    "recommendERC20": [
+      {
+        "address": "ETH",
+        "name": "EOS"
+      }
+    ]
+  },
+  "17777": {
+    "networkName": "eosmain",
+    "hex": "0x4571",
+    "router": "0x3d51749Cb2Db7355392100BAc202216BE7071E66",
+    "factory": "0x353F4106641Db62384cF0e4F1Ef15F8Ac9A9fb4B",
+    "linear": "0x9Be2Dc731bFf38B0a5D893c7a5ECE8e170c67b86",
+    "exponential": "0x20C318AA7c2eC1190F20D41EB6C6F3Ec9f5955fe",
+    "ERC20": "",
+    "ERC721": "",
+    "ERC1155": "",
+    "launchpadFactory": "0xb8b027A9f72A4A364449EaefdbE6BD0DB7beD502",
+    "launchpad1155Factory": "0xF13c10fa90701eDe8b3bF123CdbB0c23Fc8244b6",
+    "recommendNFT": [
+      {
+        "type": "ERC1155",
+        "address": "0x31753b319f03a7ca0264A1469dA0149982ed7564",
+        "name": "echo",
+        "tokenId1155": "0",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/echo_img2.png"
+      },
+      {
+        "type": "ERC721",
+        "address": "0xd2ffD7e6644EC7266Ffb50582784EA3D4686026d",
+        "name": "Game Raider",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/gameraider.jpeg"
+      },
+      {
+        "type": "ERC721",
+        "address": "0xF7CADf2Ca041657516d8e13e5c75ABEbB49D919d",
+        "name": "Holdem Tier 0.5",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkheos/tier05.jpg"
+      },
+      {
+        "type": "ERC721",
+        "address": "0x04e90bc87E31D67dECC33aAAfc9158DbdDcF2dF2",
+        "name": "Holdem Tier 2",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkheos/tier2.jpg"
+      },
+      {
+        "type": "ERC721",
+        "address": "0xa60928929c2f17fBAEB121E3a3085585E6CF332e",
+        "name": "Holdem Tier 3",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkheos/Holdem3.webp"
+      },
+      {
+        "type": "ERC721",
+        "address": "0x439551ED0FAcC9516b3f9317BE911208d16bC7AB",
+        "name": "Holdem Tier 4",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkheos/Holdem4.webp"
+      },
+      {
+        "type": "ERC721",
+        "address": "0x0b317387cF6Eeb9258dE77B1f0E35f8450cC3902",
+        "name": "Holdem Tier 5",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/zkheos/iter5.jpg"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
+        "name": "VALKYRIE",
+        "tokenId1155": "1",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/VALKYRIE.gif"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
+        "name": "ABBOT",
+        "tokenId1155": "2",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/ABBOT.gif"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
+        "name": "EMERALD DRAGON",
+        "tokenId1155": "3",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/EMERALD.gif"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
+        "name": "ARDENT DRAGON",
+        "tokenId1155": "4",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/ARDENT.gif"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
+        "name": "CELESTIAL",
+        "tokenId1155": "5",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/CELESTIAL.gif"
+      },
+      {
+        "type": "ERC1155",
+        "address": "0xEE074f78918449D54910CD9B4575c4B0285D8DBF",
+        "name": "BLACK DRAGON",
+        "tokenId1155": "6",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/blockworld/BLACK.gif"
+      }
+    ],
+    "recommendERC20": [
+      {
+        "address": "ETH",
+        "name": "EOS"
+      }
+    ]
+  },
+  "1": {
+    "networkName": "ethmain",
+    "hex": "0x01",
+    "router": "0xb1d1aBE25073bf3EbA0AFd5381CDa0B2Bd61c8C0",
+    "factory": "0x2A95E4FDF5F12B9E9AC627fEcbF70420D3202db1",
+    "linear": "0x20c318aa7c2ec1190f20d41eb6c6f3ec9f5955fe",
+    "exponential": "0x4f65da64c4b1cad8f58fdf06a55bca73e6a840ec",
+    "ERC20": "",
+    "ERC721": "",
+    "ERC1155": "",
+    "launchpadFactory": "0x5C0Fe44391ee35856A5De861dFd340197D252624",
+    "launchpad1155Factory": "0xC54bbA2F407a039DE8C78AEe88FAee5fe9c503b8",
+    "recommendNFT": [
+      {
+        "type": "ERC721",
+        "address": "0x670d854C7Da9E7Fa55c1958A1AeB368B48496020",
+        "name": "EZSwapPioneer",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/ezpoineer.png"
+      },
+      {
+        "type": "ERC721",
+        "address": "0xe0ab70d4e344cdbb1461f804c66940f28aa5a854",
+        "name": "BladeGames Degen Book",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/DegenBook.png"
+      },
+      {
+        "type": "ERC721",
+        "address": "0x9E9FbDE7C7a83c43913BddC8779158F1368F0413",
+        "name": "Pandora",
+        "tokenId1155": "",
+        "img": "https://raw.githubusercontent.com/0xacme/pandora/main/1.gif"
+      },
+      {
+        "type": "ERC721",
+        "address": "0xd6f6A071506821a92d3C02759e3920A213BC5DfB",
+        "name": "Gusto",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/Gusto.png"
+      },
+      {
+        "type": "ERC721",
+        "address": "0xaf854D6A783B0237C57B53dCbAE5733A43168D03",
+        "name": "Freedom",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/Gusto.png"
+      },
+      {
+        "type": "ERC721",
+        "address": "0x01A23C30F1044Cbc8CdA0F6356DEBd94C575B6ED",
+        "name": "Liberty",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/Gusto.png"
+      },
+      {
+        "type": "ERC721",
+        "address": "0xd9b5149749420737EdfF665FF1FF64A8d345579d",
+        "name": "Independence",
+        "tokenId1155": "",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/Gusto.png"
+      }
+    ],
+    "recommendERC20": [
+      {
+        "address": "ETH",
+        "name": "ETH"
+      }
+    ]
+  },
+  "42161": {
+    "networkName": "arbmain",
+    "hex": "0xa4b1",
+    "router": "0x2A95E4FDF5F12B9E9AC627fEcbF70420D3202db1",
+    "factory": "0x3d51749Cb2Db7355392100BAc202216BE7071E66",
+    "linear": "0x9Be2Dc731bFf38B0a5D893c7a5ECE8e170c67b86",
+    "exponential": "0x20C318AA7c2eC1190F20D41EB6C6F3Ec9f5955fe",
+    "ERC20": "",
+    "ERC721": "",
+    "ERC1155": "",
+    "launchpadFactory": "0x9e67e12D25a74c4AA5A72ffA2c7d3A93a6b9ce84",
+    "launchpad1155Factory": "0x44444aeE2c51BeFA0ac20134b3205D9f44238058",
+    "recommendNFT": [
+      {
+        "type": "ERC1155",
+        "address": "0xd96C7f9d00D6d2C75060D96Bb3CB24FDFB6c8582",
+        "name": "Game Revolution",
+        "tokenId1155": "1",
+        "img": "https://ezonline.s3.us-west-2.amazonaws.com/arb_launchpad.png"
+      }
+    ],
+    "recommendERC20": [
+      {
+        "address": "ETH",
+        "name": "ETH"
+      }
+    ]
+  }
 }

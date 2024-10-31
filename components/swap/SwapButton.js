@@ -18,10 +18,12 @@ import RouterABI from "../../pages/data/ABI/Router.json";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 
+
 let transfer721 = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
 let transfer1155 = '0xc3d58168c5ae7397731d063d5bbf3d657854427343f4c083240f7aacaa2d0f62'
 
-const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount }) => {
+const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount, btnStyle, boxStyle, showPrice = false, iconUrl }) => {
+  // console.log(formikData)
   const [nftApproval, setNftApproval] = useState(false);
   const { languageModel } = useLanguage();
   const { data: nftApprovalData } = useContractRead({
@@ -137,17 +139,16 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount }) => {
       } else if (formikData.collection.type === 'ERC1155') {
         eventTopic = transfer1155
       }
-
       for (let i = 0; i < data.logs.length; i++) {
-        if (data.logs[i].address.toLowerCase() === formikData.collection.address.toLowerCase()  ) {
+        if (data.logs[i].address.toLowerCase() === formikData.collection.address.toLowerCase()) {
           if (data.logs[i].topics[0] === eventTopic) {
-            console.log(eventTopic,'eventTopiceventTopiceventTopic')
+            console.log(eventTopic, 'eventTopiceventTopiceventTopic')
 
             if (formikData.collection.type === 'ERC721') {
               swapCount++
             } else if (formikData.collection.type === 'ERC1155') {
               let logdata = data.logs[i].data
-              const decodedData = ethers.utils.defaultAbiCoder.decode(['uint256','uint256'], logdata);
+              const decodedData = ethers.utils.defaultAbiCoder.decode(['uint256', 'uint256'], logdata);
               swapCount += Number(decodedData[1])
             }
           }
@@ -216,7 +217,7 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount }) => {
         showErrorAlert("caller is not token owner or approved");
       } else if (swapError.message.indexOf("insufficient funds") > -1) {
         showErrorAlert("insufficient funds");
-      }  else if (swapError.message.indexOf("insufficient balance for transfer") > -1) {
+      } else if (swapError.message.indexOf("insufficient balance for transfer") > -1) {
         showErrorAlert("insufficient balance for transfer");
       } else {
         if (swapError.message.indexOf("User rejected the request") === -1) {
@@ -277,70 +278,84 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount }) => {
   }, [showAlert]);
 
   const buttonText = () => {
+    let className = 'btn md:w-[300px] w-[240px] '
+    if (btnStyle) {
+      className = btnStyle + ' '
+    }
+    if (iconUrl) {
+      className += ' relative '
+    }
     let text;
     if (!formikData.collection.address) {
       text = languageModel.SelectACollection;
       return (
         <div>
-          <div className={"btn md:w-[300px] w-[240px] " + styles.buttonStyle}>{text}</div>
+          <div className={className + styles.buttonStyle}>{text}</div>
         </div>
       );
     }
     if (!formikData.selectIds.length > 0) {
       text = languageModel.SelectAnNFT;
-      return <div className={"btn md:w-[300px] w-[240px] " + styles.buttonStyle}>{text}</div>;
+      return <div className={className + styles.buttonStyle}>{text}</div>;
     }
     if (formikData.isExceeded) {
-      return <div className={"btn md:w-[300px] w-[240px] " + styles.buttonStyle}>{languageModel.InsufficientBalance}</div>;
+      return <div className={className + styles.buttonStyle}>{languageModel.InsufficientBalance}</div>;
     }
 
     if (swapType === "sell" && !nftApproval) {
       text = "Approve";
       return (
-        <button className={"btn md:w-[300px] w-[240px] " + styles.buttonStyle} onClick={() => doApprove()}>
+        <button className={className + styles.buttonStyle} onClick={() => doApprove()}>
           {approveLoading || waitApproveLoading ? (
-            <span class="loading loading-spinner loading-sm"></span>
+            <span className="loading loading-spinner loading-sm"></span>
           ) : (
-            text
+            <div className="flex flex-col">
+              <span>{text}</span>
+              {
+                showPrice && formikData.totalGet > 0 && <span className="mt-1 text-[11px]">{formikData.totalGet.toFixed(5)}</span>
+              }
+              {iconUrl && <img src={iconUrl} className="size-10 absolute left-2 top-1" />}
+            </div>
           )}
         </button>
       );
     }
 
     text = "Swap";
+
+    const btnContent = <>
+      <div className="flex flex-col relative">
+        <span>{text}</span>
+        {
+          showPrice && formikData.totalGet > 0 && <span className="mt-1 text-[11px]">{formikData.totalGet?.toFixed(5)}</span>
+        }
+
+      </div>
+      {
+        iconUrl && <img src={iconUrl} className="size-10 absolute left-2 top-1" />
+      }</>
     if (swapType === "sell") {
-      // return (
-      //     <>
-      //         <button onClick={() => swapNFTToToken()}>
-      //             {swapIsLoading ? <div>Loading...</div> : <div>{text}</div>}
-      //         </button>
-      //     </>
-      // )
       return (
-        <button className={"btn md:w-[300px] w-[240px] " + styles.buttonStyle} onClick={() => swapNFTToToken()}>
+        <button className={className + styles.buttonStyle} onClick={() => swapNFTToToken()}>
           {isLoading || waitTrxLoading ? (
-            <span class="loading loading-spinner loading-sm"></span>
+            <span className="loading loading-spinner loading-sm"></span>
           ) : (
-            text
+            btnContent
           )}
         </button>
       );
     } else if (swapType === "buy") {
-      // text = 'swappp'
-      // return (
-      //     <>
-      //         <button onClick={() => swapETHToNFT()}>
-      //             {swapIsLoading ? <div>Loading...</div> : <div>{text}</div>}
-      //         </button>
-      //     </>
-      // )
+
       return (
-        <button className={"btn md:w-[300px] w-[240px] " + styles.buttonStyle} onClick={() => swapETHToNFT()}>
+        <button className={className + styles.buttonStyle} onClick={() => swapETHToNFT()}>
+          {/* <button className={className + styles.buttonStyle} onClick={() => addSwapSuccessCount()}> */}
           {swapETHToNFTIsLoading || waitTrxLoading ? (
-            <span class="loading loading-spinner loading-sm"></span>
+            <span className="loading loading-spinner loading-sm"></span>
           ) : (
-            text
+            btnContent
+
           )}
+
         </button>
       );
     } else {
@@ -354,9 +369,8 @@ const SwapButton = ({ swapType, formikData, owner, addSwapSuccessCount }) => {
         <ConnectButton />
       </div>
     );
-
   return (
-    <div className="flex justify-center">
+    <div className={'flex justify-center ' + boxStyle}>
       <div className={" " + "mx-6" + " " + styles.swapButton + " "}>
         {buttonText()}
       </div>

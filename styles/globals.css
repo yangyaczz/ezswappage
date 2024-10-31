@@ -5,8 +5,9 @@
 /* Downloaded Montserrat font */
 @font-face {
   font-family: "Montserrat";
-  src: url("./Montserrat/Montserrat-VariableFont_wght.ttf") format("ttf");
+  src: url("./Montserrat/Montserrat-VariableFont_wght.ttf");
 }
+
 @font-face {
   font-family: "KronaOneRegular";
   src: url("./Montserrat/KronaOne-Regular.ttf");
@@ -14,18 +15,18 @@
 
 @font-face {
   font-family: "Montserrat-Variable";
-  src: url("./Montserrat/Montserrat-VariableFont_wght.ttf") format("ttf");
+  src: url("./Montserrat/Montserrat-VariableFont_wght.ttf");
 }
 
 @font-face {
   font-family: "Montserrat-bold";
-  src: url("./Montserrat/Montserrat-Bold.ttf") format("ttf");
+  src: url("./Montserrat/Montserrat-Bold.ttf");
 }
 
 html {
   height: 100vh;
   width: 100%;
-  font-family: "Montserrat-Variable", sans-serif;
+  font-family: "Montserrat-Variable";
   background: black !important;
 }
 
@@ -34,8 +35,8 @@ body {
   width: 100%;
 }
 
-body > div,
-body > div > div {
+body>div,
+body>div>div {
   height: 100%;
   width: 100%;
 }
@@ -85,4 +86,16 @@ body > div > div {
   .ezBtn {
     font-size: 0.9rem;
   }
+}
+
+/* 隐藏滚动条，但保留滚动功能 */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }

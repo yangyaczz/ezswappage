@@ -7,6 +7,7 @@ import {
   TradePoolExp,
   TradePoolLiner,
 } from "./calculate";
+import { MaxFiveDecimal } from "./roundoff";
 const EIGHTEEN_ZEROS = 1e18;
 export default function calculatePoolAllInfo(pools, contractAddress) {
   let bestUserBuyPrice = 0,
@@ -14,6 +15,7 @@ export default function calculatePoolAllInfo(pools, contractAddress) {
     nftCount = 0,
     TVL = 0,
     volume = 0;
+  let newPools=[];
 
   for (let pool of pools) {
     /*
@@ -112,8 +114,22 @@ export default function calculatePoolAllInfo(pools, contractAddress) {
         : bestUserSellPrice;
 
     // if(tokenBalance>= userSellPrice && bestUserSellPrice <= userSellPrice && userSellPrice!=0.196039604 && userSellPrice!=0.05936) {bestUserSellPrice=userSellPrice;}
+
+  newPools.push({
+    ...pool,
+    ethBalance:ethBalance.toFixed(MaxFiveDecimal(ethBalance)),
+    tokenBalance:tokenBalance.toFixed(MaxFiveDecimal(tokenBalance)),
+    spotPrice,
+    delta,
+    fee,
+    protocolFee,
+    ethVolume:ethVolume.toFixed(MaxFiveDecimal(ethVolume)),
+    userBuyPrice:userBuyPrice.toFixed(MaxFiveDecimal(userBuyPrice)),
+    userSellPrice:userSellPrice.toFixed(MaxFiveDecimal(userSellPrice))
+  })
+  
   }
-  return { bestUserBuyPrice, bestUserSellPrice, nftCount, TVL, volume };
+  return { bestUserBuyPrice, bestUserSellPrice, nftCount, TVL, volume, newPools };
 }
 
 // prettier-ignore

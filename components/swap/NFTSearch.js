@@ -38,10 +38,10 @@ const NFTSearch = ({
 
   const filteredNFTs = formikData.golbalParams.recommendNFT
     ? formikData.golbalParams.recommendNFT.filter(
-        (nft) =>
-          nft.name.toLowerCase().includes(searchQuery) ||
-          nft.address.toLowerCase().includes(searchQuery)
-      )
+      (nft) =>
+        nft.name.toLowerCase().includes(searchQuery) ||
+        nft.address.toLowerCase().includes(searchQuery)
+    )
     : [];
 
   const handleNFTClick = async (nft) => {
@@ -68,7 +68,7 @@ const NFTSearch = ({
             calculatePoolAllInfo(eachCollectionPools, collection.address);
           //just to format the prices to  2 decimals. But no decimal if equals to 0.
           //prettier-ignore
-          bestUserBuyPrice = parseFloat((bestUserBuyPrice*SLIPPING_RATE).toFixed(6)).toFixed(MaxFiveDecimal(bestUserBuyPrice*SLIPPING_RATE));
+          bestUserBuyPrice = parseFloat((bestUserBuyPrice * SLIPPING_RATE).toFixed(6)).toFixed(MaxFiveDecimal(bestUserBuyPrice * SLIPPING_RATE));
           //prettier-ignore
           bestUserSellPrice = bestUserSellPrice?.toFixed(MaxFiveDecimal(bestUserSellPrice));
           var poolsInfo = {
@@ -211,7 +211,7 @@ const NFTSearch = ({
             });
           }
           // todo 404要改
-        } else if (formikData.collection.name === "M404" || formikData.collection.name === "mtest"|| formikData.collection.name === "Mars") {
+        } else if (formikData.collection.name === "M404" || formikData.collection.name === "mtest" || formikData.collection.name === "Mars") {
           const params = {
             ownerAddress: owner.toLowerCase(),
             contractAddress: formikData.collection.address.toLowerCase(),
@@ -414,8 +414,8 @@ const NFTSearch = ({
   const { data: tokenIds721 } = useContractRead({
     address:
       formikData.collection.type === "ERC721" &&
-      swapType === "sell" &&
-      !apiSell.includes(formikData.golbalParams.networkName)
+        swapType === "sell" &&
+        !apiSell.includes(formikData.golbalParams.networkName)
         ? formikData.collection.address
         : "",
     abi: ERC721EnumABI,
@@ -423,18 +423,29 @@ const NFTSearch = ({
     args: [owner],
     watch: false,
     onSuccess(data) {
+      debugger
       const num = data.map((item) => Number(item));
       setUserCollection({
         tokenIds721: num,
       });
+    }, onError(error) {
+      debugger
+      console.log(error)
+      console.log(formikData.collection.type === "ERC721" &&
+        swapType === "sell" &&
+        !apiSell.includes(formikData.golbalParams.networkName)
+        ? formikData.collection.address
+        : "")
+      console.log(owner)
+
     },
   });
 
   const { data: tokenAmount1155 } = useContractRead({
     address:
       formikData.collection.type === "ERC1155" &&
-      swapType === "sell" &&
-      !apiSell.includes(formikData.golbalParams.networkName)
+        swapType === "sell" &&
+        !apiSell.includes(formikData.golbalParams.networkName)
         ? formikData.collection.address
         : "",
     abi: ERC1155ABI,
@@ -447,6 +458,9 @@ const NFTSearch = ({
         tokenAmount1155: num,
       });
     },
+    onError(e) {
+      console.log(e)
+    }
   });
 
   // if buy nft, get user eth or erc20 balance
@@ -454,8 +468,8 @@ const NFTSearch = ({
     address: swapType === "buy" && formikData.collection.name ? owner : "",
     token:
       formikData.token !== "" &&
-      formikData.token === "ETH" &&
-      swapType === "buy"
+        formikData.token === "ETH" &&
+        swapType === "buy"
         ? ""
         : formikData.token,
     onSuccess(data) {

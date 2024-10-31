@@ -24,6 +24,8 @@
     "git": "^0.1.5",
     "git-cli": "^0.11.0",
     "lodash": "^4.17.21",
+    "highcharts": "^11.4.0",
+    "highcharts-react-official": "^3.2.1",
     "next": "^14.0.4",
     "react": "latest",
     "react-dom": "latest",

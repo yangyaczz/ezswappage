@@ -18,10 +18,11 @@ const CollectionHeader = ({
   currencyImage,
   tradingCurrencyName,
   totalVolume,
+                            jumpInfo
 }) => {
   const { languageModel } = useLanguage();
   return (
-    <section className="grid gap-x-2 md:gap-4 grid-rows-1 grid-cols-[65px,auto] sm:grid-cols-[120px,auto]">
+    <section className="grid gap-x-2 md:gap-4 grid-rows-1 grid-cols-[65px,auto] sm:grid-cols-[120px,auto] cursor-pointer" onClick={jumpInfo}>
       {/* <Image
         width={129}
         height={129}
@@ -33,7 +34,7 @@ const CollectionHeader = ({
         alt={name}
         className="w-[65px] h-[65px] sm:w-[120px] sm:h-[120px]"
       />
-      <div className="flex flex-col items-start justify-start gap-y-4">
+      <div className="flex flex-col items-center justify-center gap-y-9">
         <header className="flex flex-col flex-wrap items-baseline justify-start max-w-lg min-w-full leading-4 gap-x-4 sm:flex-row">
           <p className="flex items-baseline text-xl font-bold text-white lg:text-2xl whitespace-nowrap">
             {name}

@@ -1,18 +1,18 @@
 $primaryColor: #2ed1d8;
 $header-height: 126px;
 $higher-header-height: 380px;
-$searching-height: 640px;
+$searching-height: 1100px;
 
 .liStyle{
   font-family: 'Montserrat-Variable', sans-serif;
 }
 
-@media (max-width:640px) {
+@media (max-width:1100px) {
   .wrapNewHeader{
     height:80px;
   }
 }
-@media (min-width:640px) {
+@media (min-width:1100px) {
   .wrapNewHeader{
     height:$header-height
   }

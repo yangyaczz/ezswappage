@@ -1,7 +1,18 @@
 import Image from "next/image";
 import InfoBox from "./InfoBox";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useCollectionInfo } from "@/contexts/CollectionInfoContext";
+import ActionBar from "@/components/collectioninfo/ActionBar";
+import ButtonGroup from "@/components/collection/ButtonGroup";
+import PopupBuySell from "@/components/collection/PopupBuySell";
+import PopupPlaceBids from "@/components/collection/PopupPlaceBids";
+import PopupDeposit from "@/components/collection/PopupDeposit";
+import PopupAddLiquidity from "@/components/collection/PopupAddLiquidity";
+import { useCollection } from "@/contexts/CollectionContext";
+import { useLanguage } from "@/contexts/LanguageContext";
+import ButtonGroupNew from "@/components/collection/ButtonGroupNew";
+import AddLiquidityButton from "@/components/collection/AddLiquidityButton";
+import AddLiquidityButtonNew from "@/components/collection/AddLiquidityButtonNew";
 
 const CollectionInfoHeader = () => {
   const { colInfo } = useCollectionInfo();
@@ -105,7 +116,8 @@ const CollectionInfoHeader = () => {
     </div>
   )
 
-
+  const { popupOpen, popupWindow } = useCollection();
+  const { languageModel } = useLanguage();
 
 
   useEffect(() => { }, []);
@@ -139,6 +151,49 @@ const CollectionInfoHeader = () => {
       <div className="hidden max-[800px]:block">
         {Box}
       </div>
+
+      <div>
+      {/*{colInfo.currencyImage} <br/>*/}
+      </div>
+      {/*<ActionBar />*/}
+      <div className="flex justify-center mt-8">
+      <AddLiquidityButtonNew
+          collectionName={colInfo.name}
+          img={colInfo.image}
+          contractAddress={colInfo.address}
+          currencyImage={colInfo.currencyImage}
+          collectionType={colInfo.type}
+          chainId={colInfo.chainId}
+          type={colInfo.type}
+          tokenId1155={colInfo.tokenId1155}
+          floorPrice={colInfo.floorPrice}
+          topBid={colInfo.topBid}
+      />
+      <ButtonGroupNew
+          collectionName={colInfo.name}
+          img={colInfo.image}
+          contractAddress={colInfo.address}
+          currencyImage={colInfo.currencyImage}
+          collectionType={colInfo.type}
+          chainId={colInfo.chainId}
+          type={colInfo.type}
+          tokenId1155={colInfo.tokenId1155}
+          floorPrice={colInfo.floorPrice}
+          topBid={colInfo.topBid}
+      />
+      </div>
+
+
+
+      {popupOpen && popupWindow === "BUY" && <PopupBuySell pageType="buy" />}
+
+      {popupOpen && popupWindow === "SELL" && <PopupBuySell pageType="sell" />}
+
+      {popupOpen && popupWindow === "PLACEBIDS" && <PopupPlaceBids />}
+
+      {popupOpen && popupWindow === "DEPOSIT" && <PopupDeposit />}
+
+      {popupOpen && popupWindow === "ADD_LIQUIDITY" && <PopupAddLiquidity />}
     </div>
   );
 };

@@ -119,6 +119,7 @@ const CollectionContainer = ({ collection }) => {
         offerTVL={offerTVL}
         totalVolume={totalVolume}
         currencyImage={currencyImage}
+        jumpInfo={handleRedirect}
       />
       <div className="flex items-center justify-center">
         <div className="flex items-center justify-center">
@@ -128,41 +129,45 @@ const CollectionContainer = ({ collection }) => {
             tokenId={tokenId1155}
             currencyImage={currencyImage}
           />
-          <button onClick={handleRedirect} className="p-5 ">
+          <button onClick={handleRedirect} className="p-5 invisible">
             <FontAwesomeIcon icon={faChevronRight} size="xl" />
           </button>
         </div>
       </div>
+
+
+
+
       {/* <Rewards COLLECTION_PIC_SIZE={COLLECTION_PIC_SIZE} network={network} /> */}
       {/* <PoolTab
         contractAddress={address}
         tokenId={tokenId1155}
         currencyImage={currencyImage}
       /> */}
-      <ButtonGroup
-        collectionName={name}
-        img={img}
-        contractAddress={address}
-        currencyImage={currencyImage}
-        collectionType={type}
-        chainId={chainId}
-        type={type}
-        tokenId1155={tokenId1155}
-        floorPrice={floorPrice}
-        topBid={topBid}
-      />
-      <AddLiquidityButton
-        collectionName={name}
-        img={img}
-        contractAddress={address}
-        currencyImage={currencyImage}
-        collectionType={type}
-        chainId={chainId}
-        type={type}
-        tokenId1155={tokenId1155}
-        floorPrice={floorPrice}
-        topBid={topBid}
-      />
+      {/*<ButtonGroup*/}
+      {/*  collectionName={name}*/}
+      {/*  img={img}*/}
+      {/*  contractAddress={address}*/}
+      {/*  currencyImage={currencyImage}*/}
+      {/*  collectionType={type}*/}
+      {/*  chainId={chainId}*/}
+      {/*  type={type}*/}
+      {/*  tokenId1155={tokenId1155}*/}
+      {/*  floorPrice={floorPrice}*/}
+      {/*  topBid={topBid}*/}
+      {/*/>*/}
+      {/*<AddLiquidityButton*/}
+      {/*  collectionName={name}*/}
+      {/*  img={img}*/}
+      {/*  contractAddress={address}*/}
+      {/*  currencyImage={currencyImage}*/}
+      {/*  collectionType={type}*/}
+      {/*  chainId={chainId}*/}
+      {/*  type={type}*/}
+      {/*  tokenId1155={tokenId1155}*/}
+      {/*  floorPrice={floorPrice}*/}
+      {/*  topBid={topBid}*/}
+      {/*/>*/}
     </div>
   );
 };

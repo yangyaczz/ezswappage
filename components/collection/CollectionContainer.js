@@ -103,7 +103,7 @@ const CollectionContainer = ({ collection }) => {
       className="w-11/12 max-w-[1240px] border-[1px] border-solid border-zinc-100 rounded-md
     grid content-center
     min-h-1/2 sm:sm-h-1/6
-    md:gap-x-3 gap-y-8 md:gap-y-4 p-3 xl:p-6 grid-cols-[5fr,1fr] sm:grid-cols-[7fr,1fr] md:grid-cols-[20fr,1fr] grid-rows-1"
+    md:gap-x-3 gap-y-8 md:gap-y-4 p-3 xl:p-6 grid-cols-[5fr,1fr] sm:grid-cols-[7fr,1fr] md:grid-cols-[20fr,1fr] grid-rows-1 hover:bg-[#14141A]"
     >
       <CollectionHeader
         contractAddress={address}

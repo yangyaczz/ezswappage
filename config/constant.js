@@ -8,7 +8,7 @@ export const BASE_URL = {
 }[nextConfig.publicRuntimeConfig.env.API];
 
 export const LAUNCHPAD_BASE_URL = {
-  dev: "https://launchpad.ezswap.io/api/",
+  dev: "https://launchpadtest.ezswap.io/api/",
   test: "https://launchpad.ezswap.io/api/",
   dev2: "https://launchpad.ezswap.io/api/",
 }[nextConfig.publicRuntimeConfig.env.API];

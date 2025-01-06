@@ -190,7 +190,7 @@ const NavBar = () => {
   };
 
   const HamburgerNavBar = () => (
-    <div className="relative flex items-center justify-between w-full h-full px-4 py-2 m-auto sm:hidden">
+    <div className="relative flex items-center justify-between w-full h-full px-4 py-2 m-auto min-[1100px]:hidden">
       <Link href="/">
         <Image src="/1500X500WhiteHalfHorizontal.svg" alt="EZswap" width={135} height={38} />
       </Link>
@@ -199,7 +199,7 @@ const NavBar = () => {
           setToggleHamburger((ham) => !ham);
           setHamburgerShowLanguage(false);
         }}
-        className="text-white duration-300 ease-in focus:outline-none lg:hidden"
+        className="text-white duration-300 ease-in focus:outline-none min-[1100px]:hidden"
       >
         {toggleHamburger ? (
           <FontAwesomeIcon icon={faXmark} size="xl" />
@@ -232,7 +232,7 @@ const NavBar = () => {
             setHamburgerShowLanguage(false);
           }}
         >
-          {languageModel.pool}
+          Collections
         </Link>
         <Link
           className={`w-full p-2 text-xl font-bold text-right hover:bg-zinc-800 border-b-2`}
@@ -302,7 +302,7 @@ const NavBar = () => {
       <HamburgerNavBar />
 
       {/* Usual Navbar */}
-      <div className={`${styles.headerBox} hidden sm:flex`}>
+      <div className={`${styles.headerBox} max-[1100px]:!hidden sm:flex`}>
         <div className={styles.ezLogo}>
           <Link href="/">
             <img src="/1500X500WhiteHalfHorizontal.svg" alt="EZswap" />
@@ -325,7 +325,7 @@ const NavBar = () => {
             className={styles.headerBtn + " " + styles.launchpad}
             href="/collection"
           >
-            {languageModel.pool}
+            Collections
           </Link>
           {/*<a*/}
           {/*  className={styles.headerBtn + " " + styles.launchpad}*/}

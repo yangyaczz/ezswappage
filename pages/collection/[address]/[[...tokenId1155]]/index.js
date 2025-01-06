@@ -18,6 +18,7 @@ import collections from "@/pages/data/collection-data";
 import calculatePoolAllInfo from "@/components/utils/calculatePoolInfo";
 import ContentBuyCart from "@/components/collectioninfo/ContentBuyCart";
 import { useParams } from "next/navigation";
+import ButtonGroup from "@/components/collection/ButtonGroup";
 
 const ETH_ADDRESS = "0x0000000000000000000000000000000000000000";
 const SLIPPING_RATE = 1.005;
@@ -234,7 +235,19 @@ const CollectionInfo = () => {
             renderOption={renderOption}
           />
           <CollectionInfoHeader />
-          {/* <ActionBar /> */}
+          {/* <ActionBar />*/}
+          {/*<ButtonGroup*/}
+          {/*    collectionName={name}*/}
+          {/*    img={img}*/}
+          {/*    contractAddress={address}*/}
+          {/*    currencyImage={currencyImage}*/}
+          {/*    collectionType={type}*/}
+          {/*    chainId={chainId}*/}
+          {/*    type={type}*/}
+          {/*    tokenId1155={tokenId1155}*/}
+          {/*    floorPrice={floorPrice}*/}
+          {/*    topBid={topBid}*/}
+          {/*/>*/}
           <ContentBar />
           <ContentSection />
 

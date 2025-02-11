@@ -48,7 +48,7 @@ const ContentBuy = ({ }) => {
   const [isClient, setIsClient] = useState(false);
 
 
-  const minBoxHeight = 472;
+  const minBoxHeight = 350;
   const [boxHeght, setBoxHeght] = useState(minBoxHeight)
 
   useEffect(() => {
@@ -468,7 +468,7 @@ const ContentBuy = ({ }) => {
       <div style={{ height: boxHeght + 'px' }} className={`w-full    overflow-y-scroll no-scrollbar  border-[1px] border-solid border-[#496C6D] rounded-lg pb-14`}>
         <BuyNFTsSelectedRange value={selectIds.length} radioRef={radioRef} min={0} max={lastNftList.length} handleRangeChange={(e) => rangeChange(e)} />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-6 px-5">
 
           {
             lastNftList.map((square, index) => {
@@ -476,7 +476,7 @@ const ContentBuy = ({ }) => {
                 <img
                   src={colInfo.image}
                   style={{
-                    width: `245px`,
+                    width: `200px`,
                   }}
                 />
                 <p className="mt-2 font-bold liStyle "> #{square}</p>

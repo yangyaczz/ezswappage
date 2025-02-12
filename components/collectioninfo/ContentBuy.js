@@ -476,7 +476,7 @@ const ContentBuy = ({ }) => {
                 <img
                   src={colInfo.image}
                   style={{
-                    width: `160px`,
+                    width: `180px`,
                   }}
                 />
                 <p className="mt-1 font-bold liStyle "> #{square}</p>

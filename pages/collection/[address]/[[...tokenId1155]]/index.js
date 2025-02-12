@@ -226,7 +226,7 @@ const CollectionInfo = () => {
   return (
     <div className="flex justify-center">
       <div className="flex h-full   max-w-[1680px]">
-        <div className="flex flex-col items-stretch justify-start w-full h-full gap-8 px-10 py-6">
+        <div className="flex flex-col items-stretch justify-start w-full h-full gap-4 px-10 py-6">
           <SearchDropdown
             options={dropdownOptions}
             placeholder="Search collection or contract"

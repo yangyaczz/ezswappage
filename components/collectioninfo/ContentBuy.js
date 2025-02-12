@@ -468,19 +468,19 @@ const ContentBuy = ({ }) => {
       <div style={{ height: boxHeght + 'px' }} className={`w-full    overflow-y-scroll no-scrollbar  border-[1px] border-solid border-[#496C6D] rounded-lg pb-14`}>
         <BuyNFTsSelectedRange value={selectIds.length} radioRef={radioRef} min={0} max={lastNftList.length} handleRangeChange={(e) => rangeChange(e)} />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-6 px-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-6 px-5 mt-3">
 
           {
             lastNftList.map((square, index) => {
-              return (<div key={square} className="relative border border-[#00D5DA] mr-3 flex flex-col items-center  mt-5 pb-5 rounded-xl overflow-hidden" onClick={() => toggleSelected(square)}>
+              return (<div key={square} className="relative border border-[#00D5DA] mr-3 flex flex-col items-center  mt-0 pb-2 rounded-xl overflow-hidden" onClick={() => toggleSelected(square)}>
                 <img
                   src={colInfo.image}
                   style={{
-                    width: `200px`,
+                    width: `160px`,
                   }}
                 />
-                <p className="mt-2 font-bold liStyle "> #{square}</p>
-                <div className="flex items-center mt-3">
+                <p className="mt-1 font-bold liStyle "> #{square}</p>
+                <div className="flex items-center mt-1">
                   <span className="font-bold ml-4">{idPriceMap[square]?.toFixed(5)}  </span>
                   <Image
                     src={colInfo.currencyImage.src}

@@ -41,7 +41,7 @@ const ContentBuy = ({ }) => {
   // const [nftNums, setNftNums] = useState([]);
   // useEffect(() => {
   // const [windowHeight, setWindowHeight] = useState(0); // 初始设置为当前窗口高度
-  const minBoxHeight = 472;
+  const minBoxHeight = 350;
   const [boxHeght, setBoxHeght] = useState(minBoxHeight)
 
   useEffect(() => {
@@ -669,7 +669,7 @@ const ContentBuy = ({ }) => {
         <BuyNFTsSelectedRange value={selectIds.length} radioRef={radioRef} min={0} max={max} handleRangeChange={(e) => rangeChange(e)} />
 
         {/* <div className="flex flex-wrap  px-5 "> */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  gap-y-4 gap-x-6 px-5">
 
           {
             nftList.map((square, index) => {
@@ -683,7 +683,7 @@ const ContentBuy = ({ }) => {
 
                   // className={(!selectIds.includes(square) && isBanSelect) ? 'filter grayscale ' : ''}
                   style={{
-                    width: `245px`,
+                    width: `200px`,
                   }}
                 />
 

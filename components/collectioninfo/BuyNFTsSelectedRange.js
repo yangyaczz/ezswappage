@@ -32,7 +32,7 @@ const NFTsSelectedRange = ({ radioRef, styleClass, min = 0, max, handleRangeChan
   // border border-[#496C6D] border-solid w-full max-w-[400px] rounded-md
 
   return (
-    <div className={`flex  items-center  mt-5 ml-6  py-1  ` + (max == 0 ? " filter grayscale" : "")}>
+    <div className={`flex  items-center  mt-3 ml-6  py-1  ` + (max == 0 ? " filter grayscale" : "")}>
 
       {!showRange &&
         <div className="flex   border-[#00D5DA] border-solid border-[1px] rounded-md pr-8 pl-5 py-2 cursor-pointer" onClick={() => setShowRange(() => {
